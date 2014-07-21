@@ -89,7 +89,6 @@
     return cell;
 }
 
-//this is just a test
 #pragma mark Content Filtering
 -(void)filterContentForSearchText:(NSString*)searchText {
     //Update the filtered array based on the search text
