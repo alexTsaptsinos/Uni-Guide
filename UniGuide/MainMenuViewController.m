@@ -12,6 +12,7 @@
 #import "UniversityBuilder.h"
 #import "UniversityCommunicator.h"
 #import "UniversityManager.h"
+#import "MainViewController.h"
 
 
 @interface MainMenuViewController ()
@@ -20,7 +21,7 @@
 
 @implementation MainMenuViewController
 
-
+@synthesize uniGuideMainMenuLabel,uniGuideLogoMainMenuImageView,searchMenuButtonLabel,discoverMenuButtonLabel,favouritesMenuButtonLabel,openDaysMenuButtonLabel,universitiesMenuButtonLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,7 +37,26 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.navigationItem.title = @"Home";
+    CALayer *btnLayer = [searchMenuButtonLabel layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:5.0f];
+    
+    btnLayer = [favouritesMenuButtonLabel layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:5.0f];
+    
+    btnLayer = [openDaysMenuButtonLabel layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:5.0f];
+    
+    btnLayer = [universitiesMenuButtonLabel layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:5.0f];
+    
+    btnLayer = [discoverMenuButtonLabel layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:5.0f];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,10 +66,14 @@
 }
 - (IBAction)searchMenuButtonPressed:(id)sender {
     
-    SearchViewController *searchViewController = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
+    MainViewController *mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
     
+    [self.navigationController pushViewController:mainViewController animated:YES];
     
-    [self.navigationController pushViewController:searchViewController animated:YES];
+//    SearchViewController *searchViewController = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
+//    
+//    
+//    [self.navigationController pushViewController:searchViewController animated:YES];
   
     
 }
@@ -85,6 +109,16 @@
     [self.navigationController pushViewController:universitiesListTableViewController animated:YES];
     
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
 }
 
 @end

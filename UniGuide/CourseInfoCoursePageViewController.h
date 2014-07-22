@@ -10,10 +10,10 @@
 
 @interface CourseInfoCoursePageViewController : UIViewController
 
-- (NSString *)returnUniversityName;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *courseNameLabel;
-@property (weak, nonatomic) IBOutlet UIButton *universityNameLabel;
-- (IBAction)universityNameButtonPressed:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UILabel *universityNameLabel;
 
 @end

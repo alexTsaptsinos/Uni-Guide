@@ -16,14 +16,13 @@
 
 @implementation StudentSatisfactionCoursePageViewController
 
-@synthesize universityNameButtonLabelStudentSatisfactionTab;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
         self.title = NSLocalizedString(@"Student Satisfaction", @"Student Satisfaction");
+        self.tabBarItem.image = [UIImage imageNamed:@"student2-32"];
     }
     return self;
 }

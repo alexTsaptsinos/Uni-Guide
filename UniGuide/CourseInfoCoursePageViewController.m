@@ -26,6 +26,8 @@
     if (self) {
         // Custom initialization
         self.title = NSLocalizedString(@"Course Info", @"Course Info");
+        self.tabBarItem.image = [UIImage imageNamed:@"info-32"];
+        
     }
     return self;
 }
@@ -44,29 +46,30 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)universityNameButtonPressed:(id)sender {
-    
-    UITabBarController *universityPageTabBarController = [[UITabBarController alloc] init];
-    
-    UniInfoCoursePageViewController *uniInfoCoursePageViewController = [[UniInfoCoursePageViewController alloc]init];
-    
-    CourseListUniversityPageViewController *courseListUniversityPageViewController = [[CourseListUniversityPageViewController alloc] init];
-    
-    OpenDaysUniversityPageViewController *openDaysUniversityPageViewController = [[OpenDaysUniversityPageViewController alloc] init];
-    
-    ContactUniversityPageViewController *contactUniversityPageViewController = [[ContactUniversityPageViewController alloc] init];
-    
-    
-    universityPageTabBarController.viewControllers = [NSArray arrayWithObjects:uniInfoCoursePageViewController,courseListUniversityPageViewController,openDaysUniversityPageViewController,contactUniversityPageViewController,nil];
-    
-    universityPageTabBarController.navigationItem.title = self.universityNameLabel.titleLabel.text;
-    
-    
-    [self.navigationController pushViewController:universityPageTabBarController animated:YES];
-    
-}
 
-- (NSString *)returnUniversityName {
-    return self.universityNameLabel.titleLabel.text;
-}
+    
+    //CODE TO PUSH TO UNI PAGE CONTROLELR
+    
+   // UITabBarController *universityPageTabBarController = [[UITabBarController alloc] init];
+    
+    
+//    UniInfoCoursePageViewController *uniInfoCoursePageViewController = [[UniInfoCoursePageViewController alloc]init];
+//    
+//    CourseListUniversityPageViewController *courseListUniversityPageViewController = [[CourseListUniversityPageViewController alloc] init];
+//    
+//    OpenDaysUniversityPageViewController *openDaysUniversityPageViewController = [[OpenDaysUniversityPageViewController alloc] init];
+//    
+//    ContactUniversityPageViewController *contactUniversityPageViewController = [[ContactUniversityPageViewController alloc] init];
+//    
+//    
+//    universityPageTabBarController.viewControllers = [NSArray arrayWithObjects:uniInfoCoursePageViewController,courseListUniversityPageViewController,openDaysUniversityPageViewController,contactUniversityPageViewController,nil];
+//    
+//    universityPageTabBarController.navigationItem.title = self.universityNameLabel.titleLabel.text;
+//    
+//    
+//    [self.navigationController pushViewController:universityPageTabBarController animated:YES];
+    
+
+
+
 @end

@@ -37,7 +37,7 @@
 		A4C6C92D197AF7000065311C /* UniInfoCoursePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C92B197AF7000065311C /* UniInfoCoursePageViewController.xib */; };
 		A4C6C930197BC9CC0065311C /* Courses.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C92F197BC9CC0065311C /* Courses.m */; };
 		A4C6C934197BF7670065311C /* favouritesButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C933197BF7670065311C /* favouritesButton.png */; };
-		A4C6C936197BF8050065311C /* favouritesButton selected.png in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C935197BF8050065311C /* favouritesButton selected.png */; };
+		A4C6C936197BF8050065311C /* favouritesButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C935197BF8050065311C /* favouritesButtonSelected.png */; };
 		A4C6C93A197BF8A70065311C /* CourseListUniversityPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C938197BF8A70065311C /* CourseListUniversityPageViewController.m */; };
 		A4C6C93B197BF8A70065311C /* CourseListUniversityPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C939197BF8A70065311C /* CourseListUniversityPageViewController.xib */; };
 		A4C6C93F197BF8B70065311C /* OpenDaysUniversityPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C93D197BF8B70065311C /* OpenDaysUniversityPageViewController.m */; };
@@ -52,6 +52,18 @@
 		EF7F6EFF197E5AFA0009DB60 /* UniversityBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6EFE197E5AFA0009DB60 /* UniversityBuilder.m */; };
 		EF7F6F03197E5CE10009DB60 /* UniversityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F02197E5CE10009DB60 /* UniversityManager.m */; };
 		EF7F6F09197E79370009DB60 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F08197E79370009DB60 /* Base64.m */; };
+		EF7F6F0B197E82C90009DB60 /* Favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */; };
+		EF7F6F0D197E82D20009DB60 /* Happy_Face@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */; };
+		EF7F6F0F197E82F90009DB60 /* Top_Charts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */; };
+		EF7F6F27197E87EA0009DB60 /* city_hall-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F26197E87EA0009DB60 /* city_hall-32.png */; };
+		EF7F6F29197E880E0009DB60 /* info-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F28197E880E0009DB60 /* info-32.png */; };
+		EF7F6F2B197E886F0009DB60 /* student2-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F2A197E886F0009DB60 /* student2-32.png */; };
+		EF7F6F2D197E887C0009DB60 /* talk-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F2C197E887C0009DB60 /* talk-32.png */; };
+		EF7F6F3B197EAF510009DB60 /* UniGuideLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F3A197EAF510009DB60 /* UniGuideLogo.png */; };
+		EF7F6F3F197EB6740009DB60 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F3D197EB6740009DB60 /* MainViewController.m */; };
+		EF7F6F40197EB6740009DB60 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F3E197EB6740009DB60 /* MainViewController.xib */; };
+		EF7F6F44197EB7130009DB60 /* RightPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */; };
+		EF7F6F45197EB7130009DB60 /* RightPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */; };
 		EF895BD5197D483A00960E45 /* UniversitiesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF895BD3197D483A00960E45 /* UniversitiesListTableViewController.m */; };
 		EF895BD6197D483A00960E45 /* UniversitiesListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF895BD4197D483A00960E45 /* UniversitiesListTableViewController.xib */; };
 		EF895BD9197D486500960E45 /* Universities.m in Sources */ = {isa = PBXBuildFile; fileRef = EF895BD8197D486500960E45 /* Universities.m */; };
@@ -111,7 +123,7 @@
 		A4C6C92E197BC9CC0065311C /* Courses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Courses.h; sourceTree = "<group>"; };
 		A4C6C92F197BC9CC0065311C /* Courses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Courses.m; sourceTree = "<group>"; };
 		A4C6C933197BF7670065311C /* favouritesButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favouritesButton.png; sourceTree = "<group>"; };
-		A4C6C935197BF8050065311C /* favouritesButton selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "favouritesButton selected.png"; sourceTree = "<group>"; };
+		A4C6C935197BF8050065311C /* favouritesButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favouritesButtonSelected.png; sourceTree = "<group>"; };
 		A4C6C937197BF8A70065311C /* CourseListUniversityPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseListUniversityPageViewController.h; sourceTree = "<group>"; };
 		A4C6C938197BF8A70065311C /* CourseListUniversityPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseListUniversityPageViewController.m; sourceTree = "<group>"; };
 		A4C6C939197BF8A70065311C /* CourseListUniversityPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseListUniversityPageViewController.xib; sourceTree = "<group>"; };
@@ -138,6 +150,20 @@
 		EF7F6F02197E5CE10009DB60 /* UniversityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversityManager.m; sourceTree = "<group>"; };
 		EF7F6F07197E79370009DB60 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		EF7F6F08197E79370009DB60 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
+		EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorites@2x.png"; sourceTree = "<group>"; };
+		EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Happy_Face@2x.png"; sourceTree = "<group>"; };
+		EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Top_Charts@2x.png"; sourceTree = "<group>"; };
+		EF7F6F26197E87EA0009DB60 /* city_hall-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "city_hall-32.png"; sourceTree = "<group>"; };
+		EF7F6F28197E880E0009DB60 /* info-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-32.png"; sourceTree = "<group>"; };
+		EF7F6F2A197E886F0009DB60 /* student2-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "student2-32.png"; sourceTree = "<group>"; };
+		EF7F6F2C197E887C0009DB60 /* talk-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "talk-32.png"; sourceTree = "<group>"; };
+		EF7F6F3A197EAF510009DB60 /* UniGuideLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UniGuideLogo.png; sourceTree = "<group>"; };
+		EF7F6F3C197EB6740009DB60 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		EF7F6F3D197EB6740009DB60 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		EF7F6F3E197EB6740009DB60 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		EF7F6F41197EB7130009DB60 /* RightPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightPanelViewController.h; sourceTree = "<group>"; };
+		EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightPanelViewController.m; sourceTree = "<group>"; };
+		EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightPanelViewController.xib; sourceTree = "<group>"; };
 		EF895BD2197D483A00960E45 /* UniversitiesListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversitiesListTableViewController.h; sourceTree = "<group>"; };
 		EF895BD3197D483A00960E45 /* UniversitiesListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversitiesListTableViewController.m; sourceTree = "<group>"; };
 		EF895BD4197D483A00960E45 /* UniversitiesListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniversitiesListTableViewController.xib; sourceTree = "<group>"; };
@@ -234,6 +260,12 @@
 				A4C6C941197BF8C80065311C /* ContactUniversityPageViewController.h */,
 				A4C6C942197BF8C80065311C /* ContactUniversityPageViewController.m */,
 				A4C6C943197BF8C80065311C /* ContactUniversityPageViewController.xib */,
+				EF7F6F3C197EB6740009DB60 /* MainViewController.h */,
+				EF7F6F3D197EB6740009DB60 /* MainViewController.m */,
+				EF7F6F3E197EB6740009DB60 /* MainViewController.xib */,
+				EF7F6F41197EB7130009DB60 /* RightPanelViewController.h */,
+				EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */,
+				EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */,
 				A4C6C92E197BC9CC0065311C /* Courses.h */,
 				A4C6C92F197BC9CC0065311C /* Courses.m */,
 				A4C6C955197C74610065311C /* OpenDays.h */,
@@ -261,6 +293,14 @@
 		A4C6C89E197AD22F0065311C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */,
+				EF7F6F2C197E887C0009DB60 /* talk-32.png */,
+				EF7F6F28197E880E0009DB60 /* info-32.png */,
+				EF7F6F26197E87EA0009DB60 /* city_hall-32.png */,
+				EF7F6F2A197E886F0009DB60 /* student2-32.png */,
+				EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */,
+				EF7F6F3A197EAF510009DB60 /* UniGuideLogo.png */,
+				EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */,
 				A4C6C910197AF1400065311C /* SearchResultsTableViewController.h */,
 				A4C6C911197AF1400065311C /* SearchResultsTableViewController.m */,
 				A4C6C912197AF1400065311C /* SearchResultsTableViewController.xib */,
@@ -271,7 +311,7 @@
 				EF895BD3197D483A00960E45 /* UniversitiesListTableViewController.m */,
 				EF895BD4197D483A00960E45 /* UniversitiesListTableViewController.xib */,
 				A4C6C933197BF7670065311C /* favouritesButton.png */,
-				A4C6C935197BF8050065311C /* favouritesButton selected.png */,
+				A4C6C935197BF8050065311C /* favouritesButtonSelected.png */,
 				A4C6C89F197AD22F0065311C /* UniGuide-Info.plist */,
 				A4C6C8A0197AD22F0065311C /* InfoPlist.strings */,
 				A4C6C8A3197AD22F0065311C /* main.m */,
@@ -345,6 +385,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = ATsaptsinos;
 				TargetAttributes = {
+					A4C6C893197AD22F0065311C = {
+						DevelopmentTeam = 5QH4J4Z4KK;
+					};
 					A4C6C8AE197AD22F0065311C = {
 						TestTargetID = A4C6C893197AD22F0065311C;
 					};
@@ -374,22 +417,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4C6C928197AF6F40065311C /* ReviewsCoursePageViewController.xib in Resources */,
+				EF7F6F40197EB6740009DB60 /* MainViewController.xib in Resources */,
+				EF7F6F27197E87EA0009DB60 /* city_hall-32.png in Resources */,
+				EF7F6F45197EB7130009DB60 /* RightPanelViewController.xib in Resources */,
+				EF7F6F0D197E82D20009DB60 /* Happy_Face@2x.png in Resources */,
 				EF895BD6197D483A00960E45 /* UniversitiesListTableViewController.xib in Resources */,
+				EF7F6F3B197EAF510009DB60 /* UniGuideLogo.png in Resources */,
 				A4C6C914197AF1400065311C /* SearchResultsTableViewController.xib in Resources */,
 				A4C6C91E197AF6D80065311C /* CourseInfoCoursePageViewController.xib in Resources */,
 				A4C6C94A197C64890065311C /* FavouritesTableViewController.xib in Resources */,
 				A4C6C92D197AF7000065311C /* UniInfoCoursePageViewController.xib in Resources */,
 				A4C6C919197AF49A0065311C /* DiscoverViewController.xib in Resources */,
 				A4C6C945197BF8C80065311C /* ContactUniversityPageViewController.xib in Resources */,
-				A4C6C936197BF8050065311C /* favouritesButton selected.png in Resources */,
+				EF7F6F0F197E82F90009DB60 /* Top_Charts@2x.png in Resources */,
+				A4C6C936197BF8050065311C /* favouritesButtonSelected.png in Resources */,
 				A4C6C940197BF8B70065311C /* OpenDaysUniversityPageViewController.xib in Resources */,
 				A4C6C8A2197AD22F0065311C /* InfoPlist.strings in Resources */,
 				A4C6C923197AF6E70065311C /* StudentSatisfactionCoursePageViewController.xib in Resources */,
 				A4C6C93B197BF8A70065311C /* CourseListUniversityPageViewController.xib in Resources */,
+				EF7F6F29197E880E0009DB60 /* info-32.png in Resources */,
 				A4C6C934197BF7670065311C /* favouritesButton.png in Resources */,
 				A4C6C8CA197AD3630065311C /* MainMenuViewController.xib in Resources */,
 				A4C6C8CF197AD78F0065311C /* SearchViewController.xib in Resources */,
+				EF7F6F2D197E887C0009DB60 /* talk-32.png in Resources */,
+				EF7F6F0B197E82C90009DB60 /* Favorites@2x.png in Resources */,
 				A4C6C8AA197AD22F0065311C /* Images.xcassets in Resources */,
+				EF7F6F2B197E886F0009DB60 /* student2-32.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,9 +480,11 @@
 				A4C6C922197AF6E70065311C /* StudentSatisfactionCoursePageViewController.m in Sources */,
 				A4C6C8C9197AD3630065311C /* MainMenuViewController.m in Sources */,
 				A4C6C8CE197AD78F0065311C /* SearchViewController.m in Sources */,
+				EF7F6F3F197EB6740009DB60 /* MainViewController.m in Sources */,
 				A4C6C927197AF6F40065311C /* ReviewsCoursePageViewController.m in Sources */,
 				A4C6C944197BF8C80065311C /* ContactUniversityPageViewController.m in Sources */,
 				A4C6C8A4197AD22F0065311C /* main.m in Sources */,
+				EF7F6F44197EB7130009DB60 /* RightPanelViewController.m in Sources */,
 				A4C6C957197C74610065311C /* OpenDays.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -547,9 +602,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniGuide/UniGuide-Prefix.pch";
 				INFOPLIST_FILE = "UniGuide/UniGuide-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -560,9 +617,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniGuide/UniGuide-Prefix.pch";
 				INFOPLIST_FILE = "UniGuide/UniGuide-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface StudentSatisfactionCoursePageViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIButton *universityNameButtonLabelStudentSatisfactionTab;
-- (IBAction)universityNameButtonLabelStudentSatisfactionPressed:(id)sender;
+
 
 @end

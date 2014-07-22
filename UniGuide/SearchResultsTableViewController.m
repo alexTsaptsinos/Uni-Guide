@@ -12,6 +12,11 @@
 #import "ReviewsCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
 #import "Courses.h"
+
+
+
+
+
 @class Courses;
 
 @interface SearchResultsTableViewController ()
@@ -20,7 +25,7 @@
 
 @implementation SearchResultsTableViewController
 
-@synthesize allCourses;
+@synthesize allCourses,favouritesButton,tableView;
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
@@ -31,13 +36,14 @@
 //    return self;
 //}
 
+#pragma mark -
+#pragma mark View Did Load/Unload
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"Results";
-    UIBarButtonItem *customBtn=[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
-    [self.navigationItem setRightBarButtonItem:customBtn];
+    
     
     
     [self addFirstCourses];
@@ -49,8 +55,35 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+}
+
+#pragma mark -
+#pragma mark View Will/Did Appear
+
 -(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     allCourses = [Courses getAll];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+#pragma mark - 
+#pragma mark View Will/Did Disappear
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -161,11 +194,13 @@
     Courses *tempCourse = allCourses[indexPath.row];
     
     courseInfoCoursePageViewController.courseNameLabel.text = tempCourse.courseName;
-    [courseInfoCoursePageViewController.universityNameLabel setTitle:tempCourse.university forState:UIControlStateNormal];
-    studentSatisfactionCoursePageViewController.universityNameButtonLabelStudentSatisfactionTab.titleLabel.text = tempCourse.university;
+    courseInfoCoursePageViewController.universityNameLabel.text =tempCourse.university;
+    
     
     coursePageTabBarController.navigationItem.title = tempCourse.courseName;
-    UIBarButtonItem *favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favouritesButton.png"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
+    
+    favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favouritesButton"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
+    favouritesButton.tintColor = [UIColor grayColor];
     [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
     
     // Push the view controller.
@@ -191,5 +226,18 @@
     
     
 }
+
+-(void) customBtnPressed
+{
+    if (favouritesButton.tintColor == [UIColor yellowColor]) {
+        favouritesButton.tintColor = [UIColor grayColor];
+    }
+    else if (favouritesButton.tintColor == [UIColor grayColor]) {
+        favouritesButton.tintColor = [UIColor yellowColor];
+    }
+    
+}
+
+
 
 @end
