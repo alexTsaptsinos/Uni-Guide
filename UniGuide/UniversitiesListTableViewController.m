@@ -7,80 +7,178 @@
 //
 
 #import "UniversitiesListTableViewController.h"
-//#import "Universities.h"
 #import "University.h"
+#import "UniversityManager.h"
+#import "UniversityCommunicator.h"
+#import "Base64.h"
 
-@interface UniversitiesListTableViewController () {
+@interface UniversitiesListTableViewController () <UniversityManagerDelegate> {
     
-    HomeModel *_homeModel;
-    NSArray *_feedItems;
+    NSArray *_universities;
+    UniversityManager *_manager;
 }
 
 @end
 
+
 @implementation UniversitiesListTableViewController
 
--(void)viewDidLoad
+
+
+- (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    //create array object and assign it to _feedItems variable
-    _feedItems = [[NSArray alloc]init];
+    _manager = [[UniversityManager alloc]init];
+    _manager.communicator = [[UniversityCommunicator alloc]init];
+    _manager.communicator.delegate = _manager;
+    _manager.delegate = self;
     
-    //create new HomeModel object and assign it to _homeModel variable
-    _homeModel = [[HomeModel alloc]init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startFetchingUniversities:) name:@"kCLAuthorizationStatusAuthorizes" object:nil];
     
-    //set this view controller object as the delegate for the home model object
-    _homeModel.delegate = self;
     
-    //call the download items method of the home model object
-    [_homeModel downloadItems];
+    NSURL *url = [NSURL URLWithString:@"http://data.unistats.ac.uk/api/v2/KIS/Institution/{PUBUKPRN}"];
+    NSString *userName = @"GLXMATX1ZCVS91MN1HYG";
+    NSString *password = @"password";
+    
+    NSError *myError = nil;
+    
+    // create a plaintext string in the format username:password
+    NSMutableString *loginString = (NSMutableString*)[@"" stringByAppendingFormat:@"%@:%@", userName, password];
+    
+    // employ the Base64 encoding above to encode the authentication tokens
+    NSString *encodedLoginData = [Base64 encode:[loginString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    // create the contents of the header
+    NSString *authHeader = [@"Basic " stringByAppendingFormat:@"%@", encodedLoginData];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: url
+                                                           cachePolicy: NSURLRequestReloadIgnoringCacheData
+                                                       timeoutInterval: 3];
+    
+    // add the header to the request.  Here's the $$$!!!
+    [request addValue:authHeader forHTTPHeaderField:@"Authorization"];
+    
+    // perform the reqeust
+    NSURLResponse *response;
+    
+    NSData *data = [NSURLConnection
+                    sendSynchronousRequest: request
+                    returningResponse: &response
+                    error: &myError];    
+    //*error = myError;
+    // POW, here's the content of the webserver's response.  
+    NSString *result = [[NSString alloc] initWithData:data encoding:NSStringEncodingConversionAllowLossy];
+    NSLog(@"result : %@", data);
+    
+    
+    
+    
+//    NSURL *url = [NSURL URLWithString:@"http://data.unistats.ac.uk/api/v2/KIS/Institution/{PUBUKPRN}"];
+//    NSMutableURLRequest *request;
+//    request = [NSMutableURLRequest requestWithURL:url
+//                                      cachePolicy:NSURLRequestReloadIgnoringCacheData
+//                                  timeoutInterval:12];
+//    //[self.webView openRequest:request];
+//    (void)[NSURLConnection connectionWithRequest:request delegate:self];
 }
 
-- (void)didReceiveMemoryWarning
+
+- (void)startFetchingUniversities:(NSNotification *)notification
 {
-    [super didReceiveMemoryWarning];
-    //dispose of any resources that can be recreated
+    [_manager fetchAllUniversities];
+    
 }
 
--(void)itemsDownloaded:(NSArray *)items
+- (void)didReceiveUniversities:(NSArray *)universities
 {
-    //this delegate method will get called when the items are finished downloading
     
-    //set the downloaded items to the array
-    _feedItems = items;
     
-    //reload the table view
+    _universities = universities;
     [self.tableView reloadData];
-    
 }
 
-#pragma mark Table View Delegate Methods
+- (void)fetchingUniversitiesFailedWithError:(NSError *)error
+{
+    NSLog(@"Error %@; %@", error, [error localizedDescription]);
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //return the number of feed items (initially 0)
-    return _feedItems.count;
+    return _universities.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //retrieve cell
-    NSString *cellIdentifier = @"BasicCell";
-    UITableViewCell *myCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+//    
+//    University *university = _universities[indexPath.row];
+//                              cell.textLabel.text=university.name;
+//    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+//    
+//    return cell;
     
-    //get the university to be shown
-    University *item=_feedItems[indexPath.row];
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
-    //get references to labels of cell
-    myCell.textLabel.text = item.universityName;
+    University *university = nil;
     
-    return myCell;
+    university = _universities[indexPath.row];
+    
+    cell.textLabel.text = university.name;
+    
+    return cell;
+    
+    //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    //    if (cell == nil) {
+    //        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    //    }
+    //    //Create a new Universities Object
+    //    Universities *university = nil;
+    //    // Check to see whether the normal table or search results table is being displayed and set the Universities object from the appropriate array
+    //    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    //        university = [filteredUniversityArray objectAtIndex:indexPath.row];
+    //    } else {
+    //        university = [universityArray objectAtIndex:indexPath.row];
+    //    }
+    //    // Configure the cell
+    //    cell.textLabel.text = university.universityName;
+    //    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    //    return cell;
+    
 }
+
+
+
+
 
 @end
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//#import "Universities.h"
+//
+//
+//
 //@interface UniversitiesListTableViewController ()
 //
 //@end

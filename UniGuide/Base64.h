@@ -1,5 +1,5 @@
 //
-//  University.h
+//  Base64.h
 //  UniGuide
 //
 //  Created by AlexTsaptsinos on 22/07/2014.
@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface University : NSObject
+@interface Base64 : NSObject
 
-@property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *country;
++(NSString *)encode:(NSData *)plainText;
 
 @end

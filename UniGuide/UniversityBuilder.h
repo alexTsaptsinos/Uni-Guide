@@ -1,5 +1,5 @@
 //
-//  University.h
+//  UniversityBuilder.h
 //  UniGuide
 //
 //  Created by AlexTsaptsinos on 22/07/2014.
@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface University : NSObject
+@interface UniversityBuilder : NSObject
 
-@property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *country;
++ (NSArray *)universitiesFromJSON:(NSData *)objectNotation error:(NSError **)error;
 
 @end

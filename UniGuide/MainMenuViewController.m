@@ -8,6 +8,10 @@
 
 #import "MainMenuViewController.h"
 #import "AppDelegate.h"
+#import "University.h"
+#import "UniversityBuilder.h"
+#import "UniversityCommunicator.h"
+#import "UniversityManager.h"
 
 
 @interface MainMenuViewController ()

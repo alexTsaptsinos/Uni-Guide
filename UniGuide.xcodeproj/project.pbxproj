@@ -47,8 +47,11 @@
 		A4C6C949197C64890065311C /* FavouritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C947197C64890065311C /* FavouritesTableViewController.m */; };
 		A4C6C94A197C64890065311C /* FavouritesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C948197C64890065311C /* FavouritesTableViewController.xib */; };
 		A4C6C957197C74610065311C /* OpenDays.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C956197C74610065311C /* OpenDays.m */; };
-		EF7F6EF2197DBA3F0009DB60 /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6EF1197DBA3F0009DB60 /* HomeModel.m */; };
-		EF7F6EF5197DBA4C0009DB60 /* University.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6EF4197DBA4C0009DB60 /* University.m */; };
+		EF7F6EF8197E56650009DB60 /* University.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6EF7197E56650009DB60 /* University.m */; };
+		EF7F6EFC197E57EB0009DB60 /* UniversityCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6EFB197E57EB0009DB60 /* UniversityCommunicator.m */; };
+		EF7F6EFF197E5AFA0009DB60 /* UniversityBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6EFE197E5AFA0009DB60 /* UniversityBuilder.m */; };
+		EF7F6F03197E5CE10009DB60 /* UniversityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F02197E5CE10009DB60 /* UniversityManager.m */; };
+		EF7F6F09197E79370009DB60 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F08197E79370009DB60 /* Base64.m */; };
 		EF895BD5197D483A00960E45 /* UniversitiesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF895BD3197D483A00960E45 /* UniversitiesListTableViewController.m */; };
 		EF895BD6197D483A00960E45 /* UniversitiesListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF895BD4197D483A00960E45 /* UniversitiesListTableViewController.xib */; };
 		EF895BD9197D486500960E45 /* Universities.m in Sources */ = {isa = PBXBuildFile; fileRef = EF895BD8197D486500960E45 /* Universities.m */; };
@@ -123,10 +126,18 @@
 		A4C6C948197C64890065311C /* FavouritesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavouritesTableViewController.xib; sourceTree = "<group>"; };
 		A4C6C955197C74610065311C /* OpenDays.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenDays.h; sourceTree = "<group>"; };
 		A4C6C956197C74610065311C /* OpenDays.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenDays.m; sourceTree = "<group>"; };
-		EF7F6EF0197DBA3F0009DB60 /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
-		EF7F6EF1197DBA3F0009DB60 /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModel.m; sourceTree = "<group>"; };
-		EF7F6EF3197DBA4B0009DB60 /* University.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = University.h; sourceTree = "<group>"; };
-		EF7F6EF4197DBA4C0009DB60 /* University.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = University.m; sourceTree = "<group>"; };
+		EF7F6EF6197E56650009DB60 /* University.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = University.h; sourceTree = "<group>"; };
+		EF7F6EF7197E56650009DB60 /* University.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = University.m; sourceTree = "<group>"; };
+		EF7F6EF9197E57380009DB60 /* UniversityCommunicatorDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniversityCommunicatorDelegate.h; sourceTree = "<group>"; };
+		EF7F6EFA197E57EB0009DB60 /* UniversityCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversityCommunicator.h; sourceTree = "<group>"; };
+		EF7F6EFB197E57EB0009DB60 /* UniversityCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversityCommunicator.m; sourceTree = "<group>"; };
+		EF7F6EFD197E5AFA0009DB60 /* UniversityBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversityBuilder.h; sourceTree = "<group>"; };
+		EF7F6EFE197E5AFA0009DB60 /* UniversityBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversityBuilder.m; sourceTree = "<group>"; };
+		EF7F6F00197E5C8B0009DB60 /* UniversityManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniversityManagerDelegate.h; sourceTree = "<group>"; };
+		EF7F6F01197E5CE10009DB60 /* UniversityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversityManager.h; sourceTree = "<group>"; };
+		EF7F6F02197E5CE10009DB60 /* UniversityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversityManager.m; sourceTree = "<group>"; };
+		EF7F6F07197E79370009DB60 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
+		EF7F6F08197E79370009DB60 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		EF895BD2197D483A00960E45 /* UniversitiesListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversitiesListTableViewController.h; sourceTree = "<group>"; };
 		EF895BD3197D483A00960E45 /* UniversitiesListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversitiesListTableViewController.m; sourceTree = "<group>"; };
 		EF895BD4197D483A00960E45 /* UniversitiesListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniversitiesListTableViewController.xib; sourceTree = "<group>"; };
@@ -229,10 +240,18 @@
 				A4C6C956197C74610065311C /* OpenDays.m */,
 				EF895BD7197D486500960E45 /* Universities.h */,
 				EF895BD8197D486500960E45 /* Universities.m */,
-				EF7F6EF0197DBA3F0009DB60 /* HomeModel.h */,
-				EF7F6EF1197DBA3F0009DB60 /* HomeModel.m */,
-				EF7F6EF3197DBA4B0009DB60 /* University.h */,
-				EF7F6EF4197DBA4C0009DB60 /* University.m */,
+				EF7F6EF6197E56650009DB60 /* University.h */,
+				EF7F6EF7197E56650009DB60 /* University.m */,
+				EF7F6EF9197E57380009DB60 /* UniversityCommunicatorDelegate.h */,
+				EF7F6EFA197E57EB0009DB60 /* UniversityCommunicator.h */,
+				EF7F6EFB197E57EB0009DB60 /* UniversityCommunicator.m */,
+				EF7F6EFD197E5AFA0009DB60 /* UniversityBuilder.h */,
+				EF7F6EFE197E5AFA0009DB60 /* UniversityBuilder.m */,
+				EF7F6F00197E5C8B0009DB60 /* UniversityManagerDelegate.h */,
+				EF7F6F01197E5CE10009DB60 /* UniversityManager.h */,
+				EF7F6F02197E5CE10009DB60 /* UniversityManager.m */,
+				EF7F6F07197E79370009DB60 /* Base64.h */,
+				EF7F6F08197E79370009DB60 /* Base64.m */,
 				A4C6C8A9197AD22F0065311C /* Images.xcassets */,
 				A4C6C89E197AD22F0065311C /* Supporting Files */,
 			);
@@ -394,20 +413,23 @@
 				A4C6C93A197BF8A70065311C /* CourseListUniversityPageViewController.m in Sources */,
 				EF895BD9197D486500960E45 /* Universities.m in Sources */,
 				A4C6C918197AF49A0065311C /* DiscoverViewController.m in Sources */,
+				EF7F6F03197E5CE10009DB60 /* UniversityManager.m in Sources */,
+				EF7F6EF8197E56650009DB60 /* University.m in Sources */,
+				EF7F6EFC197E57EB0009DB60 /* UniversityCommunicator.m in Sources */,
+				EF7F6F09197E79370009DB60 /* Base64.m in Sources */,
 				A4C6C913197AF1400065311C /* SearchResultsTableViewController.m in Sources */,
 				A4C6C92C197AF7000065311C /* UniInfoCoursePageViewController.m in Sources */,
+				EF7F6EFF197E5AFA0009DB60 /* UniversityBuilder.m in Sources */,
 				A4C6C93F197BF8B70065311C /* OpenDaysUniversityPageViewController.m in Sources */,
 				A4C6C91D197AF6D80065311C /* CourseInfoCoursePageViewController.m in Sources */,
 				EF895BD5197D483A00960E45 /* UniversitiesListTableViewController.m in Sources */,
 				A4C6C949197C64890065311C /* FavouritesTableViewController.m in Sources */,
 				A4C6C922197AF6E70065311C /* StudentSatisfactionCoursePageViewController.m in Sources */,
 				A4C6C8C9197AD3630065311C /* MainMenuViewController.m in Sources */,
-				EF7F6EF5197DBA4C0009DB60 /* University.m in Sources */,
 				A4C6C8CE197AD78F0065311C /* SearchViewController.m in Sources */,
 				A4C6C927197AF6F40065311C /* ReviewsCoursePageViewController.m in Sources */,
 				A4C6C944197BF8C80065311C /* ContactUniversityPageViewController.m in Sources */,
 				A4C6C8A4197AD22F0065311C /* main.m in Sources */,
-				EF7F6EF2197DBA3F0009DB60 /* HomeModel.m in Sources */,
 				A4C6C957197C74610065311C /* OpenDays.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
