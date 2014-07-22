@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeModel.h"
 
-@interface UniversitiesListTableViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate>
+@interface UniversitiesListTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, HomeModelProtocol, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (strong, nonatomic) NSArray *universityArray;
 @property (strong, nonatomic) NSMutableArray *filteredUniversityArray;
 @property (weak, nonatomic) IBOutlet UISearchBar *universitySearchBar;
+
 
 
 @end

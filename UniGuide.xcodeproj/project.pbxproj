@@ -47,6 +47,8 @@
 		A4C6C949197C64890065311C /* FavouritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C947197C64890065311C /* FavouritesTableViewController.m */; };
 		A4C6C94A197C64890065311C /* FavouritesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C948197C64890065311C /* FavouritesTableViewController.xib */; };
 		A4C6C957197C74610065311C /* OpenDays.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C956197C74610065311C /* OpenDays.m */; };
+		EF7F6EF2197DBA3F0009DB60 /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6EF1197DBA3F0009DB60 /* HomeModel.m */; };
+		EF7F6EF5197DBA4C0009DB60 /* University.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6EF4197DBA4C0009DB60 /* University.m */; };
 		EF895BD5197D483A00960E45 /* UniversitiesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF895BD3197D483A00960E45 /* UniversitiesListTableViewController.m */; };
 		EF895BD6197D483A00960E45 /* UniversitiesListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF895BD4197D483A00960E45 /* UniversitiesListTableViewController.xib */; };
 		EF895BD9197D486500960E45 /* Universities.m in Sources */ = {isa = PBXBuildFile; fileRef = EF895BD8197D486500960E45 /* Universities.m */; };
@@ -121,6 +123,10 @@
 		A4C6C948197C64890065311C /* FavouritesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavouritesTableViewController.xib; sourceTree = "<group>"; };
 		A4C6C955197C74610065311C /* OpenDays.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenDays.h; sourceTree = "<group>"; };
 		A4C6C956197C74610065311C /* OpenDays.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenDays.m; sourceTree = "<group>"; };
+		EF7F6EF0197DBA3F0009DB60 /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
+		EF7F6EF1197DBA3F0009DB60 /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModel.m; sourceTree = "<group>"; };
+		EF7F6EF3197DBA4B0009DB60 /* University.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = University.h; sourceTree = "<group>"; };
+		EF7F6EF4197DBA4C0009DB60 /* University.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = University.m; sourceTree = "<group>"; };
 		EF895BD2197D483A00960E45 /* UniversitiesListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversitiesListTableViewController.h; sourceTree = "<group>"; };
 		EF895BD3197D483A00960E45 /* UniversitiesListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversitiesListTableViewController.m; sourceTree = "<group>"; };
 		EF895BD4197D483A00960E45 /* UniversitiesListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniversitiesListTableViewController.xib; sourceTree = "<group>"; };
@@ -223,6 +229,10 @@
 				A4C6C956197C74610065311C /* OpenDays.m */,
 				EF895BD7197D486500960E45 /* Universities.h */,
 				EF895BD8197D486500960E45 /* Universities.m */,
+				EF7F6EF0197DBA3F0009DB60 /* HomeModel.h */,
+				EF7F6EF1197DBA3F0009DB60 /* HomeModel.m */,
+				EF7F6EF3197DBA4B0009DB60 /* University.h */,
+				EF7F6EF4197DBA4C0009DB60 /* University.m */,
 				A4C6C8A9197AD22F0065311C /* Images.xcassets */,
 				A4C6C89E197AD22F0065311C /* Supporting Files */,
 			);
@@ -392,10 +402,12 @@
 				A4C6C949197C64890065311C /* FavouritesTableViewController.m in Sources */,
 				A4C6C922197AF6E70065311C /* StudentSatisfactionCoursePageViewController.m in Sources */,
 				A4C6C8C9197AD3630065311C /* MainMenuViewController.m in Sources */,
+				EF7F6EF5197DBA4C0009DB60 /* University.m in Sources */,
 				A4C6C8CE197AD78F0065311C /* SearchViewController.m in Sources */,
 				A4C6C927197AF6F40065311C /* ReviewsCoursePageViewController.m in Sources */,
 				A4C6C944197BF8C80065311C /* ContactUniversityPageViewController.m in Sources */,
 				A4C6C8A4197AD22F0065311C /* main.m in Sources */,
+				EF7F6EF2197DBA3F0009DB60 /* HomeModel.m in Sources */,
 				A4C6C957197C74610065311C /* OpenDays.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
