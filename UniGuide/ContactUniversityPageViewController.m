@@ -20,6 +20,7 @@
     if (self) {
         // Custom initialization
         self.title = NSLocalizedString(@"Contact", @"Contact");
+        self.tabBarItem.image = [UIImage imageNamed:@"electric_megaphone-32"];
     }
     return self;
 }

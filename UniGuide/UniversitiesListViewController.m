@@ -1,25 +1,24 @@
 //
-//  CourseListUniversityPageViewController.m
+//  UniversitiesListViewController.m
 //  UniGuide
 //
-//  Created by Alex Tsaptsinos on 20/07/2014.
+//  Created by AlexTsaptsinos on 23/07/2014.
 //  Copyright (c) 2014 ATsaptsinos. All rights reserved.
 //
 
-#import "CourseListUniversityPageViewController.h"
+#import "UniversitiesListViewController.h"
 
-@interface CourseListUniversityPageViewController ()
+@interface UniversitiesListViewController ()
 
 @end
 
-@implementation CourseListUniversityPageViewController
+@implementation UniversitiesListViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = NSLocalizedString(@"Course List", @"Course List");
     }
     return self;
 }

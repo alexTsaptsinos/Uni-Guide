@@ -9,7 +9,7 @@
 #import "CourseInfoCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
 #import "OpenDaysTableViewController.h"
-#import "CourseListUniversityPageViewController.h"
+#import "CourseListTableViewController.h"
 #import "ContactUniversityPageViewController.h"
 
 @interface CourseInfoCoursePageViewController ()
@@ -47,27 +47,7 @@
 }
 
 
-    
-    //CODE TO PUSH TO UNI PAGE CONTROLLER - will be put somehwhere else later
-    
-   // UITabBarController *universityPageTabBarController = [[UITabBarController alloc] init];
-    
-    
-//    UniInfoCoursePageViewController *uniInfoCoursePageViewController = [[UniInfoCoursePageViewController alloc]init];
-//    
-//    CourseListUniversityPageViewController *courseListUniversityPageViewController = [[CourseListUniversityPageViewController alloc] init];
-//    
-//    OpenDaysUniversityPageViewController *openDaysUniversityPageViewController = [[OpenDaysUniversityPageViewController alloc] init];
-//    
-//    ContactUniversityPageViewController *contactUniversityPageViewController = [[ContactUniversityPageViewController alloc] init];
-//    
-//    
-//    universityPageTabBarController.viewControllers = [NSArray arrayWithObjects:uniInfoCoursePageViewController,courseListUniversityPageViewController,openDaysUniversityPageViewController,contactUniversityPageViewController,nil];
-//    
-//    universityPageTabBarController.navigationItem.title = self.universityNameLabel.titleLabel.text;
-//    
-//    
-//    [self.navigationController pushViewController:universityPageTabBarController animated:YES];
+
     
 
 
