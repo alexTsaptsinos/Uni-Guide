@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *universitySearchBar;
 
 @property (strong, nonatomic) NSMutableArray *filteredUniversityArray;
+@property (nonatomic, strong) NSMutableArray *alphabetsArray;
 
 @end
