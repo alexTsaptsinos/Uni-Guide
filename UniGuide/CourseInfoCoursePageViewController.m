@@ -8,7 +8,7 @@
 
 #import "CourseInfoCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
-#import "OpenDaysUniversityPageViewController.h"
+#import "OpenDaysTableViewController.h"
 #import "CourseListUniversityPageViewController.h"
 #import "ContactUniversityPageViewController.h"
 
@@ -48,7 +48,7 @@
 
 
     
-    //CODE TO PUSH TO UNI PAGE CONTROLELR
+    //CODE TO PUSH TO UNI PAGE CONTROLLER - will be put somehwhere else later
     
    // UITabBarController *universityPageTabBarController = [[UITabBarController alloc] init];
     

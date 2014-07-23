@@ -38,7 +38,10 @@
 {
     [super viewDidLoad];
     
+    //set navigation bar title
     self.navigationItem.title = @"Results";
+    
+    //set up filter button on navigation bar
     customFilterButton =[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(customFilterButtonPressed)];
     [self.navigationItem setRightBarButtonItem:customFilterButton];
     
@@ -86,12 +89,18 @@
     self.searchResultsTableViewController.view.tag = CENTER_TAG;
     self.searchResultsTableViewController.delegate = self;
     
+    
+    // setup child view
     [self.view addSubview:self.searchResultsTableViewController.view];
     [self addChildViewController:_searchResultsTableViewController];
     
     [_searchResultsTableViewController didMoveToParentViewController:self];
+    
+    //call gestures method
     [self setupGestures];
 }
+
+// configures the center to have shadow and curved corners
 
 - (void)showCenterViewWithShadow:(BOOL)value withOffset:(double)offset
 {
@@ -110,6 +119,8 @@
     }
 }
 
+//method for returning to main view from filter view
+
 - (void)resetMainView
 {
     
@@ -125,7 +136,7 @@
     
 }
 
-
+//method for calling the right view
 
 - (UIView *)getRightView
 {
@@ -254,7 +265,7 @@
                      }];
 }
 
-
+//method for moving panel back to original position
 
 - (void)movePanelToOriginalPosition
 {
@@ -286,6 +297,8 @@
 {
     [super didReceiveMemoryWarning];
 }
+
+// when the filter button is pressed, call the relevant functions above
 
 - (void) customFilterButtonPressed
 {

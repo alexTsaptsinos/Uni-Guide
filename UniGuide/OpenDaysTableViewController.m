@@ -1,28 +1,24 @@
 //
-//  FavouritesTableViewController.m
+//  OpenDaysTableViewController.m
 //  UniGuide
 //
-//  Created by Alex Tsaptsinos on 20/07/2014.
+//  Created by AlexTsaptsinos on 22/07/2014.
 //  Copyright (c) 2014 ATsaptsinos. All rights reserved.
 //
 
-#import "FavouritesTableViewController.h"
+#import "OpenDaysTableViewController.h"
 
-@interface FavouritesTableViewController ()
+@interface OpenDaysTableViewController ()
 
 @end
 
-@implementation FavouritesTableViewController
+@implementation OpenDaysTableViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    //set navigation title and edit button
-    
-    self.navigationItem.title = @"Favourites";
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+    self.navigationItem.title = @"Open Days";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -38,6 +34,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+
     // Return the number of sections.
     return 1;
 }

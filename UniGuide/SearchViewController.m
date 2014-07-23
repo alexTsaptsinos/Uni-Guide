@@ -7,6 +7,7 @@
 //
 
 #import "SearchViewController.h"
+#import "MainViewController.h"
 
 @interface SearchViewController ()
 
@@ -29,6 +30,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    //give navigation bar title
      self.navigationItem.title = @"Search";
 }
 
@@ -37,6 +39,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//Make sure keyboard goes away when hit return for university,course,location text fields
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.courseTextFieldSearchViewController) {
@@ -51,11 +55,13 @@
     return NO;
 }
 
+//when search button is pressed, push main view controller which contains results table view and filter view
+
 - (IBAction)searchButtonSearchViewControllerPressed:(id)sender {
     
-    SearchResultsTableViewController *searchResultsTableViewController = [[SearchResultsTableViewController alloc] initWithNibName:@"SearchResultsTableViewController" bundle:nil];
+    MainViewController *mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
     
-    [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
+    [self.navigationController pushViewController:mainViewController animated:YES];
     
 }
 @end

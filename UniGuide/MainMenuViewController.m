@@ -8,10 +8,6 @@
 
 #import "MainMenuViewController.h"
 #import "AppDelegate.h"
-#import "University.h"
-#import "UniversityBuilder.h"
-#import "UniversityCommunicator.h"
-#import "UniversityManager.h"
 #import "MainViewController.h"
 
 
@@ -36,6 +32,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    //Make 5 buttons have rounded corners
     
     CALayer *btnLayer = [searchMenuButtonLabel layer];
     [btnLayer setMasksToBounds:YES];
@@ -66,19 +64,19 @@
 }
 - (IBAction)searchMenuButtonPressed:(id)sender {
     
-    MainViewController *mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+    // if search button pressed launch search view controller
     
-    [self.navigationController pushViewController:mainViewController animated:YES];
+    SearchViewController *searchViewController = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
     
-//    SearchViewController *searchViewController = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
-//    
-//    
-//    [self.navigationController pushViewController:searchViewController animated:YES];
+    
+    [self.navigationController pushViewController:searchViewController animated:YES];
   
     
 }
 
 - (IBAction)discoverMenuButtonPressed:(id)sender {
+    
+    // if discover button pressed launch discover view controller
     
     DiscoverViewController *discoverViewController = [[DiscoverViewController alloc] initWithNibName:@"DiscoverViewController" bundle:nil];
     
@@ -89,6 +87,8 @@
 
 - (IBAction)favouritesMenuButtonPressed:(id)sender {
     
+    // if favourites button pressed launch favourites table view controller
+    
     FavouritesTableViewController *favouritesTableViewController = [[FavouritesTableViewController alloc]initWithNibName:@"FavouritesTableViewController" bundle:nil];
     
     [self.navigationController pushViewController:favouritesTableViewController animated:YES];
@@ -96,13 +96,16 @@
 
 - (IBAction)openDaysMenuButtonPressed:(id)sender {
     
-    OpenDaysUniversityPageViewController *openDaysUniversityPageViewController = [[OpenDaysUniversityPageViewController alloc] initWithNibName:@"OpenDaysUniversityPageViewController" bundle:nil];
+    // if open days button pressed launch open days table view controller
     
-    [self.navigationController pushViewController:openDaysUniversityPageViewController animated:YES];
+    OpenDaysTableViewController *openDaysTableViewController = [[OpenDaysTableViewController alloc] initWithNibName:@"OpenDaysTableViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:openDaysTableViewController animated:YES];
 }
 
 - (IBAction)universitiesMenuButtonPressed:(id)sender {
     
+    // if universities button pressed launch universities table view controller
     
     UniversitiesListTableViewController *universitiesListTableViewController = [[UniversitiesListTableViewController alloc] initWithNibName:@"UniversitiesListTableViewController" bundle:nil];
     
@@ -110,6 +113,8 @@
     
     
 }
+
+//methods so that navigation bar does not appear on home screen
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];

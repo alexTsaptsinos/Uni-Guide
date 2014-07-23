@@ -27,14 +27,14 @@
 
 @synthesize allCourses,favouritesButton,tableView;
 
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        self.title = NSLocalizedString(@"Results", @"Table");
-//    }
-//    return self;
-//}
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        
+    }
+    return self;
+}
 
 #pragma mark -
 #pragma mark View Did Load/Unload
@@ -108,11 +108,12 @@
     return [allCourses count];
 }
 
+// set cell labels and configure
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView2 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView2 dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
@@ -175,7 +176,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here, for example:
-    // Create the next view controller.
+    // Create the next view controller. we create a tab bar controller
     
     CourseInfoCoursePageViewController *courseInfoCoursePageViewController = [[CourseInfoCoursePageViewController alloc] init];
     
@@ -207,6 +208,8 @@
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];
 }
 
+//enter some sample courses
+
 - (void) addFirstCourses{
     
     Courses * newCourse = [[Courses alloc] init];
@@ -226,6 +229,8 @@
     
     
 }
+
+//method for Favourites button
 
 -(void) customBtnPressed
 {

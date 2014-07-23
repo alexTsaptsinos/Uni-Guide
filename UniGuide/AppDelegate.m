@@ -13,28 +13,27 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //[ provideAPIKey:]
-    
-    
+    //create Main Menu
     UIViewController *mainMenuViewController = [[MainMenuViewController alloc] initWithNibName:@"MainMenuViewController" bundle:nil];
     
+    //create Navigation Controller
     UINavigationController *myNavigationController = [[UINavigationController alloc] initWithRootViewController:mainMenuViewController];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    // Override point for customization after application launch.
+    // Override point for customization after application launch, set Navigation controller as root
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = myNavigationController;
     [self.window makeKeyAndVisible];
     
-    //FIRST TRY
+    //FIRST TRY at http basic auth
 //    NSString *authStr = [NSString stringWithFormat:@"GLXMATX1ZCVS91MN1HYG:password"];
 //    NSData *authData = [authStr dataUsingEncoding:NSASCIIStringEncoding];
 //    NSString *authValue = [NSString stringWithFormat:@"Basic %@", authData];
 //    [theRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
     
     
-    //SECOND TRY
+    //SECOND TRY at http basic auth
     
 //    NSURL *URL = [NSURL URLWithString:url];
 //    NSURLRequest *request = [NSURLRequest requestWithURL:URL
@@ -43,7 +42,7 @@
 //    
 //    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
-    //ABBAS LINK TRY
+    //ABBAS LINK TRY at http basic auth
     
     //basic HTTP authentication
 //    NSURL *url = [NSURL URLWithString: urlString];
