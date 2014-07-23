@@ -9,13 +9,14 @@
 #import "UniversityManager.h"
 #import "UniversityCommunicator.h"
 #import "UniversityBuilder.h"
+#import "UniversitiesListViewController.h"
 #import "UniversitiesListTableViewController.h"
 
 @implementation UniversityManager
 
 @synthesize success;
 
-- (void)fetchAllUniversities:(void (^)/*(BOOL success)*/(void))completetionBlock
+- (void)fetchAllUniversities//:(void (^)/*(BOOL success)*/(void))completetionBlock
 {
     [self.communicator searchAllUniversities];
     

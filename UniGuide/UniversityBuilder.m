@@ -8,6 +8,7 @@
 
 #import "UniversityBuilder.h"
 #import "University.h"
+#import "UniversitiesListViewController.h"
 #import "UniversitiesListTableViewController.h"
 
 @implementation UniversityBuilder

@@ -26,7 +26,7 @@
 
 @implementation UniversitiesListTableViewController
 
-@synthesize filteredUniversityArray;
+@synthesize filteredUniversityArray,alphabetsArray;
 
 - (void)viewDidLoad
 {
@@ -38,15 +38,43 @@
     _manager.communicator.delegate = _manager;
     _manager.delegate = self;
     
-    [_manager fetchAllUniversities:^ {
-            [self tempReload];
-    }];
+    [_manager fetchAllUniversities];
     
      
     NSLog(@"time check");
     
     // Initialize the filteredUniversitiesArray with a capacity equal to the universityArray's capacity
         self.filteredUniversityArray = [NSMutableArray arrayWithCapacity:[_universities count]];
+    
+    
+    
+    alphabetsArray = [[NSMutableArray alloc] init];
+    [alphabetsArray addObject:@"A"];
+    [alphabetsArray addObject:@"B"];
+    [alphabetsArray addObject:@"C"];
+    [alphabetsArray addObject:@"D"];
+    [alphabetsArray addObject:@"E"];
+    [alphabetsArray addObject:@"F"];
+    [alphabetsArray addObject:@"G"];
+    [alphabetsArray addObject:@"H"];
+    [alphabetsArray addObject:@"I"];
+    [alphabetsArray addObject:@"J"];
+    [alphabetsArray addObject:@"K"];
+    [alphabetsArray addObject:@"L"];
+    [alphabetsArray addObject:@"M"];
+    [alphabetsArray addObject:@"N"];
+    [alphabetsArray addObject:@"O"];
+    [alphabetsArray addObject:@"P"];
+    [alphabetsArray addObject:@"Q"];
+    [alphabetsArray addObject:@"R"];
+    [alphabetsArray addObject:@"S"];
+    [alphabetsArray addObject:@"T"];
+    [alphabetsArray addObject:@"U"];
+    [alphabetsArray addObject:@"V"];
+    [alphabetsArray addObject:@"W"];
+    [alphabetsArray addObject:@"Y"];
+    [alphabetsArray addObject:@"X"];
+    [alphabetsArray addObject:@"Z"];
     
 }
 
@@ -102,9 +130,10 @@
         } else {
             university = [_universities objectAtIndex:indexPath.row];
         }
-        // Configure the cell
-       cell.textLabel.text = university.name;
+    // Configure the cell
+    cell.textLabel.text = university.name;
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size: 15];
+    
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         return cell;
 }
@@ -169,6 +198,27 @@
         [self.navigationController pushViewController:universityPageTabBarController animated:YES];
 }
 
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return alphabetsArray;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    University *university = nil;
+    
+    for (int i = 0; i< [_universities count]; i++) {
+        // Here you return the name
+        // and match the title for first letter of name
+        // and move to that row corresponding to that indexpath as below
+        university = [_universities objectAtIndex:i];
+        NSString *letterString = [university.name substringToIndex:1];
+        NSLog(@"%@",letterString);
+        if ([letterString isEqualToString:title]) {
+            [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            //break;
+        }
+    }
+    return 0;
+}
 
 @end
 

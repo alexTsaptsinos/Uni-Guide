@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UniversitiesListViewController : UIViewController
+@interface UniversitiesListViewController : UIViewController <UISearchBarDelegate, UISearchDisplayDelegate, UITableViewDelegate, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *universityListTableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *universitySearchBar;
+
+@property (strong, nonatomic) NSMutableArray *filteredUniversityArray;
 
 @end

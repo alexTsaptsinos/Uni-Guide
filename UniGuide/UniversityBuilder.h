@@ -12,4 +12,5 @@
 
 + (NSArray *)universitiesFromJSON:(NSData *)objectNotation error:(NSError **)error;
 
+
 @end

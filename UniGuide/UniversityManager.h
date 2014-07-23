@@ -19,6 +19,6 @@
 @property (nonatomic) BOOL *success;
 
 //- (void)fetchAllUniversities;
-- (void)fetchAllUniversities:(void (^)/*(BOOL success)*/(void))completetionBlock;
+- (void)fetchAllUniversities;//:(void (^)/*(BOOL success)*/(void))completetionBlock;
 
 @end
