@@ -7,7 +7,8 @@
 //
 
 #import "SearchViewController.h"
-#import "MainViewController.h"
+//#import "MainViewController.h"
+#import "SearchResultsTableViewController.h"
 
 @interface SearchViewController ()
 
@@ -59,9 +60,11 @@
 
 - (IBAction)searchButtonSearchViewControllerPressed:(id)sender {
     
-    MainViewController *mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+//    MainViewController *mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
     
-    [self.navigationController pushViewController:mainViewController animated:YES];
+    SearchResultsTableViewController *searchResultsTableViewController = [[SearchResultsTableViewController alloc] initWithNibName:@"SearchResultsTableViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
     
 }
 @end

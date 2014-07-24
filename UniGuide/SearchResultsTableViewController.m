@@ -12,6 +12,7 @@
 #import "ReviewsCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
 #import "Courses.h"
+#import "RightPanelViewController.h"
 
 
 
@@ -25,13 +26,19 @@
 
 @implementation SearchResultsTableViewController
 
-@synthesize allCourses,favouritesButton,tableView;
+@synthesize allCourses,favouritesButton,tableView,customFilterButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
+        //set navigation bar title
+        self.navigationItem.title = @"Results";
+        
+        //set up filter button on navigation bar
+        customFilterButton =[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(customFilterButtonPressed)];
+        [self.navigationItem setRightBarButtonItem:customFilterButton];
     }
     return self;
 }
@@ -243,6 +250,19 @@
     
 }
 
+- (void) customFilterButtonPressed
+{
+    RightPanelViewController *rightPanelViewController = [[RightPanelViewController alloc] initWithNibName:@"RightPanelViewController" bundle:nil];
+    
+    [UIView transitionWithView:self.navigationController.view
+                      duration:0.75
+                       options:UIViewAnimationOptionTransitionFlipFromRight
+                    animations:^{
+                        [self.navigationController pushViewController:rightPanelViewController animated:NO];
+                    }
+                    completion:nil];
 
+    
+}
 
 @end

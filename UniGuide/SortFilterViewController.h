@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SortFilterViewController : UIViewController
+@interface SortFilterViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *sortOptionsTableView;
+
 
 @end

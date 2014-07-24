@@ -8,7 +8,7 @@
 
 #import "DiscoverViewController.h"
 #import "SearchResultsTableViewController.h"
-#import "MainViewController.h"
+//#import "MainViewController.h"
 
 @interface DiscoverViewController ()
 
@@ -47,9 +47,13 @@
 
 - (IBAction)discoverButtonLabelPressed:(id)sender {
     
-    MainViewController *mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+//    MainViewController *mainViewController = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+//    
+//    [self.navigationController pushViewController:mainViewController animated:YES];
     
-    [self.navigationController pushViewController:mainViewController animated:YES];
+    SearchResultsTableViewController *searchResultsTableViewController = [[SearchResultsTableViewController alloc] initWithNibName:@"SearchResultsTableViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
     
 }
 @end

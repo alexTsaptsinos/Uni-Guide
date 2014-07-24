@@ -7,6 +7,7 @@
 //
 
 #import "FilterTableViewController.h"
+#import "SearchResultsTableViewController.h"
 
 @interface FilterTableViewController ()
 
@@ -18,11 +19,12 @@
 {
     [super viewDidLoad];
     
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneFilterButton)];
+    self.navigationItem.rightBarButtonItem = doneButton;
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,28 +37,32 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 50;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     // Configure the cell...
+    
+    cell.imageView.image = [UIImage imageNamed:@"unchecked_checkbox"];
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -96,21 +102,44 @@
 }
 */
 
-/*
+
 #pragma mark - Table view delegate
 
-// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    // Pass the selected object to the new view controller.
+    if (cell.imageView.image == [UIImage imageNamed:@"checked_checkbox"]) {
+        cell.imageView.image = [UIImage imageNamed:@"unchecked_checkbox"];
+    }
+    if (cell.imageView.image == [UIImage imageNamed:@"unchecked_checkbox"]) {
+        cell.imageView.image = [UIImage imageNamed:@"checked_checkbox"];
+    }
     
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+
 }
-*/
+//
+//-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    
+//    if (cell.imageView.image == [UIImage imageNamed:@"checked_checkbox"]) {
+//    }
+//    if (cell.imageView.image == [UIImage imageNamed:@"unchecked_checkbox"]) {
+//        cell.imageView.image = [UIImage imageNamed:@"checked_checkbox"];
+//    }
+//}
+
+
+-(void)doneFilterButton {
+
+    [UIView transitionWithView:self.navigationController.view
+                      duration:0.75
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:NO];
+                    }
+                    completion:nil];
+}
 
 @end
