@@ -34,6 +34,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    //parse test object
+    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+    testObject[@"foo"] = @"bar";
+    [testObject saveInBackground];
+    
     //Make 5 buttons have rounded corners
     
     CALayer *btnLayer = [searchMenuButtonLabel layer];

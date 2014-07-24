@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface ReviewsCoursePageViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIButton *addReviewButton;
+- (IBAction)addReviewButtonPressed:(id)sender;
 
 @end

@@ -73,6 +73,23 @@
 		EF7F6F78197FF8E90009DB60 /* CourseListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F76197FF8E90009DB60 /* CourseListTableViewController.xib */; };
 		EF7F6F7C198002F50009DB60 /* UniversitiesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F7A198002F50009DB60 /* UniversitiesListViewController.m */; };
 		EF7F6F7D198002F50009DB60 /* UniversitiesListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F7B198002F50009DB60 /* UniversitiesListViewController.xib */; };
+		EF7F6F8119804D810009DB60 /* AddReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F7F19804D810009DB60 /* AddReviewViewController.m */; };
+		EF7F6F8219804D810009DB60 /* AddReviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F8019804D810009DB60 /* AddReviewViewController.xib */; };
+		EF7F6F8619804D940009DB60 /* ReviewComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F8419804D940009DB60 /* ReviewComplaintViewController.m */; };
+		EF7F6F8719804D940009DB60 /* ReviewComplaintViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F8519804D940009DB60 /* ReviewComplaintViewController.xib */; };
+		EF7F6F8C198063570009DB60 /* SpecificOpenDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F8A198063570009DB60 /* SpecificOpenDayViewController.m */; };
+		EF7F6F8D198063570009DB60 /* SpecificOpenDayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F8B198063570009DB60 /* SpecificOpenDayViewController.xib */; };
+		EF7F6F8F1980F9D20009DB60 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F8E1980F9D20009DB60 /* Parse.framework */; };
+		EF7F6F991980FA200009DB60 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F901980FA200009DB60 /* AudioToolbox.framework */; };
+		EF7F6F9A1980FA200009DB60 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F911980FA200009DB60 /* CFNetwork.framework */; };
+		EF7F6F9B1980FA200009DB60 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F921980FA200009DB60 /* CoreLocation.framework */; };
+		EF7F6F9C1980FA200009DB60 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F931980FA200009DB60 /* libz.dylib */; };
+		EF7F6F9D1980FA200009DB60 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F941980FA200009DB60 /* MobileCoreServices.framework */; };
+		EF7F6F9E1980FA200009DB60 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F951980FA200009DB60 /* QuartzCore.framework */; };
+		EF7F6F9F1980FA200009DB60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F961980FA200009DB60 /* Security.framework */; };
+		EF7F6FA01980FA200009DB60 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F971980FA200009DB60 /* StoreKit.framework */; };
+		EF7F6FA11980FA200009DB60 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F981980FA200009DB60 /* SystemConfiguration.framework */; };
+		EF7F6FA41980FB330009DB60 /* UniversityParse.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6FA31980FB330009DB60 /* UniversityParse.m */; };
 		EF895BD5197D483A00960E45 /* UniversitiesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF895BD3197D483A00960E45 /* UniversitiesListTableViewController.m */; };
 		EF895BD6197D483A00960E45 /* UniversitiesListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF895BD4197D483A00960E45 /* UniversitiesListTableViewController.xib */; };
 /* End PBXBuildFile section */
@@ -182,6 +199,27 @@
 		EF7F6F79198002F50009DB60 /* UniversitiesListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversitiesListViewController.h; sourceTree = "<group>"; };
 		EF7F6F7A198002F50009DB60 /* UniversitiesListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversitiesListViewController.m; sourceTree = "<group>"; };
 		EF7F6F7B198002F50009DB60 /* UniversitiesListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniversitiesListViewController.xib; sourceTree = "<group>"; };
+		EF7F6F7E19804D810009DB60 /* AddReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddReviewViewController.h; sourceTree = "<group>"; };
+		EF7F6F7F19804D810009DB60 /* AddReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddReviewViewController.m; sourceTree = "<group>"; };
+		EF7F6F8019804D810009DB60 /* AddReviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddReviewViewController.xib; sourceTree = "<group>"; };
+		EF7F6F8319804D940009DB60 /* ReviewComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewComplaintViewController.h; sourceTree = "<group>"; };
+		EF7F6F8419804D940009DB60 /* ReviewComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewComplaintViewController.m; sourceTree = "<group>"; };
+		EF7F6F8519804D940009DB60 /* ReviewComplaintViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewComplaintViewController.xib; sourceTree = "<group>"; };
+		EF7F6F89198063570009DB60 /* SpecificOpenDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecificOpenDayViewController.h; sourceTree = "<group>"; };
+		EF7F6F8A198063570009DB60 /* SpecificOpenDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecificOpenDayViewController.m; sourceTree = "<group>"; };
+		EF7F6F8B198063570009DB60 /* SpecificOpenDayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpecificOpenDayViewController.xib; sourceTree = "<group>"; };
+		EF7F6F8E1980F9D20009DB60 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		EF7F6F901980FA200009DB60 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		EF7F6F911980FA200009DB60 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		EF7F6F921980FA200009DB60 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		EF7F6F931980FA200009DB60 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		EF7F6F941980FA200009DB60 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		EF7F6F951980FA200009DB60 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EF7F6F961980FA200009DB60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		EF7F6F971980FA200009DB60 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		EF7F6F981980FA200009DB60 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EF7F6FA21980FB330009DB60 /* UniversityParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversityParse.h; sourceTree = "<group>"; };
+		EF7F6FA31980FB330009DB60 /* UniversityParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversityParse.m; sourceTree = "<group>"; };
 		EF895BD2197D483A00960E45 /* UniversitiesListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversitiesListTableViewController.h; sourceTree = "<group>"; };
 		EF895BD3197D483A00960E45 /* UniversitiesListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversitiesListTableViewController.m; sourceTree = "<group>"; };
 		EF895BD4197D483A00960E45 /* UniversitiesListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniversitiesListTableViewController.xib; sourceTree = "<group>"; };
@@ -192,8 +230,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF7F6F991980FA200009DB60 /* AudioToolbox.framework in Frameworks */,
+				EF7F6F9A1980FA200009DB60 /* CFNetwork.framework in Frameworks */,
+				EF7F6F9B1980FA200009DB60 /* CoreLocation.framework in Frameworks */,
+				EF7F6F9C1980FA200009DB60 /* libz.dylib in Frameworks */,
+				EF7F6F9D1980FA200009DB60 /* MobileCoreServices.framework in Frameworks */,
+				EF7F6F9E1980FA200009DB60 /* QuartzCore.framework in Frameworks */,
+				EF7F6F9F1980FA200009DB60 /* Security.framework in Frameworks */,
+				EF7F6FA01980FA200009DB60 /* StoreKit.framework in Frameworks */,
+				EF7F6FA11980FA200009DB60 /* SystemConfiguration.framework in Frameworks */,
 				A4C6C89A197AD22F0065311C /* CoreGraphics.framework in Frameworks */,
 				A4C6C89C197AD22F0065311C /* UIKit.framework in Frameworks */,
+				EF7F6F8F1980F9D20009DB60 /* Parse.framework in Frameworks */,
 				A4C6C898197AD22F0065311C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,6 +281,16 @@
 		A4C6C896197AD22F0065311C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF7F6F901980FA200009DB60 /* AudioToolbox.framework */,
+				EF7F6F911980FA200009DB60 /* CFNetwork.framework */,
+				EF7F6F921980FA200009DB60 /* CoreLocation.framework */,
+				EF7F6F931980FA200009DB60 /* libz.dylib */,
+				EF7F6F941980FA200009DB60 /* MobileCoreServices.framework */,
+				EF7F6F951980FA200009DB60 /* QuartzCore.framework */,
+				EF7F6F961980FA200009DB60 /* Security.framework */,
+				EF7F6F971980FA200009DB60 /* StoreKit.framework */,
+				EF7F6F981980FA200009DB60 /* SystemConfiguration.framework */,
+				EF7F6F8E1980F9D20009DB60 /* Parse.framework */,
 				A4C6C897197AD22F0065311C /* Foundation.framework */,
 				A4C6C899197AD22F0065311C /* CoreGraphics.framework */,
 				A4C6C89B197AD22F0065311C /* UIKit.framework */,
@@ -257,6 +315,8 @@
 				A4C6C92F197BC9CC0065311C /* Courses.m */,
 				A4C6C955197C74610065311C /* OpenDays.h */,
 				A4C6C956197C74610065311C /* OpenDays.m */,
+				EF7F6FA21980FB330009DB60 /* UniversityParse.h */,
+				EF7F6FA31980FB330009DB60 /* UniversityParse.m */,
 				EF7F6F53197FA9340009DB60 /* University.h */,
 				EF7F6F54197FA9340009DB60 /* University.m */,
 				EF7F6F56197FA9980009DB60 /* UniversityCommunicatorDelegate.h */,
@@ -356,6 +416,7 @@
 				A4C6C929197AF7000065311C /* UniInfoCoursePageViewController.h */,
 				A4C6C92A197AF7000065311C /* UniInfoCoursePageViewController.m */,
 				A4C6C92B197AF7000065311C /* UniInfoCoursePageViewController.xib */,
+				EF7F6F8819804D980009DB60 /* ReviewFunctions */,
 			);
 			name = CoursePageTabBars;
 			sourceTree = "<group>";
@@ -366,6 +427,9 @@
 				EF7F6F4E197EEA690009DB60 /* OpenDaysTableViewController.h */,
 				EF7F6F4F197EEA690009DB60 /* OpenDaysTableViewController.m */,
 				EF7F6F50197EEA690009DB60 /* OpenDaysTableViewController.xib */,
+				EF7F6F89198063570009DB60 /* SpecificOpenDayViewController.h */,
+				EF7F6F8A198063570009DB60 /* SpecificOpenDayViewController.m */,
+				EF7F6F8B198063570009DB60 /* SpecificOpenDayViewController.xib */,
 			);
 			name = "Open Days Function";
 			sourceTree = "<group>";
@@ -408,6 +472,19 @@
 				EF7F6F63197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib */,
 			);
 			name = UniversityTabBarPages;
+			sourceTree = "<group>";
+		};
+		EF7F6F8819804D980009DB60 /* ReviewFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				EF7F6F7E19804D810009DB60 /* AddReviewViewController.h */,
+				EF7F6F7F19804D810009DB60 /* AddReviewViewController.m */,
+				EF7F6F8019804D810009DB60 /* AddReviewViewController.xib */,
+				EF7F6F8319804D940009DB60 /* ReviewComplaintViewController.h */,
+				EF7F6F8419804D940009DB60 /* ReviewComplaintViewController.m */,
+				EF7F6F8519804D940009DB60 /* ReviewComplaintViewController.xib */,
+			);
+			name = ReviewFunctions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -495,13 +572,16 @@
 				EF7F6F27197E87EA0009DB60 /* city_hall-32.png in Resources */,
 				EF7F6F45197EB7130009DB60 /* RightPanelViewController.xib in Resources */,
 				EF7F6F71197FF45A0009DB60 /* courses-32.png in Resources */,
+				EF7F6F8D198063570009DB60 /* SpecificOpenDayViewController.xib in Resources */,
 				EF7F6F0D197E82D20009DB60 /* Happy_Face@2x.png in Resources */,
 				EF895BD6197D483A00960E45 /* UniversitiesListTableViewController.xib in Resources */,
 				EF7F6F3B197EAF510009DB60 /* UniGuideLogo.png in Resources */,
 				A4C6C914197AF1400065311C /* SearchResultsTableViewController.xib in Resources */,
 				A4C6C91E197AF6D80065311C /* CourseInfoCoursePageViewController.xib in Resources */,
 				EF7F6F78197FF8E90009DB60 /* CourseListTableViewController.xib in Resources */,
+				EF7F6F8719804D940009DB60 /* ReviewComplaintViewController.xib in Resources */,
 				A4C6C94A197C64890065311C /* FavouritesTableViewController.xib in Resources */,
+				EF7F6F8219804D810009DB60 /* AddReviewViewController.xib in Resources */,
 				EF7F6F67197FF0C90009DB60 /* electric_megaphone-32.png in Resources */,
 				A4C6C92D197AF7000065311C /* UniInfoCoursePageViewController.xib in Resources */,
 				EF7F6F65197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib in Resources */,
@@ -544,15 +624,18 @@
 				A4C6C8A8197AD22F0065311C /* AppDelegate.m in Sources */,
 				A4C6C930197BC9CC0065311C /* Courses.m in Sources */,
 				A4C6C918197AF49A0065311C /* DiscoverViewController.m in Sources */,
+				EF7F6F8C198063570009DB60 /* SpecificOpenDayViewController.m in Sources */,
 				EF7F6F51197EEA690009DB60 /* OpenDaysTableViewController.m in Sources */,
 				A4C6C913197AF1400065311C /* SearchResultsTableViewController.m in Sources */,
 				A4C6C92C197AF7000065311C /* UniInfoCoursePageViewController.m in Sources */,
+				EF7F6FA41980FB330009DB60 /* UniversityParse.m in Sources */,
 				EF7F6F7C198002F50009DB60 /* UniversitiesListViewController.m in Sources */,
 				A4C6C91D197AF6D80065311C /* CourseInfoCoursePageViewController.m in Sources */,
 				EF895BD5197D483A00960E45 /* UniversitiesListTableViewController.m in Sources */,
 				A4C6C949197C64890065311C /* FavouritesTableViewController.m in Sources */,
 				A4C6C922197AF6E70065311C /* StudentSatisfactionCoursePageViewController.m in Sources */,
 				EF7F6F59197FAA0A0009DB60 /* UniversityCommunicator.m in Sources */,
+				EF7F6F8619804D940009DB60 /* ReviewComplaintViewController.m in Sources */,
 				A4C6C8C9197AD3630065311C /* MainMenuViewController.m in Sources */,
 				EF7F6F55197FA9340009DB60 /* University.m in Sources */,
 				EF7F6F60197FAC790009DB60 /* UniversityBuilder.m in Sources */,
@@ -565,6 +648,7 @@
 				EF7F6F44197EB7130009DB60 /* RightPanelViewController.m in Sources */,
 				A4C6C957197C74610065311C /* OpenDays.m in Sources */,
 				EF7F6F77197FF8E90009DB60 /* CourseListTableViewController.m in Sources */,
+				EF7F6F8119804D810009DB60 /* AddReviewViewController.m in Sources */,
 				EF7F6F64197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -683,6 +767,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniGuide/UniGuide-Prefix.pch";
 				INFOPLIST_FILE = "UniGuide/UniGuide-Info.plist";
@@ -698,6 +786,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniGuide/UniGuide-Prefix.pch";
 				INFOPLIST_FILE = "UniGuide/UniGuide-Info.plist";

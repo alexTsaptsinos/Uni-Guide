@@ -74,6 +74,7 @@
     [alphabetsArray addObject:@"Y"];
     [alphabetsArray addObject:@"X"];
     [alphabetsArray addObject:@"Z"];
+
 }
 
 //- (void)startFetchingUniversities:(NSNotification *)notification
