@@ -15,7 +15,7 @@
 #define RIGHT_PANEL_TAG 2
 #define CORNER_RADIUS 3
 #define SLIDE_TIMING .25
-#define PANEL_WIDTH 150
+#define PANEL_WIDTH 100
 
 @interface MainViewController () <UIGestureRecognizerDelegate, SearchResulsTableViewControllerDelegate>
 
@@ -302,6 +302,12 @@
 
 - (void) customFilterButtonPressed
 {
+    if ([customFilterButton.title isEqualToString:@"Filter"]) {
+        self.customFilterButton.title = @"Done";
+    }
+    else {
+        self.customFilterButton.title = @"Filter";
+    }
     switch (customFilterButton.tag) {
         case 1: {
             [self movePanelToOriginalPosition];

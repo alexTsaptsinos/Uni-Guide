@@ -31,34 +31,6 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = myNavigationController;
     [self.window makeKeyAndVisible];
-    
-    //FIRST TRY at http basic auth
-//    NSString *authStr = [NSString stringWithFormat:@"GLXMATX1ZCVS91MN1HYG:password"];
-//    NSData *authData = [authStr dataUsingEncoding:NSASCIIStringEncoding];
-//    NSString *authValue = [NSString stringWithFormat:@"Basic %@", authData];
-//    [theRequest setValue:authValue forHTTPHeaderField:@"Authorization"];
-    
-    
-    //SECOND TRY at http basic auth
-    
-//    NSURL *URL = [NSURL URLWithString:url];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:URL
-//                                             cachePolicy:NSURLRequestUseProtocolCachePolicy
-//                                         timeoutInterval:10.0];
-//    
-//    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    //ABBAS LINK TRY at http basic auth
-    
-    //basic HTTP authentication
-//    NSURL *url = [NSURL URLWithString: urlString];
-//    NSMutableURLRequest *request;
-//    request = [NSMutableURLRequest requestWithURL:url
-//                                      cachePolicy:NSURLRequestReloadIgnoringCacheData
-//                                  timeoutInterval:12];
-//    [self.webView openRequest:request];
-//    (void)[NSURLConnection connectionWithRequest:request delegate:self];
-
 
     return YES;
 }

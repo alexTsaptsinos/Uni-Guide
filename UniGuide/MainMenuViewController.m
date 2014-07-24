@@ -34,6 +34,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    //parse cloud code test
+    [PFCloud callFunctionInBackground:@"hello"
+                       withParameters:@{}
+                                block:^(NSString *result, NSError *error) {
+                                    if (!error) {
+                                        // result is @"Hello world!"
+                                    }
+                                }];
+    
     //parse test object
     PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
     testObject[@"foo"] = @"bar";

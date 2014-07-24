@@ -194,7 +194,7 @@
     
     Courses *tempCourse = allCourses[indexPath.row];
     
-    courseInfoCoursePageViewController.courseNameLabel.text = tempCourse.courseName;
+
     courseInfoCoursePageViewController.universityNameLabel.text =tempCourse.university;
     
     

@@ -1,13 +1,13 @@
 //
-//  UniversityParse.m
+//  FilterTableViewController.h
 //  UniGuide
 //
 //  Created by AlexTsaptsinos on 24/07/2014.
 //  Copyright (c) 2014 ATsaptsinos. All rights reserved.
 //
 
-#import "UniversityParse.h"
+#import <UIKit/UIKit.h>
 
-@implementation UniversityParse
+@interface FilterTableViewController : UITableViewController
 
 @end

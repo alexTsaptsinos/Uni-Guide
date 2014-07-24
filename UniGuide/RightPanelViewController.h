@@ -13,8 +13,11 @@
 
 @end
 
-@interface RightPanelViewController : UIViewController
+@interface RightPanelViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, assign) id<RightPanelViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UITableViewCell *sortCell;
+@property (weak, nonatomic) IBOutlet UITableView *filterControllersTable;
+- (IBAction)sortCellPressed:(id)sender;
 
 @end

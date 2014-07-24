@@ -7,12 +7,16 @@
 //
 
 #import "RightPanelViewController.h"
+#import "SortFilterViewController.h"
+#import "MainViewController.h"
 
 @interface RightPanelViewController ()
 
 @end
 
 @implementation RightPanelViewController
+
+@synthesize sortCell,filterControllersTable;
 
 #pragma mark -
 #pragma mark View Did Load/Unload
@@ -27,6 +31,34 @@
 {
     [super viewDidUnload];
 }
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 4;
+}
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    NSArray *tableTitles = [[NSArray alloc]initWithObjects:@"Courses",@"Universitidjhfasjdfgkasjhdfgakjshdgfkasjhdfgkajshdgfkajshdgfkajshdgfkjashdgfkajshdfes",@"Location",@"Tariff Points", nil];
+    NSLog(@"%@",tableTitles);
+    
+    cell.textLabel.text = [tableTitles objectAtIndex:indexPath.row];
+    return cell;
+}
+
 
 #pragma mark
 #pragma mark View Will/Did Appear
@@ -72,4 +104,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)sortCellPressed:(id)sender {
+    
+    SortFilterViewController *sortFilterViewController = [[SortFilterViewController alloc] initWithNibName:@"SortFilterViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:sortFilterViewController animated:YES];
+}
 @end

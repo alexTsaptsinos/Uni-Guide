@@ -43,6 +43,10 @@
 		A4C6C949197C64890065311C /* FavouritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C947197C64890065311C /* FavouritesTableViewController.m */; };
 		A4C6C94A197C64890065311C /* FavouritesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C948197C64890065311C /* FavouritesTableViewController.xib */; };
 		A4C6C957197C74610065311C /* OpenDays.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C956197C74610065311C /* OpenDays.m */; };
+		EF5533291981508B00120FEA /* SortFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5533271981508B00120FEA /* SortFilterViewController.m */; };
+		EF55332A1981508B00120FEA /* SortFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5533281981508B00120FEA /* SortFilterViewController.xib */; };
+		EF55332F198150C400120FEA /* FilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF55332D198150C300120FEA /* FilterTableViewController.m */; };
+		EF553330198150C400120FEA /* FilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF55332E198150C300120FEA /* FilterTableViewController.xib */; };
 		EF7F6F0B197E82C90009DB60 /* Favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */; };
 		EF7F6F0D197E82D20009DB60 /* Happy_Face@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */; };
 		EF7F6F0F197E82F90009DB60 /* Top_Charts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */; };
@@ -89,7 +93,6 @@
 		EF7F6F9F1980FA200009DB60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F961980FA200009DB60 /* Security.framework */; };
 		EF7F6FA01980FA200009DB60 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F971980FA200009DB60 /* StoreKit.framework */; };
 		EF7F6FA11980FA200009DB60 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F981980FA200009DB60 /* SystemConfiguration.framework */; };
-		EF7F6FA41980FB330009DB60 /* UniversityParse.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6FA31980FB330009DB60 /* UniversityParse.m */; };
 		EF895BD5197D483A00960E45 /* UniversitiesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF895BD3197D483A00960E45 /* UniversitiesListTableViewController.m */; };
 		EF895BD6197D483A00960E45 /* UniversitiesListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF895BD4197D483A00960E45 /* UniversitiesListTableViewController.xib */; };
 /* End PBXBuildFile section */
@@ -157,6 +160,12 @@
 		A4C6C948197C64890065311C /* FavouritesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavouritesTableViewController.xib; sourceTree = "<group>"; };
 		A4C6C955197C74610065311C /* OpenDays.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenDays.h; sourceTree = "<group>"; };
 		A4C6C956197C74610065311C /* OpenDays.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenDays.m; sourceTree = "<group>"; };
+		EF5533261981508B00120FEA /* SortFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortFilterViewController.h; sourceTree = "<group>"; };
+		EF5533271981508B00120FEA /* SortFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortFilterViewController.m; sourceTree = "<group>"; };
+		EF5533281981508B00120FEA /* SortFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SortFilterViewController.xib; sourceTree = "<group>"; };
+		EF55332C198150C300120FEA /* FilterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterTableViewController.h; sourceTree = "<group>"; };
+		EF55332D198150C300120FEA /* FilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTableViewController.m; sourceTree = "<group>"; };
+		EF55332E198150C300120FEA /* FilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterTableViewController.xib; sourceTree = "<group>"; };
 		EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorites@2x.png"; sourceTree = "<group>"; };
 		EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Happy_Face@2x.png"; sourceTree = "<group>"; };
 		EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Top_Charts@2x.png"; sourceTree = "<group>"; };
@@ -218,8 +227,6 @@
 		EF7F6F961980FA200009DB60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EF7F6F971980FA200009DB60 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EF7F6F981980FA200009DB60 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		EF7F6FA21980FB330009DB60 /* UniversityParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversityParse.h; sourceTree = "<group>"; };
-		EF7F6FA31980FB330009DB60 /* UniversityParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversityParse.m; sourceTree = "<group>"; };
 		EF895BD2197D483A00960E45 /* UniversitiesListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversitiesListTableViewController.h; sourceTree = "<group>"; };
 		EF895BD3197D483A00960E45 /* UniversitiesListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversitiesListTableViewController.m; sourceTree = "<group>"; };
 		EF895BD4197D483A00960E45 /* UniversitiesListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniversitiesListTableViewController.xib; sourceTree = "<group>"; };
@@ -315,8 +322,6 @@
 				A4C6C92F197BC9CC0065311C /* Courses.m */,
 				A4C6C955197C74610065311C /* OpenDays.h */,
 				A4C6C956197C74610065311C /* OpenDays.m */,
-				EF7F6FA21980FB330009DB60 /* UniversityParse.h */,
-				EF7F6FA31980FB330009DB60 /* UniversityParse.m */,
 				EF7F6F53197FA9340009DB60 /* University.h */,
 				EF7F6F54197FA9340009DB60 /* University.m */,
 				EF7F6F56197FA9980009DB60 /* UniversityCommunicatorDelegate.h */,
@@ -378,6 +383,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		EF55332B1981509300120FEA /* FilterFunction */ = {
+			isa = PBXGroup;
+			children = (
+				EF7F6F41197EB7130009DB60 /* RightPanelViewController.h */,
+				EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */,
+				EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */,
+				EF5533261981508B00120FEA /* SortFilterViewController.h */,
+				EF5533271981508B00120FEA /* SortFilterViewController.m */,
+				EF5533281981508B00120FEA /* SortFilterViewController.xib */,
+				EF55332C198150C300120FEA /* FilterTableViewController.h */,
+				EF55332D198150C300120FEA /* FilterTableViewController.m */,
+				EF55332E198150C300120FEA /* FilterTableViewController.xib */,
+			);
+			name = FilterFunction;
+			sourceTree = "<group>";
+		};
 		EF7F6F46197EE5CE0009DB60 /* Search/Discover Function */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,9 +414,7 @@
 				A4C6C910197AF1400065311C /* SearchResultsTableViewController.h */,
 				A4C6C911197AF1400065311C /* SearchResultsTableViewController.m */,
 				A4C6C912197AF1400065311C /* SearchResultsTableViewController.xib */,
-				EF7F6F41197EB7130009DB60 /* RightPanelViewController.h */,
-				EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */,
-				EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */,
+				EF55332B1981509300120FEA /* FilterFunction */,
 				EF7F6F48197EE6230009DB60 /* CoursePageTabBars */,
 			);
 			name = "Search/Discover Function";
@@ -568,6 +587,7 @@
 				EF7F6F73197FF4E10009DB60 /* calendar-32.png in Resources */,
 				A4C6C928197AF6F40065311C /* ReviewsCoursePageViewController.xib in Resources */,
 				EF7F6F6B197FF2500009DB60 /* directions-32.png in Resources */,
+				EF553330198150C400120FEA /* FilterTableViewController.xib in Resources */,
 				EF7F6F40197EB6740009DB60 /* MainViewController.xib in Resources */,
 				EF7F6F27197E87EA0009DB60 /* city_hall-32.png in Resources */,
 				EF7F6F45197EB7130009DB60 /* RightPanelViewController.xib in Resources */,
@@ -577,6 +597,7 @@
 				EF895BD6197D483A00960E45 /* UniversitiesListTableViewController.xib in Resources */,
 				EF7F6F3B197EAF510009DB60 /* UniGuideLogo.png in Resources */,
 				A4C6C914197AF1400065311C /* SearchResultsTableViewController.xib in Resources */,
+				EF55332A1981508B00120FEA /* SortFilterViewController.xib in Resources */,
 				A4C6C91E197AF6D80065311C /* CourseInfoCoursePageViewController.xib in Resources */,
 				EF7F6F78197FF8E90009DB60 /* CourseListTableViewController.xib in Resources */,
 				EF7F6F8719804D940009DB60 /* ReviewComplaintViewController.xib in Resources */,
@@ -623,12 +644,12 @@
 			files = (
 				A4C6C8A8197AD22F0065311C /* AppDelegate.m in Sources */,
 				A4C6C930197BC9CC0065311C /* Courses.m in Sources */,
+				EF5533291981508B00120FEA /* SortFilterViewController.m in Sources */,
 				A4C6C918197AF49A0065311C /* DiscoverViewController.m in Sources */,
 				EF7F6F8C198063570009DB60 /* SpecificOpenDayViewController.m in Sources */,
 				EF7F6F51197EEA690009DB60 /* OpenDaysTableViewController.m in Sources */,
 				A4C6C913197AF1400065311C /* SearchResultsTableViewController.m in Sources */,
 				A4C6C92C197AF7000065311C /* UniInfoCoursePageViewController.m in Sources */,
-				EF7F6FA41980FB330009DB60 /* UniversityParse.m in Sources */,
 				EF7F6F7C198002F50009DB60 /* UniversitiesListViewController.m in Sources */,
 				A4C6C91D197AF6D80065311C /* CourseInfoCoursePageViewController.m in Sources */,
 				EF895BD5197D483A00960E45 /* UniversitiesListTableViewController.m in Sources */,
@@ -642,6 +663,7 @@
 				A4C6C8CE197AD78F0065311C /* SearchViewController.m in Sources */,
 				EF7F6F3F197EB6740009DB60 /* MainViewController.m in Sources */,
 				EF7F6F5D197FABAC0009DB60 /* UniversityManager.m in Sources */,
+				EF55332F198150C400120FEA /* FilterTableViewController.m in Sources */,
 				A4C6C927197AF6F40065311C /* ReviewsCoursePageViewController.m in Sources */,
 				A4C6C944197BF8C80065311C /* ContactUniversityPageViewController.m in Sources */,
 				A4C6C8A4197AD22F0065311C /* main.m in Sources */,

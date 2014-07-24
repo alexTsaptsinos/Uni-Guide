@@ -167,13 +167,12 @@
     } else {
         
         university = [_universities objectAtIndex:indexPath.row];
-        cell.textLabel.text = university.name;
     }
     
     
     // Configure the cell
 
-    //cell.textLabel.text = university.name;
+    cell.textLabel.text = university.name;
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size: 15];
     return cell;
     

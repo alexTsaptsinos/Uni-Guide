@@ -12,7 +12,6 @@
 
 
 
-@property (weak, nonatomic) IBOutlet UILabel *courseNameLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *universityNameLabel;
 

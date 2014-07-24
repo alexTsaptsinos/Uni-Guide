@@ -18,7 +18,7 @@
 
 @implementation CourseInfoCoursePageViewController
 
-@synthesize courseNameLabel,universityNameLabel;
+@synthesize universityNameLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
