@@ -90,6 +90,8 @@
     cell = [tableView cellForRowAtIndexPath:indexPath];
     
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 }
 

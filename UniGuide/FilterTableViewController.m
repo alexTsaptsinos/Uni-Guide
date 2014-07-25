@@ -105,16 +105,19 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     if (cell.imageView.image == [UIImage imageNamed:@"checked_checkbox"]) {
         cell.imageView.image = [UIImage imageNamed:@"unchecked_checkbox"];
     }
-    if (cell.imageView.image == [UIImage imageNamed:@"unchecked_checkbox"]) {
+    else if (cell.imageView.image == [UIImage imageNamed:@"unchecked_checkbox"]) {
         cell.imageView.image = [UIImage imageNamed:@"checked_checkbox"];
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     
 
 }
