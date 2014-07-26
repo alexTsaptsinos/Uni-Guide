@@ -13,7 +13,8 @@
 #import "FavouritesTableViewController.h"
 #import "UniversitiesListViewController.h"
 #import "OpenDaysTableViewController.h"
-#import "UniversitiesListTableViewController.h"
+#import "UniversitiesViewController.h"
+#import "UniversitiesTableViewController.h"
 
 @interface MainMenuViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *searchMenuButtonLabel;
