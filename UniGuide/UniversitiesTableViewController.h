@@ -10,4 +10,7 @@
 
 @interface UniversitiesTableViewController : PFQueryTableViewController <UITableViewDelegate>
 
+@property (nonatomic, strong) NSMutableArray *alphabetsArray;
+
+
 @end

@@ -19,11 +19,16 @@
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, strong) NSMutableArray *searchResults;
-@property (nonatomic, strong) NSMutableArray *allResults;
+@property (nonatomic, retain) NSMutableDictionary *sections;
+@property (nonatomic, retain) NSMutableDictionary *sectionToLetterMap;
 
 @end
 
 @implementation UniversitiesTableViewController
+
+@synthesize alphabetsArray;
+@synthesize sections = _sections;
+@synthesize  sectionToLetterMap = _sectionToLetterMap;;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -32,12 +37,41 @@
     if (self) {
         //this table displays items in the universities class
         self.parseClassName = @"Universities";
+        self.textKey = @"Name";
         self.pullToRefreshEnabled = NO;
         self.paginationEnabled = YES;
         self.objectsPerPage = 415;
         self.navigationItem.title = @"Universities";
+        self.sections = [NSMutableDictionary dictionary];
+        self.sectionToLetterMap = [NSMutableDictionary dictionary];
+        
     }
     return self;
+}
+
+-(void)objectsDidLoad:(NSError *)error
+{
+    [super objectsDidLoad:error];
+    
+    [self.sections removeAllObjects];
+    [self.sectionToLetterMap removeAllObjects];
+
+    NSInteger section = 0;
+    NSInteger rowIndex = 0;
+    for (PFObject *object in self.objects) {
+        NSString *universityName = [object objectForKey:@"SortableName"];
+        NSString *letter = [[universityName substringToIndex:1] uppercaseString];
+        NSMutableArray *objectsInSection = [self.sections objectForKey:letter];
+        if (!objectsInSection) {
+            objectsInSection = [NSMutableArray array];
+
+            // this is the first time we see this sportType - increment the section index
+            [self.sectionToLetterMap setObject:letter forKey:[NSNumber numberWithInt:section++]];
+        }
+
+        [objectsInSection addObject:[NSNumber numberWithInt:rowIndex++]];
+        [self.sections setObject:objectsInSection forKey:letter];
+}
 }
 
 - (PFQuery *)queryForTable
@@ -52,6 +86,14 @@
     [query orderByAscending:@"SortableName"];
     
     return query;
+}
+
+- (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *letter = [self letterForSection:indexPath.section];
+    NSArray *rowIndecesInSection = [self.sections objectForKey:letter];
+    NSNumber *rowIndex = [rowIndecesInSection objectAtIndex:indexPath.row];
+    return [self.objects objectAtIndex:[rowIndex intValue]];
 }
 
 - (void)viewDidLoad
@@ -70,26 +112,98 @@
 
     
     self.searchResults = [NSMutableArray array];
+    alphabetsArray = [[NSMutableArray alloc] init];
+    [alphabetsArray addObject:@"A"];
+    [alphabetsArray addObject:@"B"];
+    [alphabetsArray addObject:@"C"];
+    [alphabetsArray addObject:@"D"];
+    [alphabetsArray addObject:@"E"];
+    [alphabetsArray addObject:@"F"];
+    [alphabetsArray addObject:@"G"];
+    [alphabetsArray addObject:@"H"];
+    [alphabetsArray addObject:@"I"];
+    [alphabetsArray addObject:@"J"];
+    [alphabetsArray addObject:@"K"];
+    [alphabetsArray addObject:@"L"];
+    [alphabetsArray addObject:@"M"];
+    [alphabetsArray addObject:@"N"];
+    [alphabetsArray addObject:@"O"];
+    [alphabetsArray addObject:@"P"];
+    [alphabetsArray addObject:@"Q"];
+    [alphabetsArray addObject:@"R"];
+    [alphabetsArray addObject:@"S"];
+    [alphabetsArray addObject:@"T"];
+    [alphabetsArray addObject:@"U"];
+    [alphabetsArray addObject:@"V"];
+    [alphabetsArray addObject:@"W"];
+    [alphabetsArray addObject:@"X"];
+    [alphabetsArray addObject:@"Y"];
+    [alphabetsArray addObject:@"Z"];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (tableView == self.tableView) {
+     return self.sections.allKeys.count;
+    } else {
+        return 1;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.tableView) {
-        return [self.objects count];
-    } else {
-        return [self.searchResults count];
+    NSString *letter = [self letterForSection:section];
+    NSArray *rowIndecesInSection = [self.sections objectForKey:letter];
+    return rowIndecesInSection.count;
+    }
+    else
+    {
+        return self.searchResults.count;
     }
 }
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (tableView == self.tableView) {
+        NSString *letter = [self letterForSection:section];
+        return letter;
+    }
+    else {
+        return @"";
+    }
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    if (tableView == self.tableView) {
+        return alphabetsArray;
+    } else {
+        return NULL;
+    }
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    NSArray *universityFirstLetters = [[NSArray alloc] initWithObjects:@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"W",@"Y", nil];
+    return [universityFirstLetters indexOfObject:title];
+}
+
+
+- (NSString *)letterForSection:(NSInteger)section
+{
+    return [self.sectionToLetterMap objectForKey:[NSNumber numberWithInt:section]];
+}
+
+#pragma mark - methods for search feature
 
 -(void)filterResults:(NSString *)searchTerm {
     [self.searchResults removeAllObjects];
     
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     
-    //[query whereKeyExists:@"SortableName"]; //this is based on whatever query you are trying to accomplish
-    [query whereKey:@"SortableName" containsString:searchTerm];
-    query.limit = 415;
-    
+    [query whereKey:@"SortableName" matchesRegex:searchTerm modifiers:@"i"];
+    //query.limit = 415;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.searchResults addObjectsFromArray:objects];
@@ -105,85 +219,28 @@
     return YES;
 }
 
-//-(void)objectsWillLoad
-//{
-//    [super objectsWillLoad];
-//}
-//
-//-(void)objectsDidLoad:(NSError *)error
-//{
-//    [super objectsDidLoad:error];
-//}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object
 {
-    //    static NSString *cellIdentifier = @"Cell";
-    //
-    //    PFTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    //    if (!cell) {
-    //        cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    //    }
-    //
-    //    //configure the cell
-    //    cell.textLabel.text = object[@"Name"];
-    //
-    //    return cell;
     
-    NSString *uniqueIdentifier = @"universityCell";
-    UITableViewCell *cell = nil;
     
-    cell = (UITableViewCell *) [self.tableView dequeueReusableCellWithIdentifier:uniqueIdentifier];
+    static NSString *cellIdentifier = @"Cell";
     
-//    if (!cell) {
-//        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"UITableViewCell" owner:nil options:nil];
-//        
-//        for (id currentObject in topLevelObjects) {
-//            if ([currentObject isKindOfClass:[UITableViewCell class]]) {
-//                cell = (PFTableViewCell *)currentObject;
-//                break;
-//            }
-//        }
-//    }
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:uniqueIdentifier];
-            }
+        cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
     
+    //configure the cell
     if (tableView != self.searchDisplayController.searchResultsTableView) {
-        NSString *universityName = [object objectForKey:@"Name"];
-        cell.textLabel.text = universityName;
+        cell.textLabel.text = [object objectForKey:@"Name"];
+    } else {
+        PFObject *object2 = [PFObject objectWithClassName:@"Universities"];
+        object2 = [self.searchResults objectAtIndex:indexPath.row];
+        //cell.textLabel.text = [[self.searchResults objectAtIndex:indexPath.row]valueForKey:@"SortableName"];
+        cell.textLabel.text = [object2 valueForKey:@"Name"];
     }
-    
-    if ([tableView isEqual:self.searchDisplayController.searchResultsTableView]) {
-        
-        PFObject *obj2 = [self.searchResults objectAtIndex:indexPath.row];
-        PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-        PFObject *searchUniversity = [query getObjectWithId:obj2.objectId];
-        NSString *name = [searchUniversity objectForKey:@"Name"];
-        cell.textLabel.text = name;
-    }
+
     return cell;
-    
-    //attempt 3
-//    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-//    
-//    static NSString *cellIdentifier = @"Cell";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-//    if (cell == nil) {
-//        cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-//    }
-//    
-//    //configure the cell
-//    if (tableView != self.searchDisplayController.searchResultsTableView) {
-//        cell.textLabel.text = [object objectForKey:@"Name"];
-//    } else {
-//        PFObject *object2 = [PFObject objectWithClassName:@"Universities"];
-//        object2 = [self.searchResults objectAtIndex:indexPath.row];
-//        //cell.textLabel.text = [[self.searchResults objectAtIndex:indexPath.row]valueForKey:@"SortableName"];
-//        cell.textLabel.text = [object2 valueForKey:@"Name"];
-//    }
-//
-//    return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -205,7 +262,11 @@
     UILabel *universityTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
     
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    if (tableView != self.searchDisplayController.searchResultsTableView) {
+            cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    } else {
+        cell = [self.searchDisplayController.searchResultsTableView cellForRowAtIndexPath:indexPath];
+    }
     
     universityTitle.numberOfLines = 2;
     universityTitle.text = cell.textLabel.text;
@@ -223,5 +284,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 @end
