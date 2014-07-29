@@ -18,5 +18,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIBarButtonItem *customFilterButton;
 
+@property (strong, nonatomic) NSString *universitySearchedString;
+@property (strong, nonatomic) NSString *courseSearchedString;
+@property (strong, nonatomic) NSString *locationSearchedString;
+
 
 @end

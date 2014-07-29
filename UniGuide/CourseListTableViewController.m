@@ -22,13 +22,12 @@
 @property (nonatomic, retain) NSMutableDictionary *sections;
 @property (nonatomic,retain) NSMutableDictionary *sectionToLetterMap;
 @property (nonatomic, retain) NSArray *searchResults;
-@property (nonatomic, retain) NSString *universityCode;
 
 @end
 
 @implementation CourseListTableViewController
 
-@synthesize universityName,favouritesButton,alphabetsArray;
+@synthesize favouritesButton,alphabetsArray,universityCode;
 @synthesize sections = _sections;
 @synthesize sectionToLetterMap = _sectionToLetterMap;
 
@@ -56,10 +55,10 @@
    // self.tableView.frame = CGRectMake(0,self.navigationController.navigationBar.frame.size.height, 320, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height);
     
     
-    PFQuery *queryForUniversityName = [PFQuery queryWithClassName:@"Universities"];
-    [queryForUniversityName whereKey:@"Name" equalTo:universityName];
-    PFObject *universityObject = [queryForUniversityName getFirstObject];
-    self.universityCode = [universityObject valueForKey:@"PUBUKPRN"];
+//    PFQuery *queryForUniversityName = [PFQuery queryWithClassName:@"Universities"];
+//    [queryForUniversityName whereKey:@"Name" equalTo:universityName];
+//    PFObject *universityObject = [queryForUniversityName getFirstObject];
+//    self.universityCode = [universityObject valueForKey:@"PUBUKPRN"];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
     [query whereKey:@"PUBUKPRN" equalTo:self.universityCode];

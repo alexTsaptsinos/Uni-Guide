@@ -14,6 +14,8 @@
 
 @implementation OpenDaysUniversityPageTableViewController
 
+@synthesize universityCode;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

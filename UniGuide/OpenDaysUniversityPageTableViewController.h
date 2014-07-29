@@ -10,4 +10,6 @@
 
 @interface OpenDaysUniversityPageTableViewController : UITableViewController
 
+@property (nonatomic, retain) NSString *universityCode;
+
 @end

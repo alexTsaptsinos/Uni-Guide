@@ -90,6 +90,7 @@
 		EF7F6F9F1980FA200009DB60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F961980FA200009DB60 /* Security.framework */; };
 		EF7F6FA01980FA200009DB60 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F971980FA200009DB60 /* StoreKit.framework */; };
 		EF7F6FA11980FA200009DB60 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F981980FA200009DB60 /* SystemConfiguration.framework */; };
+		EF8B1161198811BB0011D746 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF8B1160198811BB0011D746 /* MapKit.framework */; };
 		EFF5C0681987905A00E87159 /* CourseListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF5C0661987905A00E87159 /* CourseListTableViewController.m */; };
 		EFF5C0691987905A00E87159 /* CourseListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFF5C0671987905A00E87159 /* CourseListTableViewController.xib */; };
 /* End PBXBuildFile section */
@@ -215,6 +216,7 @@
 		EF7F6F961980FA200009DB60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EF7F6F971980FA200009DB60 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EF7F6F981980FA200009DB60 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EF8B1160198811BB0011D746 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		EFF5C0651987905A00E87159 /* CourseListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseListTableViewController.h; sourceTree = "<group>"; };
 		EFF5C0661987905A00E87159 /* CourseListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseListTableViewController.m; sourceTree = "<group>"; };
 		EFF5C0671987905A00E87159 /* CourseListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseListTableViewController.xib; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF8B1161198811BB0011D746 /* MapKit.framework in Frameworks */,
 				EF7F6F991980FA200009DB60 /* AudioToolbox.framework in Frameworks */,
 				EF7F6F9A1980FA200009DB60 /* CFNetwork.framework in Frameworks */,
 				EF7F6F9B1980FA200009DB60 /* CoreLocation.framework in Frameworks */,
@@ -276,6 +279,7 @@
 		A4C6C896197AD22F0065311C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF8B1160198811BB0011D746 /* MapKit.framework */,
 				EF7F6F901980FA200009DB60 /* AudioToolbox.framework */,
 				EF7F6F911980FA200009DB60 /* CFNetwork.framework */,
 				EF7F6F921980FA200009DB60 /* CoreLocation.framework */,

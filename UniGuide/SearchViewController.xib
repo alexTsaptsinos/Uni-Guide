@@ -6,10 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController">
             <connections>
-                <outlet property="courseTextFieldSearchViewController" destination="w8m-9N-bos" id="2Gl-Ap-b0e"/>
-                <outlet property="locationTextFieldSearchViewController" destination="HsK-pi-0U8" id="kgK-ap-1Y7"/>
-                <outlet property="searchButtonSearchViewController" destination="PeR-2K-tBa" id="Nam-y9-De8"/>
-                <outlet property="universityTextFieldSearchViewController" destination="Mkv-St-Ha4" id="iKm-j0-bSn"/>
+                <outlet property="universityTextField" destination="cLl-HB-tnh" id="IdM-MY-ELj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,46 +15,19 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Course..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w8m-9N-bos">
-                    <rect key="frame" x="50" y="101" width="97" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="University..." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cLl-HB-tnh">
+                    <rect key="frame" x="20" y="68" width="280" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
-                        <outlet property="delegate" destination="-1" id="Ban-EO-kl3"/>
+                        <outlet property="delegate" destination="-1" id="TRp-o0-92s"/>
                     </connections>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="University..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mkv-St-Ha4">
-                    <rect key="frame" x="50" y="172" width="97" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="e7b-ph-89H"/>
-                    </connections>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Location..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HsK-pi-0U8">
-                    <rect key="frame" x="50" y="253" width="97" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="YHk-hn-o9x"/>
-                    </connections>
-                </textField>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PeR-2K-tBa">
-                    <rect key="frame" x="129" y="383" width="48" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Search">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="searchButtonSearchViewControllerPressed:" destination="-1" eventType="touchUpInside" id="b6B-GF-f8u"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="0.75633435140000005" blue="0.80664558659999996" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>

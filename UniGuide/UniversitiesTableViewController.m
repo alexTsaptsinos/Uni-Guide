@@ -284,7 +284,13 @@
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:newBackButton];
     
-    courseListTableViewController.universityName = cell.textLabel.text;
+    PFQuery *queryForUniversityCode = [PFQuery queryWithClassName:@"Universities"];
+    [queryForUniversityCode whereKey:@"Name" equalTo:cell.textLabel.text];
+    PFObject *universityObject = [queryForUniversityCode getFirstObject];
+    courseListTableViewController.universityCode = [universityObject valueForKey:@"PUBUKPRN"];
+    openDaysUniversityPageTableViewController.universityCode = [universityObject valueForKey:@"PUBUKPRN"];
+    contactUniversityPageViewController.universityCode = [universityObject valueForKey:@"UKPRN"];
+    contactUniversityPageViewController.universityName = cell.textLabel.text;
     
     [self.navigationController pushViewController:universityPageTabBarController animated:YES];
 }
