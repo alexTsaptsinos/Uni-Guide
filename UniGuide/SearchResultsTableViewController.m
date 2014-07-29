@@ -122,12 +122,14 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView2 dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     Courses *tempCourse = allCourses[indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@",tempCourse.courseName,tempCourse.university];
+    cell.textLabel.text = tempCourse.courseName;
+    cell.detailTextLabel.text = tempCourse.university;
+    cell.detailTextLabel.textColor = [UIColor grayColor];
     cell.textLabel.font=[UIFont systemFontOfSize:15.0];
 
     
@@ -201,11 +203,22 @@
     
     Courses *tempCourse = allCourses[indexPath.row];
     
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    
+    UILabel *courseTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+    
+    cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    courseTitle.numberOfLines = 2;
+    courseTitle.text = cell.textLabel.text;
+    courseTitle.textAlignment = NSTextAlignmentCenter;
+    
+    coursePageTabBarController.navigationItem.titleView = courseTitle;
+    
 
     courseInfoCoursePageViewController.universityNameLabel.text =tempCourse.university;
     
     
-    coursePageTabBarController.navigationItem.title = tempCourse.courseName;
     
     favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favouritesButton"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
     favouritesButton.tintColor = [UIColor grayColor];

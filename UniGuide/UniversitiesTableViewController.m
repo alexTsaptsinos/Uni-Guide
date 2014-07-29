@@ -11,6 +11,8 @@
 #import "CourseListTableViewController.h"
 #import "UniInfoCoursePageViewController.h"
 #import "OpenDaysUniversityPageTableViewController.h"
+#import <UIKit/UIKit.h>
+#import "Parse/Parse.h"
 
 @interface UniversitiesTableViewController () <UISearchBarDelegate,UISearchDisplayDelegate> {
     
@@ -84,7 +86,7 @@
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
     [query orderByAscending:@"SortableName"];
-    
+
     return query;
 }
 
@@ -141,6 +143,8 @@
     [alphabetsArray addObject:@"Z"];
 }
 
+#pragma mark - methods for sections and indexing
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == self.tableView) {
      return self.sections.allKeys.count;
@@ -158,6 +162,8 @@
     }
     else
     {
+        NSLog(@"%d", self.searchResults.count);
+
         return self.searchResults.count;
     }
 }
@@ -198,7 +204,6 @@
 #pragma mark - methods for search feature
 
 -(void)filterResults:(NSString *)searchTerm {
-    [self.searchResults removeAllObjects];
     
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     
@@ -206,6 +211,7 @@
     //query.limit = 415;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [self.searchResults removeAllObjects];
         [self.searchResults addObjectsFromArray:objects];
        [self.searchDisplayController.searchResultsTableView reloadData];
     }];
@@ -243,6 +249,8 @@
     return cell;
 }
 
+#pragma mark - methods for when select a row
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITabBarController *universityPageTabBarController = [[UITabBarController alloc] init];
@@ -250,7 +258,7 @@
     
     UniInfoCoursePageViewController *uniInfoCoursePageViewController = [[UniInfoCoursePageViewController alloc]init];
     
-    CourseListTableViewController *courseListTableViewController = [[CourseListTableViewController alloc] init];
+    CourseListTableViewController *courseListTableViewController = [[CourseListTableViewController alloc] initWithNibName:@"CourseListTableViewController" bundle:nil];
     
     OpenDaysUniversityPageTableViewController *openDaysUniversityPageTableViewController = [[OpenDaysUniversityPageTableViewController alloc] init];
     
@@ -275,6 +283,8 @@
     
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:newBackButton];
+    
+    courseListTableViewController.universityName = cell.textLabel.text;
     
     [self.navigationController pushViewController:universityPageTabBarController animated:YES];
 }

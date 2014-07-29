@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CourseListTableViewController">
             <connections>
-                <outlet property="searchDisplayController" destination="u8l-Pr-1dN" id="rvk-N5-Lh3"/>
+                <outlet property="searchDisplayController" destination="fEf-Z0-NWS" id="FUW-j3-vDT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,13 +16,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <searchBar key="tableHeaderView" contentMode="redraw" id="UBr-mR-MMQ">
+            <searchBar key="tableHeaderView" contentMode="redraw" id="p6v-3x-jd4">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                 <textInputTraits key="textInputTraits"/>
                 <connections>
-                    <outlet property="delegate" destination="-1" id="bvg-tK-tT7"/>
+                    <outlet property="delegate" destination="-1" id="mQb-UY-ZG4"/>
                 </connections>
             </searchBar>
             <connections>
@@ -30,13 +31,13 @@
                 <outlet property="delegate" destination="-1" id="9aC-8N-iBw"/>
             </connections>
         </tableView>
-        <searchDisplayController id="u8l-Pr-1dN">
+        <searchDisplayController id="fEf-Z0-NWS">
             <connections>
-                <outlet property="delegate" destination="-1" id="P7t-fK-lE2"/>
-                <outlet property="searchBar" destination="UBr-mR-MMQ" id="Kqr-Ev-rV2"/>
-                <outlet property="searchContentsController" destination="-1" id="VFw-2q-oo0"/>
-                <outlet property="searchResultsDataSource" destination="-1" id="LPP-1x-Sqf"/>
-                <outlet property="searchResultsDelegate" destination="-1" id="OhM-uO-3Dq"/>
+                <outlet property="delegate" destination="-1" id="vad-tE-hji"/>
+                <outlet property="searchBar" destination="p6v-3x-jd4" id="PHT-zs-YgR"/>
+                <outlet property="searchContentsController" destination="-1" id="dzs-Km-QXQ"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="808-Cc-WwM"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="dan-rQ-HdW"/>
             </connections>
         </searchDisplayController>
     </objects>

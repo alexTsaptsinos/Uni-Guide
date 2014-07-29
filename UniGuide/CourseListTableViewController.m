@@ -2,38 +2,140 @@
 //  CourseListTableViewController.m
 //  UniGuide
 //
-//  Created by AlexTsaptsinos on 23/07/2014.
+//  Created by AlexTsaptsinos on 29/07/2014.
 //  Copyright (c) 2014 ATsaptsinos. All rights reserved.
 //
 
 #import "CourseListTableViewController.h"
+#import "CourseInfoCoursePageViewController.h"
+#import "StudentSatisfactionCoursePageViewController.h"
+#import "UniInfoCoursePageViewController.h"
+#import "ReviewsCoursePageViewController.h"
 
-@interface CourseListTableViewController ()
+@interface CourseListTableViewController () <UISearchBarDelegate,UISearchDisplayDelegate>
+
+{
+    NSArray *_universityCourses;
+    NSArray *_universityCourseNames;
+}
+
+@property (nonatomic, retain) NSMutableDictionary *sections;
+@property (nonatomic,retain) NSMutableDictionary *sectionToLetterMap;
+@property (nonatomic, retain) NSArray *searchResults;
+@property (nonatomic, retain) NSString *universityCode;
 
 @end
 
 @implementation CourseListTableViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
+@synthesize universityName,favouritesButton,alphabetsArray;
+@synthesize sections = _sections;
+@synthesize sectionToLetterMap = _sectionToLetterMap;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-        self.title = NSLocalizedString(@"Course List", @"Course List");
+        self.tabBarItem.title = NSLocalizedString(@"Course List", @"Course List");
         self.tabBarItem.image = [UIImage imageNamed:@"courses-32"];
+        self.sectionToLetterMap = [NSMutableDictionary dictionary];
     }
     return self;
+}
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.navigationController.navigationBar.translucent = NO;
+    self.tabBarController.tabBar.translucent = NO;
+    
+//    UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);
+//    self.tableView.contentInset = inset;
+  //  self.edgesForExtendedLayout = UIRectEdgeNone;
+   // self.tableView.frame = CGRectMake(0,self.navigationController.navigationBar.frame.size.height, 320, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height);
+    
+    
+    PFQuery *queryForUniversityName = [PFQuery queryWithClassName:@"Universities"];
+    [queryForUniversityName whereKey:@"Name" equalTo:universityName];
+    PFObject *universityObject = [queryForUniversityName getFirstObject];
+    self.universityCode = [universityObject valueForKey:@"PUBUKPRN"];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
+    [query whereKey:@"PUBUKPRN" equalTo:self.universityCode];
+    [query setLimit:600];
+    [query orderByAscending:@"TITLE"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+        _universityCourseNames = [objects valueForKey:@"TITLE"];
+        _sections = [[NSMutableDictionary alloc] init]; ///Global Object
+        //NSLog(@"No. of courses: %d and these are the courses: %@", _universityCourseNames.count,_universityCourseNames);
+        
+        
+        BOOL found;
+        
+        for (NSString *temp in _universityCourseNames)
+        {
+            //NSLog(@"temp: %@",temp);
+            if (temp == (id)[NSNull null] || temp.length == 0 ) {
+                //ignore it
+            } else {
+                NSString *c = [temp substringToIndex:1];
+                
+                found = NO;
+                
+                for (NSString *str in [_sections allKeys])
+                {
+                    if ([str isEqualToString:c])
+                    {
+                        found = YES;
+                    }
+                }
+                
+                
+                if (!found)
+                {
+                    [_sections setValue:[[NSMutableArray alloc] init] forKey:c];
+                }
+
+                [[_sections objectForKey:[temp substringToIndex:1]] addObject:temp];
+            }
+        }
+        
+       // NSLog(@"Sections: %@", _sections);
+        
+        [self.tableView reloadData];
+        
+        
+    }];
+    
+    self.alphabetsArray = [[NSMutableArray alloc] init];
+    [self.alphabetsArray addObject:@"A"];
+    [self.alphabetsArray addObject:@"B"];
+    [self.alphabetsArray addObject:@"C"];
+    [self.alphabetsArray addObject:@"D"];
+    [self.alphabetsArray addObject:@"E"];
+    [self.alphabetsArray addObject:@"F"];
+    [self.alphabetsArray addObject:@"G"];
+    [self.alphabetsArray addObject:@"H"];
+    [self.alphabetsArray addObject:@"I"];
+    [self.alphabetsArray addObject:@"J"];
+    [self.alphabetsArray addObject:@"K"];
+    [self.alphabetsArray addObject:@"L"];
+    [self.alphabetsArray addObject:@"M"];
+    [self.alphabetsArray addObject:@"N"];
+    [self.alphabetsArray addObject:@"O"];
+    [self.alphabetsArray addObject:@"P"];
+    [self.alphabetsArray addObject:@"Q"];
+    [self.alphabetsArray addObject:@"R"];
+    [self.alphabetsArray addObject:@"S"];
+    [self.alphabetsArray addObject:@"T"];
+    [self.alphabetsArray addObject:@"U"];
+    [self.alphabetsArray addObject:@"V"];
+    [self.alphabetsArray addObject:@"W"];
+    [self.alphabetsArray addObject:@"X"];
+    [self.alphabetsArray addObject:@"Y"];
+    [self.alphabetsArray addObject:@"Z"];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,82 +148,178 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
-    // Return the number of sections.
-    return 1;
+     //Return the number of sections.
+    if (tableView == self.tableView) {
+    if (_universityCourseNames.count < 8) {
+            return 1;
+        } else {
+    return [[_sections allKeys]count];
+      }
+    } else {
+        return 1;
+    }
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return self.searchResults.count;
+    } else {
+    if (_universityCourseNames.count <8) {
+            return _universityCourseNames.count;
+        } else {
+    return [[_sections valueForKey:[[[_sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:section]] count];
+    }
+    }
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    static NSString *cellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     // Configure the cell...
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
     
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        cell.textLabel.text = [self.searchResults objectAtIndex:indexPath.row];
+    } else {
+        if (_universityCourseNames.count < 8) {
+            cell.textLabel.text = [_universityCourseNames objectAtIndex:indexPath.row];
+        } else {
+            NSString *titleText = [[_sections valueForKey:[[[_sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+            
+            cell.textLabel.text = titleText; [_universityCourseNames objectAtIndex:indexPath.row];
+    }
+    }
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - methods for sections
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    // Return NO if you do not want the specified item to be editable.
+    if (tableView == self.tableView) {
+    if (_universityCourseNames.count < 8) {
+            return NULL;
+        } else {
+    return [[[_sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:section];
+      }
+    } else {
+        return NULL;
+    }
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    if (tableView == self.tableView) {
+    if (_universityCourseNames.count <8) {
+            return NULL;
+        } else {
+    return [[_sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+      }
+    } else {
+        return NULL;
+    }
+}
+
+#pragma mark - methods for search
+
+- (void)filterContentForSearchText:(NSString*)searchText
+{
+    NSLog(@"%@", _universityCourseNames);
+    
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
+    
+    self.searchResults = [_universityCourseNames filteredArrayUsingPredicate:resultPredicate];
+    [self.searchDisplayController.searchResultsTableView reloadData];
+}
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString];
     return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:<#@"Nib name"#> bundle:nil];
+    CourseInfoCoursePageViewController *courseInfoCoursePageViewController = [[CourseInfoCoursePageViewController alloc] init];
+    
+    StudentSatisfactionCoursePageViewController *studentSatisfactionCoursePageViewController = [[StudentSatisfactionCoursePageViewController alloc]init];
+    
+    ReviewsCoursePageViewController *reviewsCoursePageViewController = [[ReviewsCoursePageViewController alloc] init];
+    
+    UniInfoCoursePageViewController *uniInfoCoursePageViewController = [[UniInfoCoursePageViewController alloc] init];
+    
+    UITabBarController *coursePageTabBarController = [[UITabBarController alloc] init];
+    
+    coursePageTabBarController.viewControllers = [NSArray arrayWithObjects:courseInfoCoursePageViewController,studentSatisfactionCoursePageViewController,reviewsCoursePageViewController,uniInfoCoursePageViewController,nil];
     
     // Pass the selected object to the new view controller.
     
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    
+    UILabel *courseTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+    
+    if (tableView != self.searchDisplayController.searchResultsTableView) {
+        cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    } else {
+        cell = [self.searchDisplayController.searchResultsTableView cellForRowAtIndexPath:indexPath];
+    }
+    
+    courseTitle.numberOfLines = 2;
+    courseTitle.text = cell.textLabel.text;
+    courseTitle.textAlignment = NSTextAlignmentCenter;
+    
+    coursePageTabBarController.navigationItem.titleView = courseTitle;
+    
+    favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favouritesButton"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
+    favouritesButton.tintColor = [UIColor grayColor];
+    [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+    
     // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    [self.navigationController pushViewController:coursePageTabBarController animated:YES];
 }
-*/
+
+-(void) customBtnPressed
+{
+    if (favouritesButton.tintColor == [UIColor yellowColor]) {
+        favouritesButton.tintColor = [UIColor grayColor];
+    }
+    else if (favouritesButton.tintColor == [UIColor grayColor]) {
+        favouritesButton.tintColor = [UIColor yellowColor];
+    }
+    
+}
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    self.navigationController.navigationBar.translucent = YES;
+
+    [UIView animateWithDuration:0.2 animations: ^{
+        CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+        double yDiff = self.navigationController.navigationBar.frame.origin.y - self.navigationController.navigationBar.frame.size.height - statusBarFrame.size.height;
+        self.navigationController.navigationBar.frame = CGRectMake(0, yDiff, 320, self.navigationController.navigationBar.frame.size.height);
+    }];
+    
+}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    [UIView animateWithDuration:0.2 animations:^{
+        CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+        double yDiff = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + statusBarFrame.size.height;
+        self.navigationController.navigationBar.frame = CGRectMake(0, yDiff, 320, self.navigationController.navigationBar.frame.size.height);
+    }];
+}
+
 
 @end

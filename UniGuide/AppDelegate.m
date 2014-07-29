@@ -18,6 +18,7 @@
     [Parse setApplicationId:@"60ookCj5Tn6sv4ccTpF1jNP23I4F2h0Kme5aO3HJ"
                   clientKey:@"29Pqd5GZTxXfe4QBqZWpZadKu5xkacKxbW7whZo6"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+
     
     //create Main Menu
     UIViewController *mainMenuViewController = [[MainMenuViewController alloc] initWithNibName:@"MainMenuViewController" bundle:nil];

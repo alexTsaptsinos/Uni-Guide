@@ -9,7 +9,6 @@
 #import "CourseInfoCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
 #import "OpenDaysTableViewController.h"
-#import "CourseListTableViewController.h"
 #import "ContactUniversityPageViewController.h"
 
 @interface CourseInfoCoursePageViewController ()
