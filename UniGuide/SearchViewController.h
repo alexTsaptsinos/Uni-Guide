@@ -16,18 +16,22 @@
     NSMutableArray *autocompleteUniversities;
     UITableView *autocompleteUniversitiesTableView;
     IBOutlet UITextField *universityTextField;
+    IBOutlet UITextField *courseTextField;
+    IBOutlet UITextField *locationTextField;
 }
 
 @property (nonatomic, retain) NSMutableArray *universitiesFromParse;
+@property (nonatomic, retain) NSMutableArray *coursesFromParse;
 @property (nonatomic, retain) NSArray *autocompleteUniversities;
 @property (nonatomic, retain) UITableView *autocompleteUniversitiesTableView;
 @property (nonatomic, retain) UITextField *universityTextField;
+@property (nonatomic, retain) UITextField *courseTextField;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) NSNumber *whichTextFieldActive;
+@property (nonatomic, retain) UITextField *locationTextField;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
 
-
-//- (IBAction)searchButtonSearchViewControllerPressed:(id)sender;
-//@property (weak, nonatomic) IBOutlet UIButton *searchButtonSearchViewController;
-//- (IBAction)editingChanged;
-//- (void)searchUniversitiesAutocompleteEntriesWithSubstring:(NSString *)substring;
 - (void)filterUniversitiesForSearchText:(NSString*)searchText;
+- (IBAction)searchButtonPressed:(id)sender;
 
 @end

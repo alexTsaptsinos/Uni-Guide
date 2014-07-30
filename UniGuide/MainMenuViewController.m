@@ -8,7 +8,6 @@
 
 #import "MainMenuViewController.h"
 #import "AppDelegate.h"
-#import "MainViewController.h"
 
 
 @interface MainMenuViewController ()
@@ -17,13 +16,19 @@
 
 @implementation MainMenuViewController
 
-@synthesize uniGuideMainMenuLabel,uniGuideLogoMainMenuImageView,searchMenuButtonLabel,discoverMenuButtonLabel,favouritesMenuButtonLabel,openDaysMenuButtonLabel,universitiesMenuButtonLabel;
+@synthesize uniGuideLogoMainMenuImageView,searchMenuButtonLabel,discoverMenuButtonLabel,favouritesMenuButtonLabel,openDaysMenuButtonLabel,universitiesMenuButtonLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+//        label.textColor = [UIColor whiteColor];
+//        //label.backgroundColor = [UIColor clearColor];
+//        label.text = @"Home";
+//        self.navigationItem.titleView = label;
+        
         self.navigationItem.title = @"Home";
     }
     return self;
@@ -33,6 +38,16 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.uniGuideLogoMainMenuImageView.image = [UIImage imageNamed:@"ui-14"];
+    self.searchMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    self.discoverMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    self.openDaysMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    self.universitiesMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    self.favouritesMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+
+    
     
     //parse cloud code test
     [PFCloud callFunctionInBackground:@"hello"
@@ -131,14 +146,14 @@
 
 //methods so that navigation bar does not appear on home screen
 
-- (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [super viewWillDisappear:animated];
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [self.navigationController setNavigationBarHidden:YES animated:animated];
+//    [super viewWillAppear:animated];
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [self.navigationController setNavigationBarHidden:NO animated:animated];
+//    [super viewWillDisappear:animated];
+//}
 
 @end

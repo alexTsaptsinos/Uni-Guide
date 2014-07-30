@@ -25,6 +25,9 @@
     
     //create Navigation Controller
     UINavigationController *myNavigationController = [[UINavigationController alloc] initWithRootViewController:mainMenuViewController];
+    myNavigationController.navigationBar.tintColor = [UIColor whiteColor];
+    myNavigationController.navigationBar.barTintColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    myNavigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

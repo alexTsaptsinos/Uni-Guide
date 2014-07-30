@@ -8,7 +8,6 @@
 
 #import "RightPanelViewController.h"
 #import "SortFilterViewController.h"
-#import "MainViewController.h"
 #import "SearchResultsTableViewController.h"
 #import "FilterTableViewController.h"
 

@@ -20,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *favouritesMenuButtonLabel;
 @property (weak, nonatomic) IBOutlet UIButton *openDaysMenuButtonLabel;
 @property (weak, nonatomic) IBOutlet UIButton *universitiesMenuButtonLabel;
-@property (weak, nonatomic) IBOutlet UILabel *uniGuideMainMenuLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *uniGuideLogoMainMenuImageView;
 
 - (IBAction)searchMenuButtonPressed:(id)sender;

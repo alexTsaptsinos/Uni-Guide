@@ -11,7 +11,6 @@
 #import "StudentSatisfactionCoursePageViewController.h"
 #import "ReviewsCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
-#import "Courses.h"
 #import "RightPanelViewController.h"
 
 
@@ -26,7 +25,7 @@
 
 @implementation SearchResultsTableViewController
 
-@synthesize allCourses,favouritesButton,tableView,customFilterButton;
+@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityString,searchResultsUniversityCodes;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,18 +48,70 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    
+    NSLog(@"searched university: %@ and searched course: %@", self.universitySearchedString,self.courseSearchedString);
     
     
+    // If user has searched with university, first retrieve the PUBUKPRN of the uni
     
-    
-    [self addFirstCourses];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    if ([self.universitySearchedString length] != 0) {
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"Universities"];
+        [query whereKey:@"Name" equalTo:universitySearchedString];
+        PFObject *universityObject = [query getFirstObject];
+        universityString = [universityObject objectForKey:@"PUBUKPRN"];
+        NSLog(@"this is the pubukprn: %@", universityString);
+        
+        //if user has searched with only university then perform this query
+        if ([self.courseSearchedString length] == 0) {
+            PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
+            [bigQuery whereKey:@"PUBUKPRN" matchesRegex:universityString modifiers:@"i"];
+            [bigQuery whereKeyExists:@"TITLE"];
+            [bigQuery setLimit:600];
+            [bigQuery orderByAscending:@"TITLE"];
+            [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                //NSLog(@"objects: %@",objects);
+                self.searchResults = [objects valueForKey:@"TITLE"];
+                //NSLog(@"search results: %@",self.searchResults);
+                [self.tableView reloadData];
+            }];
+        
+        
+        }
+        //if the user has searched with university and course then perform this query
+        
+        else {
+            PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
+            [bigQuery whereKey:@"PUBUKPRN" matchesRegex:universityString modifiers:@"i"];
+            [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
+            [bigQuery setLimit:100];
+            [bigQuery whereKeyExists:@"TITLE"];
+            [bigQuery orderByAscending:@"TITLE"];
+            [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                //NSLog(@"objects: %@",objects);
+                self.searchResults = [objects valueForKey:@"TITLE"];
+                //NSLog(@"search results: %@",self.searchResults);
+                [self.tableView reloadData];
+            }];
+        }
+    }
+    else if ([self.courseSearchedString length] != 0) {
+        PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
+        [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
+        [bigQuery setLimit:1000];
+        [bigQuery whereKeyExists:@"TITLE"];
+        [bigQuery orderByAscending:@"TITLE"];
+        [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+            //NSLog(@"objects: %@",objects);
+            self.searchResults = [objects valueForKey:@"TITLE"];
+            self.searchResultsUniversityCodes = [objects valueForKey:@"PUBUKPRN"];
+            NSLog(@"search results: %@",self.searchResults);
+            [self.tableView reloadData];
+        }];
+    }
 }
+
 
 - (void)viewDidUnload
 {
@@ -72,7 +123,6 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    allCourses = [Courses getAll];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -80,7 +130,7 @@
     [super viewDidAppear:animated];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark View Will/Did Disappear
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -103,16 +153,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
+    
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
+    
     // Return the number of rows in the section.
-    return [allCourses count];
+    NSLog(@"count: %d",self.searchResults.count);
+    return self.searchResults.count;
 }
 
 // set cell labels and configure
@@ -125,63 +176,32 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    Courses *tempCourse = allCourses[indexPath.row];
-    
-    cell.textLabel.text = tempCourse.courseName;
-    cell.detailTextLabel.text = tempCourse.university;
-    cell.detailTextLabel.textColor = [UIColor grayColor];
-    cell.textLabel.font=[UIFont systemFontOfSize:15.0];
-
     
     // Configure the cell...
     
+    cell.textLabel.text = [self.searchResults objectAtIndex:indexPath.row];
+    cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
+    if ([self.universitySearchedString isEqualToString:@""]) {
+        
+        PFQuery *queryForUniversityNames = [PFQuery queryWithClassName:@"Universities"];
+        [queryForUniversityNames whereKey:@"PUBUKPRN" equalTo:[self.searchResultsUniversityCodes objectAtIndex:indexPath.row]];
+        PFObject *university = [queryForUniversityNames getFirstObject];
+        NSString *universityName = [university valueForKey:@"Name"];
+        cell.detailTextLabel.text = universityName;
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+        
+        
+    } else {
+        cell.detailTextLabel.text = self.universitySearchedString;
+        cell.detailTextLabel.textColor = [UIColor grayColor];
+    }
     
     return cell;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark - Table view delegate
 
- //In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
+//In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here, for example:
@@ -201,7 +221,6 @@
     
     // Pass the selected object to the new view controller.
     
-    Courses *tempCourse = allCourses[indexPath.row];
     
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     
@@ -215,8 +234,7 @@
     
     coursePageTabBarController.navigationItem.titleView = courseTitle;
     
-
-    courseInfoCoursePageViewController.universityNameLabel.text =tempCourse.university;
+    
     
     
     
@@ -226,28 +244,6 @@
     
     // Push the view controller.
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];
-}
-
-//enter some sample courses
-
-- (void) addFirstCourses{
-    
-    Courses * newCourse = [[Courses alloc] init];
-    newCourse.courseName = @"Accounting";
-    newCourse.university = @"Loughborough University";
-    [Courses add:newCourse];
-    
-    newCourse = [[Courses alloc] init];
-    newCourse.courseName = @"Business";
-    newCourse.university = @"Newcastle University";
-    [Courses add:newCourse];
-    
-    newCourse = [[Courses alloc] init];
-    newCourse.courseName = @"Chemistry";
-    newCourse.university = @"Oxford University";
-    [Courses add:newCourse];
-    
-    
 }
 
 //method for Favourites button
@@ -274,7 +270,7 @@
                         [self.navigationController pushViewController:rightPanelViewController animated:NO];
                     }
                     completion:nil];
-
+    
     
 }
 

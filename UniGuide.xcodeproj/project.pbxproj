@@ -51,6 +51,24 @@
 		EF5533791981AA1400120FEA /* unchecked_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5533781981AA1400120FEA /* unchecked_checkbox.png */; };
 		EF5533821983BA1100120FEA /* UniversitiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5533801983BA1000120FEA /* UniversitiesTableViewController.m */; };
 		EF5533831983BA1100120FEA /* UniversitiesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5533811983BA1100120FEA /* UniversitiesTableViewController.xib */; };
+		EF66F5CB1988F0890048A82E /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5C51988F0890048A82E /* AppIcon29x29.png */; };
+		EF66F5CC1988F0890048A82E /* AppIcon29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5C61988F0890048A82E /* AppIcon29x29@2x.png */; };
+		EF66F5CD1988F0890048A82E /* AppIcon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5C71988F0890048A82E /* AppIcon40x40.png */; };
+		EF66F5CE1988F0890048A82E /* AppIcon40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5C81988F0890048A82E /* AppIcon40x40@2x.png */; };
+		EF66F5CF1988F0890048A82E /* AppIcon50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5C91988F0890048A82E /* AppIcon50x50.png */; };
+		EF66F5D01988F0890048A82E /* AppIcon50x50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5CA1988F0890048A82E /* AppIcon50x50@2x.png */; };
+		EF66F5D51988F0DF0048A82E /* AppIcon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5D11988F0DF0048A82E /* AppIcon57x57.png */; };
+		EF66F5D61988F0DF0048A82E /* AppIcon57x57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5D21988F0DF0048A82E /* AppIcon57x57@2x.png */; };
+		EF66F5D71988F0DF0048A82E /* AppIcon60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5D31988F0DF0048A82E /* AppIcon60x60.png */; };
+		EF66F5D81988F0DF0048A82E /* AppIcon60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5D41988F0DF0048A82E /* AppIcon60x60@2x.png */; };
+		EF66F5DF1988F0E80048A82E /* AppIcon72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5D91988F0E70048A82E /* AppIcon72x72.png */; };
+		EF66F5E01988F0E80048A82E /* AppIcon72x72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5DA1988F0E70048A82E /* AppIcon72x72@2x.png */; };
+		EF66F5E11988F0E80048A82E /* AppIcon76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5DB1988F0E70048A82E /* AppIcon76x76.png */; };
+		EF66F5E21988F0E80048A82E /* AppIcon76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5DC1988F0E70048A82E /* AppIcon76x76@2x.png */; };
+		EF66F5E31988F0E80048A82E /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5DD1988F0E80048A82E /* iTunesArtwork.png */; };
+		EF66F5E41988F0E80048A82E /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5DE1988F0E80048A82E /* iTunesArtwork@2x.png */; };
+		EF66F5E61988F1A10048A82E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5E51988F1A10048A82E /* Default.png */; };
+		EF66F5E819891A8B0048A82E /* ui-14.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5E719891A8B0048A82E /* ui-14.png */; };
 		EF7F6F0B197E82C90009DB60 /* Favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */; };
 		EF7F6F0D197E82D20009DB60 /* Happy_Face@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */; };
 		EF7F6F0F197E82F90009DB60 /* Top_Charts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */; };
@@ -59,8 +77,6 @@
 		EF7F6F2B197E886F0009DB60 /* student2-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F2A197E886F0009DB60 /* student2-32.png */; };
 		EF7F6F2D197E887C0009DB60 /* talk-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F2C197E887C0009DB60 /* talk-32.png */; };
 		EF7F6F3B197EAF510009DB60 /* UniGuideLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F3A197EAF510009DB60 /* UniGuideLogo.png */; };
-		EF7F6F3F197EB6740009DB60 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F3D197EB6740009DB60 /* MainViewController.m */; };
-		EF7F6F40197EB6740009DB60 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F3E197EB6740009DB60 /* MainViewController.xib */; };
 		EF7F6F44197EB7130009DB60 /* RightPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */; };
 		EF7F6F45197EB7130009DB60 /* RightPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */; };
 		EF7F6F51197EEA690009DB60 /* OpenDaysTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F4F197EEA690009DB60 /* OpenDaysTableViewController.m */; };
@@ -169,6 +185,24 @@
 		EF55337F1983BA1000120FEA /* UniversitiesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversitiesTableViewController.h; sourceTree = "<group>"; };
 		EF5533801983BA1000120FEA /* UniversitiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversitiesTableViewController.m; sourceTree = "<group>"; };
 		EF5533811983BA1100120FEA /* UniversitiesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniversitiesTableViewController.xib; sourceTree = "<group>"; };
+		EF66F5C51988F0890048A82E /* AppIcon29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon29x29.png; sourceTree = "<group>"; };
+		EF66F5C61988F0890048A82E /* AppIcon29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon29x29@2x.png"; sourceTree = "<group>"; };
+		EF66F5C71988F0890048A82E /* AppIcon40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon40x40.png; sourceTree = "<group>"; };
+		EF66F5C81988F0890048A82E /* AppIcon40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon40x40@2x.png"; sourceTree = "<group>"; };
+		EF66F5C91988F0890048A82E /* AppIcon50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon50x50.png; sourceTree = "<group>"; };
+		EF66F5CA1988F0890048A82E /* AppIcon50x50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon50x50@2x.png"; sourceTree = "<group>"; };
+		EF66F5D11988F0DF0048A82E /* AppIcon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon57x57.png; sourceTree = "<group>"; };
+		EF66F5D21988F0DF0048A82E /* AppIcon57x57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon57x57@2x.png"; sourceTree = "<group>"; };
+		EF66F5D31988F0DF0048A82E /* AppIcon60x60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon60x60.png; sourceTree = "<group>"; };
+		EF66F5D41988F0DF0048A82E /* AppIcon60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon60x60@2x.png"; sourceTree = "<group>"; };
+		EF66F5D91988F0E70048A82E /* AppIcon72x72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon72x72.png; sourceTree = "<group>"; };
+		EF66F5DA1988F0E70048A82E /* AppIcon72x72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon72x72@2x.png"; sourceTree = "<group>"; };
+		EF66F5DB1988F0E70048A82E /* AppIcon76x76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon76x76.png; sourceTree = "<group>"; };
+		EF66F5DC1988F0E70048A82E /* AppIcon76x76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon76x76@2x.png"; sourceTree = "<group>"; };
+		EF66F5DD1988F0E80048A82E /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
+		EF66F5DE1988F0E80048A82E /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
+		EF66F5E51988F1A10048A82E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		EF66F5E719891A8B0048A82E /* ui-14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-14.png"; sourceTree = "<group>"; };
 		EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorites@2x.png"; sourceTree = "<group>"; };
 		EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Happy_Face@2x.png"; sourceTree = "<group>"; };
 		EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Top_Charts@2x.png"; sourceTree = "<group>"; };
@@ -177,9 +211,6 @@
 		EF7F6F2A197E886F0009DB60 /* student2-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "student2-32.png"; sourceTree = "<group>"; };
 		EF7F6F2C197E887C0009DB60 /* talk-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "talk-32.png"; sourceTree = "<group>"; };
 		EF7F6F3A197EAF510009DB60 /* UniGuideLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UniGuideLogo.png; sourceTree = "<group>"; };
-		EF7F6F3C197EB6740009DB60 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		EF7F6F3D197EB6740009DB60 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		EF7F6F3E197EB6740009DB60 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		EF7F6F41197EB7130009DB60 /* RightPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightPanelViewController.h; sourceTree = "<group>"; };
 		EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightPanelViewController.m; sourceTree = "<group>"; };
 		EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightPanelViewController.xib; sourceTree = "<group>"; };
@@ -325,6 +356,24 @@
 		A4C6C89E197AD22F0065311C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EF66F5E719891A8B0048A82E /* ui-14.png */,
+				EF66F5E51988F1A10048A82E /* Default.png */,
+				EF66F5C51988F0890048A82E /* AppIcon29x29.png */,
+				EF66F5C61988F0890048A82E /* AppIcon29x29@2x.png */,
+				EF66F5C71988F0890048A82E /* AppIcon40x40.png */,
+				EF66F5C81988F0890048A82E /* AppIcon40x40@2x.png */,
+				EF66F5C91988F0890048A82E /* AppIcon50x50.png */,
+				EF66F5CA1988F0890048A82E /* AppIcon50x50@2x.png */,
+				EF66F5D11988F0DF0048A82E /* AppIcon57x57.png */,
+				EF66F5D21988F0DF0048A82E /* AppIcon57x57@2x.png */,
+				EF66F5D31988F0DF0048A82E /* AppIcon60x60.png */,
+				EF66F5D41988F0DF0048A82E /* AppIcon60x60@2x.png */,
+				EF66F5D91988F0E70048A82E /* AppIcon72x72.png */,
+				EF66F5DA1988F0E70048A82E /* AppIcon72x72@2x.png */,
+				EF66F5DB1988F0E70048A82E /* AppIcon76x76.png */,
+				EF66F5DC1988F0E70048A82E /* AppIcon76x76@2x.png */,
+				EF66F5DD1988F0E80048A82E /* iTunesArtwork.png */,
+				EF66F5DE1988F0E80048A82E /* iTunesArtwork@2x.png */,
 				EF5533761981AA0D00120FEA /* checked_checkbox.png */,
 				EF5533781981AA1400120FEA /* unchecked_checkbox.png */,
 				EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */,
@@ -394,9 +443,6 @@
 				A4C6C915197AF49A0065311C /* DiscoverViewController.h */,
 				A4C6C916197AF49A0065311C /* DiscoverViewController.m */,
 				A4C6C917197AF49A0065311C /* DiscoverViewController.xib */,
-				EF7F6F3C197EB6740009DB60 /* MainViewController.h */,
-				EF7F6F3D197EB6740009DB60 /* MainViewController.m */,
-				EF7F6F3E197EB6740009DB60 /* MainViewController.xib */,
 				A4C6C910197AF1400065311C /* SearchResultsTableViewController.h */,
 				A4C6C911197AF1400065311C /* SearchResultsTableViewController.m */,
 				A4C6C912197AF1400065311C /* SearchResultsTableViewController.xib */,
@@ -570,25 +616,34 @@
 				EF7F6F73197FF4E10009DB60 /* calendar-32.png in Resources */,
 				A4C6C928197AF6F40065311C /* ReviewsCoursePageViewController.xib in Resources */,
 				EFF5C0691987905A00E87159 /* CourseListTableViewController.xib in Resources */,
+				EF66F5CF1988F0890048A82E /* AppIcon50x50.png in Resources */,
 				EF7F6F6B197FF2500009DB60 /* directions-32.png in Resources */,
 				EF553330198150C400120FEA /* FilterTableViewController.xib in Resources */,
-				EF7F6F40197EB6740009DB60 /* MainViewController.xib in Resources */,
+				EF66F5E21988F0E80048A82E /* AppIcon76x76@2x.png in Resources */,
 				EF7F6F27197E87EA0009DB60 /* city_hall-32.png in Resources */,
 				EF7F6F45197EB7130009DB60 /* RightPanelViewController.xib in Resources */,
 				EF7F6F71197FF45A0009DB60 /* courses-32.png in Resources */,
 				EF7F6F8D198063570009DB60 /* SpecificOpenDayViewController.xib in Resources */,
+				EF66F5D01988F0890048A82E /* AppIcon50x50@2x.png in Resources */,
+				EF66F5E41988F0E80048A82E /* iTunesArtwork@2x.png in Resources */,
 				EF5533831983BA1100120FEA /* UniversitiesTableViewController.xib in Resources */,
+				EF66F5D51988F0DF0048A82E /* AppIcon57x57.png in Resources */,
+				EF66F5CB1988F0890048A82E /* AppIcon29x29.png in Resources */,
 				EF7F6F0D197E82D20009DB60 /* Happy_Face@2x.png in Resources */,
 				EF7F6F3B197EAF510009DB60 /* UniGuideLogo.png in Resources */,
 				A4C6C914197AF1400065311C /* SearchResultsTableViewController.xib in Resources */,
 				EF55332A1981508B00120FEA /* SortFilterViewController.xib in Resources */,
+				EF66F5D81988F0DF0048A82E /* AppIcon60x60@2x.png in Resources */,
 				A4C6C91E197AF6D80065311C /* CourseInfoCoursePageViewController.xib in Resources */,
+				EF66F5E11988F0E80048A82E /* AppIcon76x76.png in Resources */,
 				EF7F6F8719804D940009DB60 /* ReviewComplaintViewController.xib in Resources */,
 				A4C6C94A197C64890065311C /* FavouritesTableViewController.xib in Resources */,
 				EF7F6F8219804D810009DB60 /* AddReviewViewController.xib in Resources */,
 				EF7F6F67197FF0C90009DB60 /* electric_megaphone-32.png in Resources */,
+				EF66F5D61988F0DF0048A82E /* AppIcon57x57@2x.png in Resources */,
 				A4C6C92D197AF7000065311C /* UniInfoCoursePageViewController.xib in Resources */,
 				EF7F6F65197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib in Resources */,
+				EF66F5E61988F1A10048A82E /* Default.png in Resources */,
 				A4C6C919197AF49A0065311C /* DiscoverViewController.xib in Resources */,
 				A4C6C945197BF8C80065311C /* ContactUniversityPageViewController.xib in Resources */,
 				EF5533771981AA0D00120FEA /* checked_checkbox.png in Resources */,
@@ -597,17 +652,25 @@
 				A4C6C936197BF8050065311C /* favouritesButtonSelected.png in Resources */,
 				A4C6C8A2197AD22F0065311C /* InfoPlist.strings in Resources */,
 				A4C6C923197AF6E70065311C /* StudentSatisfactionCoursePageViewController.xib in Resources */,
+				EF66F5E31988F0E80048A82E /* iTunesArtwork.png in Resources */,
 				EF5533791981AA1400120FEA /* unchecked_checkbox.png in Resources */,
 				EF7F6F29197E880E0009DB60 /* info-32.png in Resources */,
 				A4C6C934197BF7670065311C /* favouritesButton.png in Resources */,
 				A4C6C8CA197AD3630065311C /* MainMenuViewController.xib in Resources */,
+				EF66F5E01988F0E80048A82E /* AppIcon72x72@2x.png in Resources */,
 				A4C6C8CF197AD78F0065311C /* SearchViewController.xib in Resources */,
+				EF66F5CE1988F0890048A82E /* AppIcon40x40@2x.png in Resources */,
 				EF7F6F2D197E887C0009DB60 /* talk-32.png in Resources */,
+				EF66F5CD1988F0890048A82E /* AppIcon40x40.png in Resources */,
 				EF7F6F0B197E82C90009DB60 /* Favorites@2x.png in Resources */,
+				EF66F5CC1988F0890048A82E /* AppIcon29x29@2x.png in Resources */,
 				EF7F6F52197EEA690009DB60 /* OpenDaysTableViewController.xib in Resources */,
 				A4C6C8AA197AD22F0065311C /* Images.xcassets in Resources */,
 				EF7F6F2B197E886F0009DB60 /* student2-32.png in Resources */,
+				EF66F5E819891A8B0048A82E /* ui-14.png in Resources */,
 				EF7F6F6F197FF2EC0009DB60 /* today-32.png in Resources */,
+				EF66F5D71988F0DF0048A82E /* AppIcon60x60.png in Resources */,
+				EF66F5DF1988F0E80048A82E /* AppIcon72x72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,7 +705,6 @@
 				EF7F6F55197FA9340009DB60 /* University.m in Sources */,
 				A4C6C8CE197AD78F0065311C /* SearchViewController.m in Sources */,
 				EFF5C0681987905A00E87159 /* CourseListTableViewController.m in Sources */,
-				EF7F6F3F197EB6740009DB60 /* MainViewController.m in Sources */,
 				EF55332F198150C400120FEA /* FilterTableViewController.m in Sources */,
 				A4C6C927197AF6F40065311C /* ReviewsCoursePageViewController.m in Sources */,
 				EF5533821983BA1100120FEA /* UniversitiesTableViewController.m in Sources */,
@@ -766,8 +828,6 @@
 		A4C6C8C1197AD22F0065311C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -785,8 +845,6 @@
 		A4C6C8C2197AD22F0065311C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

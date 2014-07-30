@@ -8,6 +8,7 @@
 
 
 #import "RightPanelViewController.h"
+#import <Parse/Parse.h>
 
 @interface SearchResultsTableViewController: UIViewController
 
@@ -21,6 +22,10 @@
 @property (strong, nonatomic) NSString *universitySearchedString;
 @property (strong, nonatomic) NSString *courseSearchedString;
 @property (strong, nonatomic) NSString *locationSearchedString;
+
+@property (strong, nonatomic) NSMutableArray *searchResults;
+@property (strong, nonatomic) NSString *universityString;
+@property (strong, nonatomic) NSMutableArray *searchResultsUniversityCodes;
 
 
 @end

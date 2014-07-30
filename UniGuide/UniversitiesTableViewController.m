@@ -46,6 +46,8 @@
         self.navigationItem.title = @"Universities";
         self.sections = [NSMutableDictionary dictionary];
         self.sectionToLetterMap = [NSMutableDictionary dictionary];
+        self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+
         
     }
     return self;

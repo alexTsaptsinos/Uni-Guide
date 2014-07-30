@@ -15,7 +15,7 @@
 
 @implementation SearchViewController
 
-@synthesize universityTextField,/*searchButtonSearchViewController*/universitiesFromParse,autocompleteUniversities,autocompleteUniversitiesTableView;
+@synthesize universityTextField,universitiesFromParse,autocompleteUniversities,autocompleteUniversitiesTableView,courseTextField,scrollView,whichTextFieldActive,coursesFromParse,locationTextField,searchButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,19 +31,38 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     //give navigation bar title
-     self.navigationItem.title = @"Search";
+    self.navigationItem.title = @"Search";
+    self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    self.searchButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    [searchButton setEnabled:NO];
     
-    //[searchButtonSearchViewController setEnabled:NO];
+    CALayer *btnLayer = [searchButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:5.0f];
+    
+    //Query for universities
     
     PFQuery *universityQuery = [PFQuery queryWithClassName:@"Universities"];
     [universityQuery setLimit:415];
      [universityQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
         self.universitiesFromParse = [objects valueForKey:@"Name"];
      }];
+    
+    //Query for courses
+    
+//    PFQuery *coursesQuery = [PFQuery queryWithClassName:@"Kiscourse"];
+//    [coursesQuery setLimit:1000];
+//    [coursesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        self.coursesFromParse = [objects valueForKey:@"TITLE"];
+//        NSLog(@"courses: %d",self.coursesFromParse.count);
+//    }];
+    
+    
+    
     self.autocompleteUniversities = [[NSMutableArray alloc] init];
     
     autocompleteUniversitiesTableView = [[UITableView alloc] initWithFrame:
-                             CGRectMake(0, 100, 320, 200) style:UITableViewStylePlain];
+                             CGRectMake(0, 120, 320, 200) style:UITableViewStylePlain];
     autocompleteUniversitiesTableView.delegate = self;
     autocompleteUniversitiesTableView.dataSource = self;
     autocompleteUniversitiesTableView.scrollEnabled = YES;
@@ -51,6 +70,34 @@
     autocompleteUniversitiesTableView.rowHeight = 35;
     [self.view addSubview:autocompleteUniversitiesTableView];
     
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField == self.universityTextField) {
+        self.whichTextFieldActive = [NSNumber numberWithInt:1];
+    }
+    if (textField == self.courseTextField) {
+        [self.scrollView setContentOffset:CGPointMake(0.0,10) animated:YES];
+        self.whichTextFieldActive = [NSNumber numberWithInt:2];
+    }
+    if (textField == self.locationTextField) {
+        [self.scrollView setContentOffset:CGPointMake(0.0,80) animated:YES];
+        self.whichTextFieldActive = [NSNumber numberWithInt:3];
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField == self.universityTextField) {
+        
+    }
+    if (textField == self.courseTextField) {
+        [self.scrollView setContentOffset:CGPointMake(0.0, - 60) animated:YES];
+    }
+    if (textField == self.locationTextField) {
+        [self.scrollView setContentOffset:CGPointMake(0.0,-60) animated:YES];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -78,21 +125,43 @@
     NSString *substring = [NSString stringWithString:textField.text];
     //NSLog(@"%@", substring);
     substring = [substring stringByReplacingCharactersInRange:range withString:string];
-    NSLog(@"%@", substring);
+    //NSLog(@"%@", substring);
     if (substring.length == 0) {
         autocompleteUniversitiesTableView.hidden = YES;
     } else {
     [self filterUniversitiesForSearchText:substring];
+    }
+    
+    if (self.universityTextField.text.length != 0 || self.courseTextField.text.length != 0 || self.locationTextField.text.length != 0) {
+        [self.searchButton setEnabled:YES];
     }
     return YES;
 }
 
 - (void)filterUniversitiesForSearchText:(NSString*)searchText
 {
-   // NSLog(@"from parse: %@", self.universitiesFromParse);
+    //NSLog(@"which text field: %@", self.whichTextFieldActive);
     
     NSPredicate *universitiesPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
-    self.autocompleteUniversities = [universitiesFromParse filteredArrayUsingPredicate:universitiesPredicate];
+    
+    if ([self.whichTextFieldActive intValue] == 1) {
+        self.autocompleteUniversities = [universitiesFromParse filteredArrayUsingPredicate:universitiesPredicate];
+    } else if ([self.whichTextFieldActive intValue] == 2) {
+        //NSLog(@"search string: %@",searchText);
+        PFQuery *coursesQuery = [PFQuery queryWithClassName:@"Kiscourse"];
+        [coursesQuery setLimit:1000];
+        [coursesQuery whereKey:@"TITLE" matchesRegex:searchText modifiers:@"i"];
+        [coursesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            
+            self.autocompleteUniversities = [objects valueForKey:@"TITLE"];
+            //NSSet *uniqueStates = [NSSet setWithArray:[objects valueForKey:@"TITLE"]];
+            //self.autocompleteUniversities = [NSArray arrayWithObjects:uniqueStates, nil];
+            
+            //self.autocompleteUniversities = [objects valueForKey:@"TITLE"];
+           // NSLog(@"courses: %d",self.autocompleteUniversities.count);
+        }];
+    }
+    
     
     if (self.autocompleteUniversities.count == 0) {
         self.autocompleteUniversities = [[NSMutableArray alloc] initWithObjects:@"None", nil];
@@ -101,34 +170,34 @@
     [autocompleteUniversitiesTableView reloadData];
 }
 
+- (IBAction)searchButtonPressed:(id)sender {
+    
+    SearchResultsTableViewController *searchResultsTableViewController = [[SearchResultsTableViewController alloc] initWithNibName:@"SearchResultsTableViewController" bundle:nil];
+    
+    searchResultsTableViewController.universitySearchedString = self.universityTextField.text;
+    searchResultsTableViewController.courseSearchedString = self.courseTextField.text;
+    searchResultsTableViewController.locationSearchedString = self.locationTextField.text;
+    
+    [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
+    
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     
     cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    self.universityTextField.text = cell.textLabel.text;
+    if ([self.whichTextFieldActive intValue] == 1) {
+        self.universityTextField.text = cell.textLabel.text;
+    }
+    else if ([self.whichTextFieldActive intValue] == 2) {
+        self.courseTextField.text = cell.textLabel.text;
+    }
+    
     [self.universityTextField resignFirstResponder];
     autocompleteUniversitiesTableView.hidden = YES;
 }
-
-//- (void)searchUniversitiesAutocompleteEntriesWithSubstring:(NSString *)substring
-//{
-//    [autocompleteUniversities removeAllObjects];
-////    for (NSString *curString in universitiesFromParse) {
-////        NSLog(@"cureString: %@",curString);
-////        NSRange substringRange = [curString rangeOfString:substring];
-////        if (substringRange.location == 0) {
-////            [autocompleteUniversities addObject:curString];
-////        }
-////    }
-//    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", substring];
-//    
-//    self.autocompleteUniversities = [universitiesFromParse filteredArrayUsingPredicate:resultPredicate];    
-//    
-//    NSLog(@"blah: %@", autocompleteUniversities);
-//    [autocompleteUniversitiesTableView reloadData];
-//}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -136,8 +205,18 @@
         [textField resignFirstResponder];
         autocompleteUniversitiesTableView.hidden = YES;
     }
+    if (textField == self.courseTextField) {
+        [textField resignFirstResponder];
+        autocompleteUniversitiesTableView.hidden = YES;
+    }
+    if (textField == self.locationTextField) {
+        [textField resignFirstResponder];
+        autocompleteUniversitiesTableView.hidden = YES;
+    }
     return YES;
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -145,70 +224,4 @@
     // Dispose of any resources that can be recreated.
 }
 
-//Make sure keyboard goes away when hit return for university,course,location search fields
-
-//- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
-//{
-//    [searchBar resignFirstResponder];
-//}
-//
-//- (void) searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-//{
-//    for(UIView *subView in [searchBar subviews]) {
-//        if([subView conformsToProtocol:@protocol(UITextInputTraits)]) {
-//            [(UITextField *)subView setReturnKeyType: UIReturnKeyDone];
-//        } else {
-//            for(UIView *subSubView in [subView subviews]) {
-//                if([subSubView conformsToProtocol:@protocol(UITextInputTraits)]) {
-//                    [(UITextField *)subSubView setReturnKeyType: UIReturnKeyDone];
-//                }
-//            }      
-//        }
-//    }
-//}
-
-//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    UITouch *touch = [[event allTouches] anyObject];
-//    if ([courseSearchField isFirstResponder] && [touch view] != courseSearchField) {
-//        [courseSearchField resignFirstResponder];
-//    }
-//    if ([universitySearchField isFirstResponder] && [touch view] != universitySearchField) {
-//        [universitySearchField resignFirstResponder];
-//    }
-//    if ([locationSearchField isFirstResponder] && [touch view] != locationSearchField) {
-//        [locationSearchField resignFirstResponder];
-//    }
-//    [super touchesBegan:touches withEvent:event];
-//}
-
-//- (BOOL) searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
-//{
-//    return YES;
-//}
-
-//- (IBAction)editingChanged
-//{
-//    if ([universityTextField.text length] != 0 /*|| [universityTextFieldSearchViewController.text length] != 0 || [locationTextFieldSearchViewController.text length] != 0*/) {
-//        [searchButtonSearchViewController setEnabled:YES];
-//    } else {
-//        [searchButtonSearchViewController setEnabled:NO];
-//    }
-//}
-
-//when search button is pressed, push main view controller which contains results table view and filter view
-
-//- (IBAction)searchButtonSearchViewControllerPressed:(id)sender {
-//    
-//    
-//    
-//    SearchResultsTableViewController *searchResultsTableViewController = [[SearchResultsTableViewController alloc] initWithNibName:@"SearchResultsTableViewController" bundle:nil];
-//    
-//    searchResultsTableViewController.universitySearchedString = self.universityTextField.text;
-////    searchResultsTableViewController.universitySearchedString = self.universityTextFieldSearchViewController.text;
-////    searchResultsTableViewController.locationSearchedString = self.locationTextFieldSearchViewController.text;
-//    
-//    [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
-//    
-//}
 @end
