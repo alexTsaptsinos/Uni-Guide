@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSString *universityName;
 @property (strong, nonatomic) NSNumber *uniLatitude;
 @property (strong, nonatomic) NSNumber *uniLongitude;
+@property (nonatomic) BOOL hasLoadedBool;
 
 
 @end

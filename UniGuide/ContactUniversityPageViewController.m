@@ -8,13 +8,13 @@
 
 #import "ContactUniversityPageViewController.h"
 
-@interface ContactUniversityPageViewController ()
+@interface ContactUniversityPageViewController () <MKMapViewDelegate>
 
 @end
 
 @implementation ContactUniversityPageViewController
 
-@synthesize telephoneNumberLabel,faxNumberLabel,websiteAddressLabel,emailAddressLabel,universityCode,contactMapView,universityName,uniLongitude,uniLatitude;
+@synthesize telephoneNumberLabel,faxNumberLabel,websiteAddressLabel,emailAddressLabel,universityCode,contactMapView,universityName,uniLongitude,uniLatitude,hasLoadedBool;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,34 +39,53 @@
     uniLatitude = [university valueForKey:@"LATITUDE"];
     uniLongitude = [university valueForKey:@"LONGITUDE"];
     NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
-   
-//    MKCoordinateRegion homeRegion;
-//    homeRegion.center.latitude = 54.013175;
-//    homeRegion.center.longitude = -2.3252278;
-//    float homeSpanX = 10;
-//    float homeSpanY = 10;
-//    homeRegion.span.latitudeDelta = homeSpanX;
-//    homeRegion.span.longitudeDelta = homeSpanY;
-//    
-//    [self.contactMapView setRegion:homeRegion animated:YES];
     
-    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    point.coordinate = CLLocationCoordinate2DMake([uniLatitude doubleValue], [uniLongitude doubleValue]);
-    point.title = self.universityName;
-    NSArray *anotations = [[NSArray alloc] initWithObjects:point, nil];
-    [contactMapView showAnnotations:anotations animated:YES];
-    
-    MKCoordinateRegion region;
-    region.center.latitude = [uniLatitude doubleValue];
-    region.center.longitude = [uniLongitude doubleValue];
-    float spanX = 0.05;
-    float spanY = 0.05;
-    region.span.latitudeDelta = spanX;
-    region.span.longitudeDelta = spanY;
-    
-    
-    [self.contactMapView setRegion:region animated:YES];
+    self.hasLoadedBool = NO;
 }
+
+- (void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered
+{
+    // Image creation code here
+    if (self.hasLoadedBool == NO) {
+        MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+        point.coordinate = CLLocationCoordinate2DMake([uniLatitude doubleValue], [uniLongitude doubleValue]);
+        point.title = self.universityName;
+        NSArray *anotations = [[NSArray alloc] initWithObjects:point, nil];
+        [contactMapView showAnnotations:anotations animated:YES];
+        
+        
+        MKCoordinateRegion region;
+        
+        //    region.span=span;
+        region.center.latitude = [uniLatitude doubleValue];
+        region.center.longitude = [uniLongitude doubleValue];
+        float spanX = 0.05;
+        float spanY = 0.05;
+        region.span.latitudeDelta = spanX;
+        region.span.longitudeDelta = spanY;
+        
+        [self.contactMapView setRegion:region animated:YES];
+        self.hasLoadedBool = YES;
+    }
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+
+        //Uk Region
+    MKCoordinateRegion homeRegion;
+    homeRegion.center.latitude = 54.013175;
+    homeRegion.center.longitude = -2.3252278;
+    float homeSpanX = 10;
+    float homeSpanY = 10;
+    homeRegion.span.latitudeDelta = homeSpanX;
+    homeRegion.span.longitudeDelta = homeSpanY;
+    
+    [self.contactMapView setRegion:homeRegion animated:YES];
+    
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {
