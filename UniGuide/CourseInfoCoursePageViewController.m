@@ -8,7 +8,6 @@
 
 #import "CourseInfoCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
-#import "OpenDaysTableViewController.h"
 #import "ContactUniversityPageViewController.h"
 
 @interface CourseInfoCoursePageViewController ()
@@ -17,7 +16,7 @@
 
 @implementation CourseInfoCoursePageViewController
 
-@synthesize universityNameLabel;
+@synthesize universityNameLabel,universityName,universityCode,courseName,courseCode;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +34,20 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    
+    PFQuery *universityCodeQuery = [PFQuery queryWithClassName:@"Universities"];
+    [universityCodeQuery whereKey:@"Name" equalTo:universityName];
+    PFObject *object = [universityCodeQuery getFirstObject];
+    universityCode = [object valueForKey:@"PUBUKPRN"];
+    
+    PFQuery *courseCodeQuery = [PFQuery queryWithClassName:@"Kiscourse"];
+    [courseCodeQuery whereKey:@"TITLE" equalTo:courseName];
+    [courseCodeQuery whereKey:@"PUBUKPRN" equalTo:universityCode];
+    PFObject *object2 = [courseCodeQuery getFirstObject];
+    courseCode = [object2 valueForKey:@"KISCOURSEID"];
+    
+    
+    
 
     
 //    self.navigationItem.title = self.courseNameLabel.text;

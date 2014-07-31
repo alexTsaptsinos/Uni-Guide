@@ -11,8 +11,8 @@
 #import "SearchViewController.h"
 #import "DiscoverViewController.h"
 #import "FavouritesTableViewController.h"
-#import "OpenDaysTableViewController.h"
 #import "UniversitiesTableViewController.h"
+#import "OpenDaysQueryTableViewController.h"
 
 @interface MainMenuViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *searchMenuButtonLabel;

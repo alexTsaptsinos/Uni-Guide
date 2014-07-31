@@ -10,7 +10,7 @@
 #import "RightPanelViewController.h"
 #import <Parse/Parse.h>
 
-@interface SearchResultsTableViewController: UIViewController
+@interface SearchResultsTableViewController: UIViewController <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *allCourses;
 @property (nonatomic, strong) UIBarButtonItem *favouritesButton;
@@ -26,6 +26,10 @@
 @property (strong, nonatomic) NSMutableArray *searchResults;
 @property (strong, nonatomic) NSString *universityString;
 @property (strong, nonatomic) NSMutableArray *searchResultsUniversityCodes;
+@property int amountToSkip;
+//- (void)queryForSearchResults;
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 
 @end

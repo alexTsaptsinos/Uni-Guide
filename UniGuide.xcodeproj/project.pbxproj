@@ -43,6 +43,8 @@
 		A4C6C949197C64890065311C /* FavouritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C947197C64890065311C /* FavouritesTableViewController.m */; };
 		A4C6C94A197C64890065311C /* FavouritesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C948197C64890065311C /* FavouritesTableViewController.xib */; };
 		A4C6C957197C74610065311C /* OpenDays.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C956197C74610065311C /* OpenDays.m */; };
+		EF207C13198A342A00F2CFB3 /* OpenDaysQueryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF207C11198A342A00F2CFB3 /* OpenDaysQueryTableViewController.m */; };
+		EF207C14198A342A00F2CFB3 /* OpenDaysQueryTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF207C12198A342A00F2CFB3 /* OpenDaysQueryTableViewController.xib */; };
 		EF5533291981508B00120FEA /* SortFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5533271981508B00120FEA /* SortFilterViewController.m */; };
 		EF55332A1981508B00120FEA /* SortFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5533281981508B00120FEA /* SortFilterViewController.xib */; };
 		EF55332F198150C400120FEA /* FilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF55332D198150C300120FEA /* FilterTableViewController.m */; };
@@ -79,8 +81,6 @@
 		EF7F6F3B197EAF510009DB60 /* UniGuideLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F3A197EAF510009DB60 /* UniGuideLogo.png */; };
 		EF7F6F44197EB7130009DB60 /* RightPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */; };
 		EF7F6F45197EB7130009DB60 /* RightPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */; };
-		EF7F6F51197EEA690009DB60 /* OpenDaysTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F4F197EEA690009DB60 /* OpenDaysTableViewController.m */; };
-		EF7F6F52197EEA690009DB60 /* OpenDaysTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F50197EEA690009DB60 /* OpenDaysTableViewController.xib */; };
 		EF7F6F55197FA9340009DB60 /* University.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F54197FA9340009DB60 /* University.m */; };
 		EF7F6F64197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F62197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m */; };
 		EF7F6F65197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F63197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib */; };
@@ -174,6 +174,9 @@
 		A4C6C948197C64890065311C /* FavouritesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavouritesTableViewController.xib; sourceTree = "<group>"; };
 		A4C6C955197C74610065311C /* OpenDays.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenDays.h; sourceTree = "<group>"; };
 		A4C6C956197C74610065311C /* OpenDays.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenDays.m; sourceTree = "<group>"; };
+		EF207C10198A342A00F2CFB3 /* OpenDaysQueryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenDaysQueryTableViewController.h; sourceTree = "<group>"; };
+		EF207C11198A342A00F2CFB3 /* OpenDaysQueryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenDaysQueryTableViewController.m; sourceTree = "<group>"; };
+		EF207C12198A342A00F2CFB3 /* OpenDaysQueryTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpenDaysQueryTableViewController.xib; sourceTree = "<group>"; };
 		EF5533261981508B00120FEA /* SortFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortFilterViewController.h; sourceTree = "<group>"; };
 		EF5533271981508B00120FEA /* SortFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortFilterViewController.m; sourceTree = "<group>"; };
 		EF5533281981508B00120FEA /* SortFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SortFilterViewController.xib; sourceTree = "<group>"; };
@@ -214,9 +217,6 @@
 		EF7F6F41197EB7130009DB60 /* RightPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightPanelViewController.h; sourceTree = "<group>"; };
 		EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightPanelViewController.m; sourceTree = "<group>"; };
 		EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightPanelViewController.xib; sourceTree = "<group>"; };
-		EF7F6F4E197EEA690009DB60 /* OpenDaysTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenDaysTableViewController.h; sourceTree = "<group>"; };
-		EF7F6F4F197EEA690009DB60 /* OpenDaysTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenDaysTableViewController.m; sourceTree = "<group>"; };
-		EF7F6F50197EEA690009DB60 /* OpenDaysTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpenDaysTableViewController.xib; sourceTree = "<group>"; };
 		EF7F6F53197FA9340009DB60 /* University.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = University.h; sourceTree = "<group>"; };
 		EF7F6F54197FA9340009DB60 /* University.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = University.m; sourceTree = "<group>"; };
 		EF7F6F61197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenDaysUniversityPageTableViewController.h; sourceTree = "<group>"; };
@@ -475,9 +475,9 @@
 		EF7F6F49197EE6450009DB60 /* Open Days Function */ = {
 			isa = PBXGroup;
 			children = (
-				EF7F6F4E197EEA690009DB60 /* OpenDaysTableViewController.h */,
-				EF7F6F4F197EEA690009DB60 /* OpenDaysTableViewController.m */,
-				EF7F6F50197EEA690009DB60 /* OpenDaysTableViewController.xib */,
+				EF207C10198A342A00F2CFB3 /* OpenDaysQueryTableViewController.h */,
+				EF207C11198A342A00F2CFB3 /* OpenDaysQueryTableViewController.m */,
+				EF207C12198A342A00F2CFB3 /* OpenDaysQueryTableViewController.xib */,
 				EF7F6F89198063570009DB60 /* SpecificOpenDayViewController.h */,
 				EF7F6F8A198063570009DB60 /* SpecificOpenDayViewController.m */,
 				EF7F6F8B198063570009DB60 /* SpecificOpenDayViewController.xib */,
@@ -664,9 +664,9 @@
 				EF66F5CD1988F0890048A82E /* AppIcon40x40.png in Resources */,
 				EF7F6F0B197E82C90009DB60 /* Favorites@2x.png in Resources */,
 				EF66F5CC1988F0890048A82E /* AppIcon29x29@2x.png in Resources */,
-				EF7F6F52197EEA690009DB60 /* OpenDaysTableViewController.xib in Resources */,
 				A4C6C8AA197AD22F0065311C /* Images.xcassets in Resources */,
 				EF7F6F2B197E886F0009DB60 /* student2-32.png in Resources */,
+				EF207C14198A342A00F2CFB3 /* OpenDaysQueryTableViewController.xib in Resources */,
 				EF66F5E819891A8B0048A82E /* ui-14.png in Resources */,
 				EF7F6F6F197FF2EC0009DB60 /* today-32.png in Resources */,
 				EF66F5D71988F0DF0048A82E /* AppIcon60x60.png in Resources */,
@@ -694,12 +694,12 @@
 				EF5533291981508B00120FEA /* SortFilterViewController.m in Sources */,
 				A4C6C918197AF49A0065311C /* DiscoverViewController.m in Sources */,
 				EF7F6F8C198063570009DB60 /* SpecificOpenDayViewController.m in Sources */,
-				EF7F6F51197EEA690009DB60 /* OpenDaysTableViewController.m in Sources */,
 				A4C6C913197AF1400065311C /* SearchResultsTableViewController.m in Sources */,
 				A4C6C92C197AF7000065311C /* UniInfoCoursePageViewController.m in Sources */,
 				A4C6C91D197AF6D80065311C /* CourseInfoCoursePageViewController.m in Sources */,
 				A4C6C949197C64890065311C /* FavouritesTableViewController.m in Sources */,
 				A4C6C922197AF6E70065311C /* StudentSatisfactionCoursePageViewController.m in Sources */,
+				EF207C13198A342A00F2CFB3 /* OpenDaysQueryTableViewController.m in Sources */,
 				EF7F6F8619804D940009DB60 /* ReviewComplaintViewController.m in Sources */,
 				A4C6C8C9197AD3630065311C /* MainMenuViewController.m in Sources */,
 				EF7F6F55197FA9340009DB60 /* University.m in Sources */,

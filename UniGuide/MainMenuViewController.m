@@ -22,13 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-//        label.textColor = [UIColor whiteColor];
-//        //label.backgroundColor = [UIColor clearColor];
-//        label.text = @"Home";
-//        self.navigationItem.titleView = label;
-        
+        // Custom initialization        
         self.navigationItem.title = @"Home";
     }
     return self;
@@ -127,10 +121,10 @@
 - (IBAction)openDaysMenuButtonPressed:(id)sender {
     
     // if open days button pressed launch open days table view controller
+        
+    OpenDaysQueryTableViewController *openDaysQueryTableViewController = [[OpenDaysQueryTableViewController alloc] init];
     
-    OpenDaysTableViewController *openDaysTableViewController = [[OpenDaysTableViewController alloc] initWithNibName:@"OpenDaysTableViewController" bundle:nil];
-    
-    [self.navigationController pushViewController:openDaysTableViewController animated:YES];
+    [self.navigationController pushViewController:openDaysQueryTableViewController animated:YES];
 }
 
 - (IBAction)universitiesMenuButtonPressed:(id)sender {

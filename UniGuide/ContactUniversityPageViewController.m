@@ -33,7 +33,7 @@
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
 
-    NSLog(@"code: %@", self.universityCode);
+   // NSLog(@"code: %@", self.universityCode);
     
     PFQuery *locationQuery = [PFQuery queryWithClassName:@"Location"];
     [locationQuery whereKey:@"UKPRN" equalTo:universityCode];

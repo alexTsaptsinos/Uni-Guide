@@ -25,7 +25,7 @@
 
 @implementation SearchResultsTableViewController
 
-@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityString,searchResultsUniversityCodes;
+@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityString,searchResultsUniversityCodes,amountToSkip,activityIndicator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,9 +48,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tableView.hidden = YES;
+    [self.activityIndicator startAnimating];
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    self.amountToSkip = 0;
     
     NSLog(@"searched university: %@ and searched course: %@", self.universitySearchedString,self.courseSearchedString);
+    
+    //[self queryForSearchResults];
+    
     
     
     // If user has searched with university, first retrieve the PUBUKPRN of the uni
@@ -74,6 +80,8 @@
                 //NSLog(@"objects: %@",objects);
                 self.searchResults = [objects valueForKey:@"TITLE"];
                 //NSLog(@"search results: %@",self.searchResults);
+                self.tableView.hidden = NO;
+                [self.activityIndicator stopAnimating];
                 [self.tableView reloadData];
             }];
         
@@ -92,10 +100,15 @@
                 //NSLog(@"objects: %@",objects);
                 self.searchResults = [objects valueForKey:@"TITLE"];
                 //NSLog(@"search results: %@",self.searchResults);
+                self.tableView.hidden = NO;
+                [self.activityIndicator stopAnimating];
                 [self.tableView reloadData];
             }];
         }
     }
+    
+    //now if user has searched only using course
+    
     else if ([self.courseSearchedString length] != 0) {
         PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
         [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
@@ -107,6 +120,8 @@
             self.searchResults = [objects valueForKey:@"TITLE"];
             self.searchResultsUniversityCodes = [objects valueForKey:@"PUBUKPRN"];
             NSLog(@"search results: %@",self.searchResults);
+            self.tableView.hidden = NO;
+            [self.activityIndicator stopAnimating];
             [self.tableView reloadData];
         }];
     }
@@ -181,6 +196,7 @@
     
     cell.textLabel.text = [self.searchResults objectAtIndex:indexPath.row];
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if ([self.universitySearchedString isEqualToString:@""]) {
         
         PFQuery *queryForUniversityNames = [PFQuery queryWithClassName:@"Universities"];
@@ -198,6 +214,82 @@
     
     return cell;
 }
+
+//- (void)queryForSearchResults
+//{
+//    if ([self.universitySearchedString length] != 0) {
+//        
+//        PFQuery *query = [PFQuery queryWithClassName:@"Universities"];
+//        [query whereKey:@"Name" equalTo:universitySearchedString];
+//        PFObject *universityObject = [query getFirstObject];
+//        universityString = [universityObject objectForKey:@"PUBUKPRN"];
+//        NSLog(@"this is the pubukprn: %@", universityString);
+//        
+//        //if user has searched with only university then perform this query
+//        if ([self.courseSearchedString length] == 0) {
+//            PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
+//            [bigQuery whereKey:@"PUBUKPRN" matchesRegex:universityString modifiers:@"i"];
+//            [bigQuery whereKeyExists:@"TITLE"];
+//            [bigQuery setLimit:600];
+//            bigQuery.skip = self.amountToSkip;
+//            [bigQuery orderByAscending:@"TITLE"];
+//            [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+//                //NSLog(@"objects: %@",objects);
+//                self.searchResults = [objects valueForKey:@"TITLE"];
+//                //NSLog(@"search results: %@",self.searchResults);
+//                [self.tableView reloadData];
+//            }];
+//            
+//            
+//        }
+//        //if the user has searched with university and course then perform this query
+//        
+//        else {
+//            PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
+//            [bigQuery whereKey:@"PUBUKPRN" matchesRegex:universityString modifiers:@"i"];
+//            [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
+//            [bigQuery setLimit:100];
+//            bigQuery.skip = self.amountToSkip;
+//            [bigQuery whereKeyExists:@"TITLE"];
+//            [bigQuery orderByAscending:@"TITLE"];
+//            [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+//                //NSLog(@"objects: %@",objects);
+//                self.searchResults = [objects valueForKey:@"TITLE"];
+//                //NSLog(@"search results: %@",self.searchResults);
+//                [self.tableView reloadData];
+//            }];
+//        }
+//    }
+//    
+//    //now if user has searched only using course
+//    
+//    else if ([self.courseSearchedString length] != 0) {
+//        PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
+//        [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
+//        [bigQuery setLimit:10];
+//        bigQuery.skip = self.amountToSkip;
+//        [bigQuery whereKeyExists:@"TITLE"];
+//        [bigQuery orderByAscending:@"TITLE"];
+//        [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+//            //NSLog(@"objects: %@",objects);
+//            self.searchResults = [objects valueForKey:@"TITLE"];
+//            self.searchResultsUniversityCodes = [objects valueForKey:@"PUBUKPRN"];
+//            self.amountToSkip += 10;
+//            NSLog(@"search results: %@",self.searchResults);
+//            [self.tableView reloadData];
+//        }];
+//    }
+//    
+//}
+//
+//- (void)scrollViewDidEndDraggin:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+//{
+//    if (scrollView.contentSize.height - scrollView.contentOffset.y < (self.view.bounds.size.height))
+//    {
+//        [self queryForSearchResults];
+//    }
+//
+//}
 
 #pragma mark - Table view delegate
 
@@ -234,13 +326,12 @@
     
     coursePageTabBarController.navigationItem.titleView = courseTitle;
     
-    
-    
-    
-    
     favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favouritesButton"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
     favouritesButton.tintColor = [UIColor grayColor];
     [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+    
+    courseInfoCoursePageViewController.universityName = cell.detailTextLabel.text;
+    courseInfoCoursePageViewController.courseName = cell.textLabel.text;
     
     // Push the view controller.
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];

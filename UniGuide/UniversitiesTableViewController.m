@@ -267,6 +267,7 @@
     ContactUniversityPageViewController *contactUniversityPageViewController = [[ContactUniversityPageViewController alloc] init];
     
     
+    
     universityPageTabBarController.viewControllers = [NSArray arrayWithObjects:uniInfoCoursePageViewController,courseListTableViewController,openDaysUniversityPageTableViewController,contactUniversityPageViewController,nil];
     
     UILabel *universityTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
@@ -290,9 +291,9 @@
     [queryForUniversityCode whereKey:@"Name" equalTo:cell.textLabel.text];
     PFObject *universityObject = [queryForUniversityCode getFirstObject];
     courseListTableViewController.universityCode = [universityObject valueForKey:@"PUBUKPRN"];
-    openDaysUniversityPageTableViewController.universityCode = [universityObject valueForKey:@"PUBUKPRN"];
     contactUniversityPageViewController.universityCode = [universityObject valueForKey:@"UKPRN"];
     contactUniversityPageViewController.universityName = cell.textLabel.text;
+    openDaysUniversityPageTableViewController.universityName = cell.textLabel.text;
     
     [self.navigationController pushViewController:universityPageTabBarController animated:YES];
 }

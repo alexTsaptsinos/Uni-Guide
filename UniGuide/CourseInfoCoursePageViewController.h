@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface CourseInfoCoursePageViewController : UIViewController
 
@@ -14,5 +15,10 @@
 
 
 @property (weak, nonatomic) IBOutlet UILabel *universityNameLabel;
+@property (strong, nonatomic) NSString *universityName;
+@property (strong, nonatomic) NSString *universityCode;
+@property (strong, nonatomic) NSString *courseName;
+@property (strong, nonatomic) NSString *courseCode;
+
 
 @end
