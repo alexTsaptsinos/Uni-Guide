@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UniInfoCoursePageViewController : UIViewController
+@interface UniInfoCoursePageViewController : UIViewController <CPTPlotDataSource, UIActionSheetDelegate,CPTPieChartDataSource,CPTPieChartDelegate>
+
+@property (strong, nonatomic) NSString *uniCodeUniInfo;
+
 
 @end

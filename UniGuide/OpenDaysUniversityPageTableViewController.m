@@ -23,10 +23,10 @@
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.tabBarController.tabBar.translucent = NO;
     self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    //self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
 
     
-    NSLog(@"university name: %@", self.universityName);
+    //NSLog(@"university name: %@", self.universityName);
     PFQuery *query = [PFQuery queryWithClassName:@"OpenDays"];
     [query whereKey:@"University" equalTo:self.universityName];
     [query orderByAscending:@"Date"];
@@ -37,7 +37,7 @@
         endTimes = [objects valueForKey:@"TimeEnd"];
         details = [objects valueForKey:@"Details"];
         links = [objects valueForKey:@"BookingLink"];
-         NSLog(@"open days: %@ and dates %@", openDays, openDayDates);
+         //NSLog(@"open days: %@ and dates %@", openDays, openDayDates);
         if (openDays.count == 0) {
             openDays = [[NSMutableArray alloc]initWithObjects:@"None coming up LOL", nil];
             openDayDates = [[NSMutableArray alloc] initWithObjects:@"Sorry", nil];
@@ -150,7 +150,8 @@
     specificOpenDayViewController.details = [details objectAtIndex:indexPath.row];
     specificOpenDayViewController.endTime = [endTimes objectAtIndex:indexPath.row];
     specificOpenDayViewController.startTime = [startTimes objectAtIndex:indexPath.row];
-    specificOpenDayViewController.uniName = cell.textLabel.text;
+    specificOpenDayViewController.uniName = [openDays objectAtIndex:indexPath.row];
+        specificOpenDayViewController.link = [links objectAtIndex:indexPath.row];
     
     [self.navigationController pushViewController:specificOpenDayViewController animated:YES];
     }

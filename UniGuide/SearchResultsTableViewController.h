@@ -24,6 +24,7 @@
 @property (strong, nonatomic) NSString *locationSearchedString;
 
 @property (strong, nonatomic) NSMutableArray *searchResults;
+@property (strong, nonatomic) NSMutableArray *courseSearchResultsKisAimCodes;
 @property (strong, nonatomic) NSString *universityString;
 @property (strong, nonatomic) NSMutableArray *searchResultsUniversityCodes;
 @property int amountToSkip;

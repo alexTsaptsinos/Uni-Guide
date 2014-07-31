@@ -18,7 +18,8 @@
 @property (strong, nonatomic) NSString *universityName;
 @property (strong, nonatomic) NSString *universityCode;
 @property (strong, nonatomic) NSString *courseName;
-@property (strong, nonatomic) NSString *courseCode;
+@property (strong, nonatomic) NSString *courseCodeCourseInfo;
+@property (strong, nonatomic) NSString *uniCodeCourseInfo;
 
 
 @end

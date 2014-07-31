@@ -17,11 +17,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <rect key="frame" x="0.0" y="64" width="320" height="416"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JuB-xo-Kbv">
-                    <rect key="frame" x="58" y="218" width="206" height="39"/>
+                    <rect key="frame" x="58" y="159" width="206" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.75633435140000005" blue="0.80664558659999996" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Search">
@@ -33,7 +33,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icT-QI-gAC">
-                    <rect key="frame" x="58" y="270" width="206" height="39"/>
+                    <rect key="frame" x="58" y="211" width="206" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.75633435140000005" blue="0.80664558659999996" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Discover">
@@ -45,7 +45,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yrn-JA-DMc">
-                    <rect key="frame" x="58" y="322" width="206" height="39"/>
+                    <rect key="frame" x="58" y="263" width="206" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.75633435140000005" blue="0.80664558659999996" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Favourites">
@@ -57,7 +57,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y37-r2-tq2">
-                    <rect key="frame" x="58" y="374" width="206" height="39"/>
+                    <rect key="frame" x="58" y="315" width="206" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.75633435140000005" blue="0.80664558659999996" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Open Days">
@@ -69,7 +69,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eju-Rk-VPx">
-                    <rect key="frame" x="58" y="426" width="206" height="39"/>
+                    <rect key="frame" x="58" y="367" width="206" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.75633435140000005" blue="0.80664558659999996" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Universities">
@@ -81,11 +81,12 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wik-E8-Mbl">
-                    <rect key="frame" x="40" y="42" width="240" height="168"/>
+                    <rect key="frame" x="40" y="-17" width="240" height="168"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>

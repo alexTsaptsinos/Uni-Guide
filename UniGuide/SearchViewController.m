@@ -62,7 +62,7 @@
     self.autocompleteUniversities = [[NSMutableArray alloc] init];
     
     autocompleteUniversitiesTableView = [[UITableView alloc] initWithFrame:
-                             CGRectMake(0, 120, 320, 200) style:UITableViewStylePlain];
+                             CGRectMake(0, 40, 320, 200) style:UITableViewStylePlain];
     autocompleteUniversitiesTableView.delegate = self;
     autocompleteUniversitiesTableView.dataSource = self;
     autocompleteUniversitiesTableView.scrollEnabled = YES;
@@ -75,14 +75,15 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     if (textField == self.universityTextField) {
+        [self.scrollView setContentOffset:CGPointMake(0.0,12) animated:YES];
         self.whichTextFieldActive = [NSNumber numberWithInt:1];
     }
     if (textField == self.courseTextField) {
-        [self.scrollView setContentOffset:CGPointMake(0.0,10) animated:YES];
+        [self.scrollView setContentOffset:CGPointMake(0.0,80) animated:YES];
         self.whichTextFieldActive = [NSNumber numberWithInt:2];
     }
     if (textField == self.locationTextField) {
-        [self.scrollView setContentOffset:CGPointMake(0.0,80) animated:YES];
+        [self.scrollView setContentOffset:CGPointMake(0.0,153) animated:YES];
         self.whichTextFieldActive = [NSNumber numberWithInt:3];
     }
 }
@@ -90,13 +91,13 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField == self.universityTextField) {
-        
+        [self.scrollView setContentOffset:CGPointMake(0.0,-6) animated:YES];
     }
     if (textField == self.courseTextField) {
-        [self.scrollView setContentOffset:CGPointMake(0.0, - 60) animated:YES];
+        [self.scrollView setContentOffset:CGPointMake(0.0, -6) animated:YES];
     }
     if (textField == self.locationTextField) {
-        [self.scrollView setContentOffset:CGPointMake(0.0,-60) animated:YES];
+        [self.scrollView setContentOffset:CGPointMake(0.0,-6) animated:YES];
     }
 }
 

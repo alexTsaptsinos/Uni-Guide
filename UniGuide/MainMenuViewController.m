@@ -40,6 +40,7 @@
     self.universitiesMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.favouritesMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    self.navigationController.navigationBar.translucent = NO;
 
     
     
@@ -51,11 +52,6 @@
                                         // result is @"Hello world!"
                                     }
                                 }];
-    
-    //parse test object
-    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-    testObject[@"foo"] = @"bar";
-    [testObject saveInBackground];
     
     //Make 5 buttons have rounded corners
     

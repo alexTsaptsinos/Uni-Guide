@@ -12,7 +12,6 @@
 @interface CourseListTableViewController : UITableViewController <UISearchBarDelegate,UISearchDisplayDelegate>
 
 @property (strong, nonatomic) NSArray *universityCourses;
-//@property (strong, nonatomic) NSString *universityName;
 @property (nonatomic, strong) UIBarButtonItem *favouritesButton;
 @property (nonatomic, strong) NSMutableArray *alphabetsArray;
 @property (nonatomic, strong) NSString *universityCode;

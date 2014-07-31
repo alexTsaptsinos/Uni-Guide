@@ -32,6 +32,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    self.navigationController.navigationBar.translucent = NO;
 
    // NSLog(@"code: %@", self.universityCode);
     
@@ -40,7 +41,17 @@
     PFObject *university = [locationQuery getFirstObject];
     uniLatitude = [university valueForKey:@"LATITUDE"];
     uniLongitude = [university valueForKey:@"LONGITUDE"];
-    NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
+    //NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
+    
+    MKCoordinateRegion homeRegion;
+    homeRegion.center.latitude = 54.013175;
+    homeRegion.center.longitude = -2.3252278;
+    float homeSpanX = 10;
+    float homeSpanY = 10;
+    homeRegion.span.latitudeDelta = homeSpanX;
+    homeRegion.span.longitudeDelta = homeSpanY;
+    
+    [self.contactMapView setRegion:homeRegion animated:YES];
     
     self.hasLoadedBool = NO;
 }
@@ -71,22 +82,6 @@
     }
     
 }
-
--(void)viewWillAppear:(BOOL)animated {
-
-        //Uk Region
-    MKCoordinateRegion homeRegion;
-    homeRegion.center.latitude = 54.013175;
-    homeRegion.center.longitude = -2.3252278;
-    float homeSpanX = 10;
-    float homeSpanY = 10;
-    homeRegion.span.latitudeDelta = homeSpanX;
-    homeRegion.span.longitudeDelta = homeSpanY;
-    
-    [self.contactMapView setRegion:homeRegion animated:YES];
-    
-}
-
 
 
 - (void)didReceiveMemoryWarning

@@ -79,6 +79,7 @@
             [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
                 //NSLog(@"objects: %@",objects);
                 self.searchResults = [objects valueForKey:@"TITLE"];
+                self.courseSearchResultsKisAimCodes = [objects valueForKey:@"KISAIMCODE"];
                 //NSLog(@"search results: %@",self.searchResults);
                 self.tableView.hidden = NO;
                 [self.activityIndicator stopAnimating];
@@ -90,6 +91,8 @@
         //if the user has searched with university and course then perform this query
         
         else {
+            //andrew look here
+            NSLog(@"code to search: %@ and course to search: %@", universityString,courseSearchedString);
             PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
             [bigQuery whereKey:@"PUBUKPRN" matchesRegex:universityString modifiers:@"i"];
             [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
@@ -97,8 +100,9 @@
             [bigQuery whereKeyExists:@"TITLE"];
             [bigQuery orderByAscending:@"TITLE"];
             [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
-                //NSLog(@"objects: %@",objects);
+                NSLog(@"objects: %@",objects);
                 self.searchResults = [objects valueForKey:@"TITLE"];
+                self.courseSearchResultsKisAimCodes = [objects valueForKey:@"KISAIMCODE"];
                 //NSLog(@"search results: %@",self.searchResults);
                 self.tableView.hidden = NO;
                 [self.activityIndicator stopAnimating];
@@ -119,6 +123,7 @@
             //NSLog(@"objects: %@",objects);
             self.searchResults = [objects valueForKey:@"TITLE"];
             self.searchResultsUniversityCodes = [objects valueForKey:@"PUBUKPRN"];
+            self.courseSearchResultsKisAimCodes = [objects valueForKey:@"KISAIMCODE"];
             NSLog(@"search results: %@",self.searchResults);
             self.tableView.hidden = NO;
             [self.activityIndicator stopAnimating];
@@ -193,8 +198,16 @@
     
     
     // Configure the cell...
-    
-    cell.textLabel.text = [self.searchResults objectAtIndex:indexPath.row];
+    PFQuery *queryForHonourReceived = [PFQuery queryWithClassName:@"Kisaim"];
+    [queryForHonourReceived whereKey:@"KISAIMCODE" equalTo:[self.courseSearchResultsKisAimCodes objectAtIndex:indexPath.row]];
+    PFObject *object = [queryForHonourReceived getFirstObject];
+    NSString *courseHonour = [object valueForKey:@"KISAIMLABEL"];
+    NSString *courseName = [self.searchResults objectAtIndex:indexPath.row];
+    courseName = [courseName stringByAppendingString:@" - "];
+    courseName = [courseName stringByAppendingString:courseHonour];
+    cell.textLabel.text = courseName;
+
+ //   cell.textLabel.text = [self.searchResults objectAtIndex:indexPath.row];
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size:12];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if ([self.universitySearchedString isEqualToString:@""]) {
@@ -203,6 +216,7 @@
         [queryForUniversityNames whereKey:@"PUBUKPRN" equalTo:[self.searchResultsUniversityCodes objectAtIndex:indexPath.row]];
         PFObject *university = [queryForUniversityNames getFirstObject];
         NSString *universityName = [university valueForKey:@"Name"];
+        
         cell.detailTextLabel.text = universityName;
         cell.detailTextLabel.textColor = [UIColor grayColor];
         
@@ -325,6 +339,8 @@
     courseTitle.textAlignment = NSTextAlignmentCenter;
     
     coursePageTabBarController.navigationItem.titleView = courseTitle;
+    coursePageTabBarController.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+
     
     favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favouritesButton"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
     favouritesButton.tintColor = [UIColor grayColor];

@@ -15,7 +15,7 @@
 
 @implementation ReviewsCoursePageViewController
 
-@synthesize addReviewButton;
+@synthesize addReviewButton,courseCodeReviews;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

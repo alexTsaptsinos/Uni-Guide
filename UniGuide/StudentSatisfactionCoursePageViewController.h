@@ -10,5 +10,8 @@
 
 @interface StudentSatisfactionCoursePageViewController : UIViewController
 
+@property (strong, nonatomic) NSString *courseCodeStudentSatisfaction;
+
+
 
 @end

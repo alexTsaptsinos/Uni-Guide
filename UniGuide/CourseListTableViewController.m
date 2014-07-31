@@ -49,18 +49,6 @@
     self.navigationController.navigationBar.translucent = NO;
     self.tabBarController.tabBar.translucent = NO;
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-
-    
-//    UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);
-//    self.tableView.contentInset = inset;
-  //  self.edgesForExtendedLayout = UIRectEdgeNone;
-   // self.tableView.frame = CGRectMake(0,self.navigationController.navigationBar.frame.size.height, 320, self.view.frame.size.height - self.navigationController.navigationBar.frame.size.height);
-    
-    
-//    PFQuery *queryForUniversityName = [PFQuery queryWithClassName:@"Universities"];
-//    [queryForUniversityName whereKey:@"Name" equalTo:universityName];
-//    PFObject *universityObject = [queryForUniversityName getFirstObject];
-//    self.universityCode = [universityObject valueForKey:@"PUBUKPRN"];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
     [query whereKey:@"PUBUKPRN" equalTo:self.universityCode];
@@ -234,7 +222,7 @@
 
 - (void)filterContentForSearchText:(NSString*)searchText
 {
-    NSLog(@"%@", _universityCourseNames);
+    //NSLog(@"%@", _universityCourseNames);
     
     NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
     

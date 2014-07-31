@@ -16,6 +16,8 @@
 
 @implementation StudentSatisfactionCoursePageViewController
 
+@synthesize courseCodeStudentSatisfaction;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

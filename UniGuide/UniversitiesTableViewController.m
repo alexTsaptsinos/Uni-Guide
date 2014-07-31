@@ -164,7 +164,7 @@
     }
     else
     {
-        NSLog(@"%d", self.searchResults.count);
+        //NSLog(@"%d", self.searchResults.count);
 
         return self.searchResults.count;
     }
@@ -286,7 +286,8 @@
     
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:newBackButton];
-    
+    uniInfoCoursePageViewController.uniCodeUniInfo = cell.textLabel.text;
+
     PFQuery *queryForUniversityCode = [PFQuery queryWithClassName:@"Universities"];
     [queryForUniversityCode whereKey:@"Name" equalTo:cell.textLabel.text];
     PFObject *universityObject = [queryForUniversityCode getFirstObject];

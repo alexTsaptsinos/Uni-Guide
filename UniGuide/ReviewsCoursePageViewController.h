@@ -12,5 +12,6 @@
 @interface ReviewsCoursePageViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *addReviewButton;
 - (IBAction)addReviewButtonPressed:(id)sender;
+@property (strong, nonatomic) NSString *courseCodeReviews;
 
 @end
