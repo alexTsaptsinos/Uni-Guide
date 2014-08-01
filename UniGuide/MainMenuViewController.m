@@ -42,17 +42,6 @@
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;
 
-    
-    
-    //parse cloud code test
-    [PFCloud callFunctionInBackground:@"hello"
-                       withParameters:@{}
-                                block:^(NSString *result, NSError *error) {
-                                    if (!error) {
-                                        // result is @"Hello world!"
-                                    }
-                                }];
-    
     //Make 5 buttons have rounded corners
     
     CALayer *btnLayer = [searchMenuButtonLabel layer];

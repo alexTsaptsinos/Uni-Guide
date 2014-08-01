@@ -15,7 +15,7 @@
 
 @implementation SearchViewController
 
-@synthesize universityTextField,universitiesFromParse,autocompleteUniversities,autocompleteUniversitiesTableView,courseTextField,scrollView,whichTextFieldActive,coursesFromParse,locationTextField,searchButton;
+@synthesize universityTextField,universitiesFromParse,autocompleteUniversities,autocompleteUniversitiesTableView,courseTextField,scrollView,whichTextFieldActive,coursesFromParse,locationTextField,searchButton,locationsArray,pleaseSelectLabel,anyFound,locationDict,universityUKPRNFromParse,haveQueriedParseForCoursesYet;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,29 +35,30 @@
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.searchButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     [searchButton setEnabled:NO];
+    self.pleaseSelectLabel.textColor = [UIColor grayColor];
+    self.pleaseSelectLabel.text = @"Please select from at least two fields";
+    [pleaseSelectLabel setFont:[UIFont systemFontOfSize:12]];
     
     CALayer *btnLayer = [searchButton layer];
     [btnLayer setMasksToBounds:YES];
     [btnLayer setCornerRadius:5.0f];
     
-    //Query for universities
+    self.haveQueriedParseForCoursesYet = NO;
     
-    PFQuery *universityQuery = [PFQuery queryWithClassName:@"Universities"];
-    [universityQuery setLimit:415];
+    //Query for universities and locations
+    
+    PFQuery *universityQuery = [PFQuery queryWithClassName:@"Institution1213"];
+    [universityQuery setLimit:161];
      [universityQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
-        self.universitiesFromParse = [objects valueForKey:@"Name"];
+        self.universitiesFromParse = [objects valueForKey:@"Institution"];
+         self.universityUKPRNFromParse = [objects valueForKey:@"UKPRN"];
+         //NSLog(@"ukprns: %@ count: %d",self.universityUKPRNFromParse,self.universityUKPRNFromParse.count);
      }];
     
-    //Query for courses
+    self.locationDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"East Of England", @"EAST", @"West Midlands", @"WMID",@"South West",@"SWES",@"London",@"LOND",@"East Midlands",@"EMID",@"North West",@"NWES",@"Yorkshire And The Humber",@"YORH",@"South East",@"SEAS", @"North East",@"NEAS",@"Wales",@"WALE",@"Scotland",@"SCOT",@"Northern Ireland",@"NIRE",nil];
     
-//    PFQuery *coursesQuery = [PFQuery queryWithClassName:@"Kiscourse"];
-//    [coursesQuery setLimit:1000];
-//    [coursesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        self.coursesFromParse = [objects valueForKey:@"TITLE"];
-//        NSLog(@"courses: %d",self.coursesFromParse.count);
-//    }];
-    
-    
+    //self.locationsFromParse = [dict objectsForKeys:@"EAST",@"WMID",@"SWES",@"LOND",@"EMID",@"NWES",@"YORH",@"SEAS",@"NEAS",@"WALE",@"SCOT",@"NIRE" notFoundMarker:nil];
+    self.locationsArray = [self.locationDict allValues];
     
     self.autocompleteUniversities = [[NSMutableArray alloc] init];
     
@@ -74,6 +75,9 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    [self.searchButton setEnabled:NO];
+    self.pleaseSelectLabel.hidden = NO;
+    
     if (textField == self.universityTextField) {
         [self.scrollView setContentOffset:CGPointMake(0.0,12) animated:YES];
         self.whichTextFieldActive = [NSNumber numberWithInt:1];
@@ -99,6 +103,10 @@
     if (textField == self.locationTextField) {
         [self.scrollView setContentOffset:CGPointMake(0.0,-6) animated:YES];
     }
+    if ((self.courseTextField.text.length != 0 && self.locationTextField.text.length !=0) || (self.courseTextField.text.length != 0 && self.universityTextField.text.length !=0) || (self.universityTextField.text.length != 0 && self.locationTextField.text.length !=0))  {
+        [self.searchButton setEnabled:YES];
+        self.pleaseSelectLabel.hidden = YES;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -115,7 +123,13 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoCompleteUniversitiesRowIdentifier];
     }
     
+    if (self.anyFound == NO) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
     cell.textLabel.text = [autocompleteUniversities objectAtIndex:indexPath.row];
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    cell.textLabel.numberOfLines = 0;
     return cell;
 }
 
@@ -133,9 +147,6 @@
     [self filterUniversitiesForSearchText:substring];
     }
     
-    if (self.universityTextField.text.length != 0 || self.courseTextField.text.length != 0 || self.locationTextField.text.length != 0) {
-        [self.searchButton setEnabled:YES];
-    }
     return YES;
 }
 
@@ -148,27 +159,72 @@
     if ([self.whichTextFieldActive intValue] == 1) {
         self.autocompleteUniversities = [universitiesFromParse filteredArrayUsingPredicate:universitiesPredicate];
     } else if ([self.whichTextFieldActive intValue] == 2) {
-        //NSLog(@"search string: %@",searchText);
-        PFQuery *coursesQuery = [PFQuery queryWithClassName:@"Kiscourse"];
-        [coursesQuery setLimit:1000];
-        [coursesQuery whereKey:@"TITLE" matchesRegex:searchText modifiers:@"i"];
-        [coursesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if (self.courseTextField.text.length < 4) {
             
-            self.autocompleteUniversities = [objects valueForKey:@"TITLE"];
-            //NSSet *uniqueStates = [NSSet setWithArray:[objects valueForKey:@"TITLE"]];
-            //self.autocompleteUniversities = [NSArray arrayWithObjects:uniqueStates, nil];
+            self.autocompleteUniversities = [[NSMutableArray alloc] initWithObjects:@"Please Enter More Letters", nil];
+            self.haveQueriedParseForCoursesYet = NO;
             
-            //self.autocompleteUniversities = [objects valueForKey:@"TITLE"];
-           // NSLog(@"courses: %d",self.autocompleteUniversities.count);
-        }];
+        } else {
+        
+        [self parseQueryForCourses:searchText];
+        self.autocompleteUniversities = [coursesFromParse filteredArrayUsingPredicate:universitiesPredicate];
+        }
+        
+        
+    } else if ([self.whichTextFieldActive intValue] == 3) {
+        self.autocompleteUniversities = [locationsArray filteredArrayUsingPredicate:universitiesPredicate];
     }
     
     
     if (self.autocompleteUniversities.count == 0) {
         self.autocompleteUniversities = [[NSMutableArray alloc] initWithObjects:@"None", nil];
+        self.anyFound = NO;
+    } else {
+        self.anyFound = YES;
     }
     
     [autocompleteUniversitiesTableView reloadData];
+}
+
+- (void)parseQueryForCourses:(NSString *)searchText
+{
+    if (self.haveQueriedParseForCoursesYet == NO) {
+        
+        PFQuery *coursesQuery = [PFQuery queryWithClassName:@"Kiscourse"];
+        [coursesQuery setLimit:1000];
+        [coursesQuery whereKeyExists:@"TITLE"];
+        //NSLog(@"test: %@",self.universityUKPRNFromParse);
+        [coursesQuery whereKey:@"TITLE" matchesRegex:searchText modifiers:@"i"];
+        [coursesQuery whereKeyExists:@"TITLE"];
+        if (self.universityTextField.text.length != 0) {
+            PFQuery *queryForUKPRN = [PFQuery queryWithClassName:@"Institution1213"];
+            [queryForUKPRN whereKey:@"Institution" matchesRegex:self.universityTextField.text modifiers:@"i"];
+            [queryForUKPRN selectKeys:[NSArray arrayWithObject:@"UKPRN"]];
+            PFObject *tempObject = [queryForUKPRN getFirstObject];
+            NSString *ukprn = [tempObject valueForKey:@"UKPRN"];
+            NSLog(@"object: %@, ukprn: %@",tempObject,ukprn);
+            if (ukprn.length != 0) {
+                [coursesQuery whereKey:@"UKPRN" equalTo:ukprn];
+                NSLog(@"got here");
+            }
+        }
+        [coursesQuery selectKeys:[NSArray arrayWithObject:@"TITLE"]];
+        [coursesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            
+            NSArray *tempObjects = [objects valueForKey:@"TITLE"];
+            self.coursesFromParse = [tempObjects valueForKeyPath:@"@distinctUnionOfObjects.self"];
+            self.autocompleteUniversities = self.coursesFromParse;
+            //NSLog(@"autocomplete 1: %@",self.coursesFromParse);
+            [autocompleteUniversitiesTableView reloadData];
+        }];
+
+        
+        self.haveQueriedParseForCoursesYet = YES;
+    } else {
+        //NSLog(@"autocomplete 2: %@",self.coursesFromParse);
+
+    }
 }
 
 - (IBAction)searchButtonPressed:(id)sender {
@@ -189,15 +245,35 @@
     
     cell = [tableView cellForRowAtIndexPath:indexPath];
     
+    if (self.anyFound == NO) {
+        
+    } else {
+    
     if ([self.whichTextFieldActive intValue] == 1) {
         self.universityTextField.text = cell.textLabel.text;
+        [self.universityTextField resignFirstResponder];
+        PFQuery *queryForSelectedLocation = [PFQuery queryWithClassName:@"Institution1213"];
+        [queryForSelectedLocation whereKey:@"Institution" equalTo:cell.textLabel.text];
+        [queryForSelectedLocation selectKeys:[NSArray arrayWithObject:@"RegionOfInstitution"]];
+        PFObject *temp = [queryForSelectedLocation getFirstObject];
+        //NSLog(@"temp: %@",temp);
+        NSString *tempKey = [temp valueForKey:@"RegionOfInstitution"];
+        if (tempKey.length != 0) {
+            self.locationTextField.text = [locationDict valueForKey:tempKey];
+            [self.searchButton setEnabled:YES];
+            self.pleaseSelectLabel.hidden = YES;
+        }
     }
     else if ([self.whichTextFieldActive intValue] == 2) {
         self.courseTextField.text = cell.textLabel.text;
+        [self.courseTextField resignFirstResponder];
+    } else if ([self.whichTextFieldActive intValue] == 3) {
+        self.locationTextField.text = cell.textLabel.text;
+        [self.locationTextField resignFirstResponder];
+    }
+        autocompleteUniversitiesTableView.hidden = YES;
     }
     
-    [self.universityTextField resignFirstResponder];
-    autocompleteUniversitiesTableView.hidden = YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

@@ -13,7 +13,6 @@
 
 @property (strong, nonatomic) NSArray *universityCourses;
 @property (nonatomic, strong) UIBarButtonItem *favouritesButton;
-@property (nonatomic, strong) NSMutableArray *alphabetsArray;
 @property (nonatomic, strong) NSString *universityCode;
 
 @end

@@ -11,7 +11,7 @@
 
 @interface OpenDaysUniversityPageTableViewController : UITableViewController
 
-@property (nonatomic, retain) NSString *universityName;
+@property (nonatomic, retain) NSString *universityUKPRN;
 @property (nonatomic, retain) NSMutableArray *openDays;
 @property (strong, nonatomic) NSMutableArray *openDayDates;
 @property (strong, nonatomic) NSMutableArray *startTimes;

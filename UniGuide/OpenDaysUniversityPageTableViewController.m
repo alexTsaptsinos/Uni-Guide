@@ -15,7 +15,7 @@
 
 @implementation OpenDaysUniversityPageTableViewController
 
-@synthesize universityName,openDays,openDayDates,startTimes,endTimes,details,links,foundAnyBool;
+@synthesize universityUKPRN,openDays,openDayDates,startTimes,endTimes,details,links,foundAnyBool;
 
 - (void)viewDidLoad
 {
@@ -28,19 +28,19 @@
     
     //NSLog(@"university name: %@", self.universityName);
     PFQuery *query = [PFQuery queryWithClassName:@"OpenDays"];
-    [query whereKey:@"University" equalTo:self.universityName];
-    [query orderByAscending:@"Date"];
+    [query whereKey:@"UKPRN" equalTo:self.universityUKPRN];
+    [query orderByAscending:@"ParseDate"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
         openDays = [objects valueForKey:@"University"];
-        openDayDates = [objects valueForKey:@"Date2"];
+        openDayDates = [objects valueForKey:@"ParseDate"];
         startTimes = [objects valueForKey:@"TimeStart"];
         endTimes = [objects valueForKey:@"TimeEnd"];
         details = [objects valueForKey:@"Details"];
         links = [objects valueForKey:@"BookingLink"];
          //NSLog(@"open days: %@ and dates %@", openDays, openDayDates);
         if (openDays.count == 0) {
-            openDays = [[NSMutableArray alloc]initWithObjects:@"None coming up LOL", nil];
-            openDayDates = [[NSMutableArray alloc] initWithObjects:@"Sorry", nil];
+//            openDays = [[NSMutableArray alloc]initWithObjects:@"None coming up LOL", nil];
+//            openDayDates = [[NSMutableArray alloc] initWithObjects:@"Sorry", nil];
             self.foundAnyBool = NO;
         } else {
             self.foundAnyBool = YES;
@@ -140,7 +140,7 @@
     
     UILabel *universityTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
     universityTitle.numberOfLines = 2;
-    universityTitle.text = self.universityName;
+    universityTitle.text = [openDays objectAtIndex:indexPath.row];
     universityTitle.textAlignment = NSTextAlignmentCenter;
     specificOpenDayViewController.navigationItem.titleView = universityTitle;
     

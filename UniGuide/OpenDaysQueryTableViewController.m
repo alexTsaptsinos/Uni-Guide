@@ -70,7 +70,7 @@
     if (self.objects.count == 0) {
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
-    [query orderByAscending:@"Date"];
+    [query orderByAscending:@"ParseDate"];
 
     
     
@@ -82,7 +82,7 @@
     [super objectsDidLoad:error];
     
     openDays = [self.objects valueForKey:@"University"];
-    openDayDates = [self.objects valueForKey:@"Date2"];
+    openDayDates = [self.objects valueForKey:@"ParseDate"];
     startTimes = [self.objects valueForKey:@"TimeStart"];
     endTimes = [self.objects valueForKey:@"TimeEnd"];
     details = [self.objects valueForKey:@"Details"];
@@ -105,7 +105,7 @@
         cell.textLabel.text = object[@"University"];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"dd-MM-yy"];
-        cell.detailTextLabel.text = [formatter stringFromDate:object[@"Date2"]];
+        cell.detailTextLabel.text = [formatter stringFromDate:object[@"ParseDate"]];
     } else {
         if ([self.searchBar.text length] == 0 ) {
             
@@ -116,7 +116,7 @@
         cell.textLabel.text = [object2 valueForKey:@"University"];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"dd-MM-yy"];
-        cell.detailTextLabel.text = [formatter stringFromDate:object2[@"Date2"]];
+        cell.detailTextLabel.text = [formatter stringFromDate:object2[@"ParseDate"]];
         }
     }
     

@@ -65,13 +65,12 @@
     [super viewWillAppear:animated];
     
     NSLog(@"uni code in view will appear: %@",self.universityObject);
-    self.uniCodeUniInfo = [universityObject valueForKey:@"PUBUKPRN"];
-    NSString *uniUKPRN = [universityObject valueForKey:@"UKPRN"];
+    self.uniCodeUniInfo = [universityObject valueForKey:@"UKPRN"];
     NSLog(@"code: %@", self.uniCodeUniInfo);
     
     // query to get satisfaction with union
     PFQuery *queryForStudentSatisfaction = [PFQuery queryWithClassName:@"Institution"];
-    [queryForStudentSatisfaction whereKey:@"PUBUKPRN" equalTo:self.uniCodeUniInfo];
+    [queryForStudentSatisfaction whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
     [queryForStudentSatisfaction whereKeyExists:@"Q24"];
     PFObject *object1 = [queryForStudentSatisfaction getFirstObject];
     NSLog(@"object: %@",object1);
@@ -79,24 +78,15 @@
     NSLog(@"satisfaction: %@",studentSatisfactionPercentage);
     self.studentSatisfactionLabel.text = [NSString stringWithFormat:@"Student Satisfaction: %@%%",studentSatisfactionPercentage];
     
-    //query to get total number of students
-    
-    PFQuery *queryForStudentNumber = [PFQuery queryWithClassName:@"Entry"];
-    [queryForStudentNumber whereKey:@"PUBUKPRN" equalTo:self.uniCodeUniInfo];
-    [queryForStudentNumber whereKeyExists:@"ENTPOP"];
-    [queryForStudentNumber setLimit:1000];
-    NSArray *studentObject = [queryForStudentNumber findObjects];
-    NSArray *studentNumbers = [studentObject valueForKey:@"ENTPOP"];
-    NSLog(@"student numbers: %@", studentNumbers);
-    NSNumber * totalNumberOfStudents = [studentNumbers valueForKeyPath:@"@sum.self"];
-    NSLog(@"total number of students: %@",totalNumberOfStudents);
-    self.totalNumberOfStudentsLabel.text = [NSString stringWithFormat:@"Total Number Of Students: %@",totalNumberOfStudents];
+    // get total number of students
+
+    self.totalNumberOfStudentsLabel.text = [self.universityObject valueForKey:@"TotalAllStudents"];
     
     
-    //query to get data on accomodation
+    //query to get data on total number of beds
     PFQuery *queryForAccomodation = [PFQuery queryWithClassName:@"Location"];
     [queryForAccomodation whereKeyExists:@"INSTBEDS"];
-    [queryForAccomodation whereKey:@"UKPRN" equalTo:uniUKPRN];
+    [queryForAccomodation whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
     NSArray *object = [queryForAccomodation findObjects];
     NSArray *numberOfBeds = [object valueForKey:@"INSTBEDS"];
     //NSLog(@"object: %@",numberOfBeds);

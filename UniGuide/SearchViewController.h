@@ -21,7 +21,9 @@
 }
 
 @property (nonatomic, retain) NSMutableArray *universitiesFromParse;
+@property (nonatomic, retain) NSMutableArray *universityUKPRNFromParse;
 @property (nonatomic, retain) NSMutableArray *coursesFromParse;
+@property (nonatomic, retain) NSArray *locationsArray;
 @property (nonatomic, retain) NSArray *autocompleteUniversities;
 @property (nonatomic, retain) UITableView *autocompleteUniversitiesTableView;
 @property (nonatomic, retain) UITextField *universityTextField;
@@ -30,8 +32,13 @@
 @property (strong, nonatomic) NSNumber *whichTextFieldActive;
 @property (nonatomic, retain) UITextField *locationTextField;
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
+@property (nonatomic) BOOL anyFound;
+@property (nonatomic) BOOL haveQueriedParseForCoursesYet;
+@property (strong, nonatomic) NSDictionary *locationDict;
 
 - (void)filterUniversitiesForSearchText:(NSString*)searchText;
+- (void)parseQueryForCourses:(NSString*)searchText;
 - (IBAction)searchButtonPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *pleaseSelectLabel;
 
 @end

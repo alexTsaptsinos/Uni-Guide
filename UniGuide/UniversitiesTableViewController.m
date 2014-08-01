@@ -38,11 +38,11 @@
     self = [super initWithStyle:style];
     if (self) {
         //this table displays items in the universities class
-        self.parseClassName = @"Universities";
-        self.textKey = @"Name";
+        self.parseClassName = @"Institution1213";
+        self.textKey = @"Institution";
         self.pullToRefreshEnabled = NO;
         self.paginationEnabled = YES;
-        self.objectsPerPage = 415;
+        self.objectsPerPage = 161;
         self.navigationItem.title = @"Universities";
         self.navigationController.navigationBar.translucent = NO;
         self.sections = [NSMutableDictionary dictionary];
@@ -64,7 +64,7 @@
     NSInteger section = 0;
     NSInteger rowIndex = 0;
     for (PFObject *object in self.objects) {
-        NSString *universityName = [object objectForKey:@"SortableName"];
+        NSString *universityName = [object objectForKey:@"Institution"];
         NSString *letter = [[universityName substringToIndex:1] uppercaseString];
         NSMutableArray *objectsInSection = [self.sections objectForKey:letter];
         if (!objectsInSection) {
@@ -88,7 +88,7 @@
     if (self.objects.count == 0) {
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
-    [query orderByAscending:@"SortableName"];
+    [query orderByAscending:@"Institution"];
 
     return query;
 }
@@ -194,7 +194,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-    NSArray *universityFirstLetters = [[NSArray alloc] initWithObjects:@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"W",@"Y", nil];
+    NSArray *universityFirstLetters = [[NSArray alloc] initWithObjects:@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"K",@"L",@"M",@"N",@"O",@"Q",@"R",@"S",@"T",@"U",@"W",@"Y", nil];
     return [universityFirstLetters indexOfObject:title];
 }
 
@@ -210,7 +210,7 @@
     
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     
-    [query whereKey:@"SortableName" matchesRegex:searchTerm modifiers:@"i"];
+    [query whereKey:@"Institution" matchesRegex:searchTerm modifiers:@"i"];
     //query.limit = 415;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -241,13 +241,17 @@
     
     //configure the cell
     if (tableView != self.searchDisplayController.searchResultsTableView) {
-        cell.textLabel.text = [object objectForKey:@"Name"];
+        cell.textLabel.text = [object objectForKey:@"Institution"];
+        
     } else {
-        PFObject *object2 = [PFObject objectWithClassName:@"Universities"];
+        PFObject *object2 = [PFObject objectWithClassName:@"Institution1213"];
         object2 = [self.searchResults objectAtIndex:indexPath.row];
         //cell.textLabel.text = [[self.searchResults objectAtIndex:indexPath.row]valueForKey:@"SortableName"];
-        cell.textLabel.text = [object2 valueForKey:@"Name"];
+        cell.textLabel.text = [object2 valueForKey:@"Institution"];
     }
+    
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
 
     return cell;
 }
@@ -290,13 +294,13 @@
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:newBackButton];
 
-    PFQuery *queryForUniversityCode = [PFQuery queryWithClassName:@"Universities"];
-    [queryForUniversityCode whereKey:@"Name" equalTo:cell.textLabel.text];
+    PFQuery *queryForUniversityCode = [PFQuery queryWithClassName:@"Institution1213"];
+    [queryForUniversityCode whereKey:@"Institution" equalTo:cell.textLabel.text];
     PFObject *universityObject = [queryForUniversityCode getFirstObject];
-    courseListTableViewController.universityCode = [universityObject valueForKey:@"PUBUKPRN"];
+    courseListTableViewController.universityCode = [universityObject valueForKey:@"UKPRN"];
     contactUniversityPageViewController.universityCode = [universityObject valueForKey:@"UKPRN"];
     contactUniversityPageViewController.universityName = cell.textLabel.text;
-    openDaysUniversityPageTableViewController.universityName = cell.textLabel.text;
+    openDaysUniversityPageTableViewController.universityUKPRN = [universityObject valueForKey:@"UKPRN"];
     uniInfoCoursePageViewController.universityObject = universityObject;
     
     [self.navigationController pushViewController:universityPageTabBarController animated:YES];

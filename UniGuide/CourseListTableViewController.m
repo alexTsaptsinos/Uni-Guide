@@ -27,7 +27,7 @@
 
 @implementation CourseListTableViewController
 
-@synthesize favouritesButton,alphabetsArray,universityCode;
+@synthesize favouritesButton,universityCode;
 @synthesize sections = _sections;
 @synthesize sectionToLetterMap = _sectionToLetterMap;
 
@@ -51,7 +51,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
-    [query whereKey:@"PUBUKPRN" equalTo:self.universityCode];
+    [query whereKey:@"UKPRN" equalTo:self.universityCode];
     [query setLimit:600];
     [query orderByAscending:@"TITLE"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
@@ -96,34 +96,6 @@
         
         
     }];
-    
-    self.alphabetsArray = [[NSMutableArray alloc] init];
-    [self.alphabetsArray addObject:@"A"];
-    [self.alphabetsArray addObject:@"B"];
-    [self.alphabetsArray addObject:@"C"];
-    [self.alphabetsArray addObject:@"D"];
-    [self.alphabetsArray addObject:@"E"];
-    [self.alphabetsArray addObject:@"F"];
-    [self.alphabetsArray addObject:@"G"];
-    [self.alphabetsArray addObject:@"H"];
-    [self.alphabetsArray addObject:@"I"];
-    [self.alphabetsArray addObject:@"J"];
-    [self.alphabetsArray addObject:@"K"];
-    [self.alphabetsArray addObject:@"L"];
-    [self.alphabetsArray addObject:@"M"];
-    [self.alphabetsArray addObject:@"N"];
-    [self.alphabetsArray addObject:@"O"];
-    [self.alphabetsArray addObject:@"P"];
-    [self.alphabetsArray addObject:@"Q"];
-    [self.alphabetsArray addObject:@"R"];
-    [self.alphabetsArray addObject:@"S"];
-    [self.alphabetsArray addObject:@"T"];
-    [self.alphabetsArray addObject:@"U"];
-    [self.alphabetsArray addObject:@"V"];
-    [self.alphabetsArray addObject:@"W"];
-    [self.alphabetsArray addObject:@"X"];
-    [self.alphabetsArray addObject:@"Y"];
-    [self.alphabetsArray addObject:@"Z"];
     
 }
 
@@ -187,6 +159,8 @@
             cell.textLabel.text = titleText; [_universityCourseNames objectAtIndex:indexPath.row];
     }
     }
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
     return cell;
 }
 
