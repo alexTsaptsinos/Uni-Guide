@@ -33,6 +33,8 @@
         self.paginationEnabled = YES;
         self.objectsPerPage = 50;
         self.navigationItem.title = @"Open Days";
+        self.navigationController.navigationBar.translucent = NO;
+
         self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
         
         

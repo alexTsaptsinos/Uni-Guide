@@ -44,6 +44,7 @@
         self.paginationEnabled = YES;
         self.objectsPerPage = 415;
         self.navigationItem.title = @"Universities";
+        self.navigationController.navigationBar.translucent = NO;
         self.sections = [NSMutableDictionary dictionary];
         self.sectionToLetterMap = [NSMutableDictionary dictionary];
         self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
@@ -283,10 +284,11 @@
     universityTitle.text = cell.textLabel.text;
     universityTitle.textAlignment = NSTextAlignmentCenter;
     universityPageTabBarController.navigationItem.titleView = universityTitle;
+    universityPageTabBarController.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+
     
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:newBackButton];
-    uniInfoCoursePageViewController.uniCodeUniInfo = cell.textLabel.text;
 
     PFQuery *queryForUniversityCode = [PFQuery queryWithClassName:@"Universities"];
     [queryForUniversityCode whereKey:@"Name" equalTo:cell.textLabel.text];
@@ -295,6 +297,7 @@
     contactUniversityPageViewController.universityCode = [universityObject valueForKey:@"UKPRN"];
     contactUniversityPageViewController.universityName = cell.textLabel.text;
     openDaysUniversityPageTableViewController.universityName = cell.textLabel.text;
+    uniInfoCoursePageViewController.universityObject = universityObject;
     
     [self.navigationController pushViewController:universityPageTabBarController animated:YES];
 }

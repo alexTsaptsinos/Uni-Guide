@@ -140,7 +140,7 @@
     
     UILabel *universityTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
     universityTitle.numberOfLines = 2;
-    universityTitle.text = cell.textLabel.text;
+    universityTitle.text = self.universityName;
     universityTitle.textAlignment = NSTextAlignmentCenter;
     specificOpenDayViewController.navigationItem.titleView = universityTitle;
     
