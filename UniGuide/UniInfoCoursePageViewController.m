@@ -80,7 +80,7 @@
     
     // get total number of students
 
-    self.totalNumberOfStudentsLabel.text = [self.universityObject valueForKey:@"TotalAllStudents"];
+    self.totalNumberOfStudentsLabel.text = [NSString stringWithFormat:@"Number Of Students: %@",[self.universityObject valueForKey:@"TotalAllStudents"]];
     
     
     //query to get data on total number of beds

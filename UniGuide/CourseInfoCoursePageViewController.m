@@ -16,7 +16,7 @@
 
 @implementation CourseInfoCoursePageViewController
 
-@synthesize universityNameLabel,universityName,universityCode,courseName,courseCodeCourseInfo;
+@synthesize universityNameLabel,uniCodeCourseInfo,courseCodeCourseInfo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,6 +54,13 @@
     
 //    self.navigationItem.title = self.courseNameLabel.text;
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSLog(@"course code: %@ and uni UKPRN: %@",self.courseCodeCourseInfo,self.uniCodeCourseInfo);
+
 }
 
 - (void)didReceiveMemoryWarning

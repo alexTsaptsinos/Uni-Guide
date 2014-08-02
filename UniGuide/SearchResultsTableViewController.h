@@ -28,8 +28,11 @@
 @property (strong, nonatomic) NSString *universityUKPRNString;
 @property (strong, nonatomic) NSMutableArray *searchResultsUniversityCodes;
 @property (strong, nonatomic) NSMutableArray *searchResultsCourseCodes;
+@property (strong, nonatomic) NSMutableArray *courseDegreeTitles;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+-(void)queryForSearchResults;
 
 
 @end
