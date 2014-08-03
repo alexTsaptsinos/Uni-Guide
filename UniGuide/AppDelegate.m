@@ -9,6 +9,7 @@
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import "MainMenuViewController.h"
+#import "AddReviewViewController.h"
 
 @implementation AppDelegate
 

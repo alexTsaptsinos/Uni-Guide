@@ -8,6 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddReviewViewController : UIViewController
+@interface AddReviewViewController : UIViewController <UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *titleTextField;
+@property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView1;
+@property (weak, nonatomic) IBOutlet UIButton *starButton1;
+@property (weak, nonatomic) IBOutlet UIButton *starButton2;
+@property (weak, nonatomic) IBOutlet UIButton *starButton3;
+@property (weak, nonatomic) IBOutlet UIButton *starButton4;
+@property (weak, nonatomic) IBOutlet UIButton *starButton5;
+- (IBAction)starButton1Pressed:(id)sender;
+- (IBAction)starButton2Pressed:(id)sender;
+- (IBAction)starButton3Pressed:(id)sender;
+- (IBAction)starButton4Pressed:(id)sender;
+- (IBAction)starButton5Pressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *textViewEnteredButton;
+@property (nonatomic) BOOL firstTimeTextEdit;
+@property (nonatomic) BOOL haveTheyRatedStars;
+
 
 @end
