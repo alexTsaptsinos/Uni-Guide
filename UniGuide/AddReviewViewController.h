@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface AddReviewViewController : UIViewController <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
@@ -23,9 +24,13 @@
 - (IBAction)starButton3Pressed:(id)sender;
 - (IBAction)starButton4Pressed:(id)sender;
 - (IBAction)starButton5Pressed:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *textViewEnteredButton;
 @property (nonatomic) BOOL firstTimeTextEdit;
 @property (nonatomic) BOOL haveTheyRatedStars;
+@property (nonatomic,strong) NSString *couseKISCode;
+@property (nonatomic) NSNumber *howManyStars;
+@property (nonatomic,strong) NSArray *pickerViewOptions;
+@property (weak, nonatomic) IBOutlet UITextField *yearTextField;
 
+@property (weak, nonatomic) IBOutlet UIPickerView *yearPickerView;
 
 @end

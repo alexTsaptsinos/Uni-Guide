@@ -14,7 +14,7 @@
 
 @implementation AddReviewViewController
 
-@synthesize titleTextField,nameTextField,reviewTextView,starButton1,starButton2,starButton3,starButton4,starButton5,firstTimeTextEdit,haveTheyRatedStars;
+@synthesize titleTextField,nameTextField,reviewTextView,starButton1,starButton2,starButton3,starButton4,starButton5,firstTimeTextEdit,haveTheyRatedStars,couseKISCode,howManyStars,yearTextField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,13 +40,28 @@
     [super viewDidLoad];
     [[self navigationController] setNavigationBarHidden:NO animated:NO];
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-  //  self.reviewTextView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    //self.reviewTextView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.firstTimeTextEdit = YES;
     self.reviewTextView.textColor = [UIColor grayColor];
     self.haveTheyRatedStars = NO;
+   
+    UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
+    [keyboardDoneButtonView sizeToFit];
+    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                                   style:UIBarButtonItemStyleBordered target:self
+                                                                  action:@selector(doneClicked:)];
+    [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
+    self.yearTextField.inputAccessoryView = keyboardDoneButtonView;
+    
     
 
     // Do any additional setup after loading the view from its nib.
+}
+
+- (IBAction)doneClicked:(id)sender
+{
+    NSLog(@"Done Clicked.");
+    [self.view endEditing:YES];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -55,8 +70,14 @@
         self.reviewTextView.text = @"";
         self.reviewTextView.textColor = [UIColor blackColor];
         self.firstTimeTextEdit = NO;
+       // self.reviewTextView.frame = CGRectMake(0, 203, 320, 60);
     }
     
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    self.reviewTextView.frame = CGRectMake(0, 203, 320, 277);
 }
 
 
@@ -74,6 +95,10 @@
     if (textField == self.nameTextField) {
         [textField resignFirstResponder];
     }
+    if (textField == self.yearTextField) {
+        [textField resignFirstResponder];
+    }
+    
 
     return YES;
 }
@@ -85,16 +110,50 @@
         [noRatingAlert show];
     }
     else if ([self.nameTextField.text isEqualToString:@""]) {
-        UIAlertView *noNameAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter a name" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *noNameAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter a nickname" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [noNameAlert show];
     }
     else if ([self.titleTextField.text isEqualToString:@""]) {
         UIAlertView *noTitleAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter a title" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [noTitleAlert show];
     }
+    else if ([self.yearTextField.text isEqualToString:@""]) {
+        UIAlertView *noTitleAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter your year" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [noTitleAlert show];
+    }
     else {
+        PFObject *newReview = [PFObject objectWithClassName:@"CourseReviews"];
+        newReview[@"ReviewerName"] = self.nameTextField.text;
+        newReview[@"ReviewTitle"] = self.titleTextField.text;
+        newReview[@"ReviewText"] = self.reviewTextView.text;
+        newReview[@"CourseCode"] = self.couseKISCode;
+        newReview[@"StarRating"] = self.howManyStars;
+        if ([self.yearTextField.text isEqualToString:@"1"]) {
+            newReview[@"ReviewerYear"] = @"1st Year";
+        }
+        if ([self.yearTextField.text isEqualToString:@"2"]) {
+            newReview[@"ReviewerYear"] = @"2nd Year";
+        }
+        if ([self.yearTextField.text isEqualToString:@"3"]) {
+            newReview[@"ReviewerYear"] = @"3rd Year";
+        }
+        if ([self.yearTextField.text isEqualToString:@"4"]) {
+            newReview[@"ReviewerYear"] = @"4th Year";
+        }
+        if ([self.yearTextField.text isEqualToString:@"5"]) {
+            newReview[@"ReviewerYear"] = @"5th Year";
+        }
+        if ([self.yearTextField.text isEqualToString:@"6"]) {
+            newReview[@"ReviewerYear"] = @"6th Year";
+        }
+        [newReview saveInBackground];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    self.reviewTextView.frame = CGRectMake(0, 203, 320, 60);
+
 }
 
 -(void) cancelBtnPressed
@@ -109,6 +168,8 @@
     [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
     [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
     [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.reviewTextView resignFirstResponder];
+    self.howManyStars = [NSNumber numberWithInt:1];
     self.haveTheyRatedStars = YES;
 }
 
@@ -118,6 +179,8 @@
     [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
     [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
     [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.reviewTextView resignFirstResponder];
+    self.howManyStars = [NSNumber numberWithInt:2];
     self.haveTheyRatedStars = YES;
 }
 
@@ -127,6 +190,8 @@
     [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
     [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
     [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.reviewTextView resignFirstResponder];
+    self.howManyStars = [NSNumber numberWithInt:3];
     self.haveTheyRatedStars = YES;
 }
 
@@ -136,6 +201,8 @@
     [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
     [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
     [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.reviewTextView resignFirstResponder];
+    self.howManyStars = [NSNumber numberWithInt:4];
     self.haveTheyRatedStars = YES;
 }
 
@@ -145,6 +212,8 @@
     [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
     [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
     [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
+    [self.reviewTextView resignFirstResponder];
+    self.howManyStars = [NSNumber numberWithInt:5];
     self.haveTheyRatedStars = YES;
 }
 
