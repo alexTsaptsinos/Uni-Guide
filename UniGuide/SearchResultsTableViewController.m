@@ -31,7 +31,7 @@
 
 @implementation SearchResultsTableViewController
 
-@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityUKPRNString,searchResultsUniversityCodes,searchResultsCourseCodes,activityIndicator,limit,skip,courseDegreeTitles,universitySearchedUKPRN;
+@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityUKPRNString,searchResultsUniversityCodes,searchResultsCourseCodes,activityIndicator,limit,skip,courseDegreeTitles,universitySearchedUKPRN,haveFoundEverySeachValue;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,191 +57,20 @@
     self.tableView.hidden = YES;
     [self.activityIndicator startAnimating];
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-    self.limit = 5;
+    self.limit = 10;
     self.skip = 0;
     self.searchResults = [[NSMutableArray alloc] init];
     self.searchResultsCourseCodes = [[NSMutableArray alloc] init];
     self.courseSearchResultsKisAimCodes = [[NSMutableArray alloc] init];
     self.courseDegreeTitles = [[NSMutableArray alloc] init];
+    self.universityNamesForSearchResults = [[NSMutableArray alloc] init];
+    self.searchResultsUniversityCodes = [[NSMutableArray alloc] init];
+    self.haveFoundEverySeachValue = NO;
     [self queryForSearchResults];
     //self.amountToSkip = 0;
 
-    
-    //    NSLog(@"searched university: %@ and searched course: %@ and locaton searched: %@", self.universitySearchedString,self.courseSearchedString,self.locationSearchedString);
-    //
-    //    // if user has searched for university, first get UKPRN (location has automatically loaded)
-    //
-    //    if (self.universitySearchedString.length != 0) {
-    //
-    //        PFQuery *queryForUKPRN = [PFQuery queryWithClassName:@"Institution1213"];
-    //        [queryForUKPRN whereKey:@"Institution" equalTo:self.universitySearchedString];
-    //        [queryForUKPRN selectKeys:[NSArray arrayWithObject:@"UKPRN"]];
-    //        PFObject *ukprnObject = [queryForUKPRN getFirstObject];
-    //        NSString *ukprn = [ukprnObject valueForKey:@"UKPRN"];
-    //
-    //        //if the user has searched for university (and location) and course (location automatically loaded)
-    //
-    //        if (self.courseSearchedString.length != 0) {
-    //            NSLog(@"code to search: %@ and course to search: %@", ukprn,courseSearchedString);
-    //            PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
-    //            [bigQuery whereKey:@"UKPRN" equalTo:ukprn];
-    //            [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
-    //            [bigQuery setLimit:100];
-    //            [bigQuery whereKeyExists:@"TITLE"];
-    //            [bigQuery orderByAscending:@"TITLE"];
-    //            [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
-    //                NSLog(@"objects: %@",objects);
-    //                self.searchResults = [objects valueForKey:@"TITLE"];
-    //                self.courseSearchResultsKisAimCodes = [objects valueForKey:@"KISAIMCODE"];
-    //                self.searchResultsCourseCodes = [objects valueForKey:@"KISCODE"];
-    //                //NSLog(@"search results: %@",self.searchResults);
-    //                self.tableView.hidden = NO;
-    //                [self.activityIndicator stopAnimating];
-    //                [self.tableView reloadData];
-    //            }];
-    //        }
-    //
-    //        // if the user has searched for university and location but not course (location automatically loaded)
-    //
-    //        else if (self.courseSearchedString.length == 0) {
-    //
-    //            PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
-    //            [bigQuery whereKey:@"UKPRN" equalTo:ukprn];
-    //            [bigQuery whereKeyExists:@"TITLE"];
-    //            [bigQuery setLimit:600];
-    //            [bigQuery orderByAscending:@"TITLE"];
-    //            [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
-    //                //NSLog(@"objects: %@",objects);
-    //                self.searchResults = [objects valueForKey:@"TITLE"];
-    //                self.courseSearchResultsKisAimCodes = [objects valueForKey:@"KISAIMCODE"];
-    //                self.searchResultsCourseCodes = [objects valueForKey:@"KISCODE"];
-    //                //NSLog(@"search results: %@",self.searchResults);
-    //                self.tableView.hidden = NO;
-    //                [self.activityIndicator stopAnimating];
-    //                [self.tableView reloadData];
-    //            }];
-    //
-    //        }
-    //    }
-    //
-    //    //if the user has searched by course and location
-    //
-    //    else if (self.universitySearchedString.length == 0) {
-    //
-    //        //first get possible university UKPRNs using location
-    //
-    //        NSDictionary *locationDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"East Of England", @"EAST", @"West Midlands", @"WMID",@"South West",@"SWES",@"London",@"LOND",@"East Midlands",@"EMID",@"North West",@"NWES",@"Yorkshire And The Humber",@"YORH",@"South East",@"SEAS", @"North East",@"NEAS",@"Wales",@"WALE",@"Scotland",@"SCOT",@"Northern Ireland",@"NIRE",nil];
-    //
-    //        NSArray *locationIDArray = [locationDict allKeysForObject:self.locationSearchedString];
-    //        NSString *locationID = [locationIDArray objectAtIndex:0];
-    //        NSLog(@"array: %@ and ID: %@",locationIDArray,locationID);
-    //
-    //        PFQuery *locationsQuery = [PFQuery queryWithClassName:@"Institution1213"];
-    //        [locationsQuery whereKeyExists:@"UKPRN"];
-    //        [locationsQuery selectKeys:[NSArray arrayWithObject:@"UKPRN"]];
-    //        [locationsQuery whereKey:@"RegionOfInstitution" equalTo:locationID];
-    //        NSArray *locationUniversityObjects = [locationsQuery findObjects];
-    //        NSArray *locationUniversityUKPRNS = [locationUniversityObjects valueForKey:@"UKPRN"];
-    //        NSLog(@"possible unis: %@",locationUniversityUKPRNS);
-    //
-    //        NSLog(@"number of possible unis: %d",locationUniversityUKPRNS.count);
-    //
-    //        NSMutableArray *cumulativeSeachResults = [[NSMutableArray alloc] init];
-    //
-    //        for (int i=0; i < locationUniversityUKPRNS.count; i++) {
-    //            // now query courses using ukprns
-    //            NSLog(@"i value: %d",i);
-    //            PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
-    //            [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
-    //            [bigQuery setLimit:1000];
-    //            NSLog(@"ukprn: %@",[locationUniversityUKPRNS objectAtIndex:i]);
-    //            [bigQuery whereKey:@"UKPRN" equalTo:[locationUniversityUKPRNS objectAtIndex:i]];
-    //            [bigQuery whereKeyExists:@"TITLE"];
-    //            [bigQuery orderByAscending:@"TITLE"];
-    //           // NSArray *tempResults = [bigQuery findObjects];
-    //            [cumulativeSeachResults addObjectsFromArray:[bigQuery findObjects]];
-    //            NSLog(@"search results: %@ and count: %d",cumulativeSeachResults,cumulativeSeachResults.count);
-    //            if (i == locationUniversityUKPRNS.count - 1) {
-    //                self.searchResults = [cumulativeSeachResults valueForKey:@"TITLE"];
-    //                self.searchResultsUniversityCodes = [cumulativeSeachResults valueForKey:@"UKPRN"];
-    //                self.courseSearchResultsKisAimCodes = [cumulativeSeachResults valueForKey:@"KISAIMCODE"];
-    //                self.searchResultsCourseCodes = [cumulativeSeachResults valueForKey:@"KISCODE"];
-    //                self.tableView.hidden = NO;
-    //                [self.activityIndicator stopAnimating];
-    //                [self.tableView reloadData];
-    //            }
-    
-    
-    //            [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
-    //               // NSLog(@"objects: %@",objects);
-    //                [cumulativeSeachResults addObjectsFromArray:[objects valueForKey:@"TITLE"]];
-    //                //self.searchResults = [objects valueForKey:@"TITLE"];
-    //                //self.searchResultsUniversityCodes = [objects valueForKey:@"UKPRN"];
-    //               // self.courseSearchResultsKisAimCodes = [objects valueForKey:@"KISAIMCODE"];
-    //               // self.searchResultsCourseCodes = [objects valueForKey:@"KISCODE"];
-    //                NSLog(@"search results: %@ and count: %d",cumulativeSeachResults,cumulativeSeachResults.count);
-    //                if (i == locationUniversityUKPRNS.count - 1) {
-    //                    self.searchResults = cumulativeSeachResults;
-    //                    self.tableView.hidden = NO;
-    //                    [self.activityIndicator stopAnimating];
-    //                    [self.tableView reloadData];
-    //                }
-    //
-    //            }];
-    //   }
-    
-    
-    
-    //  }
-    
-    // If user has searched with university, first retrieve the PUBUKPRN of the uni
-    
-    //    if ([self.universitySearchedString length] != 0) {
-    //
-    //        // if searching by university and course
-    //
-    //        if ([self.courseSearchedString length] != 0) {
-    //
-    //            // if searching by university, course and locaton
-    //
-    //            if ([self.locationSearchedString length] != 0) {
-    //                PFQuery *query = [PFQuery queryWithClassName:@"Institution1213"];
-    //                [query whereKey:@"Institution" matchesRegex:universitySearchedString modifiers:@"i"];
-    //                [query whereKey:@"RegionOfInstitution" equalTo:self.locationSearchedString];
-    //                [query selectKeys:[NSArray arrayWithObject:@"UKPRN"]];
-    //                NSArray *universityObjectUKPRNS = [query findObjects];
-    //                //universityUKPRNString = [universityObject objectForKey:@"UKPRN"];
-    //                NSLog(@"this is the pubukprn: %@", universityObjectUKPRNS);
-    //
-    //                [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
-    //
-    //                    for (PFObject *object in objects) {
-    //                        NSString *ukprn = [object valueForKey:@"UKPRN"];
-    //                        NSLog(@"ukprn: %@", ukprn);
-    //                        PFQuery *queryForCourses = [PFQuery queryWithClassName:@"Kiscourse"];
-    //                        [queryForCourses whereKey:@"UKPRN" equalTo:ukprn];
-    //                        [queryForCourses selectKeys:[NSArray arrayWithObject:@"TITLE"]];
-    //                        [queryForCourses findObjectsInBackgroundWithBlock:^(NSArray *courseObjects,NSError *courseError) {
-    //                            NSArray *courseNames = [courseObjects valueForKey:@"TITLE"];
-    //                            [self.searchResults addObjectsFromArray:courseNames];
-    //                            NSLog(@"search results: %@",self.searchResults);
-    //                            self.tableView.hidden = NO;
-    //                            [self.activityIndicator stopAnimating];
-    //                        }];
-    //                    }
-    //
-    //                }];
-    //            }
-    //        }
-    //    }
 }
 
-
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
 
 #pragma mark -
 #pragma mark View Will/Did Appear
@@ -253,119 +82,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-//    self.limit = 5;
-//    self.skip = 0;
-//    [self queryForSearchResults];
-//    self.searchResults = [[NSMutableArray alloc] init];
-//    self.searchResultsCourseCodes = [[NSMutableArray alloc] init];
-//    self.courseSearchResultsKisAimCodes = [[NSMutableArray alloc] init];
-//    self.courseDegreeTitles = [[NSMutableArray alloc] init];
-    
-//    NSLog(@"searched university: %@ and searched course: %@ and locaton searched: %@", self.universitySearchedString,self.courseSearchedString,self.locationSearchedString);
-//    
-//    // if user has searched for university, first get UKPRN (location has automatically loaded)
-//    
-//    if (self.universitySearchedString.length != 0) {
-//        
-//        PFQuery *queryForUKPRN = [PFQuery queryWithClassName:@"Institution1213"];
-//        [queryForUKPRN whereKey:@"Institution" equalTo:self.universitySearchedString];
-//        [queryForUKPRN selectKeys:[NSArray arrayWithObject:@"UKPRN"]];
-//        PFObject *ukprnObject = [queryForUKPRN getFirstObject];
-//        NSString *ukprn = [ukprnObject valueForKey:@"UKPRN"];
-//        
-//        //if the user has searched for university (and location) and course (location automatically loaded)
-//        
-//        if (self.courseSearchedString.length != 0) {
-//            NSLog(@"code to search: %@ and course to search: %@", ukprn,courseSearchedString);
-//            PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
-//            [bigQuery whereKey:@"UKPRN" equalTo:ukprn];
-//            [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
-//            [bigQuery setLimit:100];
-//            [bigQuery whereKeyExists:@"TITLE"];
-//            [bigQuery orderByAscending:@"TITLE"];
-//            [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
-//                NSLog(@"objects: %@",objects);
-//                self.searchResults = [objects valueForKey:@"TITLE"];
-//                self.courseSearchResultsKisAimCodes = [objects valueForKey:@"KISAIMCODE"];
-//                self.searchResultsCourseCodes = [objects valueForKey:@"KISCODE"];
-//                //NSLog(@"search results: %@",self.searchResults);
-//                self.tableView.hidden = NO;
-//                [self.activityIndicator stopAnimating];
-//                [self.tableView reloadData];
-//            }];
-//        }
-//        
-//        // if the user has searched for university and location but not course (location automatically loaded)
-//        
-//        else if (self.courseSearchedString.length == 0) {
-//            
-//            PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
-//            [bigQuery whereKey:@"UKPRN" equalTo:ukprn];
-//            [bigQuery whereKeyExists:@"TITLE"];
-//            [bigQuery setLimit:600];
-//            [bigQuery orderByAscending:@"TITLE"];
-//            [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
-//                //NSLog(@"objects: %@",objects);
-//                self.searchResults = [objects valueForKey:@"TITLE"];
-//                self.courseSearchResultsKisAimCodes = [objects valueForKey:@"KISAIMCODE"];
-//                self.searchResultsCourseCodes = [objects valueForKey:@"KISCODE"];
-//                //NSLog(@"search results: %@",self.searchResults);
-//                self.tableView.hidden = NO;
-//                [self.activityIndicator stopAnimating];
-//                [self.tableView reloadData];
-//            }];
-//            
-//        }
-//    }
-//    
-//    //if the user has searched by course and location
-//    
-//    else if (self.universitySearchedString.length == 0) {
-//        
-//        //first get possible university UKPRNs using location
-//        
-//        NSDictionary *locationDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"East Of England", @"EAST", @"West Midlands", @"WMID",@"South West",@"SWES",@"London",@"LOND",@"East Midlands",@"EMID",@"North West",@"NWES",@"Yorkshire And The Humber",@"YORH",@"South East",@"SEAS", @"North East",@"NEAS",@"Wales",@"WALE",@"Scotland",@"SCOT",@"Northern Ireland",@"NIRE",nil];
-//        
-//        NSArray *locationIDArray = [locationDict allKeysForObject:self.locationSearchedString];
-//        NSString *locationID = [locationIDArray objectAtIndex:0];
-//        NSLog(@"array: %@ and ID: %@",locationIDArray,locationID);
-//        
-//        PFQuery *locationsQuery = [PFQuery queryWithClassName:@"Institution1213"];
-//        [locationsQuery whereKeyExists:@"UKPRN"];
-//        [locationsQuery selectKeys:[NSArray arrayWithObject:@"UKPRN"]];
-//        [locationsQuery whereKey:@"RegionOfInstitution" equalTo:locationID];
-//        NSArray *locationUniversityObjects = [locationsQuery findObjects];
-//        NSArray *locationUniversityUKPRNS = [locationUniversityObjects valueForKey:@"UKPRN"];
-//        NSLog(@"possible unis: %@",locationUniversityUKPRNS);
-//        
-//        NSLog(@"number of possible unis: %d",locationUniversityUKPRNS.count);
-//        
-//        NSMutableArray *cumulativeSeachResults = [[NSMutableArray alloc] init];
-//        
-//        for (int i=0; i < locationUniversityUKPRNS.count; i++) {
-//            // now query courses using ukprns
-//            NSLog(@"i value: %d",i);
-//            PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
-//            [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
-//            [bigQuery setLimit:1000];
-//            NSLog(@"ukprn: %@",[locationUniversityUKPRNS objectAtIndex:i]);
-//            [bigQuery whereKey:@"UKPRN" equalTo:[locationUniversityUKPRNS objectAtIndex:i]];
-//            [bigQuery whereKeyExists:@"TITLE"];
-//            [bigQuery orderByAscending:@"TITLE"];
-//            // NSArray *tempResults = [bigQuery findObjects];
-//            [cumulativeSeachResults addObjectsFromArray:[bigQuery findObjects]];
-//            NSLog(@"search results: %@ and count: %d",cumulativeSeachResults,cumulativeSeachResults.count);
-//            if (i == locationUniversityUKPRNS.count - 1) {
-//                self.searchResults = [cumulativeSeachResults valueForKey:@"TITLE"];
-//                self.searchResultsUniversityCodes = [cumulativeSeachResults valueForKey:@"UKPRN"];
-//                self.courseSearchResultsKisAimCodes = [cumulativeSeachResults valueForKey:@"KISAIMCODE"];
-//                self.searchResultsCourseCodes = [cumulativeSeachResults valueForKey:@"KISCODE"];
-//                self.tableView.hidden = NO;
-//                [self.activityIndicator stopAnimating];
-//                [self.tableView reloadData];
-//            }
-//        }
-//    }
 }
 
 - (void)queryForSearchResults
@@ -405,6 +121,9 @@
                     [queryForHonourReceived whereKey:@"KISAIMCODE" equalTo:aimCodes];
                     PFObject *object = [queryForHonourReceived getFirstObject];
                     NSString *courseHonour = [object valueForKey:@"KISAIMLABEL"];
+                    if (objects.count == 0) {
+                        self.haveFoundEverySeachValue = YES;
+                    }
                     [self.courseDegreeTitles addObject:courseHonour];
                 }
                 NSLog(@"search results: %@",self.searchResults);
@@ -438,7 +157,9 @@
                     PFObject *object = [queryForHonourReceived getFirstObject];
                     NSString *courseHonour = [object valueForKey:@"KISAIMLABEL"];
                     [self.courseDegreeTitles addObject:courseHonour];
-                    
+                    if (objects.count == 0) {
+                        self.haveFoundEverySeachValue = YES;
+                    }
                 }
                 NSLog(@"search results: %@",self.searchResults);
                 self.skip += self.limit;
@@ -459,29 +180,34 @@
         
         NSDictionary *locationDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"East Of England", @"EAST", @"West Midlands", @"WMID",@"South West",@"SWES",@"London",@"LOND",@"East Midlands",@"EMID",@"North West",@"NWES",@"Yorkshire And The Humber",@"YORH",@"South East",@"SEAS", @"North East",@"NEAS",@"Wales",@"WALE",@"Scotland",@"SCOT",@"Northern Ireland",@"NIRE",nil];
         
+        // find the location searched id using the dictionary
         NSArray *locationIDArray = [locationDict allKeysForObject:self.locationSearchedString];
         NSString *locationID = [locationIDArray objectAtIndex:0];
         NSLog(@"array: %@ and ID: %@",locationIDArray,locationID);
         
+        // now we query for all universities with this region id
         PFQuery *locationsQuery = [PFQuery queryWithClassName:@"Institution1213"];
         [locationsQuery whereKeyExists:@"UKPRN"];
         [locationsQuery selectKeys:[NSArray arrayWithObject:@"UKPRN"]];
         [locationsQuery whereKey:@"RegionOfInstitution" equalTo:locationID];
         NSArray *locationUniversityObjects = [locationsQuery findObjects];
+        // array of the possible ukprns
         NSArray *locationUniversityUKPRNS = [locationUniversityObjects valueForKey:@"UKPRN"];
         NSLog(@"possible unis count: %d",locationUniversityUKPRNS.count);
-        
         NSLog(@"number of possible unis: %d",locationUniversityUKPRNS.count);
         
+        // we use the cumulative search results to keep adding results
+        
         NSMutableArray *cumulativeSearchResults = [[NSMutableArray alloc] init];
-        self.universityNamesForSearchResults = [[NSMutableArray alloc] init];
+        [cumulativeSearchResults removeAllObjects];
         
         for (int i=0; i < locationUniversityUKPRNS.count; i++) {
             // now query courses using ukprns
             NSLog(@"i value: %d",i);
             PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
             [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
-            [bigQuery setLimit:self.limit];
+            // find this number per university
+            [bigQuery setLimit:5];
             [bigQuery setSkip:self.skip];
             NSLog(@"ukprn: %@",[locationUniversityUKPRNS objectAtIndex:i]);
             [bigQuery whereKey:@"UKPRN" equalTo:[locationUniversityUKPRNS objectAtIndex:i]];
@@ -496,12 +222,22 @@
             NSString *universityNameTemp = [tempObject valueForKey:@"Institution"];
             NSLog(@"uni name temp: %@",universityNameTemp);
             
+            //for however many courses found add the university name this many times
             for (int j=0; j<tempArray.count; j++) {
                 [self.universityNamesForSearchResults addObject:universityNameTemp];
+              //  [self.searchResultsUniversityCodes addObject:[locationUniversityUKPRNS objectAtIndex:i]];
+               // NSLog(@"university names: %@ and uni ukprns: %@",self.universityNamesForSearchResults,self.searchResultsUniversityCodes);
             }
+            
+            // now add the courses we found
             [cumulativeSearchResults addObjectsFromArray:tempArray];
-            NSLog(@"cum search results: %@ and count: %d",cumulativeSearchResults,cumulativeSearchResults.count);
+            NSLog(@"cum search results count: %d",cumulativeSearchResults.count);
+            
+            // if we have got to the final university in this region
             if (i == locationUniversityUKPRNS.count - 1) {
+                if (cumulativeSearchResults.count == 0) {
+                    self.haveFoundEverySeachValue = YES;
+                }
                 [self.searchResults  addObjectsFromArray:[cumulativeSearchResults valueForKey:@"TITLE"]];
                 NSLog(@"search results first; %@",self.searchResults);
                 [self.searchResultsUniversityCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"UKPRN"]];
@@ -517,7 +253,7 @@
                     NSLog(@"course honour: %@ and course degree title: %@",courseHonour,self.courseDegreeTitles);
                     
                 }
-                self.skip += self.limit;
+                self.skip += 5;//self.limit;
                 NSLog(@"uni names %@",self.universityNamesForSearchResults);
                 NSLog(@"self.skip : %d",self.skip);
                 self.tableView.hidden = NO;
@@ -575,7 +311,9 @@
     }
     
     if (indexPath.row == [self.searchResults count] - 1) {
-        [self queryForSearchResults];
+        if (self.haveFoundEverySeachValue == NO) {
+            [self queryForSearchResults];
+        }
     }
     
     //    // Configure the cell...
@@ -583,7 +321,6 @@
     NSString *courseName = [self.searchResults objectAtIndex:indexPath.row];
     courseName = [courseName stringByAppendingString:@" - "];
     courseName = [courseName stringByAppendingString:[self.courseDegreeTitles objectAtIndex:indexPath.row]];
-    NSLog(@"course name; %@",courseName);
     cell.textLabel.text = courseName;
     
     //cell.textLabel.text = [self.searchResults objectAtIndex:indexPath.row];
@@ -642,11 +379,14 @@
     favouritesButton.tintColor = [UIColor grayColor];
     [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
     
-    if (self.universitySearchedString != 0) {
+    if (self.universitySearchedString.length != 0) {
         NSLog(@"just about to pass: %@",self.universitySearchedUKPRN);
         courseInfoCoursePageViewController.uniCodeCourseInfo = self.universitySearchedUKPRN;
+        uniInfoCoursePageViewController.uniCodeUniInfo = self.universitySearchedUKPRN;
     } else {
+        NSLog(@"got to here woo: %@",self.searchResultsUniversityCodes);
         courseInfoCoursePageViewController.uniCodeCourseInfo = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
+        uniInfoCoursePageViewController.uniCodeUniInfo = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
     }
     
     NSLog(@"just about to pass course code: %@,does anything exist? %@",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],self.searchResultsCourseCodes);

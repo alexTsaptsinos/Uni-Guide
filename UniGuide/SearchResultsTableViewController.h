@@ -30,6 +30,7 @@
 @property (strong, nonatomic) NSMutableArray *searchResultsCourseCodes;
 @property (strong, nonatomic) NSMutableArray *courseDegreeTitles;
 @property (strong, nonatomic) NSMutableArray *universityNamesForSearchResults;
+@property (nonatomic) BOOL haveFoundEverySeachValue;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
