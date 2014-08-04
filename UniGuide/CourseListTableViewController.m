@@ -15,8 +15,8 @@
 @interface CourseListTableViewController () <UISearchBarDelegate,UISearchDisplayDelegate>
 
 {
-    NSArray *_universityCourses;
     NSArray *_universityCourseNames;
+    NSArray *_universityCourseCodes;
 }
 
 @property (nonatomic, retain) NSMutableDictionary *sections;
@@ -56,6 +56,7 @@
     [query orderByAscending:@"TITLE"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
         _universityCourseNames = [objects valueForKey:@"TITLE"];
+        _universityCourseCodes = [objects valueForKey:@"KISCOURSEID"];
         _sections = [[NSMutableDictionary alloc] init]; ///Global Object
         //NSLog(@"No. of courses: %d and these are the courses: %@", _universityCourseNames.count,_universityCourseNames);
         
@@ -249,6 +250,14 @@
     favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favouritesButton"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
     favouritesButton.tintColor = [UIColor grayColor];
     [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+    courseInfoCoursePageViewController.uniCodeCourseInfo = self.universityCode;
+    courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:indexPath.row];
+    
+    reviewsCoursePageViewController.uniCodeReviews = self.universityCode;
+    reviewsCoursePageViewController.courseCodeReviews = [_universityCourseCodes objectAtIndex:indexPath.row];
+    reviewsCoursePageViewController.courseNameReviews = cell.textLabel.text;
+    
+    uniInfoCoursePageViewController.uniCodeUniInfo = self.universityCode;
     
     // Push the view controller.
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];

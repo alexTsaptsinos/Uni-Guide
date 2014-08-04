@@ -8,10 +8,28 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <Parse/Parse.h>
+#import "ReviewCustomCellView.h"
 
-@interface ReviewsCoursePageViewController : UIViewController
+@interface ReviewsCoursePageViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *addReviewButton;
 - (IBAction)addReviewButtonPressed:(id)sender;
 @property (strong, nonatomic) NSString *courseCodeReviews;
+@property (strong,nonatomic) NSString *uniCodeReviews;
+@property (weak, nonatomic) IBOutlet UILabel *universityAndCourseLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberOfReviewsLabel;
+@property (strong, nonatomic) NSString *courseNameReviews;
+
+@property (strong,nonatomic) NSMutableArray *reviewersNames;
+@property (strong,nonatomic) NSMutableArray *reviewersYears;
+@property (strong,nonatomic) NSMutableArray *reviewDates;
+@property (strong,nonatomic) NSMutableArray *reviewTitles;
+@property (strong,nonatomic) NSMutableArray *reviewStars;
+@property (strong,nonatomic) NSMutableArray *reviewTexts;
+
+@property (weak, nonatomic) IBOutlet UITableView *reviewTableView;
+@property (strong, nonatomic) NSMutableArray *cellHeights;
+@property (nonatomic) BOOL haveDoneParseQueryYet;
+
 
 @end

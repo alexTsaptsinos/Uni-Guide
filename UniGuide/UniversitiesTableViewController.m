@@ -28,7 +28,7 @@
 
 @implementation UniversitiesTableViewController
 
-@synthesize alphabetsArray;
+@synthesize alphabetsArray,hasSearchingCommenced;
 @synthesize sections = _sections;
 @synthesize  sectionToLetterMap = _sectionToLetterMap;;
 
@@ -48,6 +48,7 @@
         self.sections = [NSMutableDictionary dictionary];
         self.sectionToLetterMap = [NSMutableDictionary dictionary];
         self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+        self.hasSearchingCommenced = NO;
 
         
     }
@@ -95,10 +96,15 @@
 
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *letter = [self letterForSection:indexPath.section];
-    NSArray *rowIndecesInSection = [self.sections objectForKey:letter];
-    NSNumber *rowIndex = [rowIndecesInSection objectAtIndex:indexPath.row];
-    return [self.objects objectAtIndex:[rowIndex intValue]];
+    if (hasSearchingCommenced == NO) {
+        NSString *letter = [self letterForSection:indexPath.section];
+        NSArray *rowIndecesInSection = [self.sections objectForKey:letter];
+        NSNumber *rowIndex = [rowIndecesInSection objectAtIndex:indexPath.row];
+        return [self.objects objectAtIndex:[rowIndex intValue]];
+    } else {
+        return NULL;
+    }
+   
 }
 
 - (void)viewDidLoad
@@ -114,6 +120,7 @@
     self.searchController.searchResultsDataSource = self;
     self.searchController.searchResultsDelegate = self;
     self.searchController.delegate = self;
+    self.searchBar.delegate = self;
 
     
     self.searchResults = [NSMutableArray array];
@@ -192,6 +199,12 @@
     
 }
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    self.hasSearchingCommenced = NO;
+    [self objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
     NSArray *universityFirstLetters = [[NSArray alloc] initWithObjects:@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"K",@"L",@"M",@"N",@"O",@"Q",@"R",@"S",@"T",@"U",@"W",@"Y", nil];
@@ -207,6 +220,8 @@
 #pragma mark - methods for search feature
 
 -(void)filterResults:(NSString *)searchTerm {
+    
+    self.hasSearchingCommenced = YES;
     
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     
@@ -301,7 +316,7 @@
     contactUniversityPageViewController.universityCode = [universityObject valueForKey:@"UKPRN"];
     contactUniversityPageViewController.universityName = cell.textLabel.text;
     openDaysUniversityPageTableViewController.universityUKPRN = [universityObject valueForKey:@"UKPRN"];
-    uniInfoCoursePageViewController.universityObject = universityObject;
+    uniInfoCoursePageViewController.uniCodeUniInfo = [universityObject valueForKey:@"UKPRN"];
     
     [self.navigationController pushViewController:universityPageTabBarController animated:YES];
 }

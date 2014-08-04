@@ -383,10 +383,12 @@
         NSLog(@"just about to pass: %@",self.universitySearchedUKPRN);
         courseInfoCoursePageViewController.uniCodeCourseInfo = self.universitySearchedUKPRN;
         uniInfoCoursePageViewController.uniCodeUniInfo = self.universitySearchedUKPRN;
+        reviewsCoursePageViewController.uniCodeReviews = self.universitySearchedUKPRN;
     } else {
         NSLog(@"got to here woo: %@",self.searchResultsUniversityCodes);
         courseInfoCoursePageViewController.uniCodeCourseInfo = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
         uniInfoCoursePageViewController.uniCodeUniInfo = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
+        reviewsCoursePageViewController.uniCodeReviews = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
     }
     
     NSLog(@"just about to pass course code: %@,does anything exist? %@",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],self.searchResultsCourseCodes);
@@ -394,6 +396,8 @@
     // push to the next view controllers the course code and ukprn
     
     courseInfoCoursePageViewController.courseCodeCourseInfo = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
+    reviewsCoursePageViewController.courseCodeReviews = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
+    reviewsCoursePageViewController.courseNameReviews = cell.textLabel.text;
 
     // Push the view controller.
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];

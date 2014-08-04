@@ -27,7 +27,7 @@
 @implementation UniInfoCoursePageViewController
 
 
-@synthesize uniCodeUniInfo,universityObject,studentSatisfactionPercentage,totalNumberOfStudentsLabel,numberOfBedsLabel,averagePrivateLabel,averageInstituteLabel,scrollView;
+@synthesize uniCodeUniInfo,studentSatisfactionPercentage,totalNumberOfStudentsLabel,numberOfBedsLabel,averagePrivateLabel,averageInstituteLabel,scrollView;
 @synthesize hostView = hostView_;
 
 #pragma mark - UIViewController lifecycle methods
@@ -64,8 +64,6 @@
 {
     [super viewWillAppear:animated];
     
-    NSLog(@"uni code in view will appear: %@",self.universityObject);
-    self.uniCodeUniInfo = [universityObject valueForKey:@"UKPRN"];
     NSLog(@"code: %@", self.uniCodeUniInfo);
     
     // query to get satisfaction with union
@@ -78,9 +76,13 @@
     NSLog(@"satisfaction: %@",studentSatisfactionPercentage);
     self.studentSatisfactionLabel.text = [NSString stringWithFormat:@"Student Satisfaction: %@%%",studentSatisfactionPercentage];
     
-    // get total number of students
-
-    self.totalNumberOfStudentsLabel.text = [NSString stringWithFormat:@"Number Of Students: %@",[self.universityObject valueForKey:@"TotalAllStudents"]];
+    // query to get total number of students
+    PFQuery *queryForTotalNumberOfStudents = [PFQuery queryWithClassName:@"Institution1213"];
+    [queryForTotalNumberOfStudents whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
+    [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"TotalAllStudents"]];
+    PFObject *tempObject1 = [queryForTotalNumberOfStudents getFirstObject];
+    NSString *totalNumberOfStudents = [tempObject1 valueForKey:@"TotalAllStudents"];
+    self.totalNumberOfStudentsLabel.text = [NSString stringWithFormat:@"Number Of Students: %@",totalNumberOfStudents];
     
     
     //query to get data on total number of beds
