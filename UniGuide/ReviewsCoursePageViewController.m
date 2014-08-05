@@ -65,7 +65,12 @@
     [queryForReviews whereKey:@"CourseCode" equalTo:self.courseCodeReviews];
     [queryForReviews orderByAscending:@"createdAt"];
     [queryForReviews findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
-        if (objects.count == 1) {
+        if (objects.count == 0) {
+            self.reviewTableView.hidden = YES;
+            self.numberOfReviewsLabel.text = @"0 Ratings";
+            self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
+        }
+        else if (objects.count == 1) {
             self.numberOfReviewsLabel.text = @"1 Rating";
         } else {
         self.numberOfReviewsLabel.text = [NSString stringWithFormat:@"%lu Ratings",(unsigned long)objects.count];

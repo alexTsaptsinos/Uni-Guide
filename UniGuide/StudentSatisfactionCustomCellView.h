@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface StudentSatisfactionCustomCellView : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *label;
 
+@property (weak, nonatomic) IBOutlet UILabel *questionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *questionImageView;
 @end

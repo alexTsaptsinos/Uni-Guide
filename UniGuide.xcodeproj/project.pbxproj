@@ -53,6 +53,8 @@
 		EF27408D198FFC1F00B932DC /* WhatYearForNewReviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF27408C198FFC1F00B932DC /* WhatYearForNewReviewTableViewController.m */; };
 		EF27408F1990F29600B932DC /* StudentSatisfactionCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF27408E1990F29600B932DC /* StudentSatisfactionCustomCellView.xib */; };
 		EF2740921990F30900B932DC /* StudentSatisfactionCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2740911990F30900B932DC /* StudentSatisfactionCustomCellView.m */; };
+		EF27409419912E6C00B932DC /* CommonJobsCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF27409319912E6C00B932DC /* CommonJobsCustomCellView.xib */; };
+		EF27409719912EAD00B932DC /* CommonJobsCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */; };
 		EF5533291981508B00120FEA /* SortFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5533271981508B00120FEA /* SortFilterViewController.m */; };
 		EF55332A1981508B00120FEA /* SortFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5533281981508B00120FEA /* SortFilterViewController.xib */; };
 		EF55332F198150C400120FEA /* FilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF55332D198150C300120FEA /* FilterTableViewController.m */; };
@@ -271,6 +273,9 @@
 		EF27408E1990F29600B932DC /* StudentSatisfactionCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudentSatisfactionCustomCellView.xib; sourceTree = "<group>"; };
 		EF2740901990F30900B932DC /* StudentSatisfactionCustomCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentSatisfactionCustomCellView.h; sourceTree = "<group>"; };
 		EF2740911990F30900B932DC /* StudentSatisfactionCustomCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentSatisfactionCustomCellView.m; sourceTree = "<group>"; };
+		EF27409319912E6C00B932DC /* CommonJobsCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonJobsCustomCellView.xib; sourceTree = "<group>"; };
+		EF27409519912EAD00B932DC /* CommonJobsCustomCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonJobsCustomCellView.h; sourceTree = "<group>"; };
+		EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonJobsCustomCellView.m; sourceTree = "<group>"; };
 		EF5533261981508B00120FEA /* SortFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortFilterViewController.h; sourceTree = "<group>"; };
 		EF5533271981508B00120FEA /* SortFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortFilterViewController.m; sourceTree = "<group>"; };
 		EF5533281981508B00120FEA /* SortFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SortFilterViewController.xib; sourceTree = "<group>"; };
@@ -610,6 +615,9 @@
 				A4C6C91A197AF6D80065311C /* CourseInfoCoursePageViewController.h */,
 				A4C6C91B197AF6D80065311C /* CourseInfoCoursePageViewController.m */,
 				A4C6C91C197AF6D80065311C /* CourseInfoCoursePageViewController.xib */,
+				EF27409519912EAD00B932DC /* CommonJobsCustomCellView.h */,
+				EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */,
+				EF27409319912E6C00B932DC /* CommonJobsCustomCellView.xib */,
 				A4C6C91F197AF6E70065311C /* StudentSatisfactionCoursePageViewController.h */,
 				A4C6C920197AF6E70065311C /* StudentSatisfactionCoursePageViewController.m */,
 				A4C6C921197AF6E70065311C /* StudentSatisfactionCoursePageViewController.xib */,
@@ -859,6 +867,7 @@
 				A4C6C923197AF6E70065311C /* StudentSatisfactionCoursePageViewController.xib in Resources */,
 				EF66F5E31988F0E80048A82E /* iTunesArtwork.png in Resources */,
 				EF5533791981AA1400120FEA /* unchecked_checkbox.png in Resources */,
+				EF27409419912E6C00B932DC /* CommonJobsCustomCellView.xib in Resources */,
 				EF7F6F29197E880E0009DB60 /* info-32.png in Resources */,
 				A4C6C934197BF7670065311C /* favouritesButton.png in Resources */,
 				A4C6C8CA197AD3630065311C /* MainMenuViewController.xib in Resources */,
@@ -897,6 +906,7 @@
 				A4C6C8A8197AD22F0065311C /* AppDelegate.m in Sources */,
 				EF5533291981508B00120FEA /* SortFilterViewController.m in Sources */,
 				EF27408D198FFC1F00B932DC /* WhatYearForNewReviewTableViewController.m in Sources */,
+				EF27409719912EAD00B932DC /* CommonJobsCustomCellView.m in Sources */,
 				A4C6C918197AF49A0065311C /* DiscoverViewController.m in Sources */,
 				EF7F6F8C198063570009DB60 /* SpecificOpenDayViewController.m in Sources */,
 				A4C6C913197AF1400065311C /* SearchResultsTableViewController.m in Sources */,

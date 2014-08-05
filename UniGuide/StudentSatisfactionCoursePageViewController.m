@@ -16,7 +16,7 @@
 
 @implementation StudentSatisfactionCoursePageViewController
 
-@synthesize courseCodeStudentSatisfaction,uniCodeStudentSatisfaction,question1Label,question1ImageView;
+@synthesize courseCodeStudentSatisfaction,uniCodeStudentSatisfaction,questionResults,tableViewStudentSatisfaction;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,22 +35,16 @@
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;
+    self.tabBarController.tabBar.translucent = NO;
     NSLog(@"course code: %@ and uni UKPRN: %@",self.courseCodeStudentSatisfaction,self.uniCodeStudentSatisfaction);
-    self.question1ImageView.frame = CGRectMake(13.0f, 102.0f, 129.0f, 19.0f);
-    self.question2ImageView.frame = CGRectMake(13.0f, 132.0f, 129.0f, 19.0f);
-    self.question3ImageView.frame = CGRectMake(13.0f, 162.0f, 129.0f, 19.0f);
-    self.question4ImageView.frame = CGRectMake(13.0f, 192.0f, 129.0f, 19.0f);
-
-
-
-    
+    self.tableViewStudentSatisfaction.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     
     PFQuery *queryForStudentSatisfactionData = [PFQuery queryWithClassName:@"NSS"];
     [queryForStudentSatisfactionData whereKey:@"KISCOURSEID" equalTo:self.courseCodeStudentSatisfaction];
     PFObject *tempObject = [queryForStudentSatisfactionData getFirstObject];
     if (tempObject == NULL) {
-        NSLog(@"this worked");
-        UIImageView *noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 51, 320, 429)];
+      //  NSLog(@"this worked");
+        UIImageView *noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 37, 320, 429)];
         noDataImageView.backgroundColor = [UIColor lightGrayColor];
         UILabel *noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
         noDataLabel.text = @"We're sorry, but we appear to have no data for this course.";
@@ -83,94 +77,64 @@
         NSString *question20 = [tempObject valueForKey:@"Q20"];
         NSString *question21 = [tempObject valueForKey:@"Q21"];
         NSString *question22 = [tempObject valueForKey:@"Q22"];
-
-
         
-        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-        [f setNumberStyle:NSNumberFormatterDecimalStyle];
-        
-        // first question
-        NSNumber * myNumber1 = [f numberFromString:question1];
-        NSLog(@"number: %@",myNumber1);
-        NSNumber *widthOfPart1Question1 = [NSNumber numberWithFloat:([myNumber1 floatValue] / 100.0f)];
-        NSLog(@"divided by 100: %@",widthOfPart1Question1);
-        widthOfPart1Question1 = [NSNumber numberWithFloat:([widthOfPart1Question1 floatValue] * self.question1ImageView.frame.size.width)];
-        NSLog(@"width of part 1: %@",widthOfPart1Question1);
-        UIImageView *part1Question1 = [[UIImageView alloc] init];
-        part1Question1.frame = CGRectMake(0.0f, 0.0f, [widthOfPart1Question1 floatValue], self.question1ImageView.frame.size.height);
-        part1Question1.backgroundColor = [UIColor greenColor];
-        [self.question1ImageView addSubview:part1Question1];
-        NSNumber *widthOfPart2Question1 = [NSNumber numberWithFloat:(self.question1ImageView.frame.size.width - [widthOfPart1Question1 floatValue])];
-        UIImageView *part2Question1 = [[UIImageView alloc] init];
-        part2Question1.frame = CGRectMake(part1Question1.frame.size.width, 0, [widthOfPart2Question1 floatValue], self.question1ImageView.frame.size.height);
-        part2Question1.backgroundColor = [UIColor redColor];
-        [self.question1ImageView addSubview:part2Question1];
-        UILabel *question1percentage = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, 0.0f, 50.0f, self.question1ImageView.frame.size.height)];
-        question1percentage.text = [NSString stringWithFormat:@"%@%%",question1];
-        question1percentage.font = [UIFont fontWithName:@"Arial" size:14];
-        [self.question1ImageView addSubview:question1percentage];
-        
-        // second question
-        NSNumber * myNumber2 = [f numberFromString:question2];
-        NSNumber *widthOfPart1Question2 = [NSNumber numberWithFloat:([myNumber2 floatValue] / 100.0f)];
-        widthOfPart1Question2 = [NSNumber numberWithFloat:([widthOfPart1Question2 floatValue] * self.question2ImageView.frame.size.width)];
-        UIImageView *part1Question2 = [[UIImageView alloc] init];
-        part1Question2.frame = CGRectMake(0.0f, 0.0f, [widthOfPart1Question2 floatValue], self.question2ImageView.frame.size.height);
-        part1Question2.backgroundColor = [UIColor greenColor];
-        [self.question2ImageView addSubview:part1Question2];
-        NSNumber *widthOfPart2Question2 = [NSNumber numberWithFloat:(self.question2ImageView.frame.size.width - [widthOfPart1Question2 floatValue])];
-        UIImageView *part2Question2 = [[UIImageView alloc] init];
-        part2Question2.frame = CGRectMake(part1Question2.frame.size.width, 0, [widthOfPart2Question2 floatValue], self.question2ImageView.frame.size.height);
-        part2Question2.backgroundColor = [UIColor redColor];
-        [self.question2ImageView addSubview:part2Question2];
-        UILabel *question2percentage = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, 0.0f, 50.0f, self.question2ImageView.frame.size.height)];
-        question2percentage.text = [NSString stringWithFormat:@"%@%%",question2];
-        question2percentage.font = [UIFont fontWithName:@"Arial" size:14];
-        [self.question2ImageView addSubview:question2percentage];
-        
-        // third question
-        NSNumber * myNumber3 = [f numberFromString:question3];
-        NSNumber *widthOfPart1Question3 = [NSNumber numberWithFloat:([myNumber3 floatValue] / 100.0f)];
-        widthOfPart1Question3 = [NSNumber numberWithFloat:([widthOfPart1Question3 floatValue] * self.question3ImageView.frame.size.width)];
-        UIImageView *part1Question3 = [[UIImageView alloc] init];
-        part1Question3.frame = CGRectMake(0.0f, 0.0f, [widthOfPart1Question3 floatValue], self.question3ImageView.frame.size.height);
-        part1Question3.backgroundColor = [UIColor greenColor];
-        [self.question3ImageView addSubview:part1Question3];
-        NSNumber *widthOfPart2Question3 = [NSNumber numberWithFloat:(self.question3ImageView.frame.size.width - [widthOfPart1Question3 floatValue])];
-        UIImageView *part2Question3 = [[UIImageView alloc] init];
-        part2Question3.frame = CGRectMake(part1Question3.frame.size.width, 0, [widthOfPart2Question3 floatValue], self.question3ImageView.frame.size.height);
-        part2Question3.backgroundColor = [UIColor redColor];
-        [self.question3ImageView addSubview:part2Question3];
-        UILabel *question3percentage = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, 0.0f, 50.0f, self.question3ImageView.frame.size.height)];
-        question3percentage.text = [NSString stringWithFormat:@"%@%%",question3];
-        question3percentage.font = [UIFont fontWithName:@"Arial" size:14];
-        [self.question3ImageView addSubview:question3percentage];
-        
-        // fourth question
-        NSNumber * myNumber4 = [f numberFromString:question4];
-        NSNumber *widthOfPart1Question4 = [NSNumber numberWithFloat:([myNumber4 floatValue] / 100.0f)];
-        widthOfPart1Question4 = [NSNumber numberWithFloat:([widthOfPart1Question4 floatValue] * self.question4ImageView.frame.size.width)];
-        UIImageView *part1Question4 = [[UIImageView alloc] init];
-        part1Question4.frame = CGRectMake(0.0f, 0.0f, [widthOfPart1Question4 floatValue], self.question4ImageView.frame.size.height);
-        part1Question4.backgroundColor = [UIColor greenColor];
-        [self.question4ImageView addSubview:part1Question4];
-        NSNumber *widthOfPart2Question4 = [NSNumber numberWithFloat:(self.question4ImageView.frame.size.width - [widthOfPart1Question4 floatValue])];
-        UIImageView *part2Question4 = [[UIImageView alloc] init];
-        part2Question4.frame = CGRectMake(part1Question4.frame.size.width, 0, [widthOfPart2Question4 floatValue], self.question4ImageView.frame.size.height);
-        part2Question4.backgroundColor = [UIColor redColor];
-        [self.question4ImageView addSubview:part2Question4];
-        UILabel *question4percentage = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, 0.0f, 50.0f, self.question4ImageView.frame.size.height)];
-        question4percentage.text = [NSString stringWithFormat:@"%@%%",question4];
-        question4percentage.font = [UIFont fontWithName:@"Arial" size:14];
-        [self.question4ImageView addSubview:question4percentage];
-        
+        self.questionResults = [[NSMutableArray alloc] initWithObjects:question1,question2,question3,question4,question5,question6,question7,question8,question9,question10,question11,question12,question13,question14,question15,question16,question17,question18,question19,question20,question21,question22, nil];
     }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.questionResults.count;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"StudentSatisfactionCustomCellView";
+    StudentSatisfactionCustomCellView *cell = (StudentSatisfactionCustomCellView *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StudentSatisfactionCustomCellView" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    NSArray *questionNames = [[NSArray alloc] initWithObjects:@"Staff are good at explaining things",@"Staff have made the subject interesting",@"Staff are enthusiastic about what they are teaching",@"The course is intellectually stimulating",@"The criteria used in marking have been clear in advance",@"Assessment arrangements and marking have been fair",@"Feedback on my work has been promt",@"I have received detailed comments on my work",@"Feedback on my work has helped me clarify things I did not understand",@"I have received sufficient advice and support with my studies",@"I have been able to contact staff when I needed to",@"Good advice was available when I needed to make study choices",@"The timetable works efficiently as far as my activities are concerned",@"Any changes in the course or teaching have been communicated effectively",@"The course is well organised and is running smoothly",@"The library resources and services are good enough for my needs",@"I have been able to access general IT resources when I needed to",@"I have been able to access specialised equipment, facilities or rooms when I needed to",@"The course has helped me present myself with confidence",@"My communication skills have improved",@"As a results of the course, I feel confident in tackling unfamiliar problems",@"Overall, I am satisfied with the quality of the course", nil];
+    cell.questionLabel.text =[questionNames objectAtIndex:indexPath.row];
+    cell.questionLabel.numberOfLines = 0;
+    cell.questionLabel.font = [UIFont fontWithName:@"Arial" size:14];
     
+    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+    [f setNumberStyle:NSNumberFormatterDecimalStyle];
     
-    // self.question1ImageView.backgroundColor = [uic]
+    NSNumber * myNumber = [f numberFromString:[self.questionResults objectAtIndex:indexPath.row]];
+  //  NSLog(@"number: %@",myNumber);
     
+    NSNumber *widthOfPart1 = [NSNumber numberWithFloat:([myNumber floatValue] / 100.0f)];
+   // NSLog(@"divided by 100: %@",widthOfPart1);
+    widthOfPart1 = [NSNumber numberWithFloat:([widthOfPart1 floatValue] * cell.questionImageView.frame.size.width)];
+  //  NSLog(@"width of part 1: %@",widthOfPart1);
+    UIImageView *part1 = [[UIImageView alloc] init];
+    part1.frame = CGRectMake(0.0f, 0.0f, [widthOfPart1 floatValue], cell.questionImageView.frame.size.height);
+    part1.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:68.0f/255.0f alpha:1.0f];
+    [cell.questionImageView addSubview:part1];
+    NSNumber *widthOfPart2 = [NSNumber numberWithFloat:(cell.questionImageView.frame.size.width - [widthOfPart1 floatValue])];
+    UIImageView *part2 = [[UIImageView alloc] init];
+    part2.frame = CGRectMake(part1.frame.size.width, 0, [widthOfPart2 floatValue], cell.questionImageView.frame.size.height);
+    part2.backgroundColor = [UIColor colorWithRed:203.0f/255.0f green:83.0f/255.0f blue:87.0f/255.0f alpha:1.0f];
+    [cell.questionImageView addSubview:part2];
+    UILabel *questionPercentage = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, 0.0f, 50.0f, cell.questionImageView.frame.size.height)];
+    questionPercentage.text = [NSString stringWithFormat:@"%@%%",[self.questionResults objectAtIndex:indexPath.row]];
+    questionPercentage.font = [UIFont fontWithName:@"Arial" size:14];
+    questionPercentage.textColor = [UIColor whiteColor];
+    [cell.questionImageView addSubview:questionPercentage];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+
     
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 75;
 }
 
 - (void)didReceiveMemoryWarning

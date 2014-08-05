@@ -1,16 +1,16 @@
 //
-//  StudentSatisfactionCustomCellView.m
+//  CommonJobsCustomCellView.m
 //  UniGuide
 //
 //  Created by AlexTsaptsinos on 05/08/2014.
 //  Copyright (c) 2014 ATsaptsinos. All rights reserved.
 //
 
-#import "StudentSatisfactionCustomCellView.h"
+#import "CommonJobsCustomCellView.h"
 
-@implementation StudentSatisfactionCustomCellView
+@implementation CommonJobsCustomCellView
 
-@synthesize questionImageView,questionLabel;
+@synthesize jobLabel,percentageLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
