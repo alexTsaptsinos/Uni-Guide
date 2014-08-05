@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E598611198F8FB200D7A690 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E598610198F8FB200D7A690 /* FacebookSDK.framework */; };
 		A4C6C898197AD22F0065311C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C6C897197AD22F0065311C /* Foundation.framework */; };
 		A4C6C89A197AD22F0065311C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C6C899197AD22F0065311C /* CoreGraphics.framework */; };
 		A4C6C89C197AD22F0065311C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C6C89B197AD22F0065311C /* UIKit.framework */; };
@@ -89,7 +90,6 @@
 		EF7F6F64197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F62197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m */; };
 		EF7F6F65197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F63197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib */; };
 		EF7F6F67197FF0C90009DB60 /* electric_megaphone-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F66197FF0C90009DB60 /* electric_megaphone-32.png */; };
-		EF7F6F69197FF0E30009DB60 /* idea-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F68197FF0E30009DB60 /* idea-32.png */; };
 		EF7F6F6B197FF2500009DB60 /* directions-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F6A197FF2500009DB60 /* directions-32.png */; };
 		EF7F6F6F197FF2EC0009DB60 /* today-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F6D197FF2EC0009DB60 /* today-32.png */; };
 		EF7F6F71197FF45A0009DB60 /* courses-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F70197FF45A0009DB60 /* courses-32.png */; };
@@ -111,7 +111,6 @@
 		EF7F6FA11980FA200009DB60 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F981980FA200009DB60 /* SystemConfiguration.framework */; };
 		EF8B1161198811BB0011D746 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF8B1160198811BB0011D746 /* MapKit.framework */; };
 		EFB107DD198A885700814C53 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFB107DC198A885700814C53 /* Social.framework */; };
-		EFB107DF198A88B500814C53 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFB107DE198A88B500814C53 /* FacebookSDK.framework */; };
 		EFF5C0681987905A00E87159 /* CourseListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF5C0661987905A00E87159 /* CourseListTableViewController.m */; };
 		EFF5C0691987905A00E87159 /* CourseListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFF5C0671987905A00E87159 /* CourseListTableViewController.xib */; };
 /* End PBXBuildFile section */
@@ -127,6 +126,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E598610198F8FB200D7A690 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = UniGuide/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		A4C6C894197AD22F0065311C /* UniGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C6C897197AD22F0065311C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A4C6C899197AD22F0065311C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -257,7 +257,6 @@
 		EF207C6D198A7F0700F2CFB3 /* NSDecimalNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDecimalNumberExtensions.h; sourceTree = "<group>"; };
 		EF207C6E198A7F0700F2CFB3 /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		EF207C6F198A7F0700F2CFB3 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
-		EF207C71198A7F9B00F2CFB3 /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libCorePlot-CocoaTouch.a"; path = "../../../Downloads/CorePlot_1.4/Binaries/iOS/libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		EF207C73198A805C00F2CFB3 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		EF207C75198A812D00F2CFB3 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		EF274080198F9EBA00B932DC /* ReviewCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewCustomCellView.xib; sourceTree = "<group>"; };
@@ -311,7 +310,6 @@
 		EF7F6F62197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenDaysUniversityPageTableViewController.m; sourceTree = "<group>"; };
 		EF7F6F63197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpenDaysUniversityPageTableViewController.xib; sourceTree = "<group>"; };
 		EF7F6F66197FF0C90009DB60 /* electric_megaphone-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "electric_megaphone-32.png"; sourceTree = "<group>"; };
-		EF7F6F68197FF0E30009DB60 /* idea-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "idea-32.png"; path = "../../../../Downloads/iOS7_icons/PNG/32/Very_Basic/idea-32.png"; sourceTree = "<group>"; };
 		EF7F6F6A197FF2500009DB60 /* directions-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "directions-32.png"; sourceTree = "<group>"; };
 		EF7F6F6D197FF2EC0009DB60 /* today-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "today-32.png"; sourceTree = "<group>"; };
 		EF7F6F70197FF45A0009DB60 /* courses-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "courses-32.png"; sourceTree = "<group>"; };
@@ -336,7 +334,6 @@
 		EF7F6F981980FA200009DB60 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EF8B1160198811BB0011D746 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		EFB107DC198A885700814C53 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		EFB107DE198A88B500814C53 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		EFF5C0651987905A00E87159 /* CourseListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseListTableViewController.h; sourceTree = "<group>"; };
 		EFF5C0661987905A00E87159 /* CourseListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseListTableViewController.m; sourceTree = "<group>"; };
 		EFF5C0671987905A00E87159 /* CourseListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseListTableViewController.xib; sourceTree = "<group>"; };
@@ -347,12 +344,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E598611198F8FB200D7A690 /* FacebookSDK.framework in Frameworks */,
 				EFB107DD198A885700814C53 /* Social.framework in Frameworks */,
 				EF207C74198A805C00F2CFB3 /* Accelerate.framework in Frameworks */,
 				EF8B1161198811BB0011D746 /* MapKit.framework in Frameworks */,
 				EF7F6F991980FA200009DB60 /* AudioToolbox.framework in Frameworks */,
 				EF7F6F9A1980FA200009DB60 /* CFNetwork.framework in Frameworks */,
-				EFB107DF198A88B500814C53 /* FacebookSDK.framework in Frameworks */,
 				EF7F6F9B1980FA200009DB60 /* CoreLocation.framework in Frameworks */,
 				EF7F6F9C1980FA200009DB60 /* libz.dylib in Frameworks */,
 				EF7F6F9D1980FA200009DB60 /* MobileCoreServices.framework in Frameworks */,
@@ -404,11 +401,10 @@
 		A4C6C896197AD22F0065311C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9E598610198F8FB200D7A690 /* FacebookSDK.framework */,
 				EFB107DC198A885700814C53 /* Social.framework */,
 				EF207C75198A812D00F2CFB3 /* Parse.framework */,
 				EF207C73198A805C00F2CFB3 /* Accelerate.framework */,
-				EF207C71198A7F9B00F2CFB3 /* libCorePlot-CocoaTouch.a */,
-				EFB107DE198A88B500814C53 /* FacebookSDK.framework */,
 				EF8B1160198811BB0011D746 /* MapKit.framework */,
 				EF7F6F901980FA200009DB60 /* AudioToolbox.framework */,
 				EF7F6F911980FA200009DB60 /* CFNetwork.framework */,
@@ -722,7 +718,6 @@
 				EF7F6F6A197FF2500009DB60 /* directions-32.png */,
 				EF7F6F70197FF45A0009DB60 /* courses-32.png */,
 				EF7F6F72197FF4E10009DB60 /* calendar-32.png */,
-				EF7F6F68197FF0E30009DB60 /* idea-32.png */,
 				EF7F6F6D197FF2EC0009DB60 /* today-32.png */,
 				EF7F6F66197FF0C90009DB60 /* electric_megaphone-32.png */,
 				EF7F6F26197E87EA0009DB60 /* city_hall-32.png */,
@@ -849,7 +844,6 @@
 				A4C6C919197AF49A0065311C /* DiscoverViewController.xib in Resources */,
 				A4C6C945197BF8C80065311C /* ContactUniversityPageViewController.xib in Resources */,
 				EF5533771981AA0D00120FEA /* checked_checkbox.png in Resources */,
-				EF7F6F69197FF0E30009DB60 /* idea-32.png in Resources */,
 				EF7F6F0F197E82F90009DB60 /* Top_Charts@2x.png in Resources */,
 				A4C6C936197BF8050065311C /* favouritesButtonSelected.png in Resources */,
 				A4C6C8A2197AD22F0065311C /* InfoPlist.strings in Resources */,
@@ -1035,6 +1029,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					/Users/appcamp8/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/UniGuide/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniGuide/UniGuide-Prefix.pch";
@@ -1044,7 +1039,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					/Users/appcamp8/Downloads/CorePlot_1.4/Binaries/iOS,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1060,6 +1054,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					/Users/appcamp8/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/UniGuide/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniGuide/UniGuide-Prefix.pch";
@@ -1069,7 +1064,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					/Users/appcamp8/Downloads/CorePlot_1.4/Binaries/iOS,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
