@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "WhatYearForNewReviewTableViewController.h"
 
 @interface AddReviewViewController : UIViewController <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UIButton *selectYearButton;
+- (IBAction)selectYearButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView1;

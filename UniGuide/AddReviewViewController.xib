@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="nameTextField" destination="fbt-4E-GWm" id="Nk3-Pa-bgF"/>
                 <outlet property="reviewTextView" destination="uJZ-Hv-LnJ" id="cei-cd-cd6"/>
+                <outlet property="selectYearButton" destination="CsO-ZN-KHj" id="GP8-Er-Rau"/>
                 <outlet property="starButton1" destination="cBt-FZ-Eao" id="VOX-ma-dxR"/>
                 <outlet property="starButton2" destination="3z8-Al-TVy" id="IUe-k8-dMm"/>
                 <outlet property="starButton3" destination="DVI-c1-CfO" id="jhL-at-WUI"/>
@@ -15,7 +16,6 @@
                 <outlet property="starButton5" destination="TjF-G8-2vp" id="u3M-OI-DM6"/>
                 <outlet property="titleTextField" destination="FCU-kQ-qaP" id="fUD-d1-GOP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="yearTextField" destination="yac-DU-vUb" id="wkB-rJ-tzR"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -107,21 +107,16 @@
                         <action selector="starButton5Pressed:" destination="-1" eventType="touchUpInside" id="HDh-XA-WHo"/>
                     </connections>
                 </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Year:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTg-SW-yJ8">
-                    <rect key="frame" x="179" y="130" width="39" height="21"/>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CsO-ZN-KHj">
+                    <rect key="frame" x="173" y="126" width="137" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Year" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yac-DU-vUb">
-                    <rect key="frame" x="224" y="126" width="76" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <state key="normal" title="     - Select Year -    ">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
-                        <outlet property="delegate" destination="-1" id="n7l-S5-I1m"/>
+                        <action selector="selectYearButtonPressed:" destination="-1" eventType="touchUpInside" id="AQM-kY-tkQ"/>
                     </connections>
-                </textField>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

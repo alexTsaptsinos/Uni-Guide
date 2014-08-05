@@ -33,6 +33,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    
     // Override point for customization after application launch, set Navigation controller as root
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = myNavigationController;

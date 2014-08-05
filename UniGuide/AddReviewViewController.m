@@ -14,7 +14,7 @@
 
 @implementation AddReviewViewController
 
-@synthesize titleTextField,nameTextField,reviewTextView,starButton1,starButton2,starButton3,starButton4,starButton5,firstTimeTextEdit,haveTheyRatedStars,couseKISCode,howManyStars,yearTextField;
+@synthesize titleTextField,nameTextField,reviewTextView,starButton1,starButton2,starButton3,starButton4,starButton5,firstTimeTextEdit,haveTheyRatedStars,couseKISCode,howManyStars,yearTextField,selectYearButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,24 +44,19 @@
     self.firstTimeTextEdit = YES;
     self.reviewTextView.textColor = [UIColor grayColor];
     self.haveTheyRatedStars = NO;
-   
-    UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
-    [keyboardDoneButtonView sizeToFit];
-    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
-                                                                   style:UIBarButtonItemStyleBordered target:self
-                                                                  action:@selector(doneClicked:)];
-    [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
-    self.yearTextField.inputAccessoryView = keyboardDoneButtonView;
+    self.selectYearButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
     
+    [self.view addGestureRecognizer:tap];
 
     // Do any additional setup after loading the view from its nib.
 }
 
-- (IBAction)doneClicked:(id)sender
-{
-    NSLog(@"Done Clicked.");
-    [self.view endEditing:YES];
+-(void)dismissKeyboard {
+    [self.reviewTextView resignFirstResponder];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -70,7 +65,6 @@
         self.reviewTextView.text = @"";
         self.reviewTextView.textColor = [UIColor blackColor];
         self.firstTimeTextEdit = NO;
-       // self.reviewTextView.frame = CGRectMake(0, 203, 320, 60);
     }
     
 }
@@ -217,4 +211,14 @@
     self.haveTheyRatedStars = YES;
 }
 
+- (IBAction)selectYearButtonPressed:(id)sender {
+    
+    WhatYearForNewReviewTableViewController *whatYearForNewReviewTableViewController = [[WhatYearForNewReviewTableViewController alloc] init];
+    whatYearForNewReviewTableViewController.previousViewController = self;
+    
+    UINavigationController *whatyearNavigationController = [[UINavigationController alloc]initWithRootViewController:whatYearForNewReviewTableViewController];
+    
+    
+    [self presentViewController:whatyearNavigationController animated:YES completion:nil];
+}
 @end

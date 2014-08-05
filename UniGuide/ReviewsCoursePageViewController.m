@@ -8,6 +8,7 @@
 
 #import "ReviewsCoursePageViewController.h"
 #import "AddReviewViewController.h"
+#import "ReviewComplaintViewController.h"
 
 @interface ReviewsCoursePageViewController ()
 
@@ -15,7 +16,7 @@
 
 @implementation ReviewsCoursePageViewController
 
-@synthesize addReviewButton,courseCodeReviews,uniCodeReviews,courseNameReviews,universityAndCourseLabel,numberOfReviewsLabel,reviewersNames,reviewStars,reviewTexts,reviewTitles,reviewTableView,reviewDates,reviewersYears,cellHeights,haveDoneParseQueryYet;
+@synthesize addReviewButton,courseCodeReviews,uniCodeReviews,courseNameReviews,universityAndCourseLabel,numberOfReviewsLabel,reviewersNames,reviewStars,reviewTexts,reviewTitles,reviewTableView,reviewDates,reviewersYears,cellHeights,haveDoneParseQueryYet,starButton1,starButton2,starButton3,starButton4,starButton5,reviewCodes;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,10 +50,17 @@
     self.universityAndCourseLabel.text = uniAndCourse;
     self.universityAndCourseLabel.adjustsFontSizeToFitWidth = YES;
     self.reviewTableView.bounces = NO;
-    
-    
-    
-    
+    [self.starButton5 setEnabled:NO];
+    [self.starButton4 setEnabled:NO];
+    [self.starButton3 setEnabled:NO];
+    [self.starButton2 setEnabled:NO];
+    [self.starButton1 setEnabled:NO];
+    [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+
     PFQuery *queryForReviews = [PFQuery queryWithClassName:@"CourseReviews"];
     [queryForReviews whereKey:@"CourseCode" equalTo:self.courseCodeReviews];
     [queryForReviews orderByAscending:@"createdAt"];
@@ -60,7 +68,7 @@
         if (objects.count == 1) {
             self.numberOfReviewsLabel.text = @"1 Rating";
         } else {
-        self.numberOfReviewsLabel.text = [NSString stringWithFormat:@"%d Ratings",objects.count];
+        self.numberOfReviewsLabel.text = [NSString stringWithFormat:@"%lu Ratings",(unsigned long)objects.count];
         }
         self.reviewTitles = [objects valueForKey:@"ReviewTitle"];
         self.reviewStars = [objects valueForKey:@"StarRating"];
@@ -68,10 +76,48 @@
         self.reviewersNames = [objects valueForKey:@"ReviewerName"];
         self.reviewersYears = [objects valueForKey:@"ReviewerYear"];
         self.reviewDates = [objects valueForKey:@"createdAt"];
+        self.reviewCodes = [objects valueForKey:@"objectId"];
         [self.reviewTableView reloadData];
+        NSLog(@"stars: %@",self.reviewStars);
+        
+        NSNumber *sumOfStarRatings = [self.reviewStars valueForKeyPath:@"@sum.self"];
+        NSLog(@"sum: %@",sumOfStarRatings);
+        NSNumber *averageStarRating = [NSNumber numberWithFloat:([sumOfStarRatings floatValue] / self.reviewStars.count)];
+        NSLog(@"average: %@",averageStarRating);
+        if (0.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<1.5f) {
+            [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            
+        }
+        if (1.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<2.5f) {
+            [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            
+        }
+        if (2.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<3.5f) {
+            [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            
+        }
+        if (3.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<4.5f) {
+            [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+        }
+        if (4.5f<[averageStarRating floatValue]) {
+            [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+        }
+        
         
     }];
     
+    // calculate average review
+  
 
 
     CALayer *btnLayer = [addReviewButton layer];
@@ -96,7 +142,7 @@
         cell = [nib objectAtIndex:0];
     }
     
-    NSString *currentIndexPath = [NSString stringWithFormat:@"%d",indexPath.row];
+    NSString *currentIndexPath = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
     NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
     [f setNumberStyle:NSNumberFormatterDecimalStyle];
     NSNumber * myNumber = [f numberFromString:currentIndexPath];
@@ -126,6 +172,18 @@
     cell.reviewTextView.text = [self.reviewTexts objectAtIndex:indexPath.row];
     [cell.reviewTextView sizeToFit];
     [cell.reviewTextView setScrollEnabled:NO];
+    
+    
+    UIButton *reportReviewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    reportReviewButton.tag = indexPath.row;
+    [reportReviewButton setFrame:CGRectMake(190, 3, 150, 30)];
+    //reportReviewButton.titleLabel.text = @"Report Review";
+    [reportReviewButton setTitle:@"Report Review" forState:UIControlStateNormal];
+    reportReviewButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:15];
+    [reportReviewButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [reportReviewButton addTarget:self action:@selector(ReportButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    reportReviewButton.tag = indexPath.row;
+    [cell addSubview:reportReviewButton];
     //[cell sizeToFit];
     
 
@@ -172,6 +230,23 @@
     
     [self presentViewController:addReviewNavigationController animated:YES completion:nil];
     
+}
+
+- (void)ReportButtonClicked:(id)sender
+{
+    ReviewComplaintViewController *reviewComplaintViewController = [[ReviewComplaintViewController alloc] initWithNibName:@"ReviewComplaintViewController" bundle:[NSBundle mainBundle]];
+    
+    UINavigationController *reviewComplaintNavigationController = [[UINavigationController alloc]initWithRootViewController:reviewComplaintViewController];
+    
+    reviewComplaintViewController.courseKISCode = self.courseCodeReviews;
+    UIButton *btn = (UIButton *)sender;
+    int indexrow = btn.tag;
+    NSLog(@"Selected row is: %d",indexrow);
+    reviewComplaintViewController.complaintCode = [self.reviewCodes objectAtIndex:indexrow];
+    
+    
+    
+    [self presentViewController:reviewComplaintNavigationController animated:YES completion:nil];
 }
 
 //Andrew, fix these heights
