@@ -11,6 +11,7 @@
                 <outlet property="numberOfBedsLabel" destination="00w-VW-9Sl" id="NbW-ag-rmT"/>
                 <outlet property="scrollView" destination="QE2-nJ-s1z" id="YZa-II-TtE"/>
                 <outlet property="studentSatisfactionLabel" destination="ScX-ha-ubZ" id="TKD-mi-6OY"/>
+                <outlet property="totalNumberOfStaffLabel" destination="daT-mb-ods" id="cgR-Aa-KFw"/>
                 <outlet property="totalNumberOfStudentsLabel" destination="eHh-3R-FU1" id="C9O-lN-LGB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -51,6 +52,12 @@
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="128" translatesAutoresizingMaskIntoConstraints="NO" id="ScX-ha-ubZ">
                             <rect key="frame" x="172" y="52" width="128" height="72"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daT-mb-ods">
+                            <rect key="frame" x="46" y="324" width="248" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="highlightedColor"/>

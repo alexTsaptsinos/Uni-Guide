@@ -14,7 +14,7 @@
 
 @implementation ReviewComplaintViewController
 
-@synthesize explanationLabel,concernLabel,commentsTextView,firstTimeTextEdit,selectTypeButton,courseKISCode,complaintCode;
+@synthesize explanationLabel,concernLabel,commentsTextView,firstTimeTextEdit,selectTypeButton,courseKISCode,complaintCode,hasSelectedTypeOfComplaint;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,6 +45,7 @@
     self.firstTimeTextEdit = YES;
     self.selectTypeButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.selectTypeButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.hasSelectedTypeOfComplaint = NO;
     
     
     
@@ -93,6 +94,10 @@
         [noCommentsAlert show];
     }
     else if ([self.selectTypeButton.titleLabel.text isEqualToString:@"-Select Type-"]) {
+        UIAlertView *noTypeAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please select the type of concern" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [noTypeAlert show];
+    }
+    else if (self.hasSelectedTypeOfComplaint == NO) {
         UIAlertView *noTypeAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please select the type of concern" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [noTypeAlert show];
     }

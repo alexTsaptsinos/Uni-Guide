@@ -1,24 +1,20 @@
 //
-//  ReviewCustomCellView.m
+//  StudentSatisfactionCustomCellView.m
 //  UniGuide
 //
-//  Created by AlexTsaptsinos on 04/08/2014.
+//  Created by AlexTsaptsinos on 05/08/2014.
 //  Copyright (c) 2014 ATsaptsinos. All rights reserved.
 //
 
-#import "ReviewCustomCellView.h"
+#import "StudentSatisfactionCustomCellView.h"
 
-@implementation ReviewCustomCellView
-
-@synthesize reviewerDetailsLabel,reviewTextView,reviewNumberLabel,reviewTitleLabel,starImageView1,starImageView2,starImageView3,starImageView4,starImageView5;
-
+@implementation StudentSatisfactionCustomCellView
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        
     }
     return self;
 }

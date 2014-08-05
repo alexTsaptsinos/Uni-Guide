@@ -87,7 +87,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     previousViewController.selectYearButton.titleLabel.text = [self.differentYears objectAtIndex:indexPath.row];
-    
+    previousViewController.haveTheySelectedYear = YES;
     
     [self dismissViewControllerAnimated:YES completion:nil];
     

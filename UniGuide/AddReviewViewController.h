@@ -29,11 +29,9 @@
 - (IBAction)starButton5Pressed:(id)sender;
 @property (nonatomic) BOOL firstTimeTextEdit;
 @property (nonatomic) BOOL haveTheyRatedStars;
+@property (nonatomic) BOOL haveTheySelectedYear;
 @property (nonatomic,strong) NSString *couseKISCode;
 @property (nonatomic) NSNumber *howManyStars;
-@property (nonatomic,strong) NSArray *pickerViewOptions;
-@property (weak, nonatomic) IBOutlet UITextField *yearTextField;
 
-@property (weak, nonatomic) IBOutlet UIPickerView *yearPickerView;
 
 @end

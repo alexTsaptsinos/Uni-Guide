@@ -9,7 +9,7 @@
 #import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import "MainMenuViewController.h"
-#import "AddReviewViewController.h"
+#import "StudentSatisfactionCoursePageViewController.h"
 
 @implementation AppDelegate
 
@@ -33,6 +33,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    StudentSatisfactionCoursePageViewController *lols = [[StudentSatisfactionCoursePageViewController alloc] init];
     
     // Override point for customization after application launch, set Navigation controller as root
     self.window.backgroundColor = [UIColor whiteColor];

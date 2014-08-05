@@ -51,6 +51,8 @@
 		EF274087198F9F8800B932DC /* ReviewCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF274086198F9F8800B932DC /* ReviewCustomCellView.m */; };
 		EF27408A198FE52C00B932DC /* TypeOfComplaintsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF274089198FE52C00B932DC /* TypeOfComplaintsTableViewController.m */; };
 		EF27408D198FFC1F00B932DC /* WhatYearForNewReviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF27408C198FFC1F00B932DC /* WhatYearForNewReviewTableViewController.m */; };
+		EF27408F1990F29600B932DC /* StudentSatisfactionCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF27408E1990F29600B932DC /* StudentSatisfactionCustomCellView.xib */; };
+		EF2740921990F30900B932DC /* StudentSatisfactionCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2740911990F30900B932DC /* StudentSatisfactionCustomCellView.m */; };
 		EF5533291981508B00120FEA /* SortFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5533271981508B00120FEA /* SortFilterViewController.m */; };
 		EF55332A1981508B00120FEA /* SortFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5533281981508B00120FEA /* SortFilterViewController.xib */; };
 		EF55332F198150C400120FEA /* FilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF55332D198150C300120FEA /* FilterTableViewController.m */; };
@@ -266,6 +268,9 @@
 		EF274089198FE52C00B932DC /* TypeOfComplaintsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypeOfComplaintsTableViewController.m; sourceTree = "<group>"; };
 		EF27408B198FFC1F00B932DC /* WhatYearForNewReviewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatYearForNewReviewTableViewController.h; sourceTree = "<group>"; };
 		EF27408C198FFC1F00B932DC /* WhatYearForNewReviewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatYearForNewReviewTableViewController.m; sourceTree = "<group>"; };
+		EF27408E1990F29600B932DC /* StudentSatisfactionCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudentSatisfactionCustomCellView.xib; sourceTree = "<group>"; };
+		EF2740901990F30900B932DC /* StudentSatisfactionCustomCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentSatisfactionCustomCellView.h; sourceTree = "<group>"; };
+		EF2740911990F30900B932DC /* StudentSatisfactionCustomCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentSatisfactionCustomCellView.m; sourceTree = "<group>"; };
 		EF5533261981508B00120FEA /* SortFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortFilterViewController.h; sourceTree = "<group>"; };
 		EF5533271981508B00120FEA /* SortFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortFilterViewController.m; sourceTree = "<group>"; };
 		EF5533281981508B00120FEA /* SortFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SortFilterViewController.xib; sourceTree = "<group>"; };
@@ -608,6 +613,9 @@
 				A4C6C91F197AF6E70065311C /* StudentSatisfactionCoursePageViewController.h */,
 				A4C6C920197AF6E70065311C /* StudentSatisfactionCoursePageViewController.m */,
 				A4C6C921197AF6E70065311C /* StudentSatisfactionCoursePageViewController.xib */,
+				EF2740901990F30900B932DC /* StudentSatisfactionCustomCellView.h */,
+				EF2740911990F30900B932DC /* StudentSatisfactionCustomCellView.m */,
+				EF27408E1990F29600B932DC /* StudentSatisfactionCustomCellView.xib */,
 				A4C6C924197AF6F40065311C /* ReviewsCoursePageViewController.h */,
 				A4C6C925197AF6F40065311C /* ReviewsCoursePageViewController.m */,
 				A4C6C926197AF6F40065311C /* ReviewsCoursePageViewController.xib */,
@@ -818,6 +826,7 @@
 				EF66F5E21988F0E80048A82E /* AppIcon76x76@2x.png in Resources */,
 				EF7F6F27197E87EA0009DB60 /* city_hall-32.png in Resources */,
 				EF274081198F9EBA00B932DC /* ReviewCustomCellView.xib in Resources */,
+				EF27408F1990F29600B932DC /* StudentSatisfactionCustomCellView.xib in Resources */,
 				EF7F6F45197EB7130009DB60 /* RightPanelViewController.xib in Resources */,
 				EF7F6F71197FF45A0009DB60 /* courses-32.png in Resources */,
 				EF7F6F8D198063570009DB60 /* SpecificOpenDayViewController.xib in Resources */,
@@ -892,6 +901,7 @@
 				EF7F6F8C198063570009DB60 /* SpecificOpenDayViewController.m in Sources */,
 				A4C6C913197AF1400065311C /* SearchResultsTableViewController.m in Sources */,
 				A4C6C92C197AF7000065311C /* UniInfoCoursePageViewController.m in Sources */,
+				EF2740921990F30900B932DC /* StudentSatisfactionCustomCellView.m in Sources */,
 				A4C6C91D197AF6D80065311C /* CourseInfoCoursePageViewController.m in Sources */,
 				A4C6C949197C64890065311C /* FavouritesTableViewController.m in Sources */,
 				EF27408A198FE52C00B932DC /* TypeOfComplaintsTableViewController.m in Sources */,

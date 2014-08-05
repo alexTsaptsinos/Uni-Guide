@@ -14,7 +14,7 @@
 
 @implementation AddReviewViewController
 
-@synthesize titleTextField,nameTextField,reviewTextView,starButton1,starButton2,starButton3,starButton4,starButton5,firstTimeTextEdit,haveTheyRatedStars,couseKISCode,howManyStars,yearTextField,selectYearButton;
+@synthesize titleTextField,nameTextField,reviewTextView,starButton1,starButton2,starButton3,starButton4,starButton5,firstTimeTextEdit,haveTheyRatedStars,couseKISCode,howManyStars,selectYearButton,haveTheySelectedYear;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,6 +45,7 @@
     self.reviewTextView.textColor = [UIColor grayColor];
     self.haveTheyRatedStars = NO;
     self.selectYearButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.haveTheySelectedYear = NO;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
@@ -89,10 +90,6 @@
     if (textField == self.nameTextField) {
         [textField resignFirstResponder];
     }
-    if (textField == self.yearTextField) {
-        [textField resignFirstResponder];
-    }
-    
 
     return YES;
 }
@@ -111,9 +108,9 @@
         UIAlertView *noTitleAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter a title" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [noTitleAlert show];
     }
-    else if ([self.yearTextField.text isEqualToString:@""]) {
-        UIAlertView *noTitleAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter your year" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [noTitleAlert show];
+    else if (self.haveTheySelectedYear == NO) {
+        UIAlertView *noYearAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter your year" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [noYearAlert show];
     }
     else {
         PFObject *newReview = [PFObject objectWithClassName:@"CourseReviews"];
@@ -122,24 +119,7 @@
         newReview[@"ReviewText"] = self.reviewTextView.text;
         newReview[@"CourseCode"] = self.couseKISCode;
         newReview[@"StarRating"] = self.howManyStars;
-        if ([self.yearTextField.text isEqualToString:@"1"]) {
-            newReview[@"ReviewerYear"] = @"1st Year";
-        }
-        if ([self.yearTextField.text isEqualToString:@"2"]) {
-            newReview[@"ReviewerYear"] = @"2nd Year";
-        }
-        if ([self.yearTextField.text isEqualToString:@"3"]) {
-            newReview[@"ReviewerYear"] = @"3rd Year";
-        }
-        if ([self.yearTextField.text isEqualToString:@"4"]) {
-            newReview[@"ReviewerYear"] = @"4th Year";
-        }
-        if ([self.yearTextField.text isEqualToString:@"5"]) {
-            newReview[@"ReviewerYear"] = @"5th Year";
-        }
-        if ([self.yearTextField.text isEqualToString:@"6"]) {
-            newReview[@"ReviewerYear"] = @"6th Year";
-        }
+        newReview[@"ReviewerYear"] = self.selectYearButton.titleLabel.text;
         [newReview saveInBackground];
         [self dismissViewControllerAnimated:YES completion:nil];
     }

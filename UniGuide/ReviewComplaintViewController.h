@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *commentsTextView;
 @property (nonatomic,strong) NSString *courseKISCode;
 @property (nonatomic) BOOL firstTimeTextEdit;
+@property (nonatomic) BOOL hasSelectedTypeOfComplaint;
 @property (weak, nonatomic) IBOutlet UIButton *selectTypeButton;
 @property (strong, nonatomic) NSString *complaintCode;
 - (IBAction)selectTypeButtonPressed:(id)sender;

@@ -116,15 +116,17 @@
                 [self.searchResults addObjectsFromArray:tempNames];
                 [self.searchResultsCourseCodes addObjectsFromArray:[objects valueForKey:@"KISCOURSEID"]];
                 [self.courseSearchResultsKisAimCodes addObjectsFromArray:[objects valueForKey:@"KISAIMCODE"]];
-                for (NSString *aimCodes in self.courseSearchResultsKisAimCodes) {
+                for (int k = self.skip; k<self.courseSearchResultsKisAimCodes.count; k++) {
+                    NSString *aimCodes = [self.courseSearchResultsKisAimCodes objectAtIndex:k];
                     PFQuery *queryForHonourReceived = [PFQuery queryWithClassName:@"Kisaim"];
                     [queryForHonourReceived whereKey:@"KISAIMCODE" equalTo:aimCodes];
                     PFObject *object = [queryForHonourReceived getFirstObject];
                     NSString *courseHonour = [object valueForKey:@"KISAIMLABEL"];
-                    if (objects.count == 0) {
-                        self.haveFoundEverySeachValue = YES;
-                    }
                     [self.courseDegreeTitles addObject:courseHonour];
+                    NSLog(@"course degree titles count as we go: %d",self.courseDegreeTitles.count);
+                }
+                if (objects.count == 0) {
+                    self.haveFoundEverySeachValue = YES;
                 }
                 NSLog(@"search results: %@",self.searchResults);
                 self.skip += self.limit;
@@ -151,15 +153,17 @@
                 [self.searchResults addObjectsFromArray:tempNames];
                 [self.searchResultsCourseCodes addObjectsFromArray:[objects valueForKey:@"KISCOURSEID"]];
                 [self.courseSearchResultsKisAimCodes addObjectsFromArray:[objects valueForKey:@"KISAIMCODE"]];
-                for (NSString *aimCodes in self.courseSearchResultsKisAimCodes) {
+                for (int k = self.skip; k<self.courseSearchResultsKisAimCodes.count; k++) {
+                    NSString *aimCodes = [self.courseSearchResultsKisAimCodes objectAtIndex:k];
                     PFQuery *queryForHonourReceived = [PFQuery queryWithClassName:@"Kisaim"];
                     [queryForHonourReceived whereKey:@"KISAIMCODE" equalTo:aimCodes];
                     PFObject *object = [queryForHonourReceived getFirstObject];
                     NSString *courseHonour = [object valueForKey:@"KISAIMLABEL"];
                     [self.courseDegreeTitles addObject:courseHonour];
-                    if (objects.count == 0) {
-                        self.haveFoundEverySeachValue = YES;
-                    }
+                    NSLog(@"course degree titles count as we go: %d",self.courseDegreeTitles.count);
+                }
+                if (objects.count == 0) {
+                    self.haveFoundEverySeachValue = YES;
                 }
                 NSLog(@"search results: %@",self.searchResults);
                 self.skip += self.limit;
@@ -207,59 +211,72 @@
             PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
             [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
             // find this number per university
-            [bigQuery setLimit:5];
+            if (locationUniversityUKPRNS.count >5) {
+                [bigQuery setLimit:2];
+            } else {
+                [bigQuery setLimit:5];
+            }
             [bigQuery setSkip:self.skip];
             NSLog(@"ukprn: %@",[locationUniversityUKPRNS objectAtIndex:i]);
             [bigQuery whereKey:@"UKPRN" equalTo:[locationUniversityUKPRNS objectAtIndex:i]];
             [bigQuery whereKeyExists:@"TITLE"];
             [bigQuery orderByAscending:@"TITLE"];
-            NSArray *tempArray = [bigQuery findObjects];
-            // now find university name
-            PFQuery *universityNameQuery = [PFQuery queryWithClassName:@"Institution1213"];
-            [universityNameQuery whereKey:@"UKPRN" equalTo:[locationUniversityUKPRNS objectAtIndex:i]];
-            [universityNameQuery selectKeys:[NSArray arrayWithObject:@"Institution"]];
-            PFObject *tempObject = [universityNameQuery getFirstObject];
-            NSString *universityNameTemp = [tempObject valueForKey:@"Institution"];
-            NSLog(@"uni name temp: %@",universityNameTemp);
-            
-            //for however many courses found add the university name this many times
-            for (int j=0; j<tempArray.count; j++) {
-                [self.universityNamesForSearchResults addObject:universityNameTemp];
-              //  [self.searchResultsUniversityCodes addObject:[locationUniversityUKPRNS objectAtIndex:i]];
-               // NSLog(@"university names: %@ and uni ukprns: %@",self.universityNamesForSearchResults,self.searchResultsUniversityCodes);
-            }
-            
-            // now add the courses we found
-            [cumulativeSearchResults addObjectsFromArray:tempArray];
-            NSLog(@"cum search results count: %d",cumulativeSearchResults.count);
-            
-            // if we have got to the final university in this region
-            if (i == locationUniversityUKPRNS.count - 1) {
-                if (cumulativeSearchResults.count == 0) {
-                    self.haveFoundEverySeachValue = YES;
+            [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                // now find university name
+                PFQuery *universityNameQuery = [PFQuery queryWithClassName:@"Institution1213"];
+                [universityNameQuery whereKey:@"UKPRN" equalTo:[locationUniversityUKPRNS objectAtIndex:i]];
+                [universityNameQuery selectKeys:[NSArray arrayWithObject:@"Institution"]];
+                PFObject *tempObject = [universityNameQuery getFirstObject];
+                NSString *universityNameTemp = [tempObject valueForKey:@"Institution"];
+                NSLog(@"uni name temp: %@",universityNameTemp);
+                
+                //for however many courses found add the university name this many times
+                for (int j=0; j<objects.count; j++) {
+                    [self.universityNamesForSearchResults addObject:universityNameTemp];
+                    //  [self.searchResultsUniversityCodes addObject:[locationUniversityUKPRNS objectAtIndex:i]];
+                    // NSLog(@"university names: %@ and uni ukprns: %@",self.universityNamesForSearchResults,self.searchResultsUniversityCodes);
                 }
-                [self.searchResults  addObjectsFromArray:[cumulativeSearchResults valueForKey:@"TITLE"]];
-                NSLog(@"search results first; %@",self.searchResults);
-                [self.searchResultsUniversityCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"UKPRN"]];
-                [self.courseSearchResultsKisAimCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"KISAIMCODE"]];
-                NSLog(@"kis codes: %@",self.courseSearchResultsKisAimCodes);
-                [self.searchResultsCourseCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"KISCOURSEID"]];
-                for (NSString *aimCodes in self.courseSearchResultsKisAimCodes) {
-                    PFQuery *queryForHonourReceived = [PFQuery queryWithClassName:@"Kisaim"];
-                    [queryForHonourReceived whereKey:@"KISAIMCODE" equalTo:aimCodes];
-                    PFObject *object = [queryForHonourReceived getFirstObject];
-                    NSString *courseHonour = [object valueForKey:@"KISAIMLABEL"];
-                    [self.courseDegreeTitles addObject:courseHonour];
-                    NSLog(@"course honour: %@ and course degree title: %@",courseHonour,self.courseDegreeTitles);
-                    
+                
+                // now add the courses we found
+                [cumulativeSearchResults addObjectsFromArray:objects];
+                NSLog(@"cum search results count: %d",cumulativeSearchResults.count);
+                
+                // if we have got to the final university in this region
+                if (i == locationUniversityUKPRNS.count - 1) {
+                    if (cumulativeSearchResults.count == 0) {
+                        self.haveFoundEverySeachValue = YES;
+                    }
+                    [self.searchResults  addObjectsFromArray:[cumulativeSearchResults valueForKey:@"TITLE"]];
+                    NSLog(@"search results first; %@",self.searchResults);
+                    [self.searchResultsUniversityCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"UKPRN"]];
+                    [self.courseSearchResultsKisAimCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"KISAIMCODE"]];
+                    NSLog(@"kis codes: %@",self.courseSearchResultsKisAimCodes);
+                    [self.searchResultsCourseCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"KISCOURSEID"]];
+                    for (int k = self.skip; k<self.courseSearchResultsKisAimCodes.count; k++) {
+                        NSString *aimCodes = [self.courseSearchResultsKisAimCodes objectAtIndex:k];
+                        PFQuery *queryForHonourReceived = [PFQuery queryWithClassName:@"Kisaim"];
+                        [queryForHonourReceived whereKey:@"KISAIMCODE" equalTo:aimCodes];
+                        PFObject *object = [queryForHonourReceived getFirstObject];
+                        NSString *courseHonour = [object valueForKey:@"KISAIMLABEL"];
+                        [self.courseDegreeTitles addObject:courseHonour];
+                        NSLog(@"course degree titles count as we go: %d",self.courseDegreeTitles.count);
+                    }
+                    if (objects.count == 0) {
+                        self.haveFoundEverySeachValue = YES;
+                    }
+                    if (locationUniversityUKPRNS.count >5) {
+                        self.skip += 2;
+                    } else {
+                        self.skip +=5;
+                    }
+                    NSLog(@"uni names %@",self.universityNamesForSearchResults);
+                    NSLog(@"self.skip : %d",self.skip);
+                    self.tableView.hidden = NO;
+                    [self.activityIndicator stopAnimating];
+                    [self.tableView reloadData];
                 }
-                self.skip += 5;//self.limit;
-                NSLog(@"uni names %@",self.universityNamesForSearchResults);
-                NSLog(@"self.skip : %d",self.skip);
-                self.tableView.hidden = NO;
-                [self.activityIndicator stopAnimating];
-                [self.tableView reloadData];
-            }
+            }];
+           
         }
     }
 }
@@ -317,7 +334,7 @@
     }
     
     //    // Configure the cell...
-    
+    NSLog(@"course names count: %d and course codes count: %d",self.searchResults.count,self.courseDegreeTitles.count);
     NSString *courseName = [self.searchResults objectAtIndex:indexPath.row];
     courseName = [courseName stringByAppendingString:@" - "];
     courseName = [courseName stringByAppendingString:[self.courseDegreeTitles objectAtIndex:indexPath.row]];
@@ -384,11 +401,13 @@
         courseInfoCoursePageViewController.uniCodeCourseInfo = self.universitySearchedUKPRN;
         uniInfoCoursePageViewController.uniCodeUniInfo = self.universitySearchedUKPRN;
         reviewsCoursePageViewController.uniCodeReviews = self.universitySearchedUKPRN;
+        studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = self.universitySearchedUKPRN;
     } else {
         NSLog(@"got to here woo: %@",self.searchResultsUniversityCodes);
         courseInfoCoursePageViewController.uniCodeCourseInfo = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
         uniInfoCoursePageViewController.uniCodeUniInfo = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
         reviewsCoursePageViewController.uniCodeReviews = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
+        studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
     }
     
     NSLog(@"just about to pass course code: %@,does anything exist? %@",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],self.searchResultsCourseCodes);
@@ -398,6 +417,7 @@
     courseInfoCoursePageViewController.courseCodeCourseInfo = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
     reviewsCoursePageViewController.courseCodeReviews = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
     reviewsCoursePageViewController.courseNameReviews = cell.textLabel.text;
+    studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
 
     // Push the view controller.
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];

@@ -157,6 +157,39 @@
     cell.reviewerDetailsLabel.text = [NSString stringWithFormat:@"by %@ - %@ - %@",[self.reviewersNames objectAtIndex:indexPath.row],[self.reviewersYears objectAtIndex:indexPath.row],formattedDate];
     cell.reviewerDetailsLabel.adjustsFontSizeToFitWidth = YES;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    NSNumber *tempNumberOfStars = [self.reviewStars objectAtIndex:indexPath.row];
+    NSLog(@"temp star: %@",tempNumberOfStars);
+    if (tempNumberOfStars == [NSNumber numberWithInt:1]) {
+        cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButton"];
+    } else if (tempNumberOfStars == [NSNumber numberWithInt:2]) {
+        cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButton"];
+    } else if (tempNumberOfStars == [NSNumber numberWithInt:3]) {
+        cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButton"];
+    } else if (tempNumberOfStars == [NSNumber numberWithInt:4]) {
+        cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButton"];
+    } else if (tempNumberOfStars == [NSNumber numberWithInt:5]) {
+        cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+    }
     
     // try and set text view to size of text
 //    UITextView *reviewText = [[UITextView alloc] init];

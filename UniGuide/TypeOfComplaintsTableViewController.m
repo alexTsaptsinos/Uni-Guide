@@ -84,7 +84,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     previousView.selectTypeButton.titleLabel.text = [typeOfComplaintArray objectAtIndex:indexPath.row];
-    
+    previousView.hasSelectedTypeOfComplaint = YES;
 
     [self dismissViewControllerAnimated:YES completion:nil];
 

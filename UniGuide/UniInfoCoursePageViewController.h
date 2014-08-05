@@ -19,5 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *studentSatisfactionLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *totalNumberOfStaffLabel;
 
 @end
