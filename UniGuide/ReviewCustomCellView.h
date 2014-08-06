@@ -13,5 +13,13 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *reviewTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *reviewerDetailsLabel;
-@property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
+
+@property (nonatomic, retain) NSString * reviewNumber;
+@property (nonatomic, retain) NSString * reviewTitle;
+@property (nonatomic, retain) NSString * reviewDetails;
+@property (nonatomic, retain) NSString * reviewText;
+@property (nonatomic, retain) NSNumber * heightTest;
+@property (nonatomic, retain) NSNumber * yTest;
+@property (nonatomic, retain) NSNumber * widthTest;
+
 @end
