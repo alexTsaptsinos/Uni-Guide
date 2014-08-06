@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ReviewComplaintViewController.h"
+#import "ReviewsCoursePageViewController.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface ReviewCustomCellView : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *reviewNumberLabel;
@@ -22,4 +26,14 @@
 @property (nonatomic, retain) NSNumber * yTest;
 @property (nonatomic, retain) NSNumber * widthTest;
 
+@property (weak, nonatomic) IBOutlet UIImageView *starImageView1;
+
+@property (weak, nonatomic) IBOutlet UIImageView *starImageView2;
+@property (weak, nonatomic) IBOutlet UIImageView *starImageView3;
+
+@property (weak, nonatomic) IBOutlet UIImageView *starImageView4;
+@property (weak, nonatomic) IBOutlet UIImageView *starImageView5;
+
+
 @end
+

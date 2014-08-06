@@ -27,7 +27,7 @@
 @implementation UniInfoCoursePageViewController
 
 
-@synthesize uniCodeUniInfo,studentSatisfactionPercentage,totalNumberOfStudentsLabel,numberOfBedsLabel,averagePrivateLabel,averageInstituteLabel,scrollView;
+@synthesize uniCodeUniInfo,studentSatisfactionPercentage,totalNumberOfStudentsLabel,numberOfBedsLabel,averagePrivateLabel,averageInstituteLabel,scrollView,totalNumberOfStaffLabel;
 @synthesize hostView = hostView_;
 
 #pragma mark - UIViewController lifecycle methods
@@ -84,6 +84,14 @@
     NSString *totalNumberOfStudents = [tempObject1 valueForKey:@"TotalAllStudents"];
     self.totalNumberOfStudentsLabel.text = [NSString stringWithFormat:@"Number Of Students: %@",totalNumberOfStudents];
     
+    // query to get total number of staff
+    PFQuery *queryForTotalNumberOfStaff = [PFQuery queryWithClassName:@"StaffInst1213"];
+    [queryForTotalNumberOfStaff whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
+    [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"Total"]];
+    PFObject *tempObject2 = [queryForTotalNumberOfStaff getFirstObject];
+    NSString *totalNumberOfStaff = [tempObject2 valueForKey:@"Total"];
+    self.totalNumberOfStaffLabel.text = [NSString stringWithFormat:@"Number Of Staff: %@",totalNumberOfStaff];
+    
     
     //query to get data on total number of beds
     PFQuery *queryForAccomodation = [PFQuery queryWithClassName:@"Location"];
@@ -105,7 +113,7 @@
     //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
     NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
     //NSLog(@"sum: %@",sumOfQuartiles);
-    NSNumber *totalNumberOfValues = [NSNumber numberWithInt:(lowerQuartileCostOfPrivateBeds.count + upperQuartileCostOfPrivateBeds.count)];
+    NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfPrivateBeds.count + upperQuartileCostOfPrivateBeds.count)];
     //NSLog(@"total values %@",totalNumberOfValues);
     NSNumber *averageCostOfLivingPrivate = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
     NSLog(@"average private: %@",averageCostOfLivingPrivate);
@@ -120,7 +128,7 @@
     //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
     sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
     //NSLog(@"sum: %@",sumOfQuartiles);
-    totalNumberOfValues = [NSNumber numberWithInt:(lowerQuartileCostOfInstituteBeds.count + upperQuartileCostOfInstituteBeds.count)];
+    totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfInstituteBeds.count + upperQuartileCostOfInstituteBeds.count)];
     //NSLog(@"total values %@",totalNumberOfValues);
     NSNumber *averageCostOfLivingInstitute = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
     NSLog(@"average inst: %@",averageCostOfLivingInstitute);

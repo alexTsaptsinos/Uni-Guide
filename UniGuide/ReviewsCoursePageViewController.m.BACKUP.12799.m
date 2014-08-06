@@ -39,6 +39,7 @@
     PFObject *tempUniObject = [queryForUniversityName getFirstObject];
     NSString *uniName = [tempUniObject objectForKey:@"Institution"];
     
+<<<<<<< HEAD
     PFQuery *queryForReviews = [PFQuery queryWithClassName:@"CourseReviews"];
     [queryForReviews whereKey:@"CourseCode" equalTo:self.courseCodeReviews];
     [queryForReviews orderByAscending:@"createdAt"];
@@ -59,18 +60,11 @@
 //    }];
     
     NSArray * objects = [queryForReviews findObjects];
-    if (objects.count == 0) {
-        self.reviewTableView.hidden = YES;
-        self.numberOfReviewsLabel.text = @"0 Ratings";
-        self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
-    }
-    else if (objects.count == 1) {
-        self.numberOfReviewsLabel.text = @"1 Rating";
-    } else {
-        self.numberOfReviewsLabel.text = [NSString stringWithFormat:@"%lu Ratings",(unsigned long)objects.count];
-
-    }
-
+        if (objects.count == 1) {
+            self.numberOfReviewsLabel.text = @"1 Rating";
+        } else {
+            self.numberOfReviewsLabel.text = [NSString stringWithFormat:@"%d Ratings",objects.count];
+=======
     NSString *uniAndCourse = [uniName stringByAppendingString:@" - "];
     uniAndCourse = [uniAndCourse stringByAppendingString:self.courseNameReviews];
     self.universityAndCourseLabel.text = uniAndCourse;
@@ -87,16 +81,28 @@
     [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
     [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
 
-    
-        
-       
+    PFQuery *queryForReviews = [PFQuery queryWithClassName:@"CourseReviews"];
+    [queryForReviews whereKey:@"CourseCode" equalTo:self.courseCodeReviews];
+    [queryForReviews orderByAscending:@"createdAt"];
+    [queryForReviews findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+        if (objects.count == 0) {
+            self.reviewTableView.hidden = YES;
+            self.numberOfReviewsLabel.text = @"0 Ratings";
+            self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
+        }
+        else if (objects.count == 1) {
+            self.numberOfReviewsLabel.text = @"1 Rating";
+        } else {
+        self.numberOfReviewsLabel.text = [NSString stringWithFormat:@"%lu Ratings",(unsigned long)objects.count];
+>>>>>>> 67dd3792d4bcfbfbee65ee6cbb31610ef6fc85b4
+        }
         self.reviewTitles = [objects valueForKey:@"ReviewTitle"];
         self.reviewStars = [objects valueForKey:@"StarRating"];
         self.reviewTexts = [objects valueForKey:@"ReviewText"];
         self.reviewersNames = [objects valueForKey:@"ReviewerName"];
         self.reviewersYears = [objects valueForKey:@"ReviewerYear"];
         self.reviewDates = [objects valueForKey:@"createdAt"];
-
+<<<<<<< HEAD
     
     self.cellHeights = [[NSMutableArray alloc] init];
     
@@ -108,10 +114,7 @@
         CGFloat lineHeight = temp.font.lineHeight;
         CGFloat lines = (temp.text.length / 55.0f) * lineHeight;
         CGFloat height = lines + 75.0f; //adding some padding
-        
-        [self.cellHeights addObject:[NSNumber numberWithFloat:height]];
-    }
-    
+=======
         self.reviewCodes = [objects valueForKey:@"objectId"];
         [self.reviewTableView reloadData];
         NSLog(@"stars: %@",self.reviewStars);
@@ -148,7 +151,16 @@
             [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
             [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
         }
+        
+>>>>>>> 67dd3792d4bcfbfbee65ee6cbb31610ef6fc85b4
+        
+        [self.cellHeights addObject:[NSNumber numberWithFloat:height]];
+    }
     
+    
+    // calculate average review
+  
+
     
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
@@ -156,6 +168,12 @@
     //self.behindStarsImageView.backgroundColor = [UIColor yellowColor];
     //self.cellHeights = [[NSMutableArray alloc] init];
     self.haveDoneParseQueryYet = NO;
+    
+    NSString *uniAndCourse = [uniName stringByAppendingString:@" - "];
+    uniAndCourse = [uniAndCourse stringByAppendingString:self.courseNameReviews];
+    self.universityAndCourseLabel.text = uniAndCourse;
+    self.universityAndCourseLabel.adjustsFontSizeToFitWidth = YES;
+    self.reviewTableView.bounces = NO;
     
     CALayer *btnLayer = [addReviewButton layer];
     [btnLayer setMasksToBounds:YES];
@@ -178,13 +196,14 @@
         cell = [nib objectAtIndex:0];
     }
     
-
+<<<<<<< HEAD
     cell.yTest = [NSNumber numberWithFloat:cell.reviewerDetailsLabel.frame.origin.y + cell.reviewerDetailsLabel.frame.size.height];
     cell.widthTest = [NSNumber numberWithFloat:tableView.frame.size.width];
     
-
+    NSString *currentIndexPath = [NSString stringWithFormat:@"%d",indexPath.row];
+=======
     NSString *currentIndexPath = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
-
+>>>>>>> 67dd3792d4bcfbfbee65ee6cbb31610ef6fc85b4
     NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
     [f setNumberStyle:NSNumberFormatterDecimalStyle];
     NSNumber * myNumber = [f numberFromString:currentIndexPath];
@@ -197,7 +216,7 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd-MM-yy"];
     NSString *formattedDate =[formatter stringFromDate:[self.reviewDates objectAtIndex:indexPath.row]];
-
+<<<<<<< HEAD
     cell.reviewDetails = [[NSString alloc] initWithString:[NSString stringWithFormat:@"by %@ - %@ - %@",[self.reviewersNames objectAtIndex:indexPath.row],[self.reviewersYears objectAtIndex:indexPath.row],formattedDate]];
     
     //cell.reviewerDetailsLabel.text = [NSString stringWithFormat:@"by %@ - %@ - %@",[self.reviewersNames objectAtIndex:indexPath.row],[self.reviewersYears objectAtIndex:indexPath.row],formattedDate];
@@ -212,9 +231,10 @@
 //    [cell.reviewTextView sizeThatFits:CGSizeMake(cell.frame.size.width, 500)];
 //    
 //    NSLog(@"%.f height", cell.reviewTextView.frame.size.height);
-
-
-
+=======
+    cell.reviewerDetailsLabel.text = [NSString stringWithFormat:@"by %@ - %@ - %@",[self.reviewersNames objectAtIndex:indexPath.row],[self.reviewersYears objectAtIndex:indexPath.row],formattedDate];
+    cell.reviewerDetailsLabel.adjustsFontSizeToFitWidth = YES;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSNumber *tempNumberOfStars = [self.reviewStars objectAtIndex:indexPath.row];
     NSLog(@"temp star: %@",tempNumberOfStars);
     if (tempNumberOfStars == [NSNumber numberWithInt:1]) {
@@ -259,6 +279,11 @@
 //    frame.size = cell.reviewTextView.contentSize;
 //    
 //    cell.reviewTextView.frame = frame;
+    [cell.reviewTextView setScrollEnabled:YES];
+    cell.reviewTextView.text = [self.reviewTexts objectAtIndex:indexPath.row];
+    [cell.reviewTextView sizeToFit];
+    [cell.reviewTextView setScrollEnabled:NO];
+    
     
     UIButton *reportReviewButton = [UIButton buttonWithType:UIButtonTypeCustom];
     reportReviewButton.tag = indexPath.row;
@@ -271,6 +296,18 @@
     reportReviewButton.tag = indexPath.row;
     [cell addSubview:reportReviewButton];
     //[cell sizeToFit];
+    
+
+    
+   // [cell.reviewTextView setFrame:CGRectMake(0, 0, 320, cell.reviewTextView.contentSize.height)];
+    NSNumber *tempHeight = [NSNumber numberWithFloat:cell.reviewTextView.frame.size.height];
+    [self.cellHeights addObject:tempHeight];
+    self.haveDoneParseQueryYet = YES;
+    NSLog(@"cell heights: %@",self.cellHeights);
+    
+    //[cell setFrame:CGRectMake(0, 0, 320.0f, [[self.cellHeights objectAtIndex:indexPath.row] floatValue])];
+
+>>>>>>> 67dd3792d4bcfbfbee65ee6cbb31610ef6fc85b4
     
     return cell;
 }

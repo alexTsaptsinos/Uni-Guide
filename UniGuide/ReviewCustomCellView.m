@@ -10,7 +10,7 @@
 
 @implementation ReviewCustomCellView
 
-@synthesize reviewerDetailsLabel,reviewNumberLabel,reviewTitleLabel;
+@synthesize reviewerDetailsLabel,reviewNumberLabel,reviewTitleLabel,starImageView1,starImageView2,starImageView3,starImageView4,starImageView5;
 
 @synthesize reviewDetails,reviewNumber,reviewText,reviewTitle, heightTest, yTest, widthTest;
 

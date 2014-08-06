@@ -9,7 +9,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReviewCustomCellView" rowHeight="119" id="4ip-ry-7NJ" customClass="ReviewCustomCellView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="119"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4ip-ry-7NJ" id="Jdf-nb-zN0">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4ip-ry-7NJ" id="Jdf-nb-zN0">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="118"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -35,12 +35,33 @@
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0FN-yA-LdQ">
+                        <rect key="frame" x="28" y="26" width="21" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5hb-ff-rds">
+                        <rect key="frame" x="52" y="26" width="21" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JBN-Fm-dUv">
+                        <rect key="frame" x="76" y="26" width="21" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P7c-YO-chj">
+                        <rect key="frame" x="100" y="26" width="21" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
                 <outlet property="reviewNumberLabel" destination="eua-0O-xsp" id="noE-ld-bbh"/>
                 <outlet property="reviewTitleLabel" destination="SxV-oM-suM" id="sk5-Ks-tcd"/>
                 <outlet property="reviewerDetailsLabel" destination="4pk-wr-Pke" id="Xdq-nW-E36"/>
+                <outlet property="starImageView1" destination="yUW-7n-fXA" id="evl-sC-ft3"/>
+                <outlet property="starImageView2" destination="0FN-yA-LdQ" id="0f1-iE-h6Y"/>
+                <outlet property="starImageView3" destination="5hb-ff-rds" id="Vt6-5Z-hF1"/>
+                <outlet property="starImageView4" destination="JBN-Fm-dUv" id="Yt9-Zn-oTz"/>
+                <outlet property="starImageView5" destination="P7c-YO-chj" id="Abw-Hh-XQx"/>
             </connections>
         </tableViewCell>
     </objects>

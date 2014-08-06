@@ -9,6 +9,11 @@
                 <outlet property="addReviewButton" destination="feH-mH-b7U" id="I53-1u-Myo"/>
                 <outlet property="numberOfReviewsLabel" destination="DUs-vM-zDd" id="KMz-hO-8R9"/>
                 <outlet property="reviewTableView" destination="zS9-XN-6HL" id="nQF-5l-TRN"/>
+                <outlet property="starButton1" destination="CcZ-Jm-bqG" id="jgx-N6-tHw"/>
+                <outlet property="starButton2" destination="MSY-Na-hi6" id="Iyv-nA-IyQ"/>
+                <outlet property="starButton3" destination="GwJ-J3-zbt" id="Ago-pB-41X"/>
+                <outlet property="starButton4" destination="C8s-kc-N6g" id="lCX-TO-J2D"/>
+                <outlet property="starButton5" destination="5XE-aj-TTK" id="6dW-mB-As3"/>
                 <outlet property="universityAndCourseLabel" destination="UyF-1g-gg1" id="cFf-Lu-jok"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -74,7 +79,7 @@
                     </state>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="University - Course" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UyF-1g-gg1">
-                    <rect key="frame" x="8" y="8" width="253" height="21"/>
+                    <rect key="frame" x="8" y="8" width="309" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="highlightedColor"/>

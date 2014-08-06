@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "WhatYearForNewReviewTableViewController.h"
 
 @interface AddReviewViewController : UIViewController <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UIButton *selectYearButton;
+- (IBAction)selectYearButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextView *reviewTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView1;
@@ -26,11 +29,9 @@
 - (IBAction)starButton5Pressed:(id)sender;
 @property (nonatomic) BOOL firstTimeTextEdit;
 @property (nonatomic) BOOL haveTheyRatedStars;
+@property (nonatomic) BOOL haveTheySelectedYear;
 @property (nonatomic,strong) NSString *couseKISCode;
 @property (nonatomic) NSNumber *howManyStars;
-@property (nonatomic,strong) NSArray *pickerViewOptions;
-@property (weak, nonatomic) IBOutlet UITextField *yearTextField;
 
-@property (weak, nonatomic) IBOutlet UIPickerView *yearPickerView;
 
 @end

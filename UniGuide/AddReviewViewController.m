@@ -14,7 +14,7 @@
 
 @implementation AddReviewViewController
 
-@synthesize titleTextField,nameTextField,reviewTextView,starButton1,starButton2,starButton3,starButton4,starButton5,firstTimeTextEdit,haveTheyRatedStars,couseKISCode,howManyStars,yearTextField;
+@synthesize titleTextField,nameTextField,reviewTextView,starButton1,starButton2,starButton3,starButton4,starButton5,firstTimeTextEdit,haveTheyRatedStars,couseKISCode,howManyStars,selectYearButton,haveTheySelectedYear;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,24 +44,20 @@
     self.firstTimeTextEdit = YES;
     self.reviewTextView.textColor = [UIColor grayColor];
     self.haveTheyRatedStars = NO;
-   
-    UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
-    [keyboardDoneButtonView sizeToFit];
-    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
-                                                                   style:UIBarButtonItemStyleBordered target:self
-                                                                  action:@selector(doneClicked:)];
-    [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
-    self.yearTextField.inputAccessoryView = keyboardDoneButtonView;
+    self.selectYearButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.haveTheySelectedYear = NO;
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
     
+    [self.view addGestureRecognizer:tap];
 
     // Do any additional setup after loading the view from its nib.
 }
 
-- (IBAction)doneClicked:(id)sender
-{
-    NSLog(@"Done Clicked.");
-    [self.view endEditing:YES];
+-(void)dismissKeyboard {
+    [self.reviewTextView resignFirstResponder];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -70,7 +66,6 @@
         self.reviewTextView.text = @"";
         self.reviewTextView.textColor = [UIColor blackColor];
         self.firstTimeTextEdit = NO;
-       // self.reviewTextView.frame = CGRectMake(0, 203, 320, 60);
     }
     
 }
@@ -95,10 +90,6 @@
     if (textField == self.nameTextField) {
         [textField resignFirstResponder];
     }
-    if (textField == self.yearTextField) {
-        [textField resignFirstResponder];
-    }
-    
 
     return YES;
 }
@@ -117,9 +108,9 @@
         UIAlertView *noTitleAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter a title" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [noTitleAlert show];
     }
-    else if ([self.yearTextField.text isEqualToString:@""]) {
-        UIAlertView *noTitleAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter your year" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [noTitleAlert show];
+    else if (self.haveTheySelectedYear == NO) {
+        UIAlertView *noYearAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter your year" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [noYearAlert show];
     }
     else {
         PFObject *newReview = [PFObject objectWithClassName:@"CourseReviews"];
@@ -128,24 +119,7 @@
         newReview[@"ReviewText"] = self.reviewTextView.text;
         newReview[@"CourseCode"] = self.couseKISCode;
         newReview[@"StarRating"] = self.howManyStars;
-        if ([self.yearTextField.text isEqualToString:@"1"]) {
-            newReview[@"ReviewerYear"] = @"1st Year";
-        }
-        if ([self.yearTextField.text isEqualToString:@"2"]) {
-            newReview[@"ReviewerYear"] = @"2nd Year";
-        }
-        if ([self.yearTextField.text isEqualToString:@"3"]) {
-            newReview[@"ReviewerYear"] = @"3rd Year";
-        }
-        if ([self.yearTextField.text isEqualToString:@"4"]) {
-            newReview[@"ReviewerYear"] = @"4th Year";
-        }
-        if ([self.yearTextField.text isEqualToString:@"5"]) {
-            newReview[@"ReviewerYear"] = @"5th Year";
-        }
-        if ([self.yearTextField.text isEqualToString:@"6"]) {
-            newReview[@"ReviewerYear"] = @"6th Year";
-        }
+        newReview[@"ReviewerYear"] = self.selectYearButton.titleLabel.text;
         [newReview saveInBackground];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
@@ -217,4 +191,14 @@
     self.haveTheyRatedStars = YES;
 }
 
+- (IBAction)selectYearButtonPressed:(id)sender {
+    
+    WhatYearForNewReviewTableViewController *whatYearForNewReviewTableViewController = [[WhatYearForNewReviewTableViewController alloc] init];
+    whatYearForNewReviewTableViewController.previousViewController = self;
+    
+    UINavigationController *whatyearNavigationController = [[UINavigationController alloc]initWithRootViewController:whatYearForNewReviewTableViewController];
+    
+    
+    [self presentViewController:whatyearNavigationController animated:YES completion:nil];
+}
 @end

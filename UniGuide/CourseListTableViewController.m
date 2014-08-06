@@ -259,6 +259,9 @@
     
     uniInfoCoursePageViewController.uniCodeUniInfo = self.universityCode;
     
+    studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:indexPath.row];
+    studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = self.universityCode;
+    
     // Push the view controller.
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];
 }

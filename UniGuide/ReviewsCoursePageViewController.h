@@ -26,10 +26,16 @@
 @property (strong,nonatomic) NSMutableArray *reviewTitles;
 @property (strong,nonatomic) NSMutableArray *reviewStars;
 @property (strong,nonatomic) NSMutableArray *reviewTexts;
+@property (strong,nonatomic) NSMutableArray *reviewCodes;
 
 @property (weak, nonatomic) IBOutlet UITableView *reviewTableView;
 @property (strong, nonatomic) NSMutableArray *cellHeights;
 @property (nonatomic) BOOL haveDoneParseQueryYet;
 
+@property (weak, nonatomic) IBOutlet UIButton *starButton1;
 
+@property (weak, nonatomic) IBOutlet UIButton *starButton2;
+@property (weak, nonatomic) IBOutlet UIButton *starButton3;
+@property (weak, nonatomic) IBOutlet UIButton *starButton4;
+@property (weak, nonatomic) IBOutlet UIButton *starButton5;
 @end
