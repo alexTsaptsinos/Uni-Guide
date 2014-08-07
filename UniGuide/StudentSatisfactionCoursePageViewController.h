@@ -15,8 +15,12 @@
 
 @property (strong, nonatomic) NSString *courseCodeStudentSatisfaction;
 @property (strong, nonatomic) NSString *uniCodeStudentSatisfaction;
+@property (strong, nonatomic) NSString *uniNameStudentSatisfaction;
+@property (strong, nonatomic) NSString *courseNameStudentSatisfaction;
 @property (strong, nonatomic) NSMutableArray *questionResults;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewStudentSatisfaction;
+@property (weak, nonatomic) IBOutlet UILabel *universityNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *courseNameLabel;
 
 @end

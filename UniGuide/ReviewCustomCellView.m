@@ -10,7 +10,7 @@
 
 @implementation ReviewCustomCellView
 
-@synthesize reviewerDetailsLabel,reviewTextView,reviewNumberLabel,reviewTitleLabel,starImageView1,starImageView2,starImageView3,starImageView4,starImageView5;
+@synthesize reviewerDetailsLabel,reviewNumberLabel,reviewTitleLabel,starImageView1,starImageView2,starImageView3,starImageView4,starImageView5,reviewTextLabel;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CourseInfoTextCustomCellView : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *textCellLabel;
+@property (weak, nonatomic) IBOutlet UILabel *textCellDataLabel;
 
 @end

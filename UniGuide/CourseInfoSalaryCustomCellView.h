@@ -9,5 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface CourseInfoSalaryCustomCellView : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewLeft;
+@property (weak, nonatomic) IBOutlet UILabel *centreLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewRight;
+@property (weak, nonatomic) IBOutlet UILabel *leftDataLabel;
+@property (weak, nonatomic) IBOutlet UILabel *leftLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rightDataLabel;
+@property (weak, nonatomic) IBOutlet UILabel *rightLabel;
 
 @end

@@ -13,13 +13,8 @@
     
 }
 
-@property (nonatomic, strong) CPTGraphHostingView *hostView;
 @property (nonatomic, strong) NSString *studentSatisfactionPercentage;
--(void)initPlot;
--(void)configureHost;
--(void)configureGraph;
--(void)configureChart;
--(void)configureLegend;
+
 
 
 @end
@@ -27,14 +22,11 @@
 @implementation UniInfoCoursePageViewController
 
 
-@synthesize uniCodeUniInfo,studentSatisfactionPercentage,totalNumberOfStudentsLabel,numberOfBedsLabel,averagePrivateLabel,averageInstituteLabel,scrollView,totalNumberOfStaffLabel;
-@synthesize hostView = hostView_;
+@synthesize uniCodeUniInfo,studentSatisfactionPercentage,tableViewUniInfo,uniInfoDataSets,haveWeComeFromUniversities,uniNameUniInfo,firstTimeLoad,uniInfoDataNumbers,universityNameLabel,scroll;
 
 #pragma mark - UIViewController lifecycle methods
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    // The plot is initialized here, since the view bounds have not transformed for landscape until now
-    [self initPlot];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,8 +47,11 @@
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;
+    self.uniInfoDataSets = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:@"Number of students:",@"Number of staff:",@"Number of institute owned rooms:",@"Average cost of institute accommodation:",@"Average cost of private accommodation:", nil]];
+    self.firstTimeLoad = YES;
 
-
+    
+    
 }
 
 
@@ -64,237 +59,231 @@
 {
     [super viewWillAppear:animated];
     
-    NSLog(@"code: %@", self.uniCodeUniInfo);
-    
-    // query to get satisfaction with union
-    PFQuery *queryForStudentSatisfaction = [PFQuery queryWithClassName:@"Institution"];
-    [queryForStudentSatisfaction whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
-    [queryForStudentSatisfaction whereKeyExists:@"Q24"];
-    PFObject *object1 = [queryForStudentSatisfaction getFirstObject];
-    NSLog(@"object: %@",object1);
-    studentSatisfactionPercentage = [object1 valueForKey:@"Q24"];
-    NSLog(@"satisfaction: %@",studentSatisfactionPercentage);
-    self.studentSatisfactionLabel.text = [NSString stringWithFormat:@"Student Satisfaction: %@%%",studentSatisfactionPercentage];
-    
-    // query to get total number of students
-    PFQuery *queryForTotalNumberOfStudents = [PFQuery queryWithClassName:@"Institution1213"];
-    [queryForTotalNumberOfStudents whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
-    [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"TotalAllStudents"]];
-    PFObject *tempObject1 = [queryForTotalNumberOfStudents getFirstObject];
-    NSString *totalNumberOfStudents = [tempObject1 valueForKey:@"TotalAllStudents"];
-    self.totalNumberOfStudentsLabel.text = [NSString stringWithFormat:@"Number Of Students: %@",totalNumberOfStudents];
-    
-    // query to get total number of staff
-    PFQuery *queryForTotalNumberOfStaff = [PFQuery queryWithClassName:@"StaffInst1213"];
-    [queryForTotalNumberOfStaff whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
-    [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"Total"]];
-    PFObject *tempObject2 = [queryForTotalNumberOfStaff getFirstObject];
-    NSString *totalNumberOfStaff = [tempObject2 valueForKey:@"Total"];
-    self.totalNumberOfStaffLabel.text = [NSString stringWithFormat:@"Number Of Staff: %@",totalNumberOfStaff];
-    
-    
-    //query to get data on total number of beds
-    PFQuery *queryForAccomodation = [PFQuery queryWithClassName:@"Location"];
-    [queryForAccomodation whereKeyExists:@"INSTBEDS"];
-    [queryForAccomodation whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
-    NSArray *object = [queryForAccomodation findObjects];
-    NSArray *numberOfBeds = [object valueForKey:@"INSTBEDS"];
-    //NSLog(@"object: %@",numberOfBeds);
-    NSNumber * totalNumberOfBeds = [numberOfBeds valueForKeyPath:@"@sum.self"];
-    NSLog(@"number of beds: %@", totalNumberOfBeds);
-    self.numberOfBedsLabel.text = [NSString stringWithFormat:@"Total Number Of Beds: %@",totalNumberOfBeds];
-    
-    
-    //calculate average cost for private accom.
-    NSArray *lowerQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATELOWER"];
-    NSArray *upperQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATEUPPER"];
-    NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
-    NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
-    //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
-    NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
-    //NSLog(@"sum: %@",sumOfQuartiles);
-    NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfPrivateBeds.count + upperQuartileCostOfPrivateBeds.count)];
-    //NSLog(@"total values %@",totalNumberOfValues);
-    NSNumber *averageCostOfLivingPrivate = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
-    NSLog(@"average private: %@",averageCostOfLivingPrivate);
-    self.averagePrivateLabel.text = [NSString stringWithFormat:@"Average Cost Of Private Accomodation: £%@",averageCostOfLivingPrivate];
-    
-    //calculate average cost for institute accom.
-    
-    NSArray *lowerQuartileCostOfInstituteBeds = [object valueForKey:@"INSTLOWER"];
-    NSArray *upperQuartileCostOfInstituteBeds = [object valueForKey:@"INSTUPPER"];
-    sumOfLowerQuartiles = [lowerQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
-    sumOfUpperQuartiles = [upperQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
-    //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
-    sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
-    //NSLog(@"sum: %@",sumOfQuartiles);
-    totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfInstituteBeds.count + upperQuartileCostOfInstituteBeds.count)];
-    //NSLog(@"total values %@",totalNumberOfValues);
-    NSNumber *averageCostOfLivingInstitute = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
-    NSLog(@"average inst: %@",averageCostOfLivingInstitute);
-    self.averageInstituteLabel.text = [NSString stringWithFormat:@"Average Cost Of Institute Accomodation: £%@",averageCostOfLivingInstitute];
-    
-    
+    if (self.firstTimeLoad == YES) {
+        
+        NSLog(@"code: %@", self.uniCodeUniInfo);
+        
+        scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+        [self.view addSubview:scroll];
+        scroll.showsHorizontalScrollIndicator = YES;
+        scroll.scrollEnabled = YES;
+        scroll.delegate = self;
+        scroll.bounces = NO;
+        scroll.userInteractionEnabled = YES;
+        
+        UIImageView *unionSatisfactionImageView = [[UIImageView alloc] init];
+        UIImageView *unionSatisfactionImageViewFull = [[UIImageView alloc] init];
+        unionSatisfactionImageViewFull.contentMode = UIViewContentModeTop;
+        unionSatisfactionImageView.image = [UIImage imageNamed:@"ui-19emptysmall"];
+        unionSatisfactionImageViewFull.image = [UIImage imageNamed:@"ui-19fillsmall"];
+        [scroll addSubview:unionSatisfactionImageViewFull];
+        
+        UILabel *unionSatisfactionNumberLabel = [[UILabel alloc] init];
+        UILabel *unionSatisfactionLabel = [[UILabel alloc] init];
 
-    
-    
+        
+        if (self.haveWeComeFromUniversities == YES) {
+            [scroll setContentSize:CGSizeMake(320, 850)];
+            tableViewUniInfo = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 530)];
+            [unionSatisfactionImageViewFull setFrame:CGRectMake(200, self.tableViewUniInfo.frame.size.height + 10.0f, 120, 182)];
+            [unionSatisfactionNumberLabel setFrame:CGRectMake(220, self.tableViewUniInfo.frame.size.height + 65.0f, 50, 20)];
+            [unionSatisfactionLabel setFrame:CGRectMake(20, self.tableViewUniInfo.frame.size.height + 70.0f, 150.0f, 50.0f)];
+            
+        }
+        else if (self.haveWeComeFromUniversities == NO) {
+            [scroll setContentSize:CGSizeMake(320, 890)];
+            tableViewUniInfo = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, 320, 530)];
+            universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 20)];
+            NSLog(@"hello alex: %@",self.uniNameUniInfo);
+            universityNameLabel.text = self.uniNameUniInfo;
+            universityNameLabel.textAlignment = NSTextAlignmentCenter;
+            universityNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+            universityNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+            [unionSatisfactionImageViewFull setFrame:CGRectMake(200, self.tableViewUniInfo.frame.size.height + 50.0f, 120, 182)];
+            [unionSatisfactionNumberLabel setFrame:CGRectMake(220, self.tableViewUniInfo.frame.size.height + 105.0f, 50, 20)];
+            [unionSatisfactionLabel setFrame:CGRectMake(20, self.tableViewUniInfo.frame.size.height + 110.0f, 150.0f, 50.0f)];
+            [scroll addSubview:universityNameLabel];
+        }
+        
+        tableViewUniInfo.scrollEnabled = NO;
+        tableViewUniInfo.delegate = self;
+        tableViewUniInfo.dataSource = self;
+        tableViewUniInfo.bounces = NO;
+        tableViewUniInfo.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+        [scroll addSubview:tableViewUniInfo];
+        
+        
+        
+        unionSatisfactionLabel.textAlignment = NSTextAlignmentLeft;
+        unionSatisfactionLabel.text = @"Satisfaction with union:";
+        unionSatisfactionLabel.numberOfLines = 0;
+        unionSatisfactionLabel.font = [UIFont fontWithName:@"Arial" size:16];
+        unionSatisfactionLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+        [scroll addSubview:unionSatisfactionLabel];
+        
+        unionSatisfactionNumberLabel.textAlignment = NSTextAlignmentCenter;
+        unionSatisfactionNumberLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        [scroll addSubview:unionSatisfactionNumberLabel];
+        
+        // query to get satisfaction with union
+        PFQuery *queryForStudentSatisfaction = [PFQuery queryWithClassName:@"Institution"];
+        [queryForStudentSatisfaction whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
+        [queryForStudentSatisfaction whereKeyExists:@"Q24"];
+        PFObject *object1 = [queryForStudentSatisfaction getFirstObject];
+        studentSatisfactionPercentage = [object1 valueForKey:@"Q24"];
+        unionSatisfactionNumberLabel.text = [NSString stringWithFormat:@"%@%%",studentSatisfactionPercentage];
 
-    
-    
-    
-}
+        
+        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+        [f setNumberStyle:NSNumberFormatterDecimalStyle];
+        NSNumber * unionPercentage = [f numberFromString:studentSatisfactionPercentage];
+        unionPercentage = [NSNumber numberWithFloat:([unionPercentage floatValue] / 100.0f)];
+        unionPercentage = [NSNumber numberWithFloat:(1.0f - [unionPercentage floatValue])];
+        NSLog(@"union percentage: %@",unionPercentage);
+        
+        [unionSatisfactionImageView setFrame:CGRectMake(unionSatisfactionImageViewFull.frame.origin.x, unionSatisfactionImageViewFull.frame.origin.y, unionSatisfactionImageViewFull.frame.size.width, unionSatisfactionImageViewFull.frame.size.height * [unionPercentage floatValue])];
+        unionSatisfactionImageView.contentMode = UIViewContentModeTop; // This determines position of image
+        unionSatisfactionImageView.clipsToBounds = YES;
+        [scroll addSubview:unionSatisfactionImageView];
+        
+        // query to get total number of students
+        PFQuery *queryForTotalNumberOfStudents = [PFQuery queryWithClassName:@"Institution1213"];
+        [queryForTotalNumberOfStudents whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
+        [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"TotalAllStudents"]];
+        PFObject *tempObject1 = [queryForTotalNumberOfStudents getFirstObject];
+        NSString *totalNumberOfStudents = [tempObject1 valueForKey:@"TotalAllStudents"];
+        
+        
 
-- (CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)idx
-{
-    CPTFill *areaGradientFill ;
-    
-    if (idx==0)
-        return areaGradientFill= [CPTFill fillWithColor:[CPTColor redColor]];
-    else if (idx==1)
-        return areaGradientFill= [CPTFill fillWithColor:[CPTColor blueColor]];
+        
+        // query to get total number of staff
+        PFQuery *queryForTotalNumberOfStaff = [PFQuery queryWithClassName:@"StaffInst1213"];
+        [queryForTotalNumberOfStaff whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
+        [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"Total"]];
+        PFObject *tempObject2 = [queryForTotalNumberOfStaff getFirstObject];
+        NSString *totalNumberOfStaff = [tempObject2 valueForKey:@"Total"];
+        
+        
+        
+        //query to get data on total number of beds
+        PFQuery *queryForAccomodation = [PFQuery queryWithClassName:@"Location"];
+        [queryForAccomodation whereKeyExists:@"INSTBEDS"];
+        [queryForAccomodation whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
+        NSArray *object = [queryForAccomodation findObjects];
+        NSArray *numberOfBeds = [object valueForKey:@"INSTBEDS"];
+        //NSLog(@"object: %@",numberOfBeds);
+        NSNumber * totalNumberOfBeds = [numberOfBeds valueForKeyPath:@"@sum.self"];
+        NSString *totalNumberOfBedsString = [totalNumberOfBeds stringValue];
+        
+        
+        
+        //calculate average cost for private accom.
+        NSArray *lowerQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATELOWER"];
+        NSArray *upperQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATEUPPER"];
+        NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+        NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+        //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+        NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+        //NSLog(@"sum: %@",sumOfQuartiles);
+        NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfPrivateBeds.count + upperQuartileCostOfPrivateBeds.count)];
+        //NSLog(@"total values %@",totalNumberOfValues);
+        NSNumber *averageCostOfLivingPrivate = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+        int privateRounded = lroundf([averageCostOfLivingPrivate floatValue]);
+        NSString *averageCostOfLivingPrivateString = @"£";
+        averageCostOfLivingPrivateString = [averageCostOfLivingPrivateString stringByAppendingString:[NSString stringWithFormat:@"%d", privateRounded]];
+        
+        //calculate average cost for institute accom.
+        
+        NSArray *lowerQuartileCostOfInstituteBeds = [object valueForKey:@"INSTLOWER"];
+        NSArray *upperQuartileCostOfInstituteBeds = [object valueForKey:@"INSTUPPER"];
+        sumOfLowerQuartiles = [lowerQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+        sumOfUpperQuartiles = [upperQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+        //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+        sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+        //NSLog(@"sum: %@",sumOfQuartiles);
+        totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfInstituteBeds.count + upperQuartileCostOfInstituteBeds.count)];
+        //NSLog(@"total values %@",totalNumberOfValues);
+        NSNumber *averageCostOfLivingInstitute = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+        int instituteRounded = lroundf([averageCostOfLivingInstitute floatValue]);
+        NSString *averageCostOfLivingInstituteString = @"£";
+        averageCostOfLivingInstituteString = [averageCostOfLivingInstituteString stringByAppendingString:[NSString stringWithFormat:@"%d", instituteRounded]];
+        
+        self.uniInfoDataNumbers = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString, nil]];
 
-    
-    return areaGradientFill;
-}
-
-
-#pragma mark - CPTPlotDataSource methods
-
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
-    return 2;
-}
-
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
-    
-    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-    [f setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber *percentage = [f numberFromString:self.studentSatisfactionPercentage];
-    NSNumber *otherPercentage = [NSNumber numberWithFloat:(100.0f - [percentage floatValue])];
-    //NSArray *numbers = [[NSArray alloc] initWithObjects:percentage,otherPercentage, nil];
-    NSArray *numbers = [[NSArray alloc] initWithObjects:[NSNumber numberWithInt:46],[NSNumber numberWithInt:54], nil];
-
-    
-    return [numbers objectAtIndex:index];
-}
-
--(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index {
-    
-    // 1 - Define label text style
-    
-    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-    [f setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber *percentage = [f numberFromString:self.studentSatisfactionPercentage];
-    NSNumber *otherPercentage = [NSNumber numberWithFloat:(100.0f - [percentage floatValue])];
-    static CPTMutableTextStyle *labelText = nil;
-    if (!labelText) {
-        labelText= [[CPTMutableTextStyle alloc] init];
-        labelText.color = [CPTColor grayColor];
+        self.firstTimeLoad = NO;
     }
-
-    // 4 - Set up display label
-    NSArray *labelValues = [[NSArray alloc] initWithObjects:@"First",@"other", nil];
-    
-    
-    // 5 - Create and return layer with label text
-    return [[CPTTextLayer alloc] initWithText:[labelValues objectAtIndex:index] style:labelText];
-    
+    else {
+        
+    }
 }
 
-//-(NSString *)legendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index {
-//    NSArray *maleFemaleArray = [[NSArray alloc] initWithObjects:@"Male",@"Female", nil];
-//    return [maleFemaleArray objectAtIndex:index];
-//}
-
-#pragma mark - Chart behavior
--(void)initPlot {
-    [self configureHost];
-    [self configureGraph];
-    [self configureChart];
-    [self configureLegend];
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
 
--(void)configureHost {
-    
-    // 1 - Set up view frame
-  //  CGRect parentRect = self.view.bounds;
-//    parentRect = CGRectMake(parentRect.origin.x,
-//                            (parentRect.origin.y + navigationBarSize.height),
-//                            parentRect.size.width,
-//                            (parentRect.size.height - navigationBarSize.height));
-    CGRect parentRect = CGRectMake(20, 20, 150, 150); //where in x, where in y, width, height
-    // 2 - Create host view, this hosts the graph
-    self.hostView = [(CPTGraphHostingView *) [CPTGraphHostingView alloc] initWithFrame:parentRect];
-    self.hostView.allowPinchScaling = NO;
-    //self.hostView.backgroundColor = [UIColor clearColor]; //automatically does clear!!
-    [self.view addSubview:self.hostView];
-    
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 5;
 }
 
--(void)configureGraph {
-    
-    // 1 - Create and initialize graph
-    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
-    self.hostView.hostedGraph = graph;
-    graph.paddingLeft = 0.0f;
-    graph.paddingTop = 0.0f;
-    graph.paddingRight = 0.0f;
-    graph.paddingBottom = 0.0f;
-    graph.axisSet = nil;
-    // 2 - Set up text style
-    CPTMutableTextStyle *textStyle = [CPTMutableTextStyle textStyle];
-    textStyle.color = [CPTColor grayColor];
-    textStyle.fontName = @"Helvetica-Bold";
-    textStyle.fontSize = 16.0f;
-    // 3 - Configure title
-    NSString *title = @"Union Satisfaction %";
-    graph.title = title;
-    graph.titleTextStyle = textStyle;
-    graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
-    graph.titleDisplacement = CGPointMake(10.0f, 10.0f);
 
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableViewUniInfo.bounds.size.width, 30)];
     
+    [headerView setBackgroundColor:[UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f]];
+    //  [headerView setBackgroundColor:[UIColor lightGrayColor]];
+    
+    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(20,0,tableViewUniInfo.bounds.size.width,22)];
+    
+    tempLabel.textColor = [UIColor whiteColor];
+    tempLabel.text=@"Details:";
+    
+    [headerView addSubview:tempLabel];
+    return headerView;
 }
 
--(void)configureChart {
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellIdentifier = @"UniInfoCustomCellView";
     
-    // 1 - Get reference to graph
-    CPTGraph *graph = self.hostView.hostedGraph;
-    // 2 - Create chart
-    CPTPieChart *pieChart = [[CPTPieChart alloc] init];
-    pieChart.dataSource = self;
-    pieChart.delegate = self;
-    pieChart.pieRadius = 50;
-    pieChart.identifier = graph.title;
-    pieChart.startAngle = M_PI_4;
-    pieChart.sliceDirection = CPTPieDirectionClockwise;
-    // 3 - Create gradient
-    CPTGradient *overlayGradient = [[CPTGradient alloc] init];
-    overlayGradient.gradientType = CPTGradientTypeRadial;
-    overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.0] atPosition:0.9];
-    overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.4] atPosition:1.0];
-    pieChart.overlayFill = [CPTFill fillWithGradient:overlayGradient];
-    // 4 - Add chart to graph    
-    [graph addPlot:pieChart];
+    UniInfoCustomCellView *cell = (UniInfoCustomCellView *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"UniInfoCustomCellView" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    cell.uniInfoTypeLabel.text = [self.uniInfoDataSets objectAtIndex:indexPath.row];
+    cell.uniInfoTypeLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+    cell.uniInfoTypeLabel.textAlignment = NSTextAlignmentLeft;
+    cell.uniInfoTypeLabel.numberOfLines = 0;
+    cell.imageViewUniInfo.frame = CGRectMake(220, 10, 80, 80);
+    
+    cell.imageViewUniInfo.image = [UIImage imageNamed:@"ui-17"];
+    //NSLog(@"numbers: %@",self.uniInfoDataNumbers);
+    
+    cell.numberDataLabelUniInfo.text = [self.uniInfoDataNumbers objectAtIndex:indexPath.row];
+    cell.numberDataLabelUniInfo.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    cell.numberDataLabelUniInfo.textAlignment = NSTextAlignmentCenter;
+    cell.numberDataLabelUniInfo.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+    
+    
+    
+    cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    
+    return cell;
 }
 
--(void)configureLegend {
-    
-    // 1 - Get graph instance
-//    CPTGraph *graph = self.hostView.hostedGraph;
-//    // 2 - Create legend
-//    CPTLegend *theLegend = [CPTLegend legendWithGraph:graph];
-//    // 3 - Configure legend
-//    theLegend.numberOfColumns = 1;
-//    //theLegend.fill = [CPTFill fillWithColor:[CPTColor whiteColor]];
-//    //theLegend.borderLineStyle = [CPTLineStyle lineStyle];
-//    theLegend.cornerRadius = 5.0;
-//    // 4 - Add legend to graph
-//    graph.legend = theLegend;
-//    graph.legendAnchor = CPTRectAnchorRight;
-//    graph.legendDisplacement = CGPointMake(100.0f, 0.0f);
-    
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
 }
+
 
 - (void)didReceiveMemoryWarning
 {

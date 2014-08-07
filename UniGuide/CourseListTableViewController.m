@@ -27,7 +27,7 @@
 
 @implementation CourseListTableViewController
 
-@synthesize favouritesButton,universityCode;
+@synthesize favouritesButton,universityCode,universityName;
 @synthesize sections = _sections;
 @synthesize sectionToLetterMap = _sectionToLetterMap;
 
@@ -233,7 +233,6 @@
     
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     
-    UILabel *courseTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
     
     if (tableView != self.searchDisplayController.searchResultsTableView) {
         cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -241,26 +240,49 @@
         cell = [self.searchDisplayController.searchResultsTableView cellForRowAtIndexPath:indexPath];
     }
     
-    courseTitle.numberOfLines = 2;
-    courseTitle.text = cell.textLabel.text;
-    courseTitle.textAlignment = NSTextAlignmentCenter;
-    
-    coursePageTabBarController.navigationItem.titleView = courseTitle;
+    coursePageTabBarController.navigationItem.title = @"Course";
     
     favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favouritesButton"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
     favouritesButton.tintColor = [UIColor grayColor];
     [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
-    courseInfoCoursePageViewController.uniCodeCourseInfo = self.universityCode;
-    courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:indexPath.row];
     
+    int rowsOffset = 0;
+    for (int section=0; section < indexPath.section; section++) {
+        rowsOffset += [tableView numberOfRowsInSection:section];
+    }
+    
+    
+    
+    NSLog(@"rows offset: %d",rowsOffset);
+    
+    courseInfoCoursePageViewController.uniCodeCourseInfo = self.universityCode;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        id object = [self.searchResults objectAtIndex:indexPath.row];
+        NSInteger originalIndexPath = [_universityCourseNames indexOfObject:object];
+        NSLog(@"%i", originalIndexPath);
+        courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:originalIndexPath];
+        reviewsCoursePageViewController.courseCodeReviews = [_universityCourseCodes objectAtIndex:originalIndexPath];
+        studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:originalIndexPath];
+
+
+    } else {
+    courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
+        reviewsCoursePageViewController.courseCodeReviews = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
+        studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:indexPath.row];
+
+    }
     reviewsCoursePageViewController.uniCodeReviews = self.universityCode;
-    reviewsCoursePageViewController.courseCodeReviews = [_universityCourseCodes objectAtIndex:indexPath.row];
     reviewsCoursePageViewController.courseNameReviews = cell.textLabel.text;
+    reviewsCoursePageViewController.uniNameReviews = self.universityName;
     
     uniInfoCoursePageViewController.uniCodeUniInfo = self.universityCode;
+    uniInfoCoursePageViewController.uniNameUniInfo = self.universityName;
+    courseInfoCoursePageViewController.courseNameCourseInfo = cell.textLabel.text;
+    courseInfoCoursePageViewController.uniNameCourseInfo = self.universityName;
     
-    studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:indexPath.row];
     studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = self.universityCode;
+    studentSatisfactionCoursePageViewController.courseNameStudentSatisfaction = cell.textLabel.text;
+    studentSatisfactionCoursePageViewController.uniNameStudentSatisfaction = self.universityName;
     
     // Push the view controller.
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];

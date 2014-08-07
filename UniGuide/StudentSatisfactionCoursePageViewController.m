@@ -16,7 +16,7 @@
 
 @implementation StudentSatisfactionCoursePageViewController
 
-@synthesize courseCodeStudentSatisfaction,uniCodeStudentSatisfaction,questionResults,tableViewStudentSatisfaction;
+@synthesize courseCodeStudentSatisfaction,uniCodeStudentSatisfaction,questionResults,tableViewStudentSatisfaction,universityNameLabel,courseNameLabel,uniNameStudentSatisfaction,courseNameStudentSatisfaction;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,12 +39,24 @@
     NSLog(@"course code: %@ and uni UKPRN: %@",self.courseCodeStudentSatisfaction,self.uniCodeStudentSatisfaction);
     self.tableViewStudentSatisfaction.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     
+    universityNameLabel.frame = CGRectMake(0, 5, 320, 30);
+    universityNameLabel.text = self.uniNameStudentSatisfaction;
+    universityNameLabel.textAlignment = NSTextAlignmentCenter;
+    universityNameLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+    universityNameLabel.font = [UIFont fontWithName:@"Arial" size:13];
+    
+    courseNameLabel.frame = CGRectMake(0, 25, 320, 30);
+    courseNameLabel.text = self.courseNameStudentSatisfaction;
+    courseNameLabel.textAlignment = NSTextAlignmentCenter;
+    courseNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+    
     PFQuery *queryForStudentSatisfactionData = [PFQuery queryWithClassName:@"NSS"];
     [queryForStudentSatisfactionData whereKey:@"KISCOURSEID" equalTo:self.courseCodeStudentSatisfaction];
     PFObject *tempObject = [queryForStudentSatisfactionData getFirstObject];
     if (tempObject == NULL) {
       //  NSLog(@"this worked");
-        UIImageView *noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 37, 320, 429)];
+        UIImageView *noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 320, 429)];
         noDataImageView.backgroundColor = [UIColor lightGrayColor];
         UILabel *noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
         noDataLabel.text = @"We're sorry, but we appear to have no data for this course.";

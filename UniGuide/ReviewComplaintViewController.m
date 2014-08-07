@@ -28,7 +28,14 @@
         [self.navigationItem setLeftBarButtonItem:cancelButton];
         
         [self.navigationItem setRightBarButtonItem:sendButton];
-        self.navigationItem.title = @"Report a Review";
+        UILabel *reviewComplaintTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+        reviewComplaintTitle.text = @"Report a Review";
+        reviewComplaintTitle.backgroundColor = [UIColor clearColor];
+        reviewComplaintTitle.textColor = [UIColor whiteColor];
+        reviewComplaintTitle.font = [UIFont boldSystemFontOfSize:20.0];
+        reviewComplaintTitle.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        reviewComplaintTitle.textAlignment = NSTextAlignmentCenter;
+        self.navigationItem.titleView = reviewComplaintTitle;
     }
     return self;
 }
@@ -46,6 +53,8 @@
     self.selectTypeButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.selectTypeButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.hasSelectedTypeOfComplaint = NO;
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     
     

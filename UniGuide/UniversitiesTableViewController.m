@@ -301,6 +301,7 @@
     
     universityTitle.numberOfLines = 2;
     universityTitle.text = cell.textLabel.text;
+    universityTitle.textColor = [UIColor whiteColor];
     universityTitle.textAlignment = NSTextAlignmentCenter;
     universityPageTabBarController.navigationItem.titleView = universityTitle;
     universityPageTabBarController.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
@@ -317,6 +318,9 @@
     contactUniversityPageViewController.universityName = cell.textLabel.text;
     openDaysUniversityPageTableViewController.universityUKPRN = [universityObject valueForKey:@"UKPRN"];
     uniInfoCoursePageViewController.uniCodeUniInfo = [universityObject valueForKey:@"UKPRN"];
+    uniInfoCoursePageViewController.haveWeComeFromUniversities = YES;
+    uniInfoCoursePageViewController.uniNameUniInfo = cell.textLabel.text;
+    courseListTableViewController.universityName = cell.textLabel.text;
     
     [self.navigationController pushViewController:universityPageTabBarController animated:YES];
 }

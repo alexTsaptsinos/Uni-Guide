@@ -363,15 +363,15 @@
     // Navigation logic may go here, for example:
     // Create the next view controller. we create a tab bar controller
     
-    CourseInfoCoursePageViewController *courseInfoCoursePageViewController = [[CourseInfoCoursePageViewController alloc] init];
+    CourseInfoCoursePageViewController *courseInfoCoursePageViewController = [[CourseInfoCoursePageViewController alloc] initWithNibName:@"CourseInfoCoursePageViewController" bundle:nil];
     
-    StudentSatisfactionCoursePageViewController *studentSatisfactionCoursePageViewController = [[StudentSatisfactionCoursePageViewController alloc]init];
+    StudentSatisfactionCoursePageViewController *studentSatisfactionCoursePageViewController = [[StudentSatisfactionCoursePageViewController alloc]initWithNibName:@"StudentSatisfactionCoursePageViewController" bundle:nil];
     
-    ReviewsCoursePageViewController *reviewsCoursePageViewController = [[ReviewsCoursePageViewController alloc] init];
+    ReviewsCoursePageViewController *reviewsCoursePageViewController = [[ReviewsCoursePageViewController alloc] initWithNibName:@"ReviewsCoursePageViewController" bundle:nil];
     
-    UniInfoCoursePageViewController *uniInfoCoursePageViewController = [[UniInfoCoursePageViewController alloc] init];
+    UniInfoCoursePageViewController *uniInfoCoursePageViewController = [[UniInfoCoursePageViewController alloc] initWithNibName:@"UniInfoCoursePageViewController" bundle:nil];
     
-    UITabBarController *coursePageTabBarController = [[UITabBarController alloc] init];
+    UITabBarController *coursePageTabBarController = [[UITabBarController alloc] initWithNibName:@"CoursePageTabBarController" bundle:nil];
     
     coursePageTabBarController.viewControllers = [NSArray arrayWithObjects:courseInfoCoursePageViewController,studentSatisfactionCoursePageViewController,reviewsCoursePageViewController,uniInfoCoursePageViewController,nil];
     
@@ -379,16 +379,9 @@
     
     
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    
-    UILabel *courseTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
-    
     cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    
-    courseTitle.numberOfLines = 2;
-    courseTitle.text = cell.textLabel.text;
-    courseTitle.textAlignment = NSTextAlignmentCenter;
-    
-    coursePageTabBarController.navigationItem.titleView = courseTitle;
+
+    coursePageTabBarController.navigationItem.title = @"Course";
     coursePageTabBarController.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     
     
@@ -415,9 +408,19 @@
     // push to the next view controllers the course code and ukprn
     
     courseInfoCoursePageViewController.courseCodeCourseInfo = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
+    courseInfoCoursePageViewController.courseNameCourseInfo = cell.textLabel.text;
+    courseInfoCoursePageViewController.uniNameCourseInfo = cell.detailTextLabel.text;
+    
     reviewsCoursePageViewController.courseCodeReviews = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
     reviewsCoursePageViewController.courseNameReviews = cell.textLabel.text;
+    reviewsCoursePageViewController.uniNameReviews = cell.detailTextLabel.text;
+    
     studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
+    studentSatisfactionCoursePageViewController.courseNameStudentSatisfaction = cell.textLabel.text;
+    studentSatisfactionCoursePageViewController.uniNameStudentSatisfaction = cell.detailTextLabel.text;
+    
+    uniInfoCoursePageViewController.haveWeComeFromUniversities = NO;
+    uniInfoCoursePageViewController.uniNameUniInfo = cell.detailTextLabel.text;
 
     // Push the view controller.
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];

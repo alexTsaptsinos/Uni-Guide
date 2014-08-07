@@ -8,17 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "UniInfoCustomCellView.h"
 
-@interface UniInfoCoursePageViewController : UIViewController <CPTPlotDataSource, UIActionSheetDelegate,CPTPieChartDataSource,CPTPieChartDelegate>
+@interface UniInfoCoursePageViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @property (strong, nonatomic) NSString *uniCodeUniInfo;
-@property (weak, nonatomic) IBOutlet UILabel *totalNumberOfStudentsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *numberOfBedsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *averagePrivateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *averageInstituteLabel;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UILabel *studentSatisfactionLabel;
+@property (strong, nonatomic) NSString *uniNameUniInfo;
 
-@property (weak, nonatomic) IBOutlet UILabel *totalNumberOfStaffLabel;
+@property (strong, nonatomic) UITableView *tableViewUniInfo;
+@property (strong, nonatomic) NSMutableArray *uniInfoDataSets;
+@property (strong, nonatomic) NSMutableArray *uniInfoDataNumbers;
+@property (nonatomic) BOOL haveWeComeFromUniversities;
+@property (nonatomic) BOOL firstTimeLoad;
+@property (strong,nonatomic) UILabel *universityNameLabel;
+@property (strong,nonatomic) UIScrollView *scroll;
+
 
 @end

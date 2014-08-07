@@ -16,9 +16,9 @@
 - (IBAction)addReviewButtonPressed:(id)sender;
 @property (strong, nonatomic) NSString *courseCodeReviews;
 @property (strong,nonatomic) NSString *uniCodeReviews;
-@property (weak, nonatomic) IBOutlet UILabel *universityAndCourseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numberOfReviewsLabel;
 @property (strong, nonatomic) NSString *courseNameReviews;
+@property (strong,nonatomic) NSString *uniNameReviews;
 
 @property (strong,nonatomic) NSMutableArray *reviewersNames;
 @property (strong,nonatomic) NSMutableArray *reviewersYears;
@@ -38,4 +38,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *starButton3;
 @property (weak, nonatomic) IBOutlet UIButton *starButton4;
 @property (weak, nonatomic) IBOutlet UIButton *starButton5;
+@property (weak, nonatomic) IBOutlet UILabel *courseNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *uniNameLabel;
+
+@property (nonatomic) BOOL haveReloadedHeights;
 @end
