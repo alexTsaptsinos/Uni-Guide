@@ -30,7 +30,15 @@
         [self.navigationItem setRightBarButtonItem:sendButton];
         
         
-        self.navigationItem.title = @"Add Review";
+        UILabel *addReviewTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+        addReviewTitle.text = @"Add Review";
+        addReviewTitle.backgroundColor = [UIColor clearColor];
+        addReviewTitle.textColor = [UIColor whiteColor];
+        addReviewTitle.font = [UIFont boldSystemFontOfSize:20.0];
+        addReviewTitle.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        addReviewTitle.textAlignment = NSTextAlignmentCenter;
+        self.navigationItem.titleView = addReviewTitle;
+        
     }
     return self;
 }
@@ -40,7 +48,8 @@
     [super viewDidLoad];
     [[self navigationController] setNavigationBarHidden:NO animated:NO];
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-    //self.reviewTextView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.firstTimeTextEdit = YES;
     self.reviewTextView.textColor = [UIColor grayColor];
     self.haveTheyRatedStars = NO;
