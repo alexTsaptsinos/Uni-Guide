@@ -10,6 +10,7 @@
 
 @interface CourseInfoTextCustomCellView : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *textCellLabel;
-@property (weak, nonatomic) IBOutlet UILabel *textCellDataLabel;
+@property (weak, nonatomic) IBOutlet UIButton *textCellDataButton;
 
+- (IBAction)textCellDataButtonPressed:(id)sender;
 @end

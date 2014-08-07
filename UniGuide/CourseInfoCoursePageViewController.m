@@ -16,7 +16,7 @@
 
 @implementation CourseInfoCoursePageViewController
 
-@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,commonJobsTableView,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,scroll,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo;
+@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,40 +36,18 @@
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;
     self.tabBarController.tabBar.translucent = NO;
-    scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 52, 320, 390)];
-    [self.view addSubview:scroll];
-    //[scroll setContentSize:CGSizeMake(320, 2000)];
-    scroll.showsHorizontalScrollIndicator = YES;
-    scroll.scrollEnabled = YES;
-    scroll.delegate = self;
-    scroll.bounces = NO;
-    scroll.userInteractionEnabled = YES;
+
     self.firstTimeLoad = YES;
     
     courseInfoTableView = [[UITableView alloc] init];
-    courseInfoTableView.frame = CGRectMake(0, 35, 320, 2000);
+    courseInfoTableView.frame = CGRectMake(0, 80, 320, 287);
     courseInfoTableView.delegate = self;
     courseInfoTableView.dataSource = self;
-    courseInfoTableView.bounces = NO;
-    courseInfoTableView.scrollEnabled = NO;
+    courseInfoTableView.bounces = YES;
+    courseInfoTableView.scrollEnabled = YES;
     courseInfoTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-    [scroll addSubview:courseInfoTableView];
-    
-    commonJobsTableView = [[UITableView alloc] init];
-    commonJobsTableView.delegate = self;
-    commonJobsTableView.dataSource = self;
-    commonJobsTableView.bounces = NO;
-    commonJobsTableView.scrollEnabled = NO;
-    commonJobsTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-    
-    
-    [scroll addSubview:commonJobsTableView];
-    
-    
-    
-    
-    
-    
+    [self.view addSubview:courseInfoTableView];
+
     
     
 }
@@ -84,20 +62,18 @@
         NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
         [f setNumberStyle:NSNumberFormatterDecimalStyle];
         
-        UILabel *universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 320, 30)];
+        universityNameLabel.frame = CGRectMake(0, 2, 320, 30);
         universityNameLabel.text = self.uniNameCourseInfo;
         universityNameLabel.textAlignment = NSTextAlignmentCenter;
         universityNameLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
         universityNameLabel.font = [UIFont fontWithName:@"Arial" size:13];
-        [self.view addSubview:universityNameLabel];
         
-        UILabel *courseNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, 320, 30)];
+        courseNameLabel.frame = CGRectMake(0, 22, 320, 30);
         courseNameLabel.text = self.courseNameCourseInfo;
         courseNameLabel.textAlignment = NSTextAlignmentCenter;
         courseNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
         courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
         courseNameLabel.adjustsFontSizeToFitWidth = YES;
-        [self.view addSubview:courseNameLabel];
         
         // query for ucas course id/course url/year abroad/sandwich year
         PFQuery *queryKiscourse = [PFQuery queryWithClassName:@"Kiscourse"];
@@ -112,17 +88,17 @@
         if (ucasCourseCode.length == 0) {
             ucasCourseCode = @"N/A";
         }
-        UILabel *yearAbroadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -2, 320, 30)];
+        UILabel *yearAbroadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 42, 320, 30)];
         yearAbroadLabel.textAlignment = NSTextAlignmentCenter;
         yearAbroadLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
         yearAbroadLabel.font = [UIFont fontWithName:@"Arial" size:12];
-        [scroll addSubview:yearAbroadLabel];
+        [self.view addSubview:yearAbroadLabel];
         
-        UILabel *yearIndustryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 320, 30)];
+        UILabel *yearIndustryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 54, 320, 30)];
         yearIndustryLabel.textAlignment = NSTextAlignmentCenter;
         yearIndustryLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
         yearIndustryLabel.font = [UIFont fontWithName:@"Arial" size:12];
-        [scroll addSubview:yearIndustryLabel];
+        [self.view addSubview:yearIndustryLabel];
         
         NSString *yearAbroad = [tempKiscourseObject valueForKey:@"YEARABROAD"];
         NSString *sandwichYear = [tempKiscourseObject valueForKey:@"SANDWICH"];
@@ -262,8 +238,6 @@
             if (objects.count == 0) {
                 [self.commonJobs addObject:@"Sorry we appear to have no data"];
                 [self.commonJobsPercentages addObject:@""];
-                self.commonJobsTableView.frame = CGRectMake(0, 857, 320, 70);
-                self.scroll.contentSize = CGSizeMake(320, 855 + self.commonJobsTableView.frame.size.height + self.tabBarController.tabBar.frame.size.height + 18);
             }
             else  {
                 if (objects.count == 10) {
@@ -274,11 +248,9 @@
                     [self.commonJobsPercentages removeObjectAtIndex:1];
                     [self.commonJobsPercentages addObject:tempPerc];
                 }
-                self.commonJobsTableView.frame = CGRectMake(0, 857, 320, 40 * objects.count + 70);
-                self.scroll.contentSize = CGSizeMake(320, 818 + self.commonJobsTableView.frame.size.height + self.tabBarController.tabBar.frame.size.height + 18);
             }
             // NSLog(@"common jobs perc2: %@",self.commonJobsPercentages);
-            [self.commonJobsTableView reloadData];
+            [self.courseInfoTableView reloadData];
         }];
         
         // query for time spent/assessment methods
@@ -333,20 +305,6 @@
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (tableView == self.commonJobsTableView) {
-        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, commonJobsTableView.bounds.size.width, 30)];
-        
-        [headerView setBackgroundColor:[UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f]];
-        
-        UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(5,0,commonJobsTableView.bounds.size.width,22)];
-        
-        tempLabel.textColor = [UIColor whiteColor];
-        tempLabel.text=@"Common Jobs For Graduates:";
-        
-        [headerView addSubview:tempLabel];
-        return headerView;
-    }
-    else if (tableView == self.courseInfoTableView){
         UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, courseInfoTableView.bounds.size.width, 30)];
         
         [headerView setBackgroundColor:[UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f]];
@@ -354,32 +312,34 @@
         UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(15,0,courseInfoTableView.bounds.size.width,22)];
         
         tempLabel.textColor = [UIColor whiteColor];
-        tempLabel.text=@"Details:";
+        if (section == 0) {
+            tempLabel.text=@"Details:";
+        } else {
+            tempLabel.text = @"Common Jobs For Graduates:";
+        }
         
         [headerView addSubview:tempLabel];
         return headerView;
-    } else {
-        return NULL;
-    }
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.commonJobsTableView) {
-        return self.commonJobs.count;
-    } else {
+    if (section == 0) {
         return 8;
+    } else {
+        return self.commonJobs.count;
     }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == self.commonJobsTableView) {
+    if (indexPath.section == 1) {
         static NSString *cellIdentifier = @"CommonJobsCustomCellView";
         
         CommonJobsCustomCellView *cell = (CommonJobsCustomCellView *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -403,7 +363,7 @@
         cell.jobLabel.numberOfLines = 0;
         cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
         return cell;
-    } else if (tableView == self.courseInfoTableView) {
+    } else if (indexPath.section == 0) {
         
         static NSString *cellIdentifier = @"CourseInfoTextCustomCellView";
         static NSString *cellImageIdentifier = @"UniInfoCustomCellView";
@@ -437,21 +397,27 @@
         if (indexPath.row == 0 || indexPath.row == 1) {
             cellText.textCellLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
             cellText.textCellLabel.font = [UIFont fontWithName:@"Arial" size:14];
+
             if (indexPath.row == 0) {
                 cellText.textCellLabel.text = @"UCAS Course Code:";
-                cellText.textCellDataLabel.text = self.ucasCourseCode;
+                cellText.textCellDataButton.titleLabel.text = self.ucasCourseCode;
+                [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateDisabled];
+                cellText.textCellDataButton.enabled = NO;
             } else if (indexPath.row == 1) {
                 cellText.textCellLabel.text = @"Course URL:";
-                cellText.textCellDataLabel.text = self.courseUrl;
-                cellText.textCellDataLabel.numberOfLines = 0;
-                cellText.textCellDataLabel.font = [UIFont fontWithName:@"Arial" size:10];
+
+                [cellText.textCellDataButton setTitle:self.courseUrl forState:UIControlStateNormal];
+                cellText.textCellDataButton.titleLabel.text = self.courseUrl;
+                cellText.textCellDataButton.titleLabel.numberOfLines = 0;
+                cellText.textCellDataButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:10];
+                [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+                [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
             }
             cellText.selectionStyle = UITableViewCellSelectionStyleNone;
             cellText.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
             cellText.textCellLabel.textAlignment = NSTextAlignmentLeft;
             
-            cellText.textCellDataLabel.textAlignment = NSTextAlignmentRight;
-            cellText.textCellDataLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+            cellText.textCellDataButton.titleLabel.textAlignment = NSTextAlignmentRight;
             
             return cellText;
         }
@@ -564,10 +530,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == self.commonJobsTableView) {
+    if (indexPath.section == 1) {
         return 40;
     }
-    else if (tableView == self.courseInfoTableView) {
+    else if (indexPath.section == 0) {
         if (indexPath.row == 0 || indexPath.row == 1) {
             return 40;
         }

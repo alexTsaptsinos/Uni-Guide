@@ -10,7 +10,7 @@
 
 @implementation CourseInfoTextCustomCellView
 
-@synthesize textCellDataLabel,textCellLabel;
+@synthesize textCellDataButton,textCellLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -33,4 +33,8 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)textCellDataButtonPressed:(id)sender {
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.textCellDataButton.titleLabel.text]];
+}
 @end

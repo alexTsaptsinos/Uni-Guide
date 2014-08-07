@@ -68,7 +68,7 @@
         scroll.showsHorizontalScrollIndicator = YES;
         scroll.scrollEnabled = YES;
         scroll.delegate = self;
-        scroll.bounces = NO;
+        scroll.bounces = YES;
         scroll.userInteractionEnabled = YES;
         
         UIImageView *unionSatisfactionImageView = [[UIImageView alloc] init];

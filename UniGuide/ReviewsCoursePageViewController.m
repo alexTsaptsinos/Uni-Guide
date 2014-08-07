@@ -43,13 +43,13 @@
     self.addReviewButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
     
-    uniNameLabel.frame = CGRectMake(0, 5, 320, 30);
+    uniNameLabel.frame = CGRectMake(0, 2, 320, 30);
     uniNameLabel.text = self.uniNameReviews;
     uniNameLabel.textAlignment = NSTextAlignmentCenter;
     uniNameLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
     uniNameLabel.font = [UIFont fontWithName:@"Arial" size:13];
     
-    courseNameLabel.frame = CGRectMake(0, 25, 320, 30);
+    courseNameLabel.frame = CGRectMake(0, 22, 320, 30);
     courseNameLabel.text = self.courseNameReviews;
     courseNameLabel.textAlignment = NSTextAlignmentCenter;
     courseNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];

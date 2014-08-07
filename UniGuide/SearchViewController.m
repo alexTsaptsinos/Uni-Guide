@@ -69,6 +69,7 @@
     autocompleteUniversitiesTableView.scrollEnabled = YES;
     autocompleteUniversitiesTableView.hidden = YES;
     autocompleteUniversitiesTableView.rowHeight = 35;
+    autocompleteUniversitiesTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     [self.view addSubview:autocompleteUniversitiesTableView];
     
 }
@@ -130,6 +131,7 @@
     cell.textLabel.text = [autocompleteUniversities objectAtIndex:indexPath.row];
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.textLabel.numberOfLines = 0;
+    cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     return cell;
 }
 

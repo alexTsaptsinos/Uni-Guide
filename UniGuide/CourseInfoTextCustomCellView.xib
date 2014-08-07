@@ -20,16 +20,20 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vj3-cg-eWa">
-                        <rect key="frame" x="72" y="6" width="228" height="32"/>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zVe-ct-BEr">
+                        <rect key="frame" x="102" y="0.0" width="209" height="43"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <state key="normal" title="Button">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="textCellDataButtonPressed:" destination="n8R-bd-5rF" eventType="touchUpInside" id="2B6-XW-Zje"/>
+                        </connections>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="textCellDataLabel" destination="Vj3-cg-eWa" id="jbc-gc-k45"/>
+                <outlet property="textCellDataButton" destination="zVe-ct-BEr" id="bDz-Zq-NRr"/>
                 <outlet property="textCellLabel" destination="WcO-Lr-NEg" id="TJp-10-hKn"/>
             </connections>
         </tableViewCell>

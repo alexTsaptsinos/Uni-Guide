@@ -75,9 +75,20 @@
     return 1;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return @"Coming Up:";
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
+    
+    [headerView setBackgroundColor:[UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f]];
+    
+    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(15,0,self.view.bounds.size.width,22)];
+    
+    tempLabel.textColor = [UIColor whiteColor];
+    tempLabel.text = @"Coming Up:";
+    
+    [headerView addSubview:tempLabel];
+    return headerView;
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -118,6 +129,7 @@
         timings = [timings stringByAppendingString:[endTimes objectAtIndex:indexPath.row]];
         cell.detailTextLabel.text = timings;
         cell.detailTextLabel.textColor = [UIColor grayColor];
+        cell.backgroundColor = [UIColor clearColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         return cell;

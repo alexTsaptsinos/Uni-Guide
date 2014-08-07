@@ -178,15 +178,25 @@
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 30)];
+    
+    [headerView setBackgroundColor:[UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f]];
+    
+    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(15,0,self.view.bounds.size.width,22)];
+    
+    tempLabel.textColor = [UIColor whiteColor];
     if (tableView == self.tableView) {
         NSString *letter = [self letterForSection:section];
-        return letter;
+        tempLabel.text = letter;
+    } else {
+        tempLabel.text = @"";
     }
-    else {
-        return @"";
-    }
+    
+    [headerView addSubview:tempLabel];
+    return headerView;
+    
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
@@ -264,7 +274,7 @@
         //cell.textLabel.text = [[self.searchResults objectAtIndex:indexPath.row]valueForKey:@"SortableName"];
         cell.textLabel.text = [object2 valueForKey:@"Institution"];
     }
-    
+    cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     cell.textLabel.numberOfLines = 0;
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
 

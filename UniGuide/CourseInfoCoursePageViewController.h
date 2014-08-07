@@ -29,8 +29,6 @@
 
 
 
-@property (strong, nonatomic) UIScrollView *scroll;
-@property (strong, nonatomic) UITableView *commonJobsTableView;
 @property (strong, nonatomic) UITableView *courseInfoTableView;
 @property (nonatomic) BOOL firstTimeLoad;
 
@@ -40,7 +38,9 @@
 @property (strong, nonatomic) NSString *proportionInWork;
 @property (strong, nonatomic) NSString *instituteSalary;
 @property (strong, nonatomic) NSString *nationalSalary;
+@property (weak, nonatomic) IBOutlet UILabel *universityNameLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *courseNameLabel;
 
 
 @end
