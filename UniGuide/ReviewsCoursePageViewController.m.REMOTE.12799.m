@@ -16,7 +16,7 @@
 
 @implementation ReviewsCoursePageViewController
 
-@synthesize addReviewButton,courseCodeReviews,uniCodeReviews,courseNameReviews,numberOfReviewsLabel,reviewersNames,reviewStars,reviewTexts,reviewTitles,reviewTableView,reviewDates,reviewersYears,cellHeights,haveDoneParseQueryYet,starButton1,starButton2,starButton3,starButton4,starButton5,reviewCodes,haveReloadedHeights,uniNameLabel,courseNameLabel,uniNameReviews;
+@synthesize addReviewButton,courseCodeReviews,uniCodeReviews,courseNameReviews,universityAndCourseLabel,numberOfReviewsLabel,reviewersNames,reviewStars,reviewTexts,reviewTitles,reviewTableView,reviewDates,reviewersYears,cellHeights,haveDoneParseQueryYet,starButton1,starButton2,starButton3,starButton4,starButton5,reviewCodes;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,24 +38,6 @@
     //self.behindStarsImageView.backgroundColor = [UIColor yellowColor];
     self.cellHeights = [[NSMutableArray alloc] init];
     self.haveDoneParseQueryYet = NO;
-    self.haveReloadedHeights = NO;
-    
-    self.addReviewButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
-    self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
-    
-    uniNameLabel.frame = CGRectMake(0, 5, 320, 30);
-    uniNameLabel.text = self.uniNameReviews;
-    uniNameLabel.textAlignment = NSTextAlignmentCenter;
-    uniNameLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
-    uniNameLabel.font = [UIFont fontWithName:@"Arial" size:13];
-    
-    courseNameLabel.frame = CGRectMake(0, 25, 320, 30);
-    courseNameLabel.text = self.courseNameReviews;
-    courseNameLabel.textAlignment = NSTextAlignmentCenter;
-    courseNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
-    courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
-    courseNameLabel.adjustsFontSizeToFitWidth = YES;
-
     
     PFQuery *queryForUniversityName = [PFQuery queryWithClassName:@"Institution1213"];
     [queryForUniversityName whereKey:@"UKPRN" equalTo:self.uniCodeReviews];
@@ -65,11 +47,9 @@
     
     NSString *uniAndCourse = [uniName stringByAppendingString:@" - "];
     uniAndCourse = [uniAndCourse stringByAppendingString:self.courseNameReviews];
-    
-    
-    self.reviewTableView.bounces = YES;
-    self.reviewTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-    self.reviewTableView.delegate = self;
+    self.universityAndCourseLabel.text = uniAndCourse;
+    self.universityAndCourseLabel.adjustsFontSizeToFitWidth = YES;
+    self.reviewTableView.bounces = NO;
     [self.starButton5 setEnabled:NO];
     [self.starButton4 setEnabled:NO];
     [self.starButton3 setEnabled:NO];
@@ -155,19 +135,6 @@
     return self.reviewTitles.count;
 }
 
-- (void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
-    if (self.reviewTableView.hidden == YES) {
-        self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
-        self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
-
-
-    }
-
-}
-
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"ReviewCustomCellView";
@@ -188,10 +155,7 @@
     
     
     cell.reviewNumberLabel.text = [NSString stringWithFormat:@"%@.",myNumber];
-    cell.reviewNumberLabel.font = [UIFont fontWithName:@"Arial" size:14];
     cell.reviewTitleLabel.text = [self.reviewTitles objectAtIndex:indexPath.row];
-    cell.reviewTitleLabel.font = [UIFont fontWithName:@"Arial" size:14];
-    cell.backgroundColor = [UIColor clearColor];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd-MM-yy"];
     NSString *formattedDate =[formatter stringFromDate:[self.reviewDates objectAtIndex:indexPath.row]];
@@ -202,28 +166,28 @@
     NSLog(@"temp star: %@",tempNumberOfStars);
     if (tempNumberOfStars == [NSNumber numberWithInt:1]) {
         cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButtonHollow"];
+        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButton"];
     } else if (tempNumberOfStars == [NSNumber numberWithInt:2]) {
         cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
         cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButtonHollow"];
+        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButton"];
     } else if (tempNumberOfStars == [NSNumber numberWithInt:3]) {
         cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
         cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
         cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButtonHollow"];
+        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButton"];
+        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButton"];
     } else if (tempNumberOfStars == [NSNumber numberWithInt:4]) {
         cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
         cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
         cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonSelected"];
         cell.starImageView4.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButtonHollow"];
+        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButton"];
     } else if (tempNumberOfStars == [NSNumber numberWithInt:5]) {
         cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
         cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
@@ -232,44 +196,44 @@
         cell.starImageView5.image = [UIImage imageNamed:@"favouritesButtonSelected"];
     }
     
+    // try and set text view to size of text
+//    UITextView *reviewText = [[UITextView alloc] init];
+//    reviewText.text = [self.reviewTexts objectAtIndex:indexPath.row];
+   // [reviewText setFrame:CGRectMake(0, 0, 320, reviewText.contentSize.height)];
 
-    UILabel *reviewCommentsLabel = [[UILabel alloc] init];
-    reviewCommentsLabel.text = [self.reviewTexts objectAtIndex:indexPath.row];
-    [cell addSubview:reviewCommentsLabel];
-    reviewCommentsLabel.font = [UIFont fontWithName:@"Arial" size:12];
-    reviewCommentsLabel.numberOfLines = 0;
-    [reviewCommentsLabel setFrame:CGRectMake(5, 50, 300, 200)];
-    [reviewCommentsLabel sizeToFit];
-
+//    CGRect frame = cell.reviewTextView.frame;
+//    
+//    frame.size = cell.reviewTextView.contentSize;
+//    
+//    cell.reviewTextView.frame = frame;
+    [cell.reviewTextView setScrollEnabled:YES];
+    cell.reviewTextView.text = [self.reviewTexts objectAtIndex:indexPath.row];
+    [cell.reviewTextView sizeToFit];
+    [cell.reviewTextView setScrollEnabled:NO];
     
     
     UIButton *reportReviewButton = [UIButton buttonWithType:UIButtonTypeCustom];
     reportReviewButton.tag = indexPath.row;
     [reportReviewButton setFrame:CGRectMake(190, 3, 150, 30)];
+    //reportReviewButton.titleLabel.text = @"Report Review";
     [reportReviewButton setTitle:@"Report Review" forState:UIControlStateNormal];
     reportReviewButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:15];
     [reportReviewButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [reportReviewButton addTarget:self action:@selector(ReportButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     reportReviewButton.tag = indexPath.row;
     [cell addSubview:reportReviewButton];
-    
-    if (self.haveReloadedHeights == NO) {
-        NSNumber *currentHeight = [NSNumber numberWithFloat:reviewCommentsLabel.frame.size.height];
-        currentHeight = [NSNumber numberWithFloat:([currentHeight floatValue] + 60)];
-        [self.cellHeights addObject:currentHeight];
-        NSLog(@"cell heights: %@",self.cellHeights);
-        
-        if (self.cellHeights.count == self.reviewTitles.count) {
-            self.haveDoneParseQueryYet = YES;
-            if (self.haveReloadedHeights == NO) {
-                [tableView reloadData];
-            }
-        }
-    }
-    
+    //[cell sizeToFit];
     
 
     
+   // [cell.reviewTextView setFrame:CGRectMake(0, 0, 320, cell.reviewTextView.contentSize.height)];
+    NSNumber *tempHeight = [NSNumber numberWithFloat:cell.reviewTextView.frame.size.height];
+    [self.cellHeights addObject:tempHeight];
+    self.haveDoneParseQueryYet = YES;
+    NSLog(@"cell heights: %@",self.cellHeights);
+    
+    //[cell setFrame:CGRectMake(0, 0, 320.0f, [[self.cellHeights objectAtIndex:indexPath.row] floatValue])];
+
     
     return cell;
 }
@@ -277,9 +241,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.haveDoneParseQueryYet == YES) {
-        NSLog(@"cell heights here: %@",self.cellHeights);
-        NSNumber *temp = [self.cellHeights objectAtIndex:indexPath.row];
-        self.haveReloadedHeights = YES;
+        NSNumber *temp = [cellHeights objectAtIndex:indexPath.row];
         return [temp floatValue];
     } else {
         return 100.0f;
@@ -300,7 +262,7 @@
     
 
     UINavigationController *addReviewNavigationController = [[UINavigationController alloc]initWithRootViewController:addReviewViewController];
-
+    
     
     addReviewViewController.couseKISCode = self.courseCodeReviews;
     

@@ -36,7 +36,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;
     self.tabBarController.tabBar.translucent = NO;
-    scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 52, 320, 390)];
     [self.view addSubview:scroll];
     //[scroll setContentSize:CGSizeMake(320, 2000)];
     scroll.showsHorizontalScrollIndicator = YES;
@@ -47,7 +47,7 @@
     self.firstTimeLoad = YES;
     
     courseInfoTableView = [[UITableView alloc] init];
-    courseInfoTableView.frame = CGRectMake(0, 90, 320, 2000);
+    courseInfoTableView.frame = CGRectMake(0, 35, 320, 2000);
     courseInfoTableView.delegate = self;
     courseInfoTableView.dataSource = self;
     courseInfoTableView.bounces = NO;
@@ -89,14 +89,15 @@
         universityNameLabel.textAlignment = NSTextAlignmentCenter;
         universityNameLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
         universityNameLabel.font = [UIFont fontWithName:@"Arial" size:13];
-        [scroll addSubview:universityNameLabel];
+        [self.view addSubview:universityNameLabel];
         
         UILabel *courseNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 25, 320, 30)];
         courseNameLabel.text = self.courseNameCourseInfo;
         courseNameLabel.textAlignment = NSTextAlignmentCenter;
         courseNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
         courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
-        [scroll addSubview:courseNameLabel];
+        courseNameLabel.adjustsFontSizeToFitWidth = YES;
+        [self.view addSubview:courseNameLabel];
         
         // query for ucas course id/course url/year abroad/sandwich year
         PFQuery *queryKiscourse = [PFQuery queryWithClassName:@"Kiscourse"];
@@ -111,13 +112,13 @@
         if (ucasCourseCode.length == 0) {
             ucasCourseCode = @"N/A";
         }
-        UILabel *yearAbroadLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 45, 320, 30)];
+        UILabel *yearAbroadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -2, 320, 30)];
         yearAbroadLabel.textAlignment = NSTextAlignmentCenter;
         yearAbroadLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
         yearAbroadLabel.font = [UIFont fontWithName:@"Arial" size:12];
         [scroll addSubview:yearAbroadLabel];
         
-        UILabel *yearIndustryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 57, 320, 30)];
+        UILabel *yearIndustryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 320, 30)];
         yearIndustryLabel.textAlignment = NSTextAlignmentCenter;
         yearIndustryLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
         yearIndustryLabel.font = [UIFont fontWithName:@"Arial" size:12];
@@ -261,8 +262,8 @@
             if (objects.count == 0) {
                 [self.commonJobs addObject:@"Sorry we appear to have no data"];
                 [self.commonJobsPercentages addObject:@""];
-                self.commonJobsTableView.frame = CGRectMake(0, 910, 320, 70);
-                self.scroll.contentSize = CGSizeMake(320, 950 + self.commonJobsTableView.frame.size.height + self.tabBarController.tabBar.frame.size.height + 18);
+                self.commonJobsTableView.frame = CGRectMake(0, 857, 320, 70);
+                self.scroll.contentSize = CGSizeMake(320, 855 + self.commonJobsTableView.frame.size.height + self.tabBarController.tabBar.frame.size.height + 18);
             }
             else  {
                 if (objects.count == 10) {
@@ -273,8 +274,8 @@
                     [self.commonJobsPercentages removeObjectAtIndex:1];
                     [self.commonJobsPercentages addObject:tempPerc];
                 }
-                self.commonJobsTableView.frame = CGRectMake(0, 910, 320, 40 * objects.count + 70);
-                self.scroll.contentSize = CGSizeMake(320, 910 + self.commonJobsTableView.frame.size.height + self.tabBarController.tabBar.frame.size.height + 18);
+                self.commonJobsTableView.frame = CGRectMake(0, 857, 320, 40 * objects.count + 70);
+                self.scroll.contentSize = CGSizeMake(320, 818 + self.commonJobsTableView.frame.size.height + self.tabBarController.tabBar.frame.size.height + 18);
             }
             // NSLog(@"common jobs perc2: %@",self.commonJobsPercentages);
             [self.commonJobsTableView reloadData];
