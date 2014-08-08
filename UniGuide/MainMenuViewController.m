@@ -9,6 +9,9 @@
 #import "MainMenuViewController.h"
 #import "AppDelegate.h"
 
+#import "NSManagedObject+CRUD.h"
+#import "Favourites.h"
+
 
 @interface MainMenuViewController ()
 
@@ -31,6 +34,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    Favourites * temp = [Favourites createObject];
+    temp.courseName = @"whatever";
+    [Favourites saveDatabase];
+    
+    NSArray * temp2 = [Favourites readAllObjects];
+    
+    for (Favourites * favourite in temp2) {
+        NSLog(@"%@", favourite.courseName);
+    }
+    
+    
     // Do any additional setup after loading the view from its nib.
     
     self.uniGuideLogoMainMenuImageView.image = [UIImage imageNamed:@"ui-14"];

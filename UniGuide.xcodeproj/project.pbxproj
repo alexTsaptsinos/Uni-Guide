@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		9E598611198F8FB200D7A690 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E598610198F8FB200D7A690 /* FacebookSDK.framework */; };
+		9E6C4FD31994D9B700A536E3 /* NSManagedObject+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C4FD21994D9B700A536E3 /* NSManagedObject+CRUD.m */; };
+		9E6C4FD51994D9C900A536E3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6C4FD41994D9C900A536E3 /* CoreData.framework */; };
+		9E6C4FD81994DA5500A536E3 /* UniGuide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C4FD61994DA5500A536E3 /* UniGuide.xcdatamodeld */; };
+		9E6C4FDB1994DA7F00A536E3 /* Favourites.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C4FDA1994DA7F00A536E3 /* Favourites.m */; };
 		A4C6C898197AD22F0065311C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C6C897197AD22F0065311C /* Foundation.framework */; };
 		A4C6C89A197AD22F0065311C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C6C899197AD22F0065311C /* CoreGraphics.framework */; };
 		A4C6C89C197AD22F0065311C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C6C89B197AD22F0065311C /* UIKit.framework */; };
@@ -151,6 +155,12 @@
 
 /* Begin PBXFileReference section */
 		9E598610198F8FB200D7A690 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = UniGuide/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		9E6C4FD11994D9B700A536E3 /* NSManagedObject+CRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+CRUD.h"; sourceTree = "<group>"; };
+		9E6C4FD21994D9B700A536E3 /* NSManagedObject+CRUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+CRUD.m"; sourceTree = "<group>"; };
+		9E6C4FD41994D9C900A536E3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9E6C4FD71994DA5500A536E3 /* UniGuide.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UniGuide.xcdatamodel; sourceTree = "<group>"; };
+		9E6C4FD91994DA7F00A536E3 /* Favourites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favourites.h; sourceTree = "<group>"; };
+		9E6C4FDA1994DA7F00A536E3 /* Favourites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favourites.m; sourceTree = "<group>"; };
 		A4C6C894197AD22F0065311C /* UniGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C6C897197AD22F0065311C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A4C6C899197AD22F0065311C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -398,6 +408,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E6C4FD51994D9C900A536E3 /* CoreData.framework in Frameworks */,
 				9E598611198F8FB200D7A690 /* FacebookSDK.framework in Frameworks */,
 				EFB107DD198A885700814C53 /* Social.framework in Frameworks */,
 				EF207C74198A805C00F2CFB3 /* Accelerate.framework in Frameworks */,
@@ -456,6 +467,7 @@
 		A4C6C896197AD22F0065311C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9E6C4FD41994D9C900A536E3 /* CoreData.framework */,
 				9E598610198F8FB200D7A690 /* FacebookSDK.framework */,
 				EFB107DC198A885700814C53 /* Social.framework */,
 				EF207C75198A812D00F2CFB3 /* Parse.framework */,
@@ -486,6 +498,11 @@
 				A4C6C8C6197AD3630065311C /* MainMenuViewController.h */,
 				A4C6C8C7197AD3630065311C /* MainMenuViewController.m */,
 				A4C6C8C8197AD3630065311C /* MainMenuViewController.xib */,
+				9E6C4FD11994D9B700A536E3 /* NSManagedObject+CRUD.h */,
+				9E6C4FD21994D9B700A536E3 /* NSManagedObject+CRUD.m */,
+				9E6C4FD61994DA5500A536E3 /* UniGuide.xcdatamodeld */,
+				9E6C4FD91994DA7F00A536E3 /* Favourites.h */,
+				9E6C4FDA1994DA7F00A536E3 /* Favourites.m */,
 				EF7F6F46197EE5CE0009DB60 /* Search/Discover Function */,
 				EF7F6F4B197EE66B0009DB60 /* Favourites Function */,
 				EF7F6F49197EE6450009DB60 /* Open Days Function */,
@@ -1003,6 +1020,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E6C4FD81994DA5500A536E3 /* UniGuide.xcdatamodeld in Sources */,
 				A4C6C8A8197AD22F0065311C /* AppDelegate.m in Sources */,
 				EF5533291981508B00120FEA /* SortFilterViewController.m in Sources */,
 				EF27408D198FFC1F00B932DC /* WhatYearForNewReviewTableViewController.m in Sources */,
@@ -1017,7 +1035,9 @@
 				EF27408A198FE52C00B932DC /* TypeOfComplaintsTableViewController.m in Sources */,
 				A4C6C922197AF6E70065311C /* StudentSatisfactionCoursePageViewController.m in Sources */,
 				EF207C13198A342A00F2CFB3 /* OpenDaysQueryTableViewController.m in Sources */,
+				9E6C4FDB1994DA7F00A536E3 /* Favourites.m in Sources */,
 				EF7F6F8619804D940009DB60 /* ReviewComplaintViewController.m in Sources */,
+				9E6C4FD31994D9B700A536E3 /* NSManagedObject+CRUD.m in Sources */,
 				A4C6C8C9197AD3630065311C /* MainMenuViewController.m in Sources */,
 				A4C6C8CE197AD78F0065311C /* SearchViewController.m in Sources */,
 				EFF5C0681987905A00E87159 /* CourseListTableViewController.m in Sources */,
@@ -1266,6 +1286,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9E6C4FD61994DA5500A536E3 /* UniGuide.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9E6C4FD71994DA5500A536E3 /* UniGuide.xcdatamodel */,
+			);
+			currentVersion = 9E6C4FD71994DA5500A536E3 /* UniGuide.xcdatamodel */;
+			path = UniGuide.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A4C6C88C197AD22F0065311C /* Project object */;
 }
