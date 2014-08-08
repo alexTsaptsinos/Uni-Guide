@@ -31,7 +31,7 @@
 
 @implementation SearchResultsTableViewController
 
-@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityUKPRNString,searchResultsUniversityCodes,searchResultsCourseCodes,activityIndicator,limit,skip,courseDegreeTitles,universitySearchedUKPRN,haveFoundEverySeachValue;
+@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityUKPRNString,searchResultsUniversityCodes,searchResultsCourseCodes,activityIndicator,limit,skip,courseDegreeTitles,universitySearchedUKPRN,haveFoundEverySeachValue,anyResults;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,6 +66,7 @@
     self.universityNamesForSearchResults = [[NSMutableArray alloc] init];
     self.searchResultsUniversityCodes = [[NSMutableArray alloc] init];
     self.haveFoundEverySeachValue = NO;
+    self.anyResults = YES;
     [self queryForSearchResults];
     //self.amountToSkip = 0;
 
@@ -116,21 +117,19 @@
                 [self.searchResults addObjectsFromArray:tempNames];
                 [self.searchResultsCourseCodes addObjectsFromArray:[objects valueForKey:@"KISCOURSEID"]];
                 [self.courseSearchResultsKisAimCodes addObjectsFromArray:[objects valueForKey:@"KISAIMCODE"]];
-                for (int k = self.skip; k<self.courseSearchResultsKisAimCodes.count; k++) {
-                    NSString *aimCodes = [self.courseSearchResultsKisAimCodes objectAtIndex:k];
-                    PFQuery *queryForHonourReceived = [PFQuery queryWithClassName:@"Kisaim"];
-                    [queryForHonourReceived whereKey:@"KISAIMCODE" equalTo:aimCodes];
-                    PFObject *object = [queryForHonourReceived getFirstObject];
-                    NSString *courseHonour = [object valueForKey:@"KISAIMLABEL"];
-                    [self.courseDegreeTitles addObject:courseHonour];
-                    NSLog(@"course degree titles count as we go: %d",self.courseDegreeTitles.count);
-                }
+                [self.courseDegreeTitles addObjectsFromArray:[objects valueForKey:@"CourseHonour"]];
                 if (objects.count == 0) {
                     self.haveFoundEverySeachValue = YES;
                 }
                 NSLog(@"search results: %@",self.searchResults);
                 self.skip += self.limit;
                 NSLog(@"self.skip : %d",self.skip);
+                if (self.searchResults.count == 0) {
+                    [self.searchResults addObject:@"No Results"];
+                    [self.courseDegreeTitles addObject:@"sorry"];
+                    [self.universityNamesForSearchResults addObject:@""];
+                    self.anyResults = NO;
+                }
                 self.tableView.hidden = NO;
                 [self.activityIndicator stopAnimating];
                 [self.tableView reloadData];
@@ -153,21 +152,19 @@
                 [self.searchResults addObjectsFromArray:tempNames];
                 [self.searchResultsCourseCodes addObjectsFromArray:[objects valueForKey:@"KISCOURSEID"]];
                 [self.courseSearchResultsKisAimCodes addObjectsFromArray:[objects valueForKey:@"KISAIMCODE"]];
-                for (int k = self.skip; k<self.courseSearchResultsKisAimCodes.count; k++) {
-                    NSString *aimCodes = [self.courseSearchResultsKisAimCodes objectAtIndex:k];
-                    PFQuery *queryForHonourReceived = [PFQuery queryWithClassName:@"Kisaim"];
-                    [queryForHonourReceived whereKey:@"KISAIMCODE" equalTo:aimCodes];
-                    PFObject *object = [queryForHonourReceived getFirstObject];
-                    NSString *courseHonour = [object valueForKey:@"KISAIMLABEL"];
-                    [self.courseDegreeTitles addObject:courseHonour];
-                    NSLog(@"course degree titles count as we go: %d",self.courseDegreeTitles.count);
-                }
+                [self.courseDegreeTitles addObjectsFromArray:[objects valueForKey:@"CourseHonour"]];
                 if (objects.count == 0) {
                     self.haveFoundEverySeachValue = YES;
                 }
                 NSLog(@"search results: %@",self.searchResults);
                 self.skip += self.limit;
                 NSLog(@"self.skip : %d",self.skip);
+                if (self.searchResults.count == 0) {
+                    [self.searchResults addObject:@"No Results"];
+                    [self.courseDegreeTitles addObject:@"sorry"];
+                    [self.universityNamesForSearchResults addObject:@""];
+                    self.anyResults = NO;
+                }
                 self.tableView.hidden = NO;
                 [self.activityIndicator stopAnimating];
                 [self.tableView reloadData];
@@ -252,15 +249,7 @@
                     [self.courseSearchResultsKisAimCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"KISAIMCODE"]];
                     NSLog(@"kis codes: %@",self.courseSearchResultsKisAimCodes);
                     [self.searchResultsCourseCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"KISCOURSEID"]];
-                    for (int k = self.skip; k<self.courseSearchResultsKisAimCodes.count; k++) {
-                        NSString *aimCodes = [self.courseSearchResultsKisAimCodes objectAtIndex:k];
-                        PFQuery *queryForHonourReceived = [PFQuery queryWithClassName:@"Kisaim"];
-                        [queryForHonourReceived whereKey:@"KISAIMCODE" equalTo:aimCodes];
-                        PFObject *object = [queryForHonourReceived getFirstObject];
-                        NSString *courseHonour = [object valueForKey:@"KISAIMLABEL"];
-                        [self.courseDegreeTitles addObject:courseHonour];
-                        NSLog(@"course degree titles count as we go: %d",self.courseDegreeTitles.count);
-                    }
+                    [self.courseDegreeTitles addObjectsFromArray:[cumulativeSearchResults valueForKey:@"CourseHonour"]];
                     if (objects.count == 0) {
                         self.haveFoundEverySeachValue = YES;
                     }
@@ -271,6 +260,12 @@
                     }
                     NSLog(@"uni names %@",self.universityNamesForSearchResults);
                     NSLog(@"self.skip : %d",self.skip);
+                    if (self.searchResults.count == 0) {
+                        [self.searchResults addObject:@"No Results"];
+                        [self.courseDegreeTitles addObject:@"sorry"];
+                        [self.universityNamesForSearchResults addObject:@""];
+                        self.anyResults = NO;
+                    }
                     self.tableView.hidden = NO;
                     [self.activityIndicator stopAnimating];
                     [self.tableView reloadData];
@@ -335,18 +330,24 @@
     
     //    // Configure the cell...
     NSLog(@"course names count: %d and course codes count: %d",self.searchResults.count,self.courseDegreeTitles.count);
+
     NSString *courseName = [self.searchResults objectAtIndex:indexPath.row];
     courseName = [courseName stringByAppendingString:@" - "];
     courseName = [courseName stringByAppendingString:[self.courseDegreeTitles objectAtIndex:indexPath.row]];
     cell.textLabel.text = courseName;
-    
-    //cell.textLabel.text = [self.searchResults objectAtIndex:indexPath.row];
+    if (self.anyResults == NO) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    else {
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
     if ([self.universitySearchedString isEqualToString:@""]) {
         cell.detailTextLabel.text = [self.universityNamesForSearchResults objectAtIndex:indexPath.row];
     } else {
         cell.detailTextLabel.text = self.universitySearchedString;
+    }
     }
     cell.detailTextLabel.textColor = [UIColor grayColor];
     cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
@@ -363,6 +364,9 @@
 {
     // Navigation logic may go here, for example:
     // Create the next view controller. we create a tab bar controller
+    if (self.anyResults == NO) {
+        
+    } else {
     
     CourseInfoCoursePageViewController *courseInfoCoursePageViewController = [[CourseInfoCoursePageViewController alloc] initWithNibName:@"CourseInfoCoursePageViewController" bundle:nil];
     
@@ -384,9 +388,10 @@
 
     coursePageTabBarController.navigationItem.title = @"Course";
     coursePageTabBarController.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+        [coursePageTabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f]];
     
     
-    favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favouritesButton"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
+    favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
     favouritesButton.tintColor = [UIColor grayColor];
     [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
     
@@ -425,17 +430,20 @@
 
     // Push the view controller.
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];
+    }
 }
 
 //method for Favourites button
 
 -(void) customBtnPressed
 {
-    if (favouritesButton.tintColor == [UIColor yellowColor]) {
+    if (favouritesButton.image == [UIImage imageNamed:@"star-25"]) {
+        favouritesButton.image = [UIImage imageNamed:@"star-24"];
         favouritesButton.tintColor = [UIColor grayColor];
     }
-    else if (favouritesButton.tintColor == [UIColor grayColor]) {
-        favouritesButton.tintColor = [UIColor yellowColor];
+    else if (favouritesButton.image == [UIImage imageNamed:@"star-24"]) {
+        favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
+        favouritesButton.image = [UIImage imageNamed:@"star-25"];
     }
     
 }

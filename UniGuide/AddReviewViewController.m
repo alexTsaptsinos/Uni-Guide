@@ -146,55 +146,55 @@
 
 - (IBAction)starButton1Pressed:(id)sender {
 
-    [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
-    [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
-    [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
-    [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.starButton1 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton2 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+    [self.starButton3 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+    [self.starButton4 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+    [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
     [self.reviewTextView resignFirstResponder];
     self.howManyStars = [NSNumber numberWithInt:1];
     self.haveTheyRatedStars = YES;
 }
 
 - (IBAction)starButton2Pressed:(id)sender {
-    [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
-    [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
-    [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.starButton1 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton2 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton3 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+    [self.starButton4 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+    [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
     [self.reviewTextView resignFirstResponder];
     self.howManyStars = [NSNumber numberWithInt:2];
     self.haveTheyRatedStars = YES;
 }
 
 - (IBAction)starButton3Pressed:(id)sender {
-    [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
-    [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.starButton1 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton2 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton3 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton4 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+    [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
     [self.reviewTextView resignFirstResponder];
     self.howManyStars = [NSNumber numberWithInt:3];
     self.haveTheyRatedStars = YES;
 }
 
 - (IBAction)starButton4Pressed:(id)sender {
-    [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.starButton1 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton2 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton3 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton4 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
     [self.reviewTextView resignFirstResponder];
     self.howManyStars = [NSNumber numberWithInt:4];
     self.haveTheyRatedStars = YES;
 }
 
 - (IBAction)starButton5Pressed:(id)sender {
-    [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
-    [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateNormal];
+    [self.starButton1 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton2 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton3 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton4 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
+    [self.starButton5 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
     [self.reviewTextView resignFirstResponder];
     self.howManyStars = [NSNumber numberWithInt:5];
     self.haveTheyRatedStars = YES;

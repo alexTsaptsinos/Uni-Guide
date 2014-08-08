@@ -55,6 +55,7 @@
     courseNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
     courseNameLabel.adjustsFontSizeToFitWidth = YES;
+    courseNameLabel.numberOfLines = 0;
 
     
     PFQuery *queryForUniversityName = [PFQuery queryWithClassName:@"Institution1213"];
@@ -75,11 +76,11 @@
     [self.starButton3 setEnabled:NO];
     [self.starButton2 setEnabled:NO];
     [self.starButton1 setEnabled:NO];
-    [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
-    [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
-    [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
-    [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
-    [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButton"] forState:UIControlStateNormal];
+    [self.starButton1 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+    [self.starButton2 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+    [self.starButton3 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+    [self.starButton4 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+    [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
 
     PFQuery *queryForReviews = [PFQuery queryWithClassName:@"CourseReviews"];
     [queryForReviews whereKey:@"CourseCode" equalTo:self.courseCodeReviews];
@@ -114,28 +115,28 @@
             
         }
         if (1.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<2.5f) {
-            [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
-            [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
             
         }
         if (2.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<3.5f) {
-            [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
-            [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
-            [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            [self.starButton3 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
             
         }
         if (3.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<4.5f) {
-            [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
-            [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
-            [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
-            [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            [self.starButton3 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            [self.starButton4 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
         }
         if (4.5f<[averageStarRating floatValue]) {
-            [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
-            [self.starButton2 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
-            [self.starButton3 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
-            [self.starButton4 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
-            [self.starButton5 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+            [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            [self.starButton3 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            [self.starButton4 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            [self.starButton5 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
         }
         
         
@@ -166,6 +167,16 @@
 
     }
 
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (self.reviewTableView.hidden == YES) {
+        self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
+        self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
+
+    }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -201,35 +212,35 @@
     NSNumber *tempNumberOfStars = [self.reviewStars objectAtIndex:indexPath.row];
     NSLog(@"temp star: %@",tempNumberOfStars);
     if (tempNumberOfStars == [NSNumber numberWithInt:1]) {
-        cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButtonHollow"];
+        cell.starImageView1.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView2.image = [UIImage imageNamed:@"star-26"];
+        cell.starImageView3.image = [UIImage imageNamed:@"star-26"];
+        cell.starImageView4.image = [UIImage imageNamed:@"star-26"];
+        cell.starImageView5.image = [UIImage imageNamed:@"star-26"];
     } else if (tempNumberOfStars == [NSNumber numberWithInt:2]) {
-        cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButtonHollow"];
+        cell.starImageView1.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView2.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView3.image = [UIImage imageNamed:@"star-26"];
+        cell.starImageView4.image = [UIImage imageNamed:@"star-26"];
+        cell.starImageView5.image = [UIImage imageNamed:@"star-26"];
     } else if (tempNumberOfStars == [NSNumber numberWithInt:3]) {
-        cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButtonHollow"];
-        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButtonHollow"];
+        cell.starImageView1.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView2.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView3.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView4.image = [UIImage imageNamed:@"star-26"];
+        cell.starImageView5.image = [UIImage imageNamed:@"star-26"];
     } else if (tempNumberOfStars == [NSNumber numberWithInt:4]) {
-        cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButtonHollow"];
+        cell.starImageView1.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView2.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView3.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView4.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView5.image = [UIImage imageNamed:@"star-26"];
     } else if (tempNumberOfStars == [NSNumber numberWithInt:5]) {
-        cell.starImageView1.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView2.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView3.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView4.image = [UIImage imageNamed:@"favouritesButtonSelected"];
-        cell.starImageView5.image = [UIImage imageNamed:@"favouritesButtonSelected"];
+        cell.starImageView1.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView2.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView3.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView4.image = [UIImage imageNamed:@"star-25"];
+        cell.starImageView5.image = [UIImage imageNamed:@"star-25"];
     }
     
 

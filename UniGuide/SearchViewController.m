@@ -62,14 +62,14 @@
     
     self.autocompleteUniversities = [[NSMutableArray alloc] init];
     
-    autocompleteUniversitiesTableView = [[UITableView alloc] initWithFrame:
+    self.autocompleteUniversitiesTableView = [[UITableView alloc] initWithFrame:
                              CGRectMake(0, 40, 320, 200) style:UITableViewStylePlain];
-    autocompleteUniversitiesTableView.delegate = self;
-    autocompleteUniversitiesTableView.dataSource = self;
-    autocompleteUniversitiesTableView.scrollEnabled = YES;
-    autocompleteUniversitiesTableView.hidden = YES;
-    autocompleteUniversitiesTableView.rowHeight = 35;
-    autocompleteUniversitiesTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    self.autocompleteUniversitiesTableView.delegate = self;
+    self.autocompleteUniversitiesTableView.dataSource = self;
+    self.autocompleteUniversitiesTableView.scrollEnabled = YES;
+    self.autocompleteUniversitiesTableView.hidden = YES;
+    self.autocompleteUniversitiesTableView.rowHeight = 35;
+    self.autocompleteUniversitiesTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     [self.view addSubview:autocompleteUniversitiesTableView];
     
 }
@@ -93,6 +93,14 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.universityTextField resignFirstResponder];
+    [self.courseTextField resignFirstResponder];
+    [self.locationTextField resignFirstResponder];
+
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField == self.universityTextField) {
@@ -112,7 +120,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return autocompleteUniversities.count;
+    return self.autocompleteUniversities.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -144,7 +152,7 @@
     substring = [substring stringByReplacingCharactersInRange:range withString:string];
     //NSLog(@"%@", substring);
     if (substring.length == 0) {
-        autocompleteUniversitiesTableView.hidden = YES;
+        self.autocompleteUniversitiesTableView.hidden = YES;
     } else {
     [self filterUniversitiesForSearchText:substring];
     }
@@ -186,7 +194,7 @@
         self.anyFound = YES;
     }
     
-    [autocompleteUniversitiesTableView reloadData];
+    [self.autocompleteUniversitiesTableView reloadData];
 }
 
 - (void)parseQueryForCourses:(NSString *)searchText
@@ -218,7 +226,7 @@
             self.coursesFromParse = [tempObjects valueForKeyPath:@"@distinctUnionOfObjects.self"];
             self.autocompleteUniversities = self.coursesFromParse;
             //NSLog(@"autocomplete 1: %@",self.coursesFromParse);
-            [autocompleteUniversitiesTableView reloadData];
+            [self.autocompleteUniversitiesTableView reloadData];
         }];
 
         
@@ -273,7 +281,7 @@
         self.locationTextField.text = cell.textLabel.text;
         [self.locationTextField resignFirstResponder];
     }
-        autocompleteUniversitiesTableView.hidden = YES;
+        self.autocompleteUniversitiesTableView.hidden = YES;
     }
     
 }
@@ -282,15 +290,15 @@
 {
     if (textField == self.universityTextField) {
         [textField resignFirstResponder];
-        autocompleteUniversitiesTableView.hidden = YES;
+        self.autocompleteUniversitiesTableView.hidden = YES;
     }
     if (textField == self.courseTextField) {
         [textField resignFirstResponder];
-        autocompleteUniversitiesTableView.hidden = YES;
+        self.autocompleteUniversitiesTableView.hidden = YES;
     }
     if (textField == self.locationTextField) {
         [textField resignFirstResponder];
-        autocompleteUniversitiesTableView.hidden = YES;
+        self.autocompleteUniversitiesTableView.hidden = YES;
     }
     return YES;
 }

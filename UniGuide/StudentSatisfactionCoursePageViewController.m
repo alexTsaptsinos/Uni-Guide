@@ -51,6 +51,7 @@
     courseNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
     courseNameLabel.adjustsFontSizeToFitWidth = YES;
+    courseNameLabel.numberOfLines = 0;
     
     PFQuery *queryForStudentSatisfactionData = [PFQuery queryWithClassName:@"NSS"];
     [queryForStudentSatisfactionData whereKey:@"KISCOURSEID" equalTo:self.courseCodeStudentSatisfaction];

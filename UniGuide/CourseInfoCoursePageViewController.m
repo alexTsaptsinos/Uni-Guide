@@ -16,7 +16,7 @@
 
 @implementation CourseInfoCoursePageViewController
 
-@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel;
+@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,18 +62,19 @@
         NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
         [f setNumberStyle:NSNumberFormatterDecimalStyle];
         
-        universityNameLabel.frame = CGRectMake(0, 2, 320, 30);
+        universityNameLabel.frame = CGRectMake(0, -5, 320, 30);
         universityNameLabel.text = self.uniNameCourseInfo;
         universityNameLabel.textAlignment = NSTextAlignmentCenter;
         universityNameLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
         universityNameLabel.font = [UIFont fontWithName:@"Arial" size:13];
         
-        courseNameLabel.frame = CGRectMake(0, 22, 320, 30);
+        courseNameLabel.frame = CGRectMake(0, 15, 320, 30);
         courseNameLabel.text = self.courseNameCourseInfo;
         courseNameLabel.textAlignment = NSTextAlignmentCenter;
         courseNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
         courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
         courseNameLabel.adjustsFontSizeToFitWidth = YES;
+        courseNameLabel.numberOfLines = 0;
         
         // query for ucas course id/course url/year abroad/sandwich year
         PFQuery *queryKiscourse = [PFQuery queryWithClassName:@"Kiscourse"];
@@ -100,19 +101,19 @@
         yearIndustryLabel.font = [UIFont fontWithName:@"Arial" size:12];
         [self.view addSubview:yearIndustryLabel];
         
-        NSString *yearAbroad = [tempKiscourseObject valueForKey:@"YEARABROAD"];
-        NSString *sandwichYear = [tempKiscourseObject valueForKey:@"SANDWICH"];
-        if ([yearAbroad isEqualToString:@"1"]) {
+        self.yearAbroad = [tempKiscourseObject valueForKey:@"YEARABROAD"];
+        self.sandwichYear = [tempKiscourseObject valueForKey:@"SANDWICH"];
+        if ([self.yearAbroad isEqualToString:@"1"]) {
             yearAbroadLabel.text = @"Year abroad optional";
-        } else if ([yearAbroad isEqualToString:@"2"]) {
+        } else if ([self.yearAbroad isEqualToString:@"2"]) {
             yearAbroadLabel.text = @"Year abroad compulsory";
         } else {
             yearAbroadLabel.text = @"Year abroad not available";
         }
         
-        if ([sandwichYear isEqualToString:@"1"]) {
+        if ([self.sandwichYear isEqualToString:@"1"]) {
             yearIndustryLabel.text = @"Year in industry optional";
-        } else if ([sandwichYear isEqualToString:@"2"]) {
+        } else if ([self.sandwichYear isEqualToString:@"2"]) {
             yearIndustryLabel.text = @"Year in industry compulsory";
         } else {
             yearIndustryLabel.text = @"Year in industry not available";
@@ -492,7 +493,7 @@
         }
         
         else if (indexPath.row == 7) {
-            cellSalary.centreLabel.text = @"Average salary 6 months after graduating";
+            cellSalary.centreLabel.text = @"Average salary for subject 6 months after graduating";
             cellSalary.centreLabel.numberOfLines = 0;
             cellSalary.centreLabel.font = [UIFont fontWithName:@"Arial" size:14];
             cellSalary.imageViewLeft.image = [UIImage imageNamed:@"ui-17"];

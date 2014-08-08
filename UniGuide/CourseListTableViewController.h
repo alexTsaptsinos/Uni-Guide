@@ -15,5 +15,6 @@
 @property (nonatomic, strong) UIBarButtonItem *favouritesButton;
 @property (nonatomic, strong) NSString *universityCode;
 @property (nonatomic, strong) NSString *universityName;
+@property (nonatomic,strong) NSMutableArray *cellTitles;
 
 @end

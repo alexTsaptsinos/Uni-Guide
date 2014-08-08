@@ -16,8 +16,11 @@
 @property (strong, nonatomic) NSString *uniNameUniInfo;
 
 @property (strong, nonatomic) UITableView *tableViewUniInfo;
+
 @property (strong, nonatomic) NSMutableArray *uniInfoDataSets;
 @property (strong, nonatomic) NSMutableArray *uniInfoDataNumbers;
+@property (nonatomic, strong) NSString *studentSatisfactionPercentage;
+
 @property (nonatomic) BOOL haveWeComeFromUniversities;
 @property (nonatomic) BOOL firstTimeLoad;
 @property (strong,nonatomic) UILabel *universityNameLabel;

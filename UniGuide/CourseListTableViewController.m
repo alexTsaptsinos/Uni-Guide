@@ -17,6 +17,8 @@
 {
     NSArray *_universityCourseNames;
     NSArray *_universityCourseCodes;
+    NSArray *_universityCourseHonours;
+
 }
 
 @property (nonatomic, retain) NSMutableDictionary *sections;
@@ -27,7 +29,7 @@
 
 @implementation CourseListTableViewController
 
-@synthesize favouritesButton,universityCode,universityName;
+@synthesize favouritesButton,universityCode,universityName,cellTitles;
 @synthesize sections = _sections;
 @synthesize sectionToLetterMap = _sectionToLetterMap;
 
@@ -49,21 +51,29 @@
     self.navigationController.navigationBar.translucent = NO;
     self.tabBarController.tabBar.translucent = NO;
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    self.cellTitles = [[NSMutableArray alloc] init];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
     [query whereKey:@"UKPRN" equalTo:self.universityCode];
     [query setLimit:600];
     [query orderByAscending:@"TITLE"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+        for (PFObject *object in objects) {
+            NSString *fullName = [object valueForKey:@"TITLE"];
+            fullName = [fullName stringByAppendingString:@" - "];
+            fullName = [fullName stringByAppendingString:[object valueForKey:@"CourseHonour"]];
+            [self.cellTitles addObject:fullName];
+        }
         _universityCourseNames = [objects valueForKey:@"TITLE"];
         _universityCourseCodes = [objects valueForKey:@"KISCOURSEID"];
+        _universityCourseHonours = [objects valueForKey:@"CourseHonour"];
         _sections = [[NSMutableDictionary alloc] init]; ///Global Object
         //NSLog(@"No. of courses: %d and these are the courses: %@", _universityCourseNames.count,_universityCourseNames);
         
         
         BOOL found;
         
-        for (NSString *temp in _universityCourseNames)
+        for (NSString *temp in self.cellTitles)
         {
             //NSLog(@"temp: %@",temp);
             if (temp == (id)[NSNull null] || temp.length == 0 ) {
@@ -153,11 +163,13 @@
         cell.textLabel.text = [self.searchResults objectAtIndex:indexPath.row];
     } else {
         if (_universityCourseNames.count < 8) {
-            cell.textLabel.text = [_universityCourseNames objectAtIndex:indexPath.row];
+            NSString *cellTitle = [_universityCourseNames objectAtIndex:indexPath.row];
+            cellTitle = [cellTitle stringByAppendingString:@" - "];
+            cellTitle = [cellTitle stringByAppendingString:[_universityCourseHonours objectAtIndex:indexPath.row]];
+            cell.textLabel.text = cellTitle;
         } else {
             NSString *titleText = [[_sections valueForKey:[[[_sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-            
-            cell.textLabel.text = titleText; [_universityCourseNames objectAtIndex:indexPath.row];
+            cell.textLabel.text = titleText;
     }
     }
     cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
@@ -214,7 +226,7 @@
     
     NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
     
-    self.searchResults = [_universityCourseNames filteredArrayUsingPredicate:resultPredicate];
+    self.searchResults = [self.cellTitles filteredArrayUsingPredicate:resultPredicate];
     [self.searchDisplayController.searchResultsTableView reloadData];
 }
 
@@ -241,7 +253,7 @@
     UITabBarController *coursePageTabBarController = [[UITabBarController alloc] init];
     
     coursePageTabBarController.viewControllers = [NSArray arrayWithObjects:courseInfoCoursePageViewController,studentSatisfactionCoursePageViewController,reviewsCoursePageViewController,uniInfoCoursePageViewController,nil];
-    
+    [coursePageTabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f]];
     // Pass the selected object to the new view controller.
     
     UITableViewCell *cell = [[UITableViewCell alloc] init];
@@ -255,7 +267,7 @@
     
     coursePageTabBarController.navigationItem.title = @"Course";
     
-    favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"favouritesButton"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
+    favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
     favouritesButton.tintColor = [UIColor grayColor];
     [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
     
@@ -303,11 +315,13 @@
 
 -(void) customBtnPressed
 {
-    if (favouritesButton.tintColor == [UIColor yellowColor]) {
+    if (favouritesButton.image == [UIImage imageNamed:@"star-25"]) {
+        favouritesButton.image = [UIImage imageNamed:@"star-24"];
         favouritesButton.tintColor = [UIColor grayColor];
     }
-    else if (favouritesButton.tintColor == [UIColor grayColor]) {
-        favouritesButton.tintColor = [UIColor yellowColor];
+    else if (favouritesButton.image == [UIImage imageNamed:@"star-24"]) {
+        favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
+        favouritesButton.image = [UIImage imageNamed:@"star-25"];
     }
     
 }

@@ -18,26 +18,31 @@
 
 @property (strong, nonatomic) NSString *courseCodeCourseInfo;
 @property (strong, nonatomic) NSString *uniCodeCourseInfo;
-@property (strong, nonatomic) NSMutableArray *commonJobs;
-@property (strong, nonatomic) NSMutableArray *commonJobsPercentages;
-@property (strong, nonatomic) NSMutableArray *degreeStatistics;
-@property (strong, nonatomic) NSMutableArray *assessmentMethods;
-@property (strong, nonatomic) NSMutableArray *timeSpent;
+
+
 @property (strong, nonatomic) NSString *uniNameCourseInfo;
 @property (strong, nonatomic) NSString *courseNameCourseInfo;
-
+@property (strong, nonatomic) NSString *yearAbroad;
+@property (strong, nonatomic) NSString *sandwichYear;
+@property (strong, nonatomic) NSString *courseUrl;
+@property (strong, nonatomic) NSString *ucasCourseCode;
+@property (strong, nonatomic) NSMutableArray *degreeStatistics;
+@property (strong, nonatomic) NSString *averageTariffString;
+@property (strong, nonatomic) NSMutableArray *assessmentMethods;
+@property (strong, nonatomic) NSMutableArray *timeSpent;
+@property (strong, nonatomic) NSString *proportionInWork;
+@property (strong, nonatomic) NSMutableArray *commonJobs;
+@property (strong, nonatomic) NSMutableArray *commonJobsPercentages;
+@property (strong, nonatomic) NSString *instituteSalary;
+@property (strong, nonatomic) NSString *nationalSalary;
 
 
 
 @property (strong, nonatomic) UITableView *courseInfoTableView;
 @property (nonatomic) BOOL firstTimeLoad;
 
-@property (strong, nonatomic) NSString *courseUrl;
-@property (strong, nonatomic) NSString *ucasCourseCode;
-@property (strong, nonatomic) NSString *averageTariffString;
-@property (strong, nonatomic) NSString *proportionInWork;
-@property (strong, nonatomic) NSString *instituteSalary;
-@property (strong, nonatomic) NSString *nationalSalary;
+
+
 @property (weak, nonatomic) IBOutlet UILabel *universityNameLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *courseNameLabel;
