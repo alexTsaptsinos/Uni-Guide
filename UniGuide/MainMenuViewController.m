@@ -19,7 +19,7 @@
 
 @implementation MainMenuViewController
 
-@synthesize uniGuideLogoMainMenuImageView,searchMenuButtonLabel,discoverMenuButtonLabel,favouritesMenuButtonLabel,openDaysMenuButtonLabel,universitiesMenuButtonLabel;
+@synthesize uniGuideLogoMainMenuImageView,searchMenuButtonLabel,favouritesMenuButtonLabel,openDaysMenuButtonLabel,universitiesMenuButtonLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,9 +35,9 @@
 {
     [super viewDidLoad];
     
-    Favourites * temp = [Favourites createObject];
-    temp.courseName = @"whatever";
-    [Favourites saveDatabase];
+//    Favourites * temp = [Favourites createObject];
+//    temp.courseName = @"whatever";
+//    [Favourites saveDatabase];
     
     NSArray * temp2 = [Favourites readAllObjects];
     
@@ -50,7 +50,6 @@
     
     self.uniGuideLogoMainMenuImageView.image = [UIImage imageNamed:@"ui-14"];
     self.searchMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
-    self.discoverMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.openDaysMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.universitiesMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.favouritesMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
@@ -74,11 +73,6 @@
     btnLayer = [universitiesMenuButtonLabel layer];
     [btnLayer setMasksToBounds:YES];
     [btnLayer setCornerRadius:5.0f];
-    
-    btnLayer = [discoverMenuButtonLabel layer];
-    [btnLayer setMasksToBounds:YES];
-    [btnLayer setCornerRadius:5.0f];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,17 +89,6 @@
     
     [self.navigationController pushViewController:searchViewController animated:YES];
   
-    
-}
-
-- (IBAction)discoverMenuButtonPressed:(id)sender {
-    
-    // if discover button pressed launch discover view controller
-    
-    DiscoverViewController *discoverViewController = [[DiscoverViewController alloc] initWithNibName:@"DiscoverViewController" bundle:nil];
-    
-    
-    [self.navigationController pushViewController:discoverViewController animated:YES];
     
 }
 

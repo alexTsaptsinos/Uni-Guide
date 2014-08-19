@@ -10,7 +10,7 @@
 #import "SearchResultsTableViewController.h"
 #import <Parse/Parse.h>
 
-@interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,UIAlertViewDelegate>
 {
     NSMutableArray *universitiesFromParse;
     NSMutableArray *autocompleteUniversities;
@@ -34,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
 @property (nonatomic) BOOL anyFound;
 @property (nonatomic) BOOL haveQueriedParseForCoursesYet;
+@property (nonatomic) BOOL haveFoundAUniversity;
+
 @property (strong, nonatomic) NSDictionary *locationDict;
 
 - (void)filterUniversitiesForSearchText:(NSString*)searchText;

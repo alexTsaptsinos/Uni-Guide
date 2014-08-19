@@ -9,8 +9,15 @@
 
 #import "RightPanelViewController.h"
 #import <Parse/Parse.h>
+#import "Favourites.h"
+#import "NSManagedObject+CRUD.h"
+#import "CourseInfoCoursePageViewController.h"
+#import "StudentSatisfactionCoursePageViewController.h"
+#import "ReviewsCoursePageViewController.h"
+#import "UniInfoCoursePageViewController.h"
+#import "RightPanelViewController.h"
 
-@interface SearchResultsTableViewController: UIViewController <UITableViewDataSource,UITableViewDelegate>
+@interface SearchResultsTableViewController: UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *allCourses;
 @property (nonatomic, strong) UIBarButtonItem *favouritesButton;
@@ -33,6 +40,7 @@
 @property (nonatomic) BOOL haveFoundEverySeachValue;
 @property (nonatomic) BOOL anyResults;
 
+@property (nonatomic,strong) CourseInfoCoursePageViewController *courseInfoCoursePageViewController;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 

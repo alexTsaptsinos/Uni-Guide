@@ -7,10 +7,7 @@
 //
 
 #import "CourseListTableViewController.h"
-#import "CourseInfoCoursePageViewController.h"
-#import "StudentSatisfactionCoursePageViewController.h"
-#import "UniInfoCoursePageViewController.h"
-#import "ReviewsCoursePageViewController.h"
+
 
 @interface CourseListTableViewController () <UISearchBarDelegate,UISearchDisplayDelegate>
 
@@ -29,7 +26,7 @@
 
 @implementation CourseListTableViewController
 
-@synthesize favouritesButton,universityCode,universityName,cellTitles;
+@synthesize favouritesButton,universityCode,universityName,cellTitles,courseInfoCoursePageViewController;
 @synthesize sections = _sections;
 @synthesize sectionToLetterMap = _sectionToLetterMap;
 
@@ -52,6 +49,7 @@
     self.tabBarController.tabBar.translucent = NO;
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.cellTitles = [[NSMutableArray alloc] init];
+    self.searchDisplayController.searchResultsTableView.backgroundColor  = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     
     PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
     [query whereKey:@"UKPRN" equalTo:self.universityCode];
@@ -62,7 +60,9 @@
             NSString *fullName = [object valueForKey:@"TITLE"];
             fullName = [fullName stringByAppendingString:@" - "];
             fullName = [fullName stringByAppendingString:[object valueForKey:@"CourseHonour"]];
-            [self.cellTitles addObject:fullName];
+            if (fullName != NULL) {
+                [self.cellTitles addObject:fullName];
+            }
         }
         _universityCourseNames = [objects valueForKey:@"TITLE"];
         _universityCourseCodes = [objects valueForKey:@"KISCOURSEID"];
@@ -242,7 +242,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here, for example:
-    CourseInfoCoursePageViewController *courseInfoCoursePageViewController = [[CourseInfoCoursePageViewController alloc] init];
+    courseInfoCoursePageViewController = [[CourseInfoCoursePageViewController alloc] init];
     
     StudentSatisfactionCoursePageViewController *studentSatisfactionCoursePageViewController = [[StudentSatisfactionCoursePageViewController alloc]init];
     
@@ -267,9 +267,8 @@
     
     coursePageTabBarController.navigationItem.title = @"Course";
     
-    favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
-    favouritesButton.tintColor = [UIColor grayColor];
-    [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+   
+    
     
     int rowsOffset = 0;
     for (int section=0; section < indexPath.section; section++) {
@@ -282,18 +281,41 @@
     
     courseInfoCoursePageViewController.uniCodeCourseInfo = self.universityCode;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
+        NSLog(@"search results: %@ and course name: %@",self.searchResults,self.cellTitles);
         id object = [self.searchResults objectAtIndex:indexPath.row];
-        NSInteger originalIndexPath = [_universityCourseNames indexOfObject:object];
+        NSInteger originalIndexPath = [self.cellTitles indexOfObject:object];
         NSLog(@"%i", originalIndexPath);
         courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:originalIndexPath];
         reviewsCoursePageViewController.courseCodeReviews = [_universityCourseCodes objectAtIndex:originalIndexPath];
         studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:originalIndexPath];
+        NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[_universityCourseCodes objectAtIndex:originalIndexPath],self.universityCode] andSortKey:@"courseName"];
+        NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
+        if (temp2.count != 0) {
+            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-25"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+            favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
+            [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+        } else {
+            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+            favouritesButton.tintColor = [UIColor whiteColor];
+            [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+        }
 
 
     } else {
     courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
         reviewsCoursePageViewController.courseCodeReviews = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
         studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:indexPath.row];
+        NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[_universityCourseCodes objectAtIndex:rowsOffset +indexPath.row],self.universityCode] andSortKey:@"courseName"];
+        NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
+        if (temp2.count != 0) {
+            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-25"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+            favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
+            [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+        } else {
+            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+            favouritesButton.tintColor = [UIColor whiteColor];
+            [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+        }
 
     }
     reviewsCoursePageViewController.uniCodeReviews = self.universityCode;
@@ -343,6 +365,12 @@
         double yDiff = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + statusBarFrame.size.height;
         self.navigationController.navigationBar.frame = CGRectMake(0, yDiff, 320, self.navigationController.navigationBar.frame.size.height);
     }];
+}
+
+-(void) callAnotherMethod {
+    
+    courseInfoCoursePageViewController.favouritesButton = self.favouritesButton;
+    [courseInfoCoursePageViewController customBtnPressed];
 }
 
 

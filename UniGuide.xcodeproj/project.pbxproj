@@ -30,8 +30,6 @@
 		A4C6C8CF197AD78F0065311C /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C8CD197AD78F0065311C /* SearchViewController.xib */; };
 		A4C6C913197AF1400065311C /* SearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C911197AF1400065311C /* SearchResultsTableViewController.m */; };
 		A4C6C914197AF1400065311C /* SearchResultsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C912197AF1400065311C /* SearchResultsTableViewController.xib */; };
-		A4C6C918197AF49A0065311C /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C916197AF49A0065311C /* DiscoverViewController.m */; };
-		A4C6C919197AF49A0065311C /* DiscoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C917197AF49A0065311C /* DiscoverViewController.xib */; };
 		A4C6C91D197AF6D80065311C /* CourseInfoCoursePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C91B197AF6D80065311C /* CourseInfoCoursePageViewController.m */; };
 		A4C6C91E197AF6D80065311C /* CourseInfoCoursePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C91C197AF6D80065311C /* CourseInfoCoursePageViewController.xib */; };
 		A4C6C922197AF6E70065311C /* StudentSatisfactionCoursePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C920197AF6E70065311C /* StudentSatisfactionCoursePageViewController.m */; };
@@ -186,9 +184,6 @@
 		A4C6C910197AF1400065311C /* SearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewController.h; sourceTree = "<group>"; };
 		A4C6C911197AF1400065311C /* SearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewController.m; sourceTree = "<group>"; };
 		A4C6C912197AF1400065311C /* SearchResultsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultsTableViewController.xib; sourceTree = "<group>"; };
-		A4C6C915197AF49A0065311C /* DiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
-		A4C6C916197AF49A0065311C /* DiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
-		A4C6C917197AF49A0065311C /* DiscoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscoverViewController.xib; sourceTree = "<group>"; };
 		A4C6C91A197AF6D80065311C /* CourseInfoCoursePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseInfoCoursePageViewController.h; sourceTree = "<group>"; };
 		A4C6C91B197AF6D80065311C /* CourseInfoCoursePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseInfoCoursePageViewController.m; sourceTree = "<group>"; };
 		A4C6C91C197AF6D80065311C /* CourseInfoCoursePageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseInfoCoursePageViewController.xib; sourceTree = "<group>"; };
@@ -685,9 +680,6 @@
 				A4C6C8CB197AD78F0065311C /* SearchViewController.h */,
 				A4C6C8CC197AD78F0065311C /* SearchViewController.m */,
 				A4C6C8CD197AD78F0065311C /* SearchViewController.xib */,
-				A4C6C915197AF49A0065311C /* DiscoverViewController.h */,
-				A4C6C916197AF49A0065311C /* DiscoverViewController.m */,
-				A4C6C917197AF49A0065311C /* DiscoverViewController.xib */,
 				A4C6C910197AF1400065311C /* SearchResultsTableViewController.h */,
 				A4C6C911197AF1400065311C /* SearchResultsTableViewController.m */,
 				A4C6C912197AF1400065311C /* SearchResultsTableViewController.xib */,
@@ -968,7 +960,6 @@
 				EF66F5D61988F0DF0048A82E /* AppIcon57x57@2x.png in Resources */,
 				A4C6C92D197AF7000065311C /* UniInfoCoursePageViewController.xib in Resources */,
 				EF7F6F65197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib in Resources */,
-				A4C6C919197AF49A0065311C /* DiscoverViewController.xib in Resources */,
 				A4C6C945197BF8C80065311C /* ContactUniversityPageViewController.xib in Resources */,
 				EF5533771981AA0D00120FEA /* checked_checkbox.png in Resources */,
 				EF7F6F0F197E82F90009DB60 /* Top_Charts@2x.png in Resources */,
@@ -1025,7 +1016,6 @@
 				EF5533291981508B00120FEA /* SortFilterViewController.m in Sources */,
 				EF27408D198FFC1F00B932DC /* WhatYearForNewReviewTableViewController.m in Sources */,
 				EF27409719912EAD00B932DC /* CommonJobsCustomCellView.m in Sources */,
-				A4C6C918197AF49A0065311C /* DiscoverViewController.m in Sources */,
 				EF7F6F8C198063570009DB60 /* SpecificOpenDayViewController.m in Sources */,
 				A4C6C913197AF1400065311C /* SearchResultsTableViewController.m in Sources */,
 				A4C6C92C197AF7000065311C /* UniInfoCoursePageViewController.m in Sources */,

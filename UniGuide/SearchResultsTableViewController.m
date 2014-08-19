@@ -7,11 +7,7 @@
 //
 
 #import "SearchResultsTableViewController.h"
-#import "CourseInfoCoursePageViewController.h"
-#import "StudentSatisfactionCoursePageViewController.h"
-#import "ReviewsCoursePageViewController.h"
-#import "UniInfoCoursePageViewController.h"
-#import "RightPanelViewController.h"
+
 
 
 
@@ -31,7 +27,7 @@
 
 @implementation SearchResultsTableViewController
 
-@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityUKPRNString,searchResultsUniversityCodes,searchResultsCourseCodes,activityIndicator,limit,skip,courseDegreeTitles,universitySearchedUKPRN,haveFoundEverySeachValue,anyResults;
+@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityUKPRNString,searchResultsUniversityCodes,searchResultsCourseCodes,activityIndicator,limit,skip,courseDegreeTitles,universitySearchedUKPRN,haveFoundEverySeachValue,anyResults,courseInfoCoursePageViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,11 +63,24 @@
     self.searchResultsUniversityCodes = [[NSMutableArray alloc] init];
     self.haveFoundEverySeachValue = NO;
     self.anyResults = YES;
-    [self queryForSearchResults];
-    //self.amountToSkip = 0;
+    
+    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    
+    if (data) {
+        [self queryForSearchResults];
+    } else {
+        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [noInternetAlert show];
+    }
+    
 
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark -
 #pragma mark View Will/Did Appear
@@ -368,7 +377,7 @@
         
     } else {
     
-    CourseInfoCoursePageViewController *courseInfoCoursePageViewController = [[CourseInfoCoursePageViewController alloc] initWithNibName:@"CourseInfoCoursePageViewController" bundle:nil];
+    courseInfoCoursePageViewController = [[CourseInfoCoursePageViewController alloc] initWithNibName:@"CourseInfoCoursePageViewController" bundle:nil];
     
     StudentSatisfactionCoursePageViewController *studentSatisfactionCoursePageViewController = [[StudentSatisfactionCoursePageViewController alloc]initWithNibName:@"StudentSatisfactionCoursePageViewController" bundle:nil];
     
@@ -391,9 +400,9 @@
         [coursePageTabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f]];
     
     
-    favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
-    favouritesButton.tintColor = [UIColor grayColor];
-    [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+
+    
+    
     
     if (self.universitySearchedString.length != 0) {
         NSLog(@"just about to pass: %@",self.universitySearchedUKPRN);
@@ -401,12 +410,35 @@
         uniInfoCoursePageViewController.uniCodeUniInfo = self.universitySearchedUKPRN;
         reviewsCoursePageViewController.uniCodeReviews = self.universitySearchedUKPRN;
         studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = self.universitySearchedUKPRN;
+        NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],self.universitySearchedUKPRN] andSortKey:@"courseName"];
+        NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
+        if (temp2.count != 0) {
+            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-25"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+            favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
+            [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+        } else {
+            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+            favouritesButton.tintColor = [UIColor whiteColor];
+            [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+        }
+ 
     } else {
         NSLog(@"got to here woo: %@",self.searchResultsUniversityCodes);
         courseInfoCoursePageViewController.uniCodeCourseInfo = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
         uniInfoCoursePageViewController.uniCodeUniInfo = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
         reviewsCoursePageViewController.uniCodeReviews = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
         studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
+        NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],[self.searchResultsUniversityCodes objectAtIndex:indexPath.row]] andSortKey:@"courseName"];
+        NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
+        if (temp2.count != 0) {
+            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-25"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+            favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
+            [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+        } else {
+            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+            favouritesButton.tintColor = [UIColor whiteColor];
+            [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+        }
     }
     
     NSLog(@"just about to pass course code: %@,does anything exist? %@",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],self.searchResultsCourseCodes);
@@ -433,20 +465,7 @@
     }
 }
 
-//method for Favourites button
 
--(void) customBtnPressed
-{
-    if (favouritesButton.image == [UIImage imageNamed:@"star-25"]) {
-        favouritesButton.image = [UIImage imageNamed:@"star-24"];
-        favouritesButton.tintColor = [UIColor grayColor];
-    }
-    else if (favouritesButton.image == [UIImage imageNamed:@"star-24"]) {
-        favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
-        favouritesButton.image = [UIImage imageNamed:@"star-25"];
-    }
-    
-}
 
 - (void) customFilterButtonPressed
 {
@@ -459,6 +478,12 @@
                         [self.navigationController pushViewController:rightPanelViewController animated:NO];
                     }
                     completion:nil];    
+}
+
+-(void) callAnotherMethod {
+
+    courseInfoCoursePageViewController.favouritesButton = self.favouritesButton;
+    [courseInfoCoursePageViewController customBtnPressed];
 }
 
 @end

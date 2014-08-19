@@ -88,6 +88,21 @@
    return [[self database] executeFetchRequest:request error: &error];
 }
 
++ (id)readObjectWithPredicate:(NSPredicate*)pred andSortKey:(NSString*)sortKey {
+    
+    NSString *className = [self entityName];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:className];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:sortKey ascending:YES];
+    
+    
+    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    request.predicate = pred;
+    [request setFetchLimit:1];
+    NSError *error;
+    
+    return [[[self database] executeFetchRequest:request error: &error] objectAtIndex:0];
+}
+
 
 + (NSArray *)readAllObjects {
     NSString *className = [self entityName];
@@ -109,8 +124,8 @@
     [[self database] save:nil];
 }
 
-+ (void)deleteObject {
-        [[self database] deleteObject:self];
++ (void)deleteObject:(NSManagedObject *)object {
+        [[self database] deleteObject:object];
 }
 
 

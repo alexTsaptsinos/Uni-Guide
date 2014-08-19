@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import "CourseInfoCoursePageViewController.h"
+#import "StudentSatisfactionCoursePageViewController.h"
+#import "UniInfoCoursePageViewController.h"
+#import "ReviewsCoursePageViewController.h"
 
 @interface CourseListTableViewController : UITableViewController <UISearchBarDelegate,UISearchDisplayDelegate>
 
@@ -16,5 +20,6 @@
 @property (nonatomic, strong) NSString *universityCode;
 @property (nonatomic, strong) NSString *universityName;
 @property (nonatomic,strong) NSMutableArray *cellTitles;
+@property (nonatomic,strong) CourseInfoCoursePageViewController *courseInfoCoursePageViewController;
 
 @end

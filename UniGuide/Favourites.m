@@ -10,6 +10,6 @@
 
 @implementation Favourites
 
-@dynamic courseName;
+@dynamic courseName,uniCode,uniName,courseCode;
 
 @end

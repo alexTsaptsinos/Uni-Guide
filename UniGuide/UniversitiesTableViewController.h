@@ -12,5 +12,6 @@
 
 @property (nonatomic, strong) NSMutableArray *alphabetsArray;
 @property (nonatomic) BOOL hasSearchingCommenced;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

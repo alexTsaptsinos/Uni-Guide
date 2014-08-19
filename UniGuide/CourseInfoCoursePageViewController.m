@@ -16,7 +16,7 @@
 
 @implementation CourseInfoCoursePageViewController
 
-@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear;
+@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear,favouritesButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,6 +47,10 @@
     courseInfoTableView.scrollEnabled = YES;
     courseInfoTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     [self.view addSubview:courseInfoTableView];
+    
+//    favouritesButton =[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(customBtnPressed)];
+//    favouritesButton.tintColor = [UIColor grayColor];
+//    [self.navigationController.navigationItem setRightBarButtonItem:favouritesButton];
 
     
     
@@ -398,12 +402,12 @@
         if (indexPath.row == 0 || indexPath.row == 1) {
             cellText.textCellLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
             cellText.textCellLabel.font = [UIFont fontWithName:@"Arial" size:14];
-
+            cellText.textCellDataButton.titleLabel.text = self.ucasCourseCode;
             if (indexPath.row == 0) {
                 cellText.textCellLabel.text = @"UCAS Course Code:";
+                cellText.textCellDataButton.enabled = NO;
                 cellText.textCellDataButton.titleLabel.text = self.ucasCourseCode;
                 [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateDisabled];
-                cellText.textCellDataButton.enabled = NO;
             } else if (indexPath.row == 1) {
                 cellText.textCellLabel.text = @"Course URL:";
 
@@ -548,6 +552,32 @@
     return 40;
 }
 
+-(void) customBtnPressed
+{
+    if (favouritesButton.image == [UIImage imageNamed:@"star-25"]) {
+        favouritesButton.image = [UIImage imageNamed:@"star-24"];
+        favouritesButton.tintColor = [UIColor whiteColor];
+        NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeCourseInfo,self.uniCodeCourseInfo] andSortKey:@"courseName"];
+        NSLog(@"yeah freaky: %@",temp2);
+        
+        for (Favourites * temp in temp2) {
+            [Favourites deleteObject:temp];
+
+        }
+                [Favourites saveDatabase];
+    }
+    else if (favouritesButton.image == [UIImage imageNamed:@"star-24"]) {
+        favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
+        favouritesButton.image = [UIImage imageNamed:@"star-25"];
+        Favourites * temp = [Favourites createObject];
+        temp.courseName = self.courseNameCourseInfo;
+        temp.uniName = self.uniNameCourseInfo;
+        temp.courseCode = self.courseCodeCourseInfo;
+        temp.uniCode = self.uniCodeCourseInfo;
+        [Favourites saveDatabase];
+    }
+    
+}
 
 -(void)viewDidAppear:(BOOL)animated
 {

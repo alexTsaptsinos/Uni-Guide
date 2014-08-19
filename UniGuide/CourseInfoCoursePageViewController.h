@@ -13,11 +13,14 @@
 #import "UniInfoCustomCellView.h"
 #import "CourseInfoPieCustomCellView.h"
 #import "CourseInfoSalaryCustomCellView.h"
+#import "Favourites.h"
+#import "NSManagedObject+CRUD.h"
 
 @interface CourseInfoCoursePageViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @property (strong, nonatomic) NSString *courseCodeCourseInfo;
 @property (strong, nonatomic) NSString *uniCodeCourseInfo;
+@property (nonatomic, strong) UIBarButtonItem *favouritesButton;
 
 
 @property (strong, nonatomic) NSString *uniNameCourseInfo;
@@ -40,6 +43,8 @@
 
 @property (strong, nonatomic) UITableView *courseInfoTableView;
 @property (nonatomic) BOOL firstTimeLoad;
+
+-(void) customBtnPressed;
 
 
 

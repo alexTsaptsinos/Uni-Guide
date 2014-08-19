@@ -6,7 +6,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainMenuViewController">
             <connections>
-                <outlet property="discoverMenuButtonLabel" destination="icT-QI-gAC" id="BFF-7I-P8V"/>
                 <outlet property="favouritesMenuButtonLabel" destination="Yrn-JA-DMc" id="beB-0c-nuO"/>
                 <outlet property="openDaysMenuButtonLabel" destination="y37-r2-tq2" id="Qk2-Up-ddg"/>
                 <outlet property="searchMenuButtonLabel" destination="JuB-xo-Kbv" id="MNP-yG-6W8"/>
@@ -32,20 +31,8 @@
                         <action selector="searchMenuButtonPressed:" destination="-1" eventType="touchUpInside" id="dzl-Mk-Hbe"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icT-QI-gAC">
-                    <rect key="frame" x="58" y="211" width="206" height="39"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="1" green="0.75633435140000005" blue="0.80664558659999996" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Discover">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="discoverMenuButtonPressed:" destination="-1" eventType="touchUpInside" id="5IH-Pw-xgB"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yrn-JA-DMc">
-                    <rect key="frame" x="58" y="263" width="206" height="39"/>
+                    <rect key="frame" x="58" y="216" width="206" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.75633435140000005" blue="0.80664558659999996" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Favourites">
@@ -57,7 +44,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y37-r2-tq2">
-                    <rect key="frame" x="58" y="315" width="206" height="39"/>
+                    <rect key="frame" x="58" y="273" width="206" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.75633435140000005" blue="0.80664558659999996" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Open Days">
@@ -69,7 +56,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eju-Rk-VPx">
-                    <rect key="frame" x="58" y="367" width="206" height="39"/>
+                    <rect key="frame" x="58" y="330" width="206" height="39"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.75633435140000005" blue="0.80664558659999996" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="Universities">

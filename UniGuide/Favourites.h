@@ -13,5 +13,8 @@
 @interface Favourites : NSManagedObject
 
 @property (nonatomic, retain) NSString * courseName;
+@property (nonatomic, retain) NSString *uniName;
+@property (nonatomic,retain) NSString *courseCode;
+@property (nonatomic,retain) NSString *uniCode;
 
 @end
