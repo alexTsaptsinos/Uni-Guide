@@ -210,4 +210,10 @@
     
     [self presentViewController:whatyearNavigationController animated:YES completion:nil];
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return (newLength > 30) ? NO : YES;
+}
+
 @end

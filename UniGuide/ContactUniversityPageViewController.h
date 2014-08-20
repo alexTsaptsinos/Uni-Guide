@@ -9,20 +9,27 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <Parse/Parse.h>
+#import <MessageUI/MessageUI.h>
 
-@interface ContactUniversityPageViewController : UIViewController <MKMapViewDelegate>
+@interface ContactUniversityPageViewController : UIViewController <MKMapViewDelegate,MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *contactMapView;
 
-@property (weak, nonatomic) IBOutlet UILabel *telephoneNumberLabel;
-@property (weak, nonatomic) IBOutlet UILabel *faxNumberLabel;
-@property (weak, nonatomic) IBOutlet UILabel *emailAddressLabel;
-@property (weak, nonatomic) IBOutlet UILabel *websiteAddressLabel;
 @property (strong, nonatomic) NSString *universityCode;
 @property (strong, nonatomic) NSString *universityName;
 @property (strong, nonatomic) NSNumber *uniLatitude;
 @property (strong, nonatomic) NSNumber *uniLongitude;
 @property (nonatomic) BOOL hasLoadedBool;
+
+@property (nonatomic, strong) UIButton *telephoneButton;
+@property (nonatomic, strong) UIButton *emailButton;
+@property (nonatomic, strong) UIButton *websiteButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *telephoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
+@property (weak, nonatomic) IBOutlet UILabel *websiteLabel;
+
+@property (nonatomic) BOOL firstTimeLoad;
 
 
 @end

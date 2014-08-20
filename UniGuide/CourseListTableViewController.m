@@ -54,6 +54,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
     [query whereKey:@"UKPRN" equalTo:self.universityCode];
     [query setLimit:600];
+    [query whereKeyExists:@"TITLE"];
     [query orderByAscending:@"TITLE"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
         for (PFObject *object in objects) {
@@ -326,6 +327,7 @@
     uniInfoCoursePageViewController.uniNameUniInfo = self.universityName;
     courseInfoCoursePageViewController.courseNameCourseInfo = cell.textLabel.text;
     courseInfoCoursePageViewController.uniNameCourseInfo = self.universityName;
+    courseInfoCoursePageViewController.haveComeFromFavourites = NO;
     
     studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = self.universityCode;
     studentSatisfactionCoursePageViewController.courseNameStudentSatisfaction = cell.textLabel.text;

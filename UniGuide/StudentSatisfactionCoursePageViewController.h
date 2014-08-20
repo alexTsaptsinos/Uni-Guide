@@ -23,4 +23,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *universityNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *courseNameLabel;
 
+@property (nonatomic) BOOL firstTimeLoad;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+
+@property (strong, nonatomic) UIImageView *noInternetImageView;
+@property (strong, nonatomic) UILabel *noInternetLabel;
+
 @end

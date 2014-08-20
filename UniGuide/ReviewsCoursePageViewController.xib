@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReviewsCoursePageViewController">
             <connections>
+                <outlet property="activityIndicator" destination="FLd-9i-klV" id="0KH-zL-4Yk"/>
                 <outlet property="addReviewButton" destination="feH-mH-b7U" id="I53-1u-Myo"/>
                 <outlet property="courseNameLabel" destination="SDh-kk-Vye" id="7F3-y0-pOi"/>
                 <outlet property="numberOfReviewsLabel" destination="DUs-vM-zDd" id="KMz-hO-8R9"/>
@@ -98,6 +99,10 @@
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FLd-9i-klV">
+                    <rect key="frame" x="141" y="182" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>

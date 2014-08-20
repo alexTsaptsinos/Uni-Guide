@@ -125,6 +125,9 @@
 		EF7F6FA01980FA200009DB60 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F971980FA200009DB60 /* StoreKit.framework */; };
 		EF7F6FA11980FA200009DB60 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF7F6F981980FA200009DB60 /* SystemConfiguration.framework */; };
 		EF8B1161198811BB0011D746 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF8B1160198811BB0011D746 /* MapKit.framework */; };
+		EF93A59619A36101007F5CAB /* LocationSelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF93A59419A36101007F5CAB /* LocationSelectTableViewController.m */; };
+		EF93A59719A36101007F5CAB /* LocationSelectTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF93A59519A36101007F5CAB /* LocationSelectTableViewController.xib */; };
+		EF93A59A19A3F574007F5CAB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF93A59919A3F574007F5CAB /* MessageUI.framework */; };
 		EFB107DD198A885700814C53 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFB107DC198A885700814C53 /* Social.framework */; };
 		EFC88A4819921E7E003BB792 /* UniInfoCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFC88A4719921E7E003BB792 /* UniInfoCustomCellView.xib */; };
 		EFC88A4B19921EB1003BB792 /* UniInfoCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EFC88A4A19921EB1003BB792 /* UniInfoCustomCellView.m */; };
@@ -380,6 +383,10 @@
 		EF7F6F971980FA200009DB60 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EF7F6F981980FA200009DB60 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EF8B1160198811BB0011D746 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		EF93A59319A36101007F5CAB /* LocationSelectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSelectTableViewController.h; sourceTree = "<group>"; };
+		EF93A59419A36101007F5CAB /* LocationSelectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSelectTableViewController.m; sourceTree = "<group>"; };
+		EF93A59519A36101007F5CAB /* LocationSelectTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationSelectTableViewController.xib; sourceTree = "<group>"; };
+		EF93A59919A3F574007F5CAB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		EFB107DC198A885700814C53 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		EFC88A4719921E7E003BB792 /* UniInfoCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniInfoCustomCellView.xib; sourceTree = "<group>"; };
 		EFC88A4919921EB1003BB792 /* UniInfoCustomCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniInfoCustomCellView.h; sourceTree = "<group>"; };
@@ -403,6 +410,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF93A59A19A3F574007F5CAB /* MessageUI.framework in Frameworks */,
 				9E6C4FD51994D9C900A536E3 /* CoreData.framework in Frameworks */,
 				9E598611198F8FB200D7A690 /* FacebookSDK.framework in Frameworks */,
 				EFB107DD198A885700814C53 /* Social.framework in Frameworks */,
@@ -462,6 +470,7 @@
 		A4C6C896197AD22F0065311C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF93A59919A3F574007F5CAB /* MessageUI.framework */,
 				9E6C4FD41994D9C900A536E3 /* CoreData.framework */,
 				9E598610198F8FB200D7A690 /* FacebookSDK.framework */,
 				EFB107DC198A885700814C53 /* Social.framework */,
@@ -680,6 +689,9 @@
 				A4C6C8CB197AD78F0065311C /* SearchViewController.h */,
 				A4C6C8CC197AD78F0065311C /* SearchViewController.m */,
 				A4C6C8CD197AD78F0065311C /* SearchViewController.xib */,
+				EF93A59319A36101007F5CAB /* LocationSelectTableViewController.h */,
+				EF93A59419A36101007F5CAB /* LocationSelectTableViewController.m */,
+				EF93A59519A36101007F5CAB /* LocationSelectTableViewController.xib */,
 				A4C6C910197AF1400065311C /* SearchResultsTableViewController.h */,
 				A4C6C911197AF1400065311C /* SearchResultsTableViewController.m */,
 				A4C6C912197AF1400065311C /* SearchResultsTableViewController.xib */,
@@ -692,21 +704,7 @@
 		EF7F6F48197EE6230009DB60 /* CoursePageTabBars */ = {
 			isa = PBXGroup;
 			children = (
-				A4C6C91A197AF6D80065311C /* CourseInfoCoursePageViewController.h */,
-				A4C6C91B197AF6D80065311C /* CourseInfoCoursePageViewController.m */,
-				A4C6C91C197AF6D80065311C /* CourseInfoCoursePageViewController.xib */,
-				EF5B6EDA19926D4300B2E18D /* CourseInfoTextCustomCellView.h */,
-				EF5B6EDB19926D4300B2E18D /* CourseInfoTextCustomCellView.m */,
-				EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */,
-				EF5B6EDF19927C0300B2E18D /* CourseInfoPieCustomCellView.h */,
-				EF5B6EE019927C0300B2E18D /* CourseInfoPieCustomCellView.m */,
-				EF5B6EDD19927BBD00B2E18D /* CourseInfoPieCustomCellView.xib */,
-				EF5B6EE61992AA9400B2E18D /* CourseInfoSalaryCustomCellView.h */,
-				EF5B6EE71992AA9400B2E18D /* CourseInfoSalaryCustomCellView.m */,
-				EF5B6EE41992A9F200B2E18D /* CourseInfoSalaryCustomCellView.xib */,
-				EF27409519912EAD00B932DC /* CommonJobsCustomCellView.h */,
-				EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */,
-				EF27409319912E6C00B932DC /* CommonJobsCustomCellView.xib */,
+				EF93A59819A3CE53007F5CAB /* Course Info */,
 				EF5B6ED71992671800B2E18D /* Student Satisfaction */,
 				EF5B6ED6199266F800B2E18D /* Uni Info */,
 				EF7F6F8819804D980009DB60 /* ReviewFunctions */,
@@ -785,6 +783,28 @@
 				EF274089198FE52C00B932DC /* TypeOfComplaintsTableViewController.m */,
 			);
 			name = ReviewFunctions;
+			sourceTree = "<group>";
+		};
+		EF93A59819A3CE53007F5CAB /* Course Info */ = {
+			isa = PBXGroup;
+			children = (
+				A4C6C91A197AF6D80065311C /* CourseInfoCoursePageViewController.h */,
+				A4C6C91B197AF6D80065311C /* CourseInfoCoursePageViewController.m */,
+				A4C6C91C197AF6D80065311C /* CourseInfoCoursePageViewController.xib */,
+				EF5B6EDA19926D4300B2E18D /* CourseInfoTextCustomCellView.h */,
+				EF5B6EDB19926D4300B2E18D /* CourseInfoTextCustomCellView.m */,
+				EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */,
+				EF5B6EDF19927C0300B2E18D /* CourseInfoPieCustomCellView.h */,
+				EF5B6EE019927C0300B2E18D /* CourseInfoPieCustomCellView.m */,
+				EF5B6EDD19927BBD00B2E18D /* CourseInfoPieCustomCellView.xib */,
+				EF5B6EE61992AA9400B2E18D /* CourseInfoSalaryCustomCellView.h */,
+				EF5B6EE71992AA9400B2E18D /* CourseInfoSalaryCustomCellView.m */,
+				EF5B6EE41992A9F200B2E18D /* CourseInfoSalaryCustomCellView.xib */,
+				EF27409519912EAD00B932DC /* CommonJobsCustomCellView.h */,
+				EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */,
+				EF27409319912E6C00B932DC /* CommonJobsCustomCellView.xib */,
+			);
+			name = "Course Info";
 			sourceTree = "<group>";
 		};
 		EFB107E0198A896400814C53 /* Images */ = {
@@ -988,6 +1008,7 @@
 				EF5B6ED919926CC200B2E18D /* CourseInfoTextCustomCellView.xib in Resources */,
 				EF7F6F2B197E886F0009DB60 /* student2-32.png in Resources */,
 				EF207C14198A342A00F2CFB3 /* OpenDaysQueryTableViewController.xib in Resources */,
+				EF93A59719A36101007F5CAB /* LocationSelectTableViewController.xib in Resources */,
 				EF66F5E819891A8B0048A82E /* ui-14.png in Resources */,
 				EF7F6F6F197FF2EC0009DB60 /* today-32.png in Resources */,
 				EFC88A5019923B70003BB792 /* ui-19.png in Resources */,
@@ -1041,6 +1062,7 @@
 				A4C6C944197BF8C80065311C /* ContactUniversityPageViewController.m in Sources */,
 				A4C6C8A4197AD22F0065311C /* main.m in Sources */,
 				EF7F6F44197EB7130009DB60 /* RightPanelViewController.m in Sources */,
+				EF93A59619A36101007F5CAB /* LocationSelectTableViewController.m in Sources */,
 				EF7F6F8119804D810009DB60 /* AddReviewViewController.m in Sources */,
 				EF274087198F9F8800B932DC /* ReviewCustomCellView.m in Sources */,
 				EF7F6F64197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m in Sources */,

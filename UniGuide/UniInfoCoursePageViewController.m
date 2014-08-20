@@ -21,12 +21,9 @@
 @implementation UniInfoCoursePageViewController
 
 
-@synthesize uniCodeUniInfo,studentSatisfactionPercentage,tableViewUniInfo,uniInfoDataSets,haveWeComeFromUniversities,uniNameUniInfo,firstTimeLoad,uniInfoDataNumbers,universityNameLabel,scroll;
+@synthesize uniCodeUniInfo,studentSatisfactionPercentage,tableViewUniInfo,uniInfoDataSets,haveWeComeFromUniversities,uniNameUniInfo,firstTimeLoad,uniInfoDataNumbers,universityNameLabel,scroll,activityIndicator,noInternetLabel,noInternetImageView;
 
 #pragma mark - UIViewController lifecycle methods
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,15 +45,22 @@
     self.navigationController.navigationBar.translucent = NO;
     self.uniInfoDataSets = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:@"Number of students:",@"Number of staff:",@"Number of institute owned rooms:",@"Average cost of institute accommodation:",@"Average cost of private accommodation:", nil]];
     self.firstTimeLoad = YES;
+    self.scroll.hidden = YES;
+    [self.activityIndicator startAnimating];
 
     
     
 }
 
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
+    
+    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    
+    if (data) {
     
     if (self.firstTimeLoad == YES) {
         
@@ -210,10 +214,37 @@
         self.uniInfoDataNumbers = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString, nil]];
 
         self.firstTimeLoad = NO;
+        self.scroll.hidden = NO;
+        [self.activityIndicator stopAnimating];
     }
     else {
+        NSLog(@"not first time load");
+    }
+    }
+    else {
+        NSLog(@"no internet");
+        
+        if (firstTimeLoad == YES) {
+            noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 320, 429)];
+            noInternetImageView.backgroundColor = [UIColor lightGrayColor];
+            noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+            noInternetLabel.text = @"We're sorry, but this data is not available offline";
+            noInternetLabel.numberOfLines = 0;
+            noInternetLabel.textAlignment = NSTextAlignmentCenter;
+            [noInternetImageView addSubview:noInternetLabel];
+            [self.view addSubview:noInternetImageView];
+            
+            universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 20)];
+            universityNameLabel.text = self.uniNameUniInfo;
+            universityNameLabel.textAlignment = NSTextAlignmentCenter;
+            universityNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+            universityNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+            [self.view addSubview:universityNameLabel];
+            self.universityNameLabel.hidden = NO;
+        }
         
     }
+    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

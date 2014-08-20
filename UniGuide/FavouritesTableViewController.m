@@ -181,6 +181,7 @@
     courseInfoCoursePageViewController.courseCodeCourseInfo = [self.courseCodes objectAtIndex:indexPath.row];
     courseInfoCoursePageViewController.courseNameCourseInfo = cell.textLabel.text;
     courseInfoCoursePageViewController.uniNameCourseInfo = cell.detailTextLabel.text;
+    courseInfoCoursePageViewController.haveComeFromFavourites = YES;
     
     reviewsCoursePageViewController.courseCodeReviews = [self.courseCodes objectAtIndex:indexPath.row];
     reviewsCoursePageViewController.courseNameReviews = cell.textLabel.text;

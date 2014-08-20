@@ -63,9 +63,9 @@
     
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     request.predicate = predicate;
-    NSError *error;
+   // NSError *error;
     
-    NSArray *results = [[self database] executeFetchRequest:request error: &error];
+   // NSArray *results = [[self database] executeFetchRequest:request error: &error];
     
 //    if ([GeneralUtils isntEmpty:results]) {
 //        object = [results objectAtIndex:0];

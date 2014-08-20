@@ -16,7 +16,7 @@
 
 @implementation ReviewsCoursePageViewController
 
-@synthesize addReviewButton,courseCodeReviews,uniCodeReviews,courseNameReviews,numberOfReviewsLabel,reviewersNames,reviewStars,reviewTexts,reviewTitles,reviewTableView,reviewDates,reviewersYears,cellHeights,haveDoneParseQueryYet,starButton1,starButton2,starButton3,starButton4,starButton5,reviewCodes,haveReloadedHeights,uniNameLabel,courseNameLabel,uniNameReviews;
+@synthesize addReviewButton,courseCodeReviews,uniCodeReviews,courseNameReviews,numberOfReviewsLabel,reviewersNames,reviewStars,reviewTexts,reviewTitles,reviewTableView,reviewDates,reviewersYears,cellHeights,haveDoneParseQueryYet,starButton1,starButton2,starButton3,starButton4,starButton5,reviewCodes,haveReloadedHeights,uniNameLabel,courseNameLabel,uniNameReviews,firstTimeLoad,activityIndicator,noInternetLabel,noInternetImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,6 +40,19 @@
     self.haveDoneParseQueryYet = NO;
     self.haveReloadedHeights = NO;
     
+    self.reviewTableView.hidden = YES;
+    self.courseNameLabel.hidden = YES;
+    self.uniNameLabel.hidden = YES;
+    self.addReviewButton.hidden = YES;
+    self.starButton1.hidden = YES;
+    self.starButton2.hidden = YES;
+    self.starButton3.hidden = YES;
+    self.starButton4.hidden = YES;
+    self.starButton5.hidden = YES;
+    self.numberOfReviewsLabel.hidden = YES;
+    [self.activityIndicator startAnimating];
+    
+    
     self.addReviewButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
     
@@ -56,99 +69,10 @@
     courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
     courseNameLabel.adjustsFontSizeToFitWidth = YES;
     courseNameLabel.numberOfLines = 0;
+    self.firstTimeLoad = YES;
 
     
-    PFQuery *queryForUniversityName = [PFQuery queryWithClassName:@"Institution1213"];
-    [queryForUniversityName whereKey:@"UKPRN" equalTo:self.uniCodeReviews];
-    [queryForUniversityName selectKeys:[NSArray arrayWithObject:@"Institution"]];
-    PFObject *tempUniObject = [queryForUniversityName getFirstObject];
-    NSString *uniName = [tempUniObject objectForKey:@"Institution"];
     
-    NSString *uniAndCourse = [uniName stringByAppendingString:@" - "];
-    uniAndCourse = [uniAndCourse stringByAppendingString:self.courseNameReviews];
-    
-    
-    self.reviewTableView.bounces = YES;
-    self.reviewTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-    self.reviewTableView.delegate = self;
-    [self.starButton5 setEnabled:NO];
-    [self.starButton4 setEnabled:NO];
-    [self.starButton3 setEnabled:NO];
-    [self.starButton2 setEnabled:NO];
-    [self.starButton1 setEnabled:NO];
-    [self.starButton1 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
-    [self.starButton2 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
-    [self.starButton3 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
-    [self.starButton4 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
-    [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
-
-    PFQuery *queryForReviews = [PFQuery queryWithClassName:@"CourseReviews"];
-    [queryForReviews whereKey:@"CourseCode" equalTo:self.courseCodeReviews];
-    [queryForReviews orderByAscending:@"createdAt"];
-    [queryForReviews findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
-        if (objects.count == 0) {
-            self.reviewTableView.hidden = YES;
-            self.numberOfReviewsLabel.text = @"0 Ratings";
-            self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
-        }
-        else if (objects.count == 1) {
-            self.numberOfReviewsLabel.text = @"1 Rating";
-        } else {
-        self.numberOfReviewsLabel.text = [NSString stringWithFormat:@"%lu Ratings",(unsigned long)objects.count];
-        }
-        self.reviewTitles = [objects valueForKey:@"ReviewTitle"];
-        self.reviewStars = [objects valueForKey:@"StarRating"];
-        self.reviewTexts = [objects valueForKey:@"ReviewText"];
-        self.reviewersNames = [objects valueForKey:@"ReviewerName"];
-        self.reviewersYears = [objects valueForKey:@"ReviewerYear"];
-        self.reviewDates = [objects valueForKey:@"createdAt"];
-        self.reviewCodes = [objects valueForKey:@"objectId"];
-        [self.reviewTableView reloadData];
-        NSLog(@"stars: %@",self.reviewStars);
-        
-        NSNumber *sumOfStarRatings = [self.reviewStars valueForKeyPath:@"@sum.self"];
-        NSLog(@"sum: %@",sumOfStarRatings);
-        NSNumber *averageStarRating = [NSNumber numberWithFloat:([sumOfStarRatings floatValue] / self.reviewStars.count)];
-        NSLog(@"average: %@",averageStarRating);
-        if (0.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<1.5f) {
-            [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
-            
-        }
-        if (1.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<2.5f) {
-            [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            
-        }
-        if (2.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<3.5f) {
-            [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            [self.starButton3 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            
-        }
-        if (3.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<4.5f) {
-            [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            [self.starButton3 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            [self.starButton4 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-        }
-        if (4.5f<[averageStarRating floatValue]) {
-            [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            [self.starButton3 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            [self.starButton4 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-            [self.starButton5 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
-        }
-        
-        
-    }];
-    
-    // calculate average review
-  
-
-
-    CALayer *btnLayer = [addReviewButton layer];
-    [btnLayer setMasksToBounds:YES];
-    [btnLayer setCornerRadius:5.0f];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -156,22 +80,153 @@
     return self.reviewTitles.count;
 }
 
-- (void) viewWillAppear:(BOOL)animated
+- (void) viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
     if (self.reviewTableView.hidden == YES) {
         self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
         self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
+    }
+    
+    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    
+    if (data) {
 
+    if (self.firstTimeLoad == YES) {
+        
+        self.noInternetImageView.hidden = YES;
+        self.noInternetLabel.hidden = YES;
+        
+        PFQuery *queryForUniversityName = [PFQuery queryWithClassName:@"Institution1213"];
+        [queryForUniversityName whereKey:@"UKPRN" equalTo:self.uniCodeReviews];
+        [queryForUniversityName selectKeys:[NSArray arrayWithObject:@"Institution"]];
+        PFObject *tempUniObject = [queryForUniversityName getFirstObject];
+        NSString *uniName = [tempUniObject objectForKey:@"Institution"];
+        
+        NSString *uniAndCourse = [uniName stringByAppendingString:@" - "];
+        uniAndCourse = [uniAndCourse stringByAppendingString:self.courseNameReviews];
+        
+        
+        self.reviewTableView.bounces = YES;
+        self.reviewTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+        self.reviewTableView.delegate = self;
+        [self.starButton5 setEnabled:NO];
+        [self.starButton4 setEnabled:NO];
+        [self.starButton3 setEnabled:NO];
+        [self.starButton2 setEnabled:NO];
+        [self.starButton1 setEnabled:NO];
+        [self.starButton1 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+        [self.starButton2 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+        [self.starButton3 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+        [self.starButton4 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+        [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+        
+        PFQuery *queryForReviews = [PFQuery queryWithClassName:@"CourseReviews"];
+        [queryForReviews whereKey:@"CourseCode" equalTo:self.courseCodeReviews];
+        [queryForReviews orderByAscending:@"createdAt"];
+        [queryForReviews findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+            if (objects.count == 0) {
+                self.reviewTableView.hidden = YES;
+                self.numberOfReviewsLabel.text = @"0 Ratings";
+                self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
+            }
+            else if (objects.count == 1) {
+                self.numberOfReviewsLabel.text = @"1 Rating";
+            } else {
+                self.numberOfReviewsLabel.text = [NSString stringWithFormat:@"%lu Ratings",(unsigned long)objects.count];
+            }
+            self.reviewTitles = [objects valueForKey:@"ReviewTitle"];
+            self.reviewStars = [objects valueForKey:@"StarRating"];
+            self.reviewTexts = [objects valueForKey:@"ReviewText"];
+            self.reviewersNames = [objects valueForKey:@"ReviewerName"];
+            self.reviewersYears = [objects valueForKey:@"ReviewerYear"];
+            self.reviewDates = [objects valueForKey:@"createdAt"];
+            self.reviewCodes = [objects valueForKey:@"objectId"];
+            [self.reviewTableView reloadData];
+            NSLog(@"stars: %@",self.reviewStars);
+            
+            NSNumber *sumOfStarRatings = [self.reviewStars valueForKeyPath:@"@sum.self"];
+            NSLog(@"sum: %@",sumOfStarRatings);
+            NSNumber *averageStarRating = [NSNumber numberWithFloat:([sumOfStarRatings floatValue] / self.reviewStars.count)];
+            NSLog(@"average: %@",averageStarRating);
+            if (0.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<1.5f) {
+                [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
+                
+            }
+            if (1.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<2.5f) {
+                [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                
+            }
+            if (2.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<3.5f) {
+                [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                [self.starButton3 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                
+            }
+            if (3.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<4.5f) {
+                [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                [self.starButton3 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                [self.starButton4 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            }
+            if (4.5f<[averageStarRating floatValue]) {
+                [self.starButton1 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                [self.starButton2 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                [self.starButton3 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                [self.starButton4 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+                [self.starButton5 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
+            }
+            
+            
+        }];
+        
+        // calculate average review
+        
+        
+        
+        CALayer *btnLayer = [addReviewButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:5.0f];
+        self.firstTimeLoad = NO;
+        self.reviewTableView.hidden = NO;
+        self.courseNameLabel.hidden = NO;
+        self.uniNameLabel.hidden = NO;
+        self.addReviewButton.hidden = NO;
+        self.starButton1.hidden = NO;
+        self.starButton2.hidden = NO;
+        self.starButton3.hidden = NO;
+        self.starButton4.hidden = NO;
+        self.starButton5.hidden = NO;
+        self.numberOfReviewsLabel.hidden = NO;
+        [self.activityIndicator stopAnimating];
+    }
+    }
+    else {
+        if (self.firstTimeLoad == YES) {
+            NSLog(@"no internet");
+            noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 320, 429)];
+            noInternetImageView.backgroundColor = [UIColor lightGrayColor];
+            noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+            noInternetLabel.text = @"We're sorry, but this data is not available offline";
+            noInternetLabel.numberOfLines = 0;
+            noInternetLabel.textAlignment = NSTextAlignmentCenter;
+            [noInternetImageView addSubview:noInternetLabel];
+            [self.view addSubview:noInternetImageView];
+            self.uniNameLabel.hidden = NO;
+            self.courseNameLabel.hidden = NO;
+        }
 
+        
     }
 
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void) viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     if (self.reviewTableView.hidden == YES) {
         self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
         self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
@@ -277,8 +332,6 @@
             }
         }
     }
-    
-    
 
     
     
@@ -336,5 +389,4 @@
     [self presentViewController:reviewComplaintNavigationController animated:YES completion:nil];
 }
 
-//Andrew, fix these heights
 @end

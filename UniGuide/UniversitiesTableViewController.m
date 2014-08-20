@@ -38,6 +38,15 @@
     self = [super initWithStyle:style];
     if (self) {
         //this table displays items in the universities class
+        NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+        NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+        
+        if (data) {
+        } else {
+            NSLog(@"no internet");
+            UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [noInternetAlert show];
+        }
         self.parseClassName = @"Institution1213";
         self.textKey = @"Institution";
         self.pullToRefreshEnabled = NO;
@@ -50,6 +59,8 @@
         self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
         self.hasSearchingCommenced = NO;
         self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+        self.view.hidden = YES;
+        [self.activityIndicator startAnimating];
 
         
     }
@@ -59,6 +70,8 @@
 -(void)objectsDidLoad:(NSError *)error
 {
     [super objectsDidLoad:error];
+    self.tableView.hidden = NO;
+    [self.activityIndicator stopAnimating];
     
     [self.sections removeAllObjects];
     [self.sectionToLetterMap removeAllObjects];
@@ -83,6 +96,11 @@
 
 - (PFQuery *)queryForTable
 {
+    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    
+    if (data) {
+
     PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
     
     // if no objects are loaded in memory, we look to the cache first to fill the table
@@ -93,6 +111,10 @@
     [query orderByAscending:@"Institution"];
 
     return query;
+    }
+    else {
+        return NULL;
+    }
 }
 
 - (PFObject *)objectAtIndexPath:(NSIndexPath *)indexPath
@@ -321,6 +343,13 @@
     
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:newBackButton];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    
+    if (data) {
 
     PFQuery *queryForUniversityCode = [PFQuery queryWithClassName:@"Institution1213"];
     [queryForUniversityCode whereKey:@"Institution" equalTo:cell.textLabel.text];
@@ -333,9 +362,23 @@
     uniInfoCoursePageViewController.haveWeComeFromUniversities = YES;
     uniInfoCoursePageViewController.uniNameUniInfo = cell.textLabel.text;
     courseListTableViewController.universityName = cell.textLabel.text;
-    
+        
     [self.navigationController pushViewController:universityPageTabBarController animated:YES];
+
+    }
+    else {
+        NSLog(@"no internet");
+        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [noInternetAlert show];
+    }
+    
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning
 {

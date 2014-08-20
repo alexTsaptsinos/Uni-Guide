@@ -8,7 +8,7 @@
 
 #import <Parse/Parse.h>
 
-@interface UniversitiesTableViewController : PFQueryTableViewController <UITableViewDelegate,UISearchBarDelegate>
+@interface UniversitiesTableViewController : PFQueryTableViewController <UITableViewDelegate,UISearchBarDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *alphabetsArray;
 @property (nonatomic) BOOL hasSearchingCommenced;
