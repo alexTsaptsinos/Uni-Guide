@@ -247,9 +247,7 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellIdentifier = @"ReviewCustomCellView";
-    
-    //andrew here!!!!
+    NSString *cellIdentifier = [NSString stringWithFormat:@"ReviewCustomCellView%i", indexPath.row];
     
     ReviewCustomCellView *cell = (ReviewCustomCellView *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
