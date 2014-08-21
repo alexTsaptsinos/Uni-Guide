@@ -545,11 +545,11 @@
         if (indexPath.row == 0 || indexPath.row == 1) {
             cellText.textCellLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
             cellText.textCellLabel.font = [UIFont fontWithName:@"Arial" size:14];
-            cellText.textCellDataButton.titleLabel.text = self.ucasCourseCode;
             if (indexPath.row == 0) {
                 cellText.textCellLabel.text = @"UCAS Course Code:";
                 cellText.textCellDataButton.enabled = NO;
-                cellText.textCellDataButton.titleLabel.text = self.ucasCourseCode;
+                // cellText.textCellDataButton.titleLabel.text = self.ucasCourseCode;
+                [cellText.textCellDataButton setTitle:self.ucasCourseCode forState:UIControlStateDisabled];
                 [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateDisabled];
             } else if (indexPath.row == 1) {
                 cellText.textCellLabel.text = @"Course URL:";
@@ -587,8 +587,88 @@
             
             
             if (indexPath.row == 3) {
-                cellImage.uniInfoTypeLabel.text = @"Average tariff points of entrants:";
                 cellImage.numberDataLabelUniInfo.text = self.averageTariffString;
+                cellImage.uniInfoTypeLabel.hidden = YES;
+                UILabel *cellTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 183, 67)];
+                cellTitleLabel.text = @"Average UCAS tariff points of entrants";
+                cellTitleLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+                cellTitleLabel.textAlignment = NSTextAlignmentLeft;
+                cellTitleLabel.font = [UIFont fontWithName:@"Arial" size:14];
+                cellTitleLabel.numberOfLines = 0;
+                [cellImage addSubview:cellTitleLabel];
+                
+                UILabel *equivalentLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 50, 200, 40)];
+                equivalentLabel.font = [UIFont fontWithName:@"Arial" size:12];
+                equivalentLabel.textAlignment = NSTextAlignmentLeft;
+                equivalentLabel.numberOfLines = 0;
+                equivalentLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+                
+                // only show equivalent label if we have the tariff data
+                
+                if ([self.averageTariffString isEqualToString:@"N/A"]) {
+                    equivalentLabel.hidden = YES;
+                } else {
+                    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+                    [f setNumberStyle:NSNumberFormatterDecimalStyle];
+                    
+                    NSNumber *averageTariff = [f numberFromString:self.averageTariffString];
+                    float averageTariffFloat = [averageTariff floatValue];
+                    
+                    
+                    if (averageTariffFloat < 120.0f) {
+                        equivalentLabel.text = @"This is equivalent to less than EEE";
+                    }
+                    else if (averageTariffFloat > 120.0f && averageTariffFloat < 140.0f) {
+                        equivalentLabel.text = @"This is equivalent to EEE";
+                    }
+                    else if (averageTariffFloat > 140.0f && averageTariffFloat < 160.0f) {
+                        equivalentLabel.text = @"This is equivalent to DEE";
+                    }
+                    else if (averageTariffFloat > 160.0f && averageTariffFloat < 180.0f) {
+                        equivalentLabel.text = @"This is equivalent to DDE";
+                    }
+                    else if (averageTariffFloat > 180.0f && averageTariffFloat < 200.0f) {
+                        equivalentLabel.text = @"This is equivalent to DDD";
+                    }
+                    else if (averageTariffFloat > 200.0f && averageTariffFloat < 220.0f) {
+                        equivalentLabel.text = @"This is equivalent to CDD";
+                    }
+                    else if (averageTariffFloat > 220.0f && averageTariffFloat < 240.0f) {
+                        equivalentLabel.text = @"This is equivalent to CCD";
+                    }
+                    else if (averageTariffFloat > 240.0f && averageTariffFloat < 260.0f) {
+                        equivalentLabel.text = @"This is equivalent to CCC";
+                    }
+                    else if (averageTariffFloat > 260.0f && averageTariffFloat < 280.0f) {
+                        equivalentLabel.text = @"This is equivalent to BCC";
+                    }
+                    else if (averageTariffFloat > 280.0f && averageTariffFloat < 300.0f) {
+                        equivalentLabel.text = @"This is equivalent to BBC";
+                    }
+                    else if (averageTariffFloat > 300.0f && averageTariffFloat < 320.0f) {
+                        equivalentLabel.text = @"This is equivalent to BBB";
+                    }
+                    else if (averageTariffFloat > 320.0f && averageTariffFloat < 340.0f) {
+                        equivalentLabel.text = @"This is equivalent to ABB";
+                    }
+                    else if (averageTariffFloat > 340.0f && averageTariffFloat < 360.0f) {
+                        equivalentLabel.text = @"This is equivalent to AAB";
+                    }
+                    else if (averageTariffFloat > 360.0f && averageTariffFloat < 380.0f) {
+                        equivalentLabel.text = @"This is equivalent to AAA";
+                    }
+                    else if (averageTariffFloat > 380.0f && averageTariffFloat < 400.0f) {
+                        equivalentLabel.text = @"This is equivalent to A*AA";
+                    }
+                    else if (averageTariffFloat > 400.0f && averageTariffFloat < 420.0f) {
+                        equivalentLabel.text = @"This is equivalent to A*A*A";
+                    }
+                    else if (averageTariffFloat > 420.0f) {
+                        equivalentLabel.text = @"This is equivalent to greater than A*A*A*";
+                    }
+                        
+                    [cellImage addSubview:equivalentLabel];
+                }
             }
             if (indexPath.row == 6) {
                 cellImage.uniInfoTypeLabel.text = @"Proportion of students employed after 6 months:";

@@ -145,12 +145,12 @@
             self.reviewDates = [objects valueForKey:@"createdAt"];
             self.reviewCodes = [objects valueForKey:@"objectId"];
             [self.reviewTableView reloadData];
-            NSLog(@"stars: %@",self.reviewStars);
+           // NSLog(@"stars: %@",self.reviewStars);
             
             NSNumber *sumOfStarRatings = [self.reviewStars valueForKeyPath:@"@sum.self"];
-            NSLog(@"sum: %@",sumOfStarRatings);
+            //NSLog(@"sum: %@",sumOfStarRatings);
             NSNumber *averageStarRating = [NSNumber numberWithFloat:([sumOfStarRatings floatValue] / self.reviewStars.count)];
-            NSLog(@"average: %@",averageStarRating);
+            //NSLog(@"average: %@",averageStarRating);
             if (0.5f<[averageStarRating floatValue] && [averageStarRating floatValue]<1.5f) {
                 [self.starButton1 setImage:[UIImage imageNamed:@"favouritesButtonSelected"] forState:UIControlStateDisabled];
                 
@@ -265,7 +265,7 @@
     cell.reviewerDetailsLabel.adjustsFontSizeToFitWidth = YES;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSNumber *tempNumberOfStars = [self.reviewStars objectAtIndex:indexPath.row];
-    NSLog(@"temp star: %@",tempNumberOfStars);
+   // NSLog(@"temp star: %@",tempNumberOfStars);
     if (tempNumberOfStars == [NSNumber numberWithInt:1]) {
         cell.starImageView1.image = [UIImage imageNamed:@"star-25"];
         cell.starImageView2.image = [UIImage imageNamed:@"star-26"];
@@ -323,11 +323,11 @@
         NSNumber *currentHeight = [NSNumber numberWithFloat:reviewCommentsLabel.frame.size.height];
         currentHeight = [NSNumber numberWithFloat:([currentHeight floatValue] + 60)];
         [self.cellHeights addObject:currentHeight];
-        NSLog(@"cell heights: %@",self.cellHeights);
         
         if (self.cellHeights.count == self.reviewTitles.count) {
             self.haveDoneParseQueryYet = YES;
             if (self.haveReloadedHeights == NO) {
+                NSLog(@"about to finish cell heights: %@",self.cellHeights);
                 [tableView reloadData];
             }
         }

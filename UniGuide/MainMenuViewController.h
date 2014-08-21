@@ -11,7 +11,6 @@
 #import "SearchViewController.h"
 #import "FavouritesTableViewController.h"
 #import "UniversitiesListTableViewController.h"
-#import "UniversitiesTableViewController.h"
 #import "OpenDaysQueryTableViewController.h"
 
 @interface MainMenuViewController : UIViewController

@@ -89,6 +89,7 @@
         if (self.haveWeComeFromUniversities == YES) {
             [scroll setContentSize:CGSizeMake(320, 850)];
             tableViewUniInfo = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, 530)];
+            universityNameLabel.hidden = YES;
             [unionSatisfactionImageViewFull setFrame:CGRectMake(200, self.tableViewUniInfo.frame.size.height + 10.0f, 120, 182)];
             [unionSatisfactionNumberLabel setFrame:CGRectMake(220, self.tableViewUniInfo.frame.size.height + 65.0f, 50, 20)];
             [unionSatisfactionLabel setFrame:CGRectMake(20, self.tableViewUniInfo.frame.size.height + 70.0f, 150.0f, 50.0f)];
@@ -229,8 +230,6 @@
         if (firstTimeLoad == YES) {
             noInternetImageView = [[UIImageView alloc] init];
 
-                noInternetImageView.frame = CGRectMake(0, 90, 320, 429);
-
             noInternetImageView.backgroundColor = [UIColor lightGrayColor];
             noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
             noInternetLabel.text = @"We're sorry, but this data is not available offline";
@@ -239,13 +238,22 @@
             [noInternetImageView addSubview:noInternetLabel];
             [self.view addSubview:noInternetImageView];
             
-            universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 20)];
-            universityNameLabel.text = self.uniNameUniInfo;
-            universityNameLabel.textAlignment = NSTextAlignmentCenter;
-            universityNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
-            universityNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
-            [self.view addSubview:universityNameLabel];
-            self.universityNameLabel.hidden = NO;
+            if (self.haveWeComeFromUniversities == NO) {
+                noInternetImageView.frame = CGRectMake(0, 90, 320, 429);
+                universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 20)];
+                universityNameLabel.text = self.uniNameUniInfo;
+                universityNameLabel.textAlignment = NSTextAlignmentCenter;
+                universityNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+                universityNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+                [self.view addSubview:universityNameLabel];
+                self.universityNameLabel.hidden = NO;
+            } else {
+                self.universityNameLabel.hidden = YES;
+                noInternetImageView.frame = CGRectMake(0, 22, 320, 429);
+
+            }
+            
+            
             self.sourceLabel.hidden = NO;
         }
         

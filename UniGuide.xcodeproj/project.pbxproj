@@ -65,8 +65,6 @@
 		EF553330198150C400120FEA /* FilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF55332E198150C300120FEA /* FilterTableViewController.xib */; };
 		EF5533771981AA0D00120FEA /* checked_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5533761981AA0D00120FEA /* checked_checkbox.png */; };
 		EF5533791981AA1400120FEA /* unchecked_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5533781981AA1400120FEA /* unchecked_checkbox.png */; };
-		EF5533821983BA1100120FEA /* UniversitiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5533801983BA1000120FEA /* UniversitiesTableViewController.m */; };
-		EF5533831983BA1100120FEA /* UniversitiesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5533811983BA1100120FEA /* UniversitiesTableViewController.xib */; };
 		EF5B6ED919926CC200B2E18D /* CourseInfoTextCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */; };
 		EF5B6EDC19926D4300B2E18D /* CourseInfoTextCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5B6EDB19926D4300B2E18D /* CourseInfoTextCustomCellView.m */; };
 		EF5B6EDE19927BBD00B2E18D /* CourseInfoPieCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5B6EDD19927BBD00B2E18D /* CourseInfoPieCustomCellView.xib */; };
@@ -317,9 +315,6 @@
 		EF55332E198150C300120FEA /* FilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterTableViewController.xib; sourceTree = "<group>"; };
 		EF5533761981AA0D00120FEA /* checked_checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked_checkbox.png; sourceTree = "<group>"; };
 		EF5533781981AA1400120FEA /* unchecked_checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked_checkbox.png; sourceTree = "<group>"; };
-		EF55337F1983BA1000120FEA /* UniversitiesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversitiesTableViewController.h; sourceTree = "<group>"; };
-		EF5533801983BA1000120FEA /* UniversitiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversitiesTableViewController.m; sourceTree = "<group>"; };
-		EF5533811983BA1100120FEA /* UniversitiesTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniversitiesTableViewController.xib; sourceTree = "<group>"; };
 		EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseInfoTextCustomCellView.xib; sourceTree = "<group>"; };
 		EF5B6EDA19926D4300B2E18D /* CourseInfoTextCustomCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseInfoTextCustomCellView.h; sourceTree = "<group>"; };
 		EF5B6EDB19926D4300B2E18D /* CourseInfoTextCustomCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseInfoTextCustomCellView.m; sourceTree = "<group>"; };
@@ -743,9 +738,6 @@
 		EF7F6F4C197EE69F0009DB60 /* Universities Function */ = {
 			isa = PBXGroup;
 			children = (
-				EF55337F1983BA1000120FEA /* UniversitiesTableViewController.h */,
-				EF5533801983BA1000120FEA /* UniversitiesTableViewController.m */,
-				EF5533811983BA1100120FEA /* UniversitiesTableViewController.xib */,
 				EF22D9AC19A5EBFB00864E71 /* UniversitiesListTableViewController.h */,
 				EF22D9AD19A5EBFB00864E71 /* UniversitiesListTableViewController.m */,
 				EF22D9AE19A5EBFB00864E71 /* UniversitiesListTableViewController.xib */,
@@ -967,7 +959,6 @@
 				EF7F6F8D198063570009DB60 /* SpecificOpenDayViewController.xib in Resources */,
 				EF66F5D01988F0890048A82E /* AppIcon50x50@2x.png in Resources */,
 				EF66F5E41988F0E80048A82E /* iTunesArtwork@2x.png in Resources */,
-				EF5533831983BA1100120FEA /* UniversitiesTableViewController.xib in Resources */,
 				EF66F5D51988F0DF0048A82E /* AppIcon57x57.png in Resources */,
 				EF66F5CB1988F0890048A82E /* AppIcon29x29.png in Resources */,
 				EF7F6F0D197E82D20009DB60 /* Happy_Face@2x.png in Resources */,
@@ -1066,7 +1057,6 @@
 				EF5B6EDC19926D4300B2E18D /* CourseInfoTextCustomCellView.m in Sources */,
 				EF5B6EE81992AA9400B2E18D /* CourseInfoSalaryCustomCellView.m in Sources */,
 				EFC88A4B19921EB1003BB792 /* UniInfoCustomCellView.m in Sources */,
-				EF5533821983BA1100120FEA /* UniversitiesTableViewController.m in Sources */,
 				EF22D9AF19A5EBFB00864E71 /* UniversitiesListTableViewController.m in Sources */,
 				EF5B6EE119927C0300B2E18D /* CourseInfoPieCustomCellView.m in Sources */,
 				A4C6C944197BF8C80065311C /* ContactUniversityPageViewController.m in Sources */,

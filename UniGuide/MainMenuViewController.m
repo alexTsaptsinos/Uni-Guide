@@ -113,10 +113,7 @@
 - (IBAction)universitiesMenuButtonPressed:(id)sender {
     
     // if universities button pressed launch universities table view controller
-    
-//    UniversitiesTableViewController *universitiesTableViewController = [[UniversitiesTableViewController alloc] init];
-//    
-//    [self.navigationController pushViewController:universitiesTableViewController animated:YES];
+
     
     UniversitiesListTableViewController *universitiesListTableViewController = [[UniversitiesListTableViewController alloc] init];
     
