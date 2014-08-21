@@ -129,7 +129,11 @@
             PFObject *newReview = [PFObject objectWithClassName:@"CourseReviews"];
             newReview[@"ReviewerName"] = self.nameTextField.text;
             newReview[@"ReviewTitle"] = self.titleTextField.text;
+            if ([self.reviewTextView.text isEqualToString:@"Review (Optional)"]) {
+                newReview[@"ReviewText"] = @"";
+            } else {
             newReview[@"ReviewText"] = self.reviewTextView.text;
+            }
             newReview[@"CourseCode"] = self.couseKISCode;
             newReview[@"StarRating"] = self.howManyStars;
             newReview[@"ReviewerYear"] = self.selectYearButton.titleLabel.text;
