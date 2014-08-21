@@ -90,7 +90,6 @@
 		EF66F5E819891A8B0048A82E /* ui-14.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5E719891A8B0048A82E /* ui-14.png */; };
 		EF7B89571993968C00F09894 /* splash 640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7B89551993968C00F09894 /* splash 640x1136.png */; };
 		EF7B895B1993979200F09894 /* splash 640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7B895A1993979200F09894 /* splash 640x960.png */; };
-		EF7B895D199397D200F09894 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7B895C199397D200F09894 /* Default-568h@2x.png */; };
 		EF7F6F0B197E82C90009DB60 /* Favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */; };
 		EF7F6F0D197E82D20009DB60 /* Happy_Face@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */; };
 		EF7F6F0F197E82F90009DB60 /* Top_Charts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */; };
@@ -342,7 +341,6 @@
 		EF66F5E719891A8B0048A82E /* ui-14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-14.png"; sourceTree = "<group>"; };
 		EF7B89551993968C00F09894 /* splash 640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash 640x1136.png"; sourceTree = "<group>"; };
 		EF7B895A1993979200F09894 /* splash 640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash 640x960.png"; sourceTree = "<group>"; };
-		EF7B895C199397D200F09894 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorites@2x.png"; sourceTree = "<group>"; };
 		EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Happy_Face@2x.png"; sourceTree = "<group>"; };
 		EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Top_Charts@2x.png"; sourceTree = "<group>"; };
@@ -446,7 +444,6 @@
 		A4C6C88B197AD22F0065311C = {
 			isa = PBXGroup;
 			children = (
-				EF7B895C199397D200F09894 /* Default-568h@2x.png */,
 				EF207C1F198A7DCF00F2CFB3 /* CorePlot */,
 				A4C6C89D197AD22F0065311C /* UniGuide */,
 				A4C6C8B6197AD22F0065311C /* UniGuideTests */,
@@ -966,7 +963,6 @@
 				A4C6C91E197AF6D80065311C /* CourseInfoCoursePageViewController.xib in Resources */,
 				EF66F5E11988F0E80048A82E /* AppIcon76x76.png in Resources */,
 				EFE3B2861994C46700F6331F /* star-24.png in Resources */,
-				EF7B895D199397D200F09894 /* Default-568h@2x.png in Resources */,
 				EF7F6F8719804D940009DB60 /* ReviewComplaintViewController.xib in Resources */,
 				A4C6C94A197C64890065311C /* FavouritesTableViewController.xib in Resources */,
 				EF7F6F8219804D810009DB60 /* AddReviewViewController.xib in Resources */,

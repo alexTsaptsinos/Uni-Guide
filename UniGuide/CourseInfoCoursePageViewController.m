@@ -43,8 +43,10 @@
     
     self.firstTimeLoad = YES;
     
-    courseInfoTableView = [[UITableView alloc] init];
-    courseInfoTableView.frame = CGRectMake(0, 80, 320, 287);
+    courseInfoTableView = [[UITableView alloc] init];//287
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    NSLog(@"tab bar height: %f and screen height: %f",self.tabBarController.tabBar.frame.size.height, screenBound.size.height);
+    courseInfoTableView.frame = CGRectMake(0, 80, 320, screenBound.size.height - 80 - self.tabBarController.tabBar.frame.size.height - 64);
     courseInfoTableView.delegate = self;
     courseInfoTableView.dataSource = self;
     courseInfoTableView.bounces = YES;
@@ -192,7 +194,7 @@
                     nationalSalary = [tempSalaryObject valueForKey:@"MED"];
                 }
                 
-                NSLog(@"SALARIES %@ and %@",instituteSalary,nationalSalary);
+                //NSLog(@"SALARIES %@ and %@",instituteSalary,nationalSalary);
                 
                 // query for tariff
                 PFQuery *queryTariff = [PFQuery queryWithClassName:@"Tariff"];
@@ -236,11 +238,11 @@
                     NSNumber *tt600 = [NSNumber numberWithFloat:([t600 floatValue] * 600)];
                     
                     NSNumber *numberOfEntries = [NSNumber numberWithFloat:([t1 floatValue] + [t120 floatValue] + [t160 floatValue] + [t200 floatValue] + [t240 floatValue] + [t280 floatValue] + [t320 floatValue] + [t360 floatValue] + [t400 floatValue] + [t440 floatValue] + [t480 floatValue] + [t520 floatValue] + [t560 floatValue] + [t600 floatValue])];
-                    NSLog(@"numberofentries: %@",numberOfEntries);
+                   // NSLog(@"numberofentries: %@",numberOfEntries);
                     NSNumber *averageTariff = [NSNumber numberWithFloat:([tt1 floatValue] + [tt120 floatValue] + [tt160 floatValue] + [tt200 floatValue] + [tt240 floatValue] + [tt280 floatValue] + [tt320 floatValue] + [tt360 floatValue] + [tt400 floatValue] + [tt440 floatValue] + [tt480 floatValue] + [tt520 floatValue] + [tt560 floatValue] + [tt600 floatValue])];
-                    NSLog(@"average 1: %@",averageTariff);
+                   // NSLog(@"average 1: %@",averageTariff);
                     averageTariff = [NSNumber numberWithFloat:([averageTariff floatValue] / [numberOfEntries floatValue])];
-                    NSLog(@"average 2: %@",averageTariff);
+                   // NSLog(@"average 2: %@",averageTariff);
                     int privateRounded = lroundf([averageTariff floatValue]);
                     averageTariffString = [NSString stringWithFormat:@"%d",privateRounded];
                 }
@@ -293,7 +295,7 @@
                         UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                         [noInternetAlert show];
                     } else {
-                        NSLog(@"count: %d",objects.count);
+                        //NSLog(@"count: %d",objects.count);
                         if (objects.count==0) {
                             // do something for no data
                         } else {
@@ -307,7 +309,7 @@
                             NSNumber *averageCoursework = [NSNumber numberWithFloat:([sumOfCourseworkPercentages floatValue] / objects.count)];
                             NSNumber *averagePractical = [NSNumber numberWithFloat:([sumOfPracticalPercentages floatValue] / objects.count)];
                             NSNumber *averageWritten = [NSNumber numberWithFloat:([sumOfWrittenPercentages floatValue] / objects.count)];
-                            NSLog(@"array: %@, sum: %@,average: %@",averagePractical,averageWritten,averageCoursework);
+                           // NSLog(@"array: %@, sum: %@,average: %@",averagePractical,averageWritten,averageCoursework);
                             self.assessmentMethods = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:averageWritten,averageCoursework,averagePractical, nil]];
                             
                             // time spent in independent study/placements/scheduled learning
@@ -320,7 +322,7 @@
                             NSNumber *averageIndependentStudy = [NSNumber numberWithFloat:([sumOfIndependentStudyPercentages floatValue] / objects.count)];
                             NSNumber *averagePlacement = [NSNumber numberWithFloat:([sumOfPlacementPercentages floatValue] / objects.count)];
                             NSNumber *averageScheduled = [NSNumber numberWithFloat:([sumOfScheduledPercentages floatValue] / objects.count)];
-                            NSLog(@"array: %@, sum: %@,average: %@",averageIndependentStudy,averagePlacement,averageScheduled);
+                          //  NSLog(@"array: %@, sum: %@,average: %@",averageIndependentStudy,averagePlacement,averageScheduled);
                             self.timeSpent = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:averageIndependentStudy,averagePlacement,averageScheduled, nil]];
                             
                         }
@@ -370,10 +372,10 @@
     }
     else if (haveComeFromFavourites == YES && self.firstTimeLoad == YES)
     {
-        NSLog(@"here");
+        //NSLog(@"here");
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeCourseInfo,self.uniCodeCourseInfo] andSortKey:@"courseName"];
         
-        NSLog(@"object: %@",temp2);
+       // NSLog(@"object: %@",temp2);
         
         universityNameLabel.frame = CGRectMake(0, -5, 320, 30);
         universityNameLabel.text = self.uniNameCourseInfo;
@@ -391,7 +393,7 @@
         
         Favourites *tempObject = [temp2 objectAtIndex:0];
         
-        NSLog(@"temp object: %@",tempObject);
+     //   NSLog(@"temp object: %@",tempObject);
         
         self.ucasCourseCode = tempObject.ucasCode;
         self.courseUrl = tempObject.courseUrl;
@@ -549,6 +551,7 @@
                 cellText.textCellLabel.text = @"UCAS Course Code:";
                 cellText.textCellDataButton.enabled = NO;
                 // cellText.textCellDataButton.titleLabel.text = self.ucasCourseCode;
+                [cellText.textCellDataButton setTitle:self.ucasCourseCode forState:UIControlStateNormal];
                 [cellText.textCellDataButton setTitle:self.ucasCourseCode forState:UIControlStateDisabled];
                 [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateDisabled];
             } else if (indexPath.row == 1) {
@@ -781,7 +784,7 @@
         favouritesButton.image = [UIImage imageNamed:@"star-24"];
         favouritesButton.tintColor = [UIColor whiteColor];
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeCourseInfo,self.uniCodeCourseInfo] andSortKey:@"courseName"];
-        NSLog(@"yeah freaky: %@",temp2);
+      //  NSLog(@"yeah freaky: %@",temp2);
         
         for (Favourites * temp in temp2) {
             [Favourites deleteObject:temp];
