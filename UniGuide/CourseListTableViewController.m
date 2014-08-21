@@ -15,20 +15,18 @@
     NSArray *_universityCourseNames;
     NSArray *_universityCourseCodes;
     NSArray *_universityCourseHonours;
-
+    
 }
 
 @property (nonatomic, retain) NSMutableDictionary *sections;
-@property (nonatomic,retain) NSMutableDictionary *sectionToLetterMap;
 @property (nonatomic, retain) NSArray *searchResults;
 
 @end
 
 @implementation CourseListTableViewController
 
-@synthesize favouritesButton,universityCode,universityName,cellTitles,courseInfoCoursePageViewController;
+@synthesize favouritesButton,universityCode,universityName,cellTitles,courseInfoCoursePageViewController,firstTimeLoad,noInternetImageView,noInternetLabel;
 @synthesize sections = _sections;
-@synthesize sectionToLetterMap = _sectionToLetterMap;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,7 +34,6 @@
     if (self) {
         self.tabBarItem.title = NSLocalizedString(@"Course List", @"Course List");
         self.tabBarItem.image = [UIImage imageNamed:@"courses-32"];
-        self.sectionToLetterMap = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -50,64 +47,101 @@
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.cellTitles = [[NSMutableArray alloc] init];
     self.searchDisplayController.searchResultsTableView.backgroundColor  = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    self.firstTimeLoad = YES;
     
-    PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
-    [query whereKey:@"UKPRN" equalTo:self.universityCode];
-    [query setLimit:600];
-    [query orderByAscending:@"TITLE"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
-        for (PFObject *object in objects) {
-            NSString *fullName = [object valueForKey:@"TITLE"];
-            fullName = [fullName stringByAppendingString:@" - "];
-            fullName = [fullName stringByAppendingString:[object valueForKey:@"CourseHonour"]];
-            if (fullName != NULL) {
-                [self.cellTitles addObject:fullName];
-            }
-        }
-        _universityCourseNames = [objects valueForKey:@"TITLE"];
-        _universityCourseCodes = [objects valueForKey:@"KISCOURSEID"];
-        _universityCourseHonours = [objects valueForKey:@"CourseHonour"];
-        _sections = [[NSMutableDictionary alloc] init]; ///Global Object
-        //NSLog(@"No. of courses: %d and these are the courses: %@", _universityCourseNames.count,_universityCourseNames);
+    
+    
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    
+    if (data) {
+        noInternetLabel.hidden = YES;
+        noInternetImageView.hidden = YES;
         
-        
-        BOOL found;
-        
-        for (NSString *temp in self.cellTitles)
-        {
-            //NSLog(@"temp: %@",temp);
-            if (temp == (id)[NSNull null] || temp.length == 0 ) {
-                //ignore it
-            } else {
-                NSString *c = [temp substringToIndex:1];
+        if (self.firstTimeLoad) {
+            
+            PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
+            [query whereKey:@"UKPRN" equalTo:self.universityCode];
+            [query setLimit:600];
+            [query whereKeyExists:@"TITLE"];
+            [query orderByAscending:@"TITLE"];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+                for (PFObject *object in objects) {
+                    NSString *fullName = [object valueForKey:@"TITLE"];
+                    fullName = [fullName stringByAppendingString:@" - "];
+                    fullName = [fullName stringByAppendingString:[object valueForKey:@"CourseHonour"]];
+                    if (fullName != NULL) {
+                        [self.cellTitles addObject:fullName];
+                    }
+                }
+                _universityCourseNames = [objects valueForKey:@"TITLE"];
+                _universityCourseCodes = [objects valueForKey:@"KISCOURSEID"];
+                _universityCourseHonours = [objects valueForKey:@"CourseHonour"];
+                _sections = [[NSMutableDictionary alloc] init]; ///Global Object
+                //NSLog(@"No. of courses: %d and these are the courses: %@", _universityCourseNames.count,_universityCourseNames);
                 
-                found = NO;
                 
-                for (NSString *str in [_sections allKeys])
+                BOOL found;
+                
+                for (NSString *temp in self.cellTitles)
                 {
-                    if ([str isEqualToString:c])
-                    {
-                        found = YES;
+                    //NSLog(@"temp: %@",temp);
+                    if (temp == (id)[NSNull null] || temp.length == 0 ) {
+                        //ignore it
+                    } else {
+                        NSString *c = [temp substringToIndex:1];
+                        
+                        found = NO;
+                        
+                        for (NSString *str in [_sections allKeys])
+                        {
+                            if ([str isEqualToString:c])
+                            {
+                                found = YES;
+                            }
+                        }
+                        
+                        
+                        if (!found)
+                        {
+                            [_sections setValue:[[NSMutableArray alloc] init] forKey:c];
+                        }
+                        
+                        [[_sections objectForKey:[temp substringToIndex:1]] addObject:temp];
                     }
                 }
                 
+                // NSLog(@"Sections: %@", _sections);
                 
-                if (!found)
-                {
-                    [_sections setValue:[[NSMutableArray alloc] init] forKey:c];
-                }
-
-                [[_sections objectForKey:[temp substringToIndex:1]] addObject:temp];
-            }
+                [self.tableView reloadData];
+                self.firstTimeLoad = NO;
+                
+                
+            }];
         }
         
-       // NSLog(@"Sections: %@", _sections);
         
-        [self.tableView reloadData];
+    }
+    else {
+        NSLog(@"no internet");
+        if (self.firstTimeLoad == YES) {
+            noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 320, 429)];
+            noInternetImageView.backgroundColor = [UIColor lightGrayColor];
+            noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+            noInternetLabel.text = @"We're sorry, but this data is not available offline";
+            noInternetLabel.numberOfLines = 0;
+            noInternetLabel.textAlignment = NSTextAlignmentCenter;
+            [noInternetImageView addSubview:noInternetLabel];
+            [self.view addSubview:noInternetImageView];
+        }
         
-        
-    }];
-    
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -120,13 +154,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-     //Return the number of sections.
+    //Return the number of sections.
     if (tableView == self.tableView) {
-    if (_universityCourseNames.count < 8) {
+        if (_universityCourseNames.count < 8) {
             return 1;
         } else {
-    return [[_sections allKeys]count];
-      }
+            return [[_sections allKeys]count];
+        }
     } else {
         return 1;
     }
@@ -139,11 +173,11 @@
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         return self.searchResults.count;
     } else {
-    if (_universityCourseNames.count <8) {
+        if (_universityCourseNames.count <8) {
             return _universityCourseNames.count;
         } else {
-    return [[_sections valueForKey:[[[_sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:section]] count];
-    }
+            return [[_sections valueForKey:[[[_sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:section]] count];
+        }
     }
 }
 
@@ -170,7 +204,7 @@
         } else {
             NSString *titleText = [[_sections valueForKey:[[[_sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
             cell.textLabel.text = titleText;
-    }
+        }
     }
     cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     cell.textLabel.numberOfLines = 0;
@@ -196,7 +230,7 @@
             tempLabel.text = [[[_sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] objectAtIndex:section];
         }
     }
-     else {
+    else {
         tempLabel.text = @"";
     }
     
@@ -208,11 +242,11 @@
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     if (tableView == self.tableView) {
-    if (_universityCourseNames.count <8) {
+        if (_universityCourseNames.count <8) {
             return NULL;
         } else {
-    return [[_sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-      }
+            return [[_sections allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        }
     } else {
         return NULL;
     }
@@ -267,7 +301,7 @@
     
     coursePageTabBarController.navigationItem.title = @"Course";
     
-   
+    
     
     
     int rowsOffset = 0;
@@ -299,10 +333,10 @@
             favouritesButton.tintColor = [UIColor whiteColor];
             [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
         }
-
-
+        
+        
     } else {
-    courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
+        courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
         reviewsCoursePageViewController.courseCodeReviews = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
         studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:indexPath.row];
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[_universityCourseCodes objectAtIndex:rowsOffset +indexPath.row],self.universityCode] andSortKey:@"courseName"];
@@ -316,7 +350,7 @@
             favouritesButton.tintColor = [UIColor whiteColor];
             [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
         }
-
+        
     }
     reviewsCoursePageViewController.uniCodeReviews = self.universityCode;
     reviewsCoursePageViewController.courseNameReviews = cell.textLabel.text;
@@ -326,6 +360,7 @@
     uniInfoCoursePageViewController.uniNameUniInfo = self.universityName;
     courseInfoCoursePageViewController.courseNameCourseInfo = cell.textLabel.text;
     courseInfoCoursePageViewController.uniNameCourseInfo = self.universityName;
+    courseInfoCoursePageViewController.haveComeFromFavourites = NO;
     
     studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = self.universityCode;
     studentSatisfactionCoursePageViewController.courseNameStudentSatisfaction = cell.textLabel.text;
@@ -350,7 +385,7 @@
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     self.navigationController.navigationBar.translucent = YES;
-
+    
     [UIView animateWithDuration:0.2 animations: ^{
         CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
         double yDiff = self.navigationController.navigationBar.frame.origin.y - self.navigationController.navigationBar.frame.size.height - statusBarFrame.size.height;

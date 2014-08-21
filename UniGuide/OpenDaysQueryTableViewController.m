@@ -180,31 +180,50 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SpecificOpenDayViewController *specificOpenDayViewController = [[SpecificOpenDayViewController alloc] initWithNibName:@"SpecificOpenDayViewController" bundle:nil];
+    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
-    if (tableView != self.searchDisplayController.searchResultsTableView) {
-        cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    if (data) {
+        SpecificOpenDayViewController *specificOpenDayViewController = [[SpecificOpenDayViewController alloc] initWithNibName:@"SpecificOpenDayViewController" bundle:nil];
+        
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        if (tableView != self.searchDisplayController.searchResultsTableView) {
+            cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        } else {
+            cell = [self.searchDisplayController.searchResultsTableView cellForRowAtIndexPath:indexPath];
+        }
+
+        
+        UILabel *universityTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+        universityTitle.text = cell.textLabel.text;
+        universityTitle.backgroundColor = [UIColor clearColor];
+        universityTitle.textColor = [UIColor whiteColor];
+        universityTitle.font = [UIFont boldSystemFontOfSize:16.0];
+        //universityTitle.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        universityTitle.textAlignment = NSTextAlignmentCenter;
+        specificOpenDayViewController.navigationItem.titleView = universityTitle;
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"dd-MM-yy"];
+        specificOpenDayViewController.date = [formatter stringFromDate:[openDayDates objectAtIndex:indexPath.row]];
+        specificOpenDayViewController.details = [details objectAtIndex:indexPath.row];
+        specificOpenDayViewController.endTime = [endTimes objectAtIndex:indexPath.row];
+        specificOpenDayViewController.startTime = [startTimes objectAtIndex:indexPath.row];
+        specificOpenDayViewController.uniName = cell.textLabel.text;
+        specificOpenDayViewController.link = [links objectAtIndex:indexPath.row];
+        
+
+        
+        
+        [self.navigationController pushViewController:specificOpenDayViewController animated:YES];
     } else {
-        cell = [self.searchDisplayController.searchResultsTableView cellForRowAtIndexPath:indexPath];
+        NSLog(@"no internet");
+        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [noInternetAlert show];
     }
     
-    UILabel *universityTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
-    universityTitle.numberOfLines = 2;
-    universityTitle.text = cell.textLabel.text;
-    universityTitle.textAlignment = NSTextAlignmentCenter;
-    specificOpenDayViewController.navigationItem.titleView = universityTitle;
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd-MM-yy"];
-    specificOpenDayViewController.date = [formatter stringFromDate:[openDayDates objectAtIndex:indexPath.row]];
-    specificOpenDayViewController.details = [details objectAtIndex:indexPath.row];
-    specificOpenDayViewController.endTime = [endTimes objectAtIndex:indexPath.row];
-    specificOpenDayViewController.startTime = [startTimes objectAtIndex:indexPath.row];
-    specificOpenDayViewController.uniName = cell.textLabel.text;
-    specificOpenDayViewController.link = [links objectAtIndex:indexPath.row];
-    
-    [self.navigationController pushViewController:specificOpenDayViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

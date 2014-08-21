@@ -10,6 +10,6 @@
 
 @implementation Favourites
 
-@dynamic courseName,uniCode,uniName,courseCode;
+@dynamic courseName,uniCode,uniName,courseCode,ucasCode,yearAbroad,sandwichYear,courseUrl,degreeClasses,averageTariffString,assessmentMethods,timeSpent,proportionInWork,commonJobs,commonJobsPercentages,instituteSalary,nationalSalary;
 
 @end

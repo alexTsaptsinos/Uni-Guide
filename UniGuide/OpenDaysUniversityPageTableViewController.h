@@ -19,5 +19,9 @@
 @property (strong, nonatomic) NSMutableArray *details;
 @property (strong, nonatomic) NSMutableArray *links;
 @property (nonatomic) BOOL foundAnyBool;
+@property (nonatomic) BOOL firstTimeLoad;
+
+@property (strong, nonatomic) UIImageView *noInternetImageView;
+@property (strong, nonatomic) UILabel *noInternetLabel;
 
 @end

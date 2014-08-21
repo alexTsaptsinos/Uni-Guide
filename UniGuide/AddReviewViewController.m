@@ -122,15 +122,29 @@
         [noYearAlert show];
     }
     else {
-        PFObject *newReview = [PFObject objectWithClassName:@"CourseReviews"];
-        newReview[@"ReviewerName"] = self.nameTextField.text;
-        newReview[@"ReviewTitle"] = self.titleTextField.text;
-        newReview[@"ReviewText"] = self.reviewTextView.text;
-        newReview[@"CourseCode"] = self.couseKISCode;
-        newReview[@"StarRating"] = self.howManyStars;
-        newReview[@"ReviewerYear"] = self.selectYearButton.titleLabel.text;
-        [newReview saveInBackground];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+        NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+        
+        if (data) {
+            PFObject *newReview = [PFObject objectWithClassName:@"CourseReviews"];
+            newReview[@"ReviewerName"] = self.nameTextField.text;
+            newReview[@"ReviewTitle"] = self.titleTextField.text;
+            if ([self.reviewTextView.text isEqualToString:@"Review (Optional)"]) {
+                newReview[@"ReviewText"] = @"";
+            } else {
+            newReview[@"ReviewText"] = self.reviewTextView.text;
+            }
+            newReview[@"CourseCode"] = self.couseKISCode;
+            newReview[@"StarRating"] = self.howManyStars;
+            newReview[@"ReviewerYear"] = self.selectYearButton.titleLabel.text;
+            [newReview saveInBackground];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            NSLog(@"no internet");
+            UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [noInternetAlert show];
+        }
+        
     }
 }
 
@@ -210,4 +224,10 @@
     
     [self presentViewController:whatyearNavigationController animated:YES completion:nil];
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return (newLength > 30) ? NO : YES;
+}
+
 @end

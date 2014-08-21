@@ -15,7 +15,7 @@
 
 @implementation SearchViewController
 
-@synthesize universityTextField,universitiesFromParse,autocompleteUniversities,autocompleteUniversitiesTableView,courseTextField,scrollView,whichTextFieldActive,coursesFromParse,locationTextField,searchButton,locationsArray,pleaseSelectLabel,anyFound,locationDict,universityUKPRNFromParse,haveQueriedParseForCoursesYet,haveFoundAUniversity;
+@synthesize universityTextField,universitiesFromParse,autocompleteUniversities,autocompleteUniversitiesTableView,courseTextField,scrollView,whichTextFieldActive,coursesFromParse,locationTextField,searchButton,locationsArray,pleaseSelectLabel,anyFound,locationDict,universityUKPRNFromParse,haveQueriedParseForCoursesYet,haveFoundAUniversity,locationButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,7 +36,8 @@
     self.searchButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     [searchButton setEnabled:NO];
     self.pleaseSelectLabel.textColor = [UIColor grayColor];
-    self.pleaseSelectLabel.text = @"Please select from at least two fields";
+    self.pleaseSelectLabel.text = @"Select university from list";
+    self.pleaseSelectLabel.hidden = YES;
     self.haveFoundAUniversity = NO;
     [pleaseSelectLabel setFont:[UIFont systemFontOfSize:12]];
     
@@ -46,25 +47,10 @@
     
     self.haveQueriedParseForCoursesYet = NO;
     
-    //Query for universities and locations
+    self.universitiesFromParse = [[NSMutableArray alloc] initWithObjects:@"Anglia Ruskin University",@"Aston University",@"Bath Spa University",@"The University of Bath",@"University of Bedfordshire",@"Birkbeck College",@"Birmingham City University",@"The University of Birmingham",@"University College Birmingham",@"Bishop Grosseteste University",@"The University of Bolton",@"The Arts University Bournemouth",@"Bournemouth University",@"The University of Bradford",@"The University of Brighton",@"The University of Bristol",@"Brunel University",@"Buckinghamshire New University",@"The University of Buckingham",@"The University of Cambridge",@"The Institute of Cancer Research",@"Canterbury Christ Church University",@"The University of Central Lancashire",@"Central School of Speech and Drama",@"University of Chester",@"The University of Chichester",@"The City University",@"Conservatoire for Dance and Drama",@"Courtauld Institute of Art",@"Coventry University",@"Cranfield University",@"University for the Creative Arts",@"University of Cumbria",@"De Montfort University",@"University of Derby",@"University of Durham",@"The University of East Anglia",@"The University of East London",@"Edge Hill University",@"The University of Essex",@"The University of Exeter",@"Falmouth University",@"University of Gloucestershire",@"Goldsmiths College",@"The University of Greenwich",@"Guildhall School of Music and Drama",@"Harper Adams University",@"University of Hertfordshire",@"Heythrop College",@"The University of Huddersfield",@"The University of Hull",@"Imperial College of Science, Technology and Medicine",@"Institute of Education",@"The University of Keele",@"The University of Kent",@"King's College London",@"Kingston University",@"The University of Lancaster",@"Leeds College of Art",@"Leeds Metropolitan University",@"The University of Leeds",@"Leeds Trinity University",@"The University of Leicester",@"The University of Lincoln",@"Liverpool Hope University",@"Liverpool John Moores University",@"The Liverpool Institute for Performing Arts",@"The University of Liverpool",@"University of the Arts, London",@"London Business School",@"University of London (Institutes and activities)",@"London Metropolitan University",@"London South Bank University",@"London School of Economics and Political Science",@"London School of Hygiene and Tropical Medicine",@"Loughborough University",@"The Manchester Metropolitan University",@"The University of Manchester",@"Middlesex University",@"The University of Newcastle-upon-Tyne",@"Newman University",@"The University of Northampton",@"The University of Northumbria at Newcastle",@"Norwich University of the Arts",@"The University of Nottingham",@"The Nottingham Trent University",@"The Open University",@"Oxford Brookes University",@"The University of Oxford",@"The University of Plymouth",@"The University of Portsmouth",@"Queen Mary University of London",@"Ravensbourne",@"The University of Reading",@"Roehampton University",@"Rose Bruford College",@"Royal Academy of Music",@"Royal Agricultural University",@"Royal College of Art",@"Royal College of Music",@"Royal Holloway and Bedford New College",@"Royal Northern College of Music",@"The Royal Veterinary College",@"St George's Hospital Medical School",@"St Mary's University College, Twickenham",@"The University of Salford",@"The School of Oriental and African Studies",@"Sheffield Hallam University",@"The University of Sheffield",@"Southampton Solent University",@"The University of Southampton",@"Staffordshire University",@"University of St Mark and St John",@"University Campus Suffolk",@"The University of Sunderland",@"The University of Surrey",@"The University of Sussex",@"Teesside University",@"Trinity Laban Conservatoire of Music and Dance",@"University College London",@"The University of Warwick",@"University of the West of England, Bristol",@"The University of West London",@"The University of Westminster",@"The University of Winchester",@"The University of Wolverhampton",@"The University of Worcester",@"Writtle College",@"York St John University",@"The University of York",@"Aberystwyth University",@"Bangor University",@"Cardiff University",@"Cardiff Metropolitan University",@"University of Glamorgan",@"Glyndŵr University",@"The University of Wales, Newport",@"Swansea University",@"University of Wales Trinity Saint David",@"The University of Aberdeen",@"University of Abertay Dundee",@"The University of Dundee",@"Edinburgh Napier University",@"The University of Edinburgh",@"Glasgow Caledonian University",@"Glasgow School of Art",@"The University of Glasgow",@"Heriot-Watt University",@"Queen Margaret University, Edinburgh",@"The Robert Gordon University",@"Royal Conservatoire of Scotland",@"The University of St Andrews",@"SRUC",@"The University of Stirling",@"The University of Strathclyde",@"University of the Highlands and Islands",@"The University of the West of Scotland",@"The Queen's University of Belfast",@"St Mary's University College",@"Stranmillis University College",@"University of Ulster", nil];
     
-    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
     
-    if (data) {
-        PFQuery *universityQuery = [PFQuery queryWithClassName:@"Institution1213"];
-        [universityQuery setLimit:161];
-        [universityQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
-            self.universitiesFromParse = [objects valueForKey:@"Institution"];
-            self.universityUKPRNFromParse = [objects valueForKey:@"UKPRN"];
-            //NSLog(@"ukprns: %@ count: %d",self.universityUKPRNFromParse,self.universityUKPRNFromParse.count);
-        }];
-    } else {
-        NSLog(@"no internet");
-        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [noInternetAlert show];
-    }
-    
+    self.universityUKPRNFromParse = [[NSMutableArray alloc] initWithObjects:@"10000291",@"10007759",@"10000571",@"10007850",@"10007152",@"10007760",@"10007140",@"10006840",@"10000712",@"10007811", @"10006841",@"10000385",@"10000824",@"10007785",@"10000886",@"10007786",@"10000961",@"10000975",@"10007787",@"10007788",@"10003324",@"10001143",@"10007141",@"10007816",@"10007848",@"10007137",@"10001478",@"10001653",@"10007761",@"10001726",@"10007822",@"10006427",@"10007842",@"10001883",@"10007851",@"10007143",@"10007789",@"10007144",@"10007823",@"10007791",@"10007792",@"10008640",@"10007145",@"10002718",@"10007146",@"10007825",@"10040812",@"10007147",@"10007765",@"10007148",@"10007149",@"10003270",@"10007766",@"10007767",@"10007150",@"10003645",@"10003678",@"10007768",@"10003854",@"10003861",@"10007795",@"10003863",@"10007796",@"10007151",@"10003956",@"10003957",@"10003945",@"10006842",@"10007162",@"10007769",@"10007797",@"10004048",@"10004078",@"10004063",@"10007771",@"10004113",@"10004180",@"10007798",@"10004351",@"10007799",@"10007832",@"10007138",@"10001282",@"10004775",@"10007154",@"10004797",@"10007773",@"10004930",@"10007774",@"10007801",@"10007155",@"10007775",@"10005389",@"10007802",@"10007776",@"10005523",@"10007835",@"10005545",@"10007777",@"10007778",@"10005553",@"10007837",@"10007779",@"10007782",@"10007843",@"10007156",@"10007780",@"10005790",@"10007157",@"10006022",@"10007158",@"10006299",@"10037449",@"10014001",@"10007159",@"10007160",@"10007806",@"10007161",@"10008017",@"10007784",@"10007163",@"10007164",@"10006566",@"10007165",@"10003614",@"10007166",@"10007139",@"10007657",@"10007713",@"10007167",@"10007856",@"10007857",@"10007814",@"10007854",@"10007793",@"10007833",@"10007853",@"10007855",@"10007858",@"10007783",@"10007849",@"10007852",@"10007772",@"10007790",@"10007762",@"10002681",@"10007794",@"10007764",@"10005337",@"10005500",@"10005561",@"10007803",@"10005700",@"10007804",@"10007805",@"10007114",@"10007800",@"10005343",@"10008026",@"10008010",@"10007807", nil];
     
     
     self.locationDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"East Of England", @"EAST", @"West Midlands", @"WMID",@"South West",@"SWES",@"London",@"LOND",@"East Midlands",@"EMID",@"North West",@"NWES",@"Yorkshire And The Humber",@"YORH",@"South East",@"SEAS", @"North East",@"NEAS",@"Wales",@"WALE",@"Scotland",@"SCOT",@"Northern Ireland",@"NIRE",nil];
@@ -83,6 +69,14 @@
     self.autocompleteUniversitiesTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     [self.view addSubview:autocompleteUniversitiesTableView];
     
+    self.locationButton.titleLabel.textColor = [UIColor lightGrayColor];
+    self.locationButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:14];
+    self.locationButton.backgroundColor = [UIColor whiteColor];
+    
+    CALayer *btnLayer2 = [self.locationButton layer];
+    [btnLayer2 setMasksToBounds:YES];
+    [btnLayer2 setCornerRadius:5.0f];
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -93,21 +87,16 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [self.searchButton setEnabled:NO];
-    self.pleaseSelectLabel.hidden = NO;
     
     if (textField == self.universityTextField) {
         [self.scrollView setContentOffset:CGPointMake(0.0,12) animated:YES];
         self.whichTextFieldActive = [NSNumber numberWithInt:1];
+        self.pleaseSelectLabel.hidden = NO;
+
     }
     if (textField == self.courseTextField) {
         [self.scrollView setContentOffset:CGPointMake(0.0,80) animated:YES];
         self.whichTextFieldActive = [NSNumber numberWithInt:2];
-    }
-    if (textField == self.locationTextField) {
-        [self.scrollView setContentOffset:CGPointMake(0.0,153) animated:YES];
-        self.whichTextFieldActive = [NSNumber numberWithInt:3];
-        self.pleaseSelectLabel.hidden = YES;
-        self.searchButton.hidden = YES;
     }
 }
 
@@ -115,7 +104,6 @@
 {
     [self.universityTextField resignFirstResponder];
     [self.courseTextField resignFirstResponder];
-    [self.locationTextField resignFirstResponder];
     
 }
 
@@ -140,50 +128,44 @@
                 //NSLog(@"temp: %@",temp);
                 NSString *tempKey = [temp valueForKey:@"RegionOfInstitution"];
                 if (tempKey.length != 0) {
-                    self.locationTextField.text = [locationDict valueForKey:tempKey];
+                    NSString *location = [locationDict valueForKey:tempKey];
                      [self.searchButton setEnabled:YES];
+                    [self.locationButton setTitle:location forState:UIControlStateDisabled];
                       self.pleaseSelectLabel.hidden = YES;
-                    self.locationTextField.enabled = NO;
+               //     self.locationButton.enabled = NO;
                 }
+            }
+            else {
+                NSString *noLocation = @"Locked";
+                [self.locationButton setTitle:noLocation forState:UIControlStateDisabled];
+                self.locationButton.titleLabel.textAlignment = NSTextAlignmentLeft;
             }
             
             self.haveFoundAUniversity = YES;
         }
+        else {
+            NSString *noLocation = @"Select a university";
+            [self.locationButton setTitle:noLocation forState:UIControlStateDisabled];
+        }
         if (self.universityTextField.text.length != 0) {
-            self.locationTextField.enabled = NO;
-            self.locationTextField.backgroundColor = [UIColor lightGrayColor];
+            self.locationButton.enabled = NO;
+            self.locationButton.backgroundColor = [UIColor lightGrayColor];
         } else {
-            self.locationTextField.enabled = YES;
-            self.locationTextField.backgroundColor = [UIColor whiteColor];
+            self.locationButton.enabled = YES;
+            self.locationButton.backgroundColor = [UIColor whiteColor];
             self.haveFoundAUniversity = NO;
+        }
+        if (self.universityTextField.text.length == 0) {
+            self.pleaseSelectLabel.hidden = YES;
         }
     }
     if (textField == self.courseTextField) {
         [self.scrollView setContentOffset:CGPointMake(0.0, -6) animated:YES];
-        NSArray *locations = [[NSArray alloc] initWithObjects:@"East Of England", @"West Midlands", @"South West", @"London", @"East Midlands", @"North West", @"Yorkshire And The Humber", @"South East", @"North East", @"Wales", @"Scotland" @"Northern Ireland",nil];
-        NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"SELF = %@", self.locationTextField.text];
-        NSArray *results2 = [locations filteredArrayUsingPredicate:predicate2];
-        NSLog(@"results2: %@",results2);
-        if (results2.count != 0 && self.courseTextField.text.length != 0) {
-            [self.searchButton setEnabled:YES];
-            self.pleaseSelectLabel.hidden = YES;
+        if (self.courseTextField.text.length != 0 || self.haveFoundAUniversity == YES) {
+            self.searchButton.enabled = YES;
         }
     }
-    if (textField == self.locationTextField) {
-        [self.scrollView setContentOffset:CGPointMake(0.0,-6) animated:YES];
-        self.searchButton.hidden = NO;
-        self.pleaseSelectLabel.hidden = NO;
-        NSArray *locations = [[NSArray alloc] initWithObjects:@"East Of England", @"West Midlands", @"South West", @"London", @"East Midlands", @"North West", @"Yorkshire And The Humber", @"South East", @"North East", @"Wales", @"Scotland" @"Northern Ireland",nil];
-        NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"SELF = %@", self.locationTextField.text];
-        NSArray *results2 = [locations filteredArrayUsingPredicate:predicate2];
-        NSLog(@"results2: %@",results2);
-        if ((results2.count != 0 && self.courseTextField.text.length != 0) || (results2.count != 0 && self.haveFoundAUniversity == YES)) {
-            [self.searchButton setEnabled:YES];
-            self.pleaseSelectLabel.hidden = YES;
-        }
-       
-        
-    }
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -223,7 +205,7 @@
         self.autocompleteUniversitiesTableView.hidden = YES;
     } else {
         [self filterUniversitiesForSearchText:substring];
-        self.locationTextField.enabled = YES;
+        self.locationButton.enabled = YES;
     }
     
     return YES;
@@ -328,7 +310,11 @@
         
         searchResultsTableViewController.universitySearchedString = self.universityTextField.text;
         searchResultsTableViewController.courseSearchedString = self.courseTextField.text;
-        searchResultsTableViewController.locationSearchedString = self.locationTextField.text;
+        if ([self.locationButton.titleLabel.text isEqualToString:@"Location...                                                   "]) {
+            searchResultsTableViewController.locationSearchedString = @"";
+        } else {
+        searchResultsTableViewController.locationSearchedString = self.locationButton.titleLabel.text;
+        }
         
         [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
     } else {
@@ -356,6 +342,9 @@
             PFQuery *queryForSelectedLocation = [PFQuery queryWithClassName:@"Institution1213"];
             [queryForSelectedLocation whereKey:@"Institution" equalTo:cell.textLabel.text];
             [queryForSelectedLocation selectKeys:[NSArray arrayWithObject:@"RegionOfInstitution"]];
+            [self.searchButton setEnabled:YES];
+            self.pleaseSelectLabel.hidden = YES;
+
             
             NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
             NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
@@ -366,10 +355,11 @@
                 //NSLog(@"temp: %@",temp);
                 NSString *tempKey = [temp valueForKey:@"RegionOfInstitution"];
                 if (tempKey.length != 0) {
-                    self.locationTextField.text = [locationDict valueForKey:tempKey];
-                    // [self.searchButton setEnabled:YES];
+                    NSString *location = [locationDict valueForKey:tempKey];
                     //  self.pleaseSelectLabel.hidden = YES;
-                    self.locationTextField.enabled = NO;
+                    self.locationButton.enabled = NO;
+                    [self.locationButton setTitle:location forState:UIControlStateDisabled];
+                    self.locationButton.backgroundColor = [UIColor lightGrayColor];
                 }
                 //self.searchButton.enabled = YES;
                 //self.pleaseSelectLabel.hidden = YES;
@@ -382,8 +372,7 @@
             self.courseTextField.text = cell.textLabel.text;
             [self.courseTextField resignFirstResponder];
         } else if ([self.whichTextFieldActive intValue] == 3) {
-            self.locationTextField.text = cell.textLabel.text;
-            [self.locationTextField resignFirstResponder];
+            self.locationButton.titleLabel.text = cell.textLabel.text;
             if (self.courseTextField.text.length != 0) {
                 // self.pleaseSelectLabel.hidden = YES;
                 //self.searchButton.enabled = YES;
@@ -404,10 +393,6 @@
         [textField resignFirstResponder];
         self.autocompleteUniversitiesTableView.hidden = YES;
     }
-    if (textField == self.locationTextField) {
-        [textField resignFirstResponder];
-        self.autocompleteUniversitiesTableView.hidden = YES;
-    }
     return YES;
 }
 
@@ -419,4 +404,19 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)locationButtonPressed:(id)sender {
+    
+    LocationSelectTableViewController *locationSelectTableViewController = [[LocationSelectTableViewController alloc] init];
+    
+    locationSelectTableViewController.previousViewController = self;
+    
+    UINavigationController *locationSelectNavigationController = [[UINavigationController alloc]initWithRootViewController:locationSelectTableViewController];
+    
+    locationSelectNavigationController.navigationBar.tintColor = [UIColor whiteColor];
+    locationSelectNavigationController.navigationBar.barTintColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    locationSelectNavigationController.navigationBar.translucent = NO;
+    
+    [self presentViewController:locationSelectNavigationController animated:YES completion:nil];
+    
+}
 @end

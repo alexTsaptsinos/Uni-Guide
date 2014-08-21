@@ -42,4 +42,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *uniNameLabel;
 
 @property (nonatomic) BOOL haveReloadedHeights;
+@property (nonatomic) BOOL firstTimeLoad;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@property (strong, nonatomic) UIImageView *noInternetImageView;
+@property (strong, nonatomic) UILabel *noInternetLabel;
+
 @end

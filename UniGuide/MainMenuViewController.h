@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 #import "SearchViewController.h"
 #import "FavouritesTableViewController.h"
-#import "UniversitiesTableViewController.h"
+#import "UniversitiesListTableViewController.h"
 #import "OpenDaysQueryTableViewController.h"
 
 @interface MainMenuViewController : UIViewController

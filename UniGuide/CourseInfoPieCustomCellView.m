@@ -41,19 +41,6 @@
     return [NSDecimalNumber zero];
 }
 
-//-(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index {
-//    // 1 - Define label text style
-//    static CPTMutableTextStyle *labelText = nil;
-//    if (!labelText) {
-//        labelText= [[CPTMutableTextStyle alloc] init];
-//        labelText.color = [CPTColor grayColor];
-//    }
-//
-//    // 4 - Set up display label
-//    NSString *labelValue = @"label";
-//    // 5 - Create and return layer with label text
-//    return [[CPTTextLayer alloc] initWithText:labelValue style:labelText];
-//}
 
 -(NSString *)legendTitleForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)index {
     return [self.legendTitles objectAtIndex:index];
@@ -180,10 +167,21 @@
 
 - (void)layoutSubviews
 {
-    NSLog(@"legend titles: %@",self.legendTitles);
-    NSLog(@"data: %@", self.sectionData);
-    
-    [self initPlot];
+   // NSLog(@"legend titles: %@",self.legendTitles);
+   // NSLog(@"data: %@", self.sectionData);
+    if (self.sectionData.count != 0) {
+        [self initPlot];
+    } else {
+        UIImageView *noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, 320, 100)];
+        noDataImageView.backgroundColor = [UIColor clearColor];
+        UILabel *noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 80)];
+        noDataLabel.text = @"We're sorry, but we appear to have no data for this course.";
+        noDataLabel.numberOfLines = 0;
+        noDataLabel.textAlignment = NSTextAlignmentCenter;
+        noDataLabel.font = [UIFont fontWithName:@"Arial" size:13];
+        [noDataImageView addSubview:noDataLabel];
+        [self addSubview:noDataImageView];
+    }
 
 }
 

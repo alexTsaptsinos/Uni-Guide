@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SearchResultsTableViewController.h"
+#import "LocationSelectTableViewController.h"
 #import <Parse/Parse.h>
 
 @interface SearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,UIAlertViewDelegate>
@@ -17,9 +18,9 @@
     UITableView *autocompleteUniversitiesTableView;
     IBOutlet UITextField *universityTextField;
     IBOutlet UITextField *courseTextField;
-    IBOutlet UITextField *locationTextField;
 }
 
+@property (weak, nonatomic) IBOutlet UIButton *locationButton;
 @property (nonatomic, retain) NSMutableArray *universitiesFromParse;
 @property (nonatomic, retain) NSMutableArray *universityUKPRNFromParse;
 @property (nonatomic, retain) NSMutableArray *coursesFromParse;
@@ -42,5 +43,6 @@
 - (void)parseQueryForCourses:(NSString*)searchText;
 - (IBAction)searchButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *pleaseSelectLabel;
+- (IBAction)locationButtonPressed:(id)sender;
 
 @end

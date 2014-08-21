@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Favourites" syncable="YES">
+        <attribute name="assessmentMethods" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="averageTariffString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="commonJobs" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="commonJobsPercentages" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="courseCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="degreeClasses" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="instituteSalary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nationalSalary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="proportionInWork" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sandwichYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeSpent" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="ucasCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uniCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uniName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="yearAbroad" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Favourites" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="Favourites" positionX="-63" positionY="-18" width="128" height="300"/>
     </elements>
 </model>

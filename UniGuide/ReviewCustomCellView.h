@@ -25,8 +25,14 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *starImageView4;
 @property (weak, nonatomic) IBOutlet UIImageView *starImageView5;
-@property (weak, nonatomic) IBOutlet UILabel *reviewTextLabel;
 
+@property (nonatomic, retain) NSString * reviewNumber;
+@property (nonatomic, retain) NSString * reviewTitle;
+@property (nonatomic, retain) NSString * reviewDetails;
+@property (nonatomic, retain) NSString * reviewText;
+@property (nonatomic, retain) NSNumber * heightTest;
+@property (nonatomic, retain) NSNumber * yTest;
+@property (nonatomic, retain) NSNumber * widthTest;
 
 @end
 

@@ -21,6 +21,8 @@
 @property (strong, nonatomic) NSString *courseCodeCourseInfo;
 @property (strong, nonatomic) NSString *uniCodeCourseInfo;
 @property (nonatomic, strong) UIBarButtonItem *favouritesButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
 
 
 @property (strong, nonatomic) NSString *uniNameCourseInfo;
@@ -43,10 +45,12 @@
 
 @property (strong, nonatomic) UITableView *courseInfoTableView;
 @property (nonatomic) BOOL firstTimeLoad;
+@property (nonatomic) BOOL haveComeFromFavourites;
 
 -(void) customBtnPressed;
 
-
+@property (strong, nonatomic) UIImageView *noInternetImageView;
+@property (strong, nonatomic) UILabel *noInternetLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *universityNameLabel;
 

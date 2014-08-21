@@ -22,4 +22,9 @@
 @property (nonatomic,strong) NSMutableArray *cellTitles;
 @property (nonatomic,strong) CourseInfoCoursePageViewController *courseInfoCoursePageViewController;
 
+@property (nonatomic) BOOL firstTimeLoad;
+
+@property (strong, nonatomic) UIImageView *noInternetImageView;
+@property (strong, nonatomic) UILabel *noInternetLabel;
+
 @end

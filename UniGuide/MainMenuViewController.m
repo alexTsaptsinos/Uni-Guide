@@ -113,24 +113,14 @@
 - (IBAction)universitiesMenuButtonPressed:(id)sender {
     
     // if universities button pressed launch universities table view controller
+
     
-    UniversitiesTableViewController *universitiesTableViewController = [[UniversitiesTableViewController alloc] init];
+    UniversitiesListTableViewController *universitiesListTableViewController = [[UniversitiesListTableViewController alloc] init];
     
-    [self.navigationController pushViewController:universitiesTableViewController animated:YES];
+    [self.navigationController pushViewController:universitiesListTableViewController animated:YES];
     
     
 }
 
-//methods so that navigation bar does not appear on home screen
-
-//- (void)viewWillAppear:(BOOL)animated {
-//    [self.navigationController setNavigationBarHidden:YES animated:animated];
-//    [super viewWillAppear:animated];
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated {
-//    [self.navigationController setNavigationBarHidden:NO animated:animated];
-//    [super viewWillDisappear:animated];
-//}
 
 @end

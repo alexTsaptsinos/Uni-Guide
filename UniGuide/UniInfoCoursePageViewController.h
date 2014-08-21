@@ -12,6 +12,7 @@
 
 @interface UniInfoCoursePageViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSString *uniCodeUniInfo;
 @property (strong, nonatomic) NSString *uniNameUniInfo;
 
@@ -26,5 +27,9 @@
 @property (strong,nonatomic) UILabel *universityNameLabel;
 @property (strong,nonatomic) UIScrollView *scroll;
 
+@property (strong, nonatomic) UIImageView *noInternetImageView;
+@property (strong, nonatomic) UILabel *noInternetLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
 
 @end

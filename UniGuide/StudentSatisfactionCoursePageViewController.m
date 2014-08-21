@@ -16,7 +16,7 @@
 
 @implementation StudentSatisfactionCoursePageViewController
 
-@synthesize courseCodeStudentSatisfaction,uniCodeStudentSatisfaction,questionResults,tableViewStudentSatisfaction,universityNameLabel,courseNameLabel,uniNameStudentSatisfaction,courseNameStudentSatisfaction;
+@synthesize courseCodeStudentSatisfaction,uniCodeStudentSatisfaction,questionResults,tableViewStudentSatisfaction,universityNameLabel,courseNameLabel,uniNameStudentSatisfaction,firstTimeLoad,courseNameStudentSatisfaction,activityIndicator,sourceLabel,descriptionLabel,noInternetLabel,noInternetImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,62 +38,140 @@
     self.tabBarController.tabBar.translucent = NO;
     NSLog(@"course code: %@ and uni UKPRN: %@",self.courseCodeStudentSatisfaction,self.uniCodeStudentSatisfaction);
     self.tableViewStudentSatisfaction.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    self.firstTimeLoad = YES;
+    self.courseNameLabel.hidden = YES;
+    self.universityNameLabel.hidden = YES;
+    self.sourceLabel.hidden = YES;
+    self.descriptionLabel.hidden = YES;
+    self.tableViewStudentSatisfaction.hidden = YES;
+    [self.activityIndicator startAnimating];
     
-    universityNameLabel.frame = CGRectMake(0, 2, 320, 30);
-    universityNameLabel.text = self.uniNameStudentSatisfaction;
-    universityNameLabel.textAlignment = NSTextAlignmentCenter;
-    universityNameLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
-    universityNameLabel.font = [UIFont fontWithName:@"Arial" size:13];
     
-    courseNameLabel.frame = CGRectMake(0, 22, 320, 30);
-    courseNameLabel.text = self.courseNameStudentSatisfaction;
-    courseNameLabel.textAlignment = NSTextAlignmentCenter;
-    courseNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
-    courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
-    courseNameLabel.adjustsFontSizeToFitWidth = YES;
-    courseNameLabel.numberOfLines = 0;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
-    PFQuery *queryForStudentSatisfactionData = [PFQuery queryWithClassName:@"NSS"];
-    [queryForStudentSatisfactionData whereKey:@"KISCOURSEID" equalTo:self.courseCodeStudentSatisfaction];
-    PFObject *tempObject = [queryForStudentSatisfactionData getFirstObject];
-    if (tempObject == NULL) {
-      //  NSLog(@"this worked");
-        UIImageView *noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 320, 429)];
-        noDataImageView.backgroundColor = [UIColor lightGrayColor];
-        UILabel *noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
-        noDataLabel.text = @"We're sorry, but we appear to have no data for this course.";
-        noDataLabel.numberOfLines = 0;
-        noDataLabel.textAlignment = NSTextAlignmentCenter;
-        [noDataImageView addSubview:noDataLabel];
-        [self.view addSubview:noDataImageView];
+    self.noInternetImageView.hidden = YES;
+    self.noInternetLabel.hidden = YES;
+    [self.activityIndicator startAnimating];
+
+    
+    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    
+    if (data) {
         
-    } else {
-        
-        NSString *question1 = [tempObject valueForKey:@"Q1"];
-        NSString *question2 = [tempObject valueForKey:@"Q2"];
-        NSString *question3 = [tempObject valueForKey:@"Q3"];
-        NSString *question4 = [tempObject valueForKey:@"Q4"];
-        NSString *question5 = [tempObject valueForKey:@"Q5"];
-        NSString *question6 = [tempObject valueForKey:@"Q6"];
-        NSString *question7 = [tempObject valueForKey:@"Q7"];
-        NSString *question8 = [tempObject valueForKey:@"Q8"];
-        NSString *question9 = [tempObject valueForKey:@"Q9"];
-        NSString *question10 = [tempObject valueForKey:@"Q10"];
-        NSString *question11 = [tempObject valueForKey:@"Q11"];
-        NSString *question12 = [tempObject valueForKey:@"Q12"];
-        NSString *question13 = [tempObject valueForKey:@"Q13"];
-        NSString *question14 = [tempObject valueForKey:@"Q14"];
-        NSString *question15 = [tempObject valueForKey:@"Q15"];
-        NSString *question16 = [tempObject valueForKey:@"Q16"];
-        NSString *question17 = [tempObject valueForKey:@"Q17"];
-        NSString *question18 = [tempObject valueForKey:@"Q18"];
-        NSString *question19 = [tempObject valueForKey:@"Q19"];
-        NSString *question20 = [tempObject valueForKey:@"Q20"];
-        NSString *question21 = [tempObject valueForKey:@"Q21"];
-        NSString *question22 = [tempObject valueForKey:@"Q22"];
-        
-        self.questionResults = [[NSMutableArray alloc] initWithObjects:question1,question2,question3,question4,question5,question6,question7,question8,question9,question10,question11,question12,question13,question14,question15,question16,question17,question18,question19,question20,question21,question22, nil];
+        if (self.firstTimeLoad == YES) {
+            
+            universityNameLabel.frame = CGRectMake(0, 2, 320, 30);
+            universityNameLabel.text = self.uniNameStudentSatisfaction;
+            universityNameLabel.textAlignment = NSTextAlignmentCenter;
+            universityNameLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+            universityNameLabel.font = [UIFont fontWithName:@"Arial" size:13];
+            
+            courseNameLabel.frame = CGRectMake(0, 22, 320, 30);
+            courseNameLabel.text = self.courseNameStudentSatisfaction;
+            courseNameLabel.textAlignment = NSTextAlignmentCenter;
+            courseNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+            courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+            courseNameLabel.adjustsFontSizeToFitWidth = YES;
+            courseNameLabel.numberOfLines = 0;
+            
+            PFQuery *queryForStudentSatisfactionData = [PFQuery queryWithClassName:@"NSS"];
+            [queryForStudentSatisfactionData whereKey:@"KISCOURSEID" equalTo:self.courseCodeStudentSatisfaction];
+            [queryForStudentSatisfactionData whereKey:@"UKPRN" equalTo:self.uniCodeStudentSatisfaction];
+            PFObject *tempObject = [queryForStudentSatisfactionData getFirstObject];
+            if (tempObject == NULL) {
+                //  NSLog(@"this worked");
+                UIImageView *noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 320, 429)];
+                noDataImageView.backgroundColor = [UIColor lightGrayColor];
+                UILabel *noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+                noDataLabel.text = @"We're sorry, but we appear to have no data for this course.";
+                noDataLabel.numberOfLines = 0;
+                noDataLabel.textAlignment = NSTextAlignmentCenter;
+                [noDataImageView addSubview:noDataLabel];
+                [self.view addSubview:noDataImageView];
+                
+            } else {
+                
+                NSString *question1 = [tempObject valueForKey:@"Q1"];
+                NSString *question2 = [tempObject valueForKey:@"Q2"];
+                NSString *question3 = [tempObject valueForKey:@"Q3"];
+                NSString *question4 = [tempObject valueForKey:@"Q4"];
+                NSString *question5 = [tempObject valueForKey:@"Q5"];
+                NSString *question6 = [tempObject valueForKey:@"Q6"];
+                NSString *question7 = [tempObject valueForKey:@"Q7"];
+                NSString *question8 = [tempObject valueForKey:@"Q8"];
+                NSString *question9 = [tempObject valueForKey:@"Q9"];
+                NSString *question10 = [tempObject valueForKey:@"Q10"];
+                NSString *question11 = [tempObject valueForKey:@"Q11"];
+                NSString *question12 = [tempObject valueForKey:@"Q12"];
+                NSString *question13 = [tempObject valueForKey:@"Q13"];
+                NSString *question14 = [tempObject valueForKey:@"Q14"];
+                NSString *question15 = [tempObject valueForKey:@"Q15"];
+                NSString *question16 = [tempObject valueForKey:@"Q16"];
+                NSString *question17 = [tempObject valueForKey:@"Q17"];
+                NSString *question18 = [tempObject valueForKey:@"Q18"];
+                NSString *question19 = [tempObject valueForKey:@"Q19"];
+                NSString *question20 = [tempObject valueForKey:@"Q20"];
+                NSString *question21 = [tempObject valueForKey:@"Q21"];
+                NSString *question22 = [tempObject valueForKey:@"Q22"];
+                
+                self.questionResults = [[NSMutableArray alloc] initWithObjects:question1,question2,question3,question4,question5,question6,question7,question8,question9,question10,question11,question12,question13,question14,question15,question16,question17,question18,question19,question20,question21,question22, nil];
+                
+            }
+            self.firstTimeLoad = NO;
+           
+            [self.tableViewStudentSatisfaction reloadData];
+            
+            self.courseNameLabel.hidden = NO;
+            self.universityNameLabel.hidden = NO;
+            self.sourceLabel.hidden = NO;
+            self.descriptionLabel.hidden = NO;
+            self.tableViewStudentSatisfaction.hidden = NO;
+            [self.activityIndicator stopAnimating];
+        }
     }
+    else {
+        if (firstTimeLoad == YES) {
+
+        NSLog(@"no internet");
+        universityNameLabel.frame = CGRectMake(0, 2, 320, 30);
+        universityNameLabel.text = self.uniNameStudentSatisfaction;
+        universityNameLabel.textAlignment = NSTextAlignmentCenter;
+        universityNameLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+        universityNameLabel.font = [UIFont fontWithName:@"Arial" size:13];
+        
+        courseNameLabel.frame = CGRectMake(0, 22, 320, 30);
+        courseNameLabel.text = self.courseNameStudentSatisfaction;
+        courseNameLabel.textAlignment = NSTextAlignmentCenter;
+        courseNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+        courseNameLabel.adjustsFontSizeToFitWidth = YES;
+        courseNameLabel.numberOfLines = 0;
+        
+        self.courseNameLabel.hidden = NO;
+        self.universityNameLabel.hidden = NO;
+        self.sourceLabel.hidden = NO;
+        self.descriptionLabel.hidden = NO;
+        [self.activityIndicator stopAnimating];
+        
+        noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 320, 429)];
+        noInternetImageView.backgroundColor = [UIColor lightGrayColor];
+        noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+        noInternetLabel.text = @"We're sorry, but this data is not available offline";
+        noInternetLabel.numberOfLines = 0;
+        noInternetLabel.textAlignment = NSTextAlignmentCenter;
+        [noInternetImageView addSubview:noInternetLabel];
+        [self.view addSubview:noInternetImageView];
+        }
+
+        
+    }
+    [self.activityIndicator stopAnimating];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -119,12 +197,12 @@
     [f setNumberStyle:NSNumberFormatterDecimalStyle];
     
     NSNumber * myNumber = [f numberFromString:[self.questionResults objectAtIndex:indexPath.row]];
-  //  NSLog(@"number: %@",myNumber);
+    //  NSLog(@"number: %@",myNumber);
     
     NSNumber *widthOfPart1 = [NSNumber numberWithFloat:([myNumber floatValue] / 100.0f)];
-   // NSLog(@"divided by 100: %@",widthOfPart1);
+    // NSLog(@"divided by 100: %@",widthOfPart1);
     widthOfPart1 = [NSNumber numberWithFloat:([widthOfPart1 floatValue] * cell.questionImageView.frame.size.width)];
-  //  NSLog(@"width of part 1: %@",widthOfPart1);
+    //  NSLog(@"width of part 1: %@",widthOfPart1);
     UIImageView *part1 = [[UIImageView alloc] init];
     part1.frame = CGRectMake(0.0f, 0.0f, [widthOfPart1 floatValue], cell.questionImageView.frame.size.height);
     part1.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:68.0f/255.0f alpha:1.0f];
@@ -141,7 +219,7 @@
     [cell.questionImageView addSubview:questionPercentage];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-
+    
     
     return cell;
 }
