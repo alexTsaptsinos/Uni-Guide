@@ -111,15 +111,25 @@
         [noTypeAlert show];
     }
     else {
-        PFObject *newComplaint = [PFObject objectWithClassName:@"ReviewComplaints"];
-        newComplaint[@"Type"] = self.selectTypeButton.titleLabel.text;
-        newComplaint[@"Comments"] = self.commentsTextView.text;
-        newComplaint[@"CourseCode"] = self.courseKISCode;
-        newComplaint[@"ReviewID"] = self.complaintCode;
+        NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+        NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
         
-        [newComplaint saveInBackground];
+        if (data) {
+            PFObject *newComplaint = [PFObject objectWithClassName:@"ReviewComplaints"];
+            newComplaint[@"Type"] = self.selectTypeButton.titleLabel.text;
+            newComplaint[@"Comments"] = self.commentsTextView.text;
+            newComplaint[@"CourseCode"] = self.courseKISCode;
+            newComplaint[@"ReviewID"] = self.complaintCode;
+            
+            [newComplaint saveInBackground];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            NSLog(@"no internet");
+            UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [noInternetAlert show];
+        }
         
-    [self dismissViewControllerAnimated:YES completion:nil];
     }
     
 }
@@ -137,6 +147,8 @@
     
     UINavigationController *typeOfComplaintNavigationController = [[UINavigationController alloc]initWithRootViewController:typeOfComplaintsTableViewController];
     
+    typeOfComplaintNavigationController.navigationBar.barTintColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    typeOfComplaintNavigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     [self presentViewController:typeOfComplaintNavigationController animated:YES completion:nil];
 }

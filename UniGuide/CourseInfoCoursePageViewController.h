@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSString *uniCodeCourseInfo;
 @property (nonatomic, strong) UIBarButtonItem *favouritesButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
 
 
 @property (strong, nonatomic) NSString *uniNameCourseInfo;

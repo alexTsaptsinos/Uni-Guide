@@ -16,7 +16,7 @@
 
 @implementation CourseInfoCoursePageViewController
 
-@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear,favouritesButton,activityIndicator,haveComeFromFavourites,noInternetImageView,noInternetLabel;
+@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear,favouritesButton,activityIndicator,haveComeFromFavourites,noInternetImageView,noInternetLabel,sourceLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +39,7 @@
     
     self.universityNameLabel.hidden = YES;
     self.courseNameLabel.hidden = YES;
+    self.sourceLabel.hidden = YES;
     
     self.firstTimeLoad = YES;
     
@@ -327,6 +328,7 @@
                         self.courseInfoTableView.hidden = NO;
                         self.courseNameLabel.hidden = NO;
                         self.universityNameLabel.hidden = NO;
+                        self.sourceLabel.hidden = NO;
                     }
                 }];
                 self.firstTimeLoad = NO;
@@ -338,6 +340,7 @@
             if (self.firstTimeLoad == YES) {
                 self.universityNameLabel.hidden = NO;
                 self.courseNameLabel.hidden = NO;
+                self.sourceLabel.hidden = NO;
                 self.courseInfoTableView.hidden = YES;
                 
                 universityNameLabel.frame = CGRectMake(0, -5, 320, 30);
@@ -435,6 +438,7 @@
         [self.courseInfoTableView reloadData];
         self.courseInfoTableView.hidden = NO;
         self.courseNameLabel.hidden = NO;
+        self.sourceLabel.hidden = NO;
         self.universityNameLabel.hidden = NO;
         [self.activityIndicator stopAnimating];
     }

@@ -30,5 +30,6 @@
 @property (strong, nonatomic) UIImageView *noInternetImageView;
 @property (strong, nonatomic) UILabel *noInternetLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
 
 @end

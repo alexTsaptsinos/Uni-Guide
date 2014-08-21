@@ -114,9 +114,13 @@
     
     // if universities button pressed launch universities table view controller
     
-    UniversitiesTableViewController *universitiesTableViewController = [[UniversitiesTableViewController alloc] init];
+//    UniversitiesTableViewController *universitiesTableViewController = [[UniversitiesTableViewController alloc] init];
+//    
+//    [self.navigationController pushViewController:universitiesTableViewController animated:YES];
     
-    [self.navigationController pushViewController:universitiesTableViewController animated:YES];
+    UniversitiesListTableViewController *universitiesListTableViewController = [[UniversitiesListTableViewController alloc] init];
+    
+    [self.navigationController pushViewController:universitiesListTableViewController animated:YES];
     
     
 }

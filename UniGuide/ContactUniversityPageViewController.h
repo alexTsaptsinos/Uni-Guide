@@ -30,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *websiteLabel;
 
 @property (nonatomic) BOOL firstTimeLoad;
+@property (strong, nonatomic) UIImageView *noInternetImageView;
+@property (strong, nonatomic) UILabel *noInternetLabel;
 
 
 @end

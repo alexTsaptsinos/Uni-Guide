@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *openDayDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeStartLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeEndLabel;
-@property (weak, nonatomic) IBOutlet UILabel *detailsLabel;
 @property (weak, nonatomic) IBOutlet MKMapView *mapViewOpenDays;
 @property (weak, nonatomic) IBOutlet UIButton *bookNowButton;
 - (IBAction)bookNowButtonPressed:(id)sender;
@@ -28,5 +27,11 @@
 @property (strong, nonatomic) NSNumber *uniLatitude;
 @property (strong, nonatomic) NSNumber *uniLongitude;
 @property (nonatomic) BOOL hasLoadedBool;
+@property (weak, nonatomic) IBOutlet UILabel *openDayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *detailsTitleLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic) BOOL firstTimeLoad;
+@property (weak, nonatomic) IBOutlet UILabel *hyphenLabel;
+@property (weak, nonatomic) IBOutlet UITextView *detailsTextView;
 
 @end

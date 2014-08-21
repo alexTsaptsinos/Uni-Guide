@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="activityIndicator" destination="aGV-Gm-wj3" id="5CI-l7-jI7"/>
                 <outlet property="courseNameLabel" destination="zt1-Gi-JAU" id="K0Q-rn-nT3"/>
+                <outlet property="sourceLabel" destination="GdE-0e-bfM" id="V5e-0m-hd7"/>
                 <outlet property="universityNameLabel" destination="C5N-0p-i9B" id="3TO-Tk-Rcy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -31,6 +32,12 @@
                     <rect key="frame" x="0.0" y="15" width="320" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Source: KIS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GdE-0e-bfM">
+                    <rect key="frame" x="3" y="0.0" width="66" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>

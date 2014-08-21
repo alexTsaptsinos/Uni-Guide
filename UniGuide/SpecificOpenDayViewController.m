@@ -14,13 +14,15 @@
 
 @implementation SpecificOpenDayViewController
 
-@synthesize openDayDateLabel,timeEndLabel,timeStartLabel,detailsLabel,mapViewOpenDays,bookNowButton,startTime,endTime,link,date,details,uniLatitude,uniLongitude,hasLoadedBool,uniName;
+@synthesize openDayDateLabel,timeEndLabel,timeStartLabel,mapViewOpenDays,bookNowButton,startTime,endTime,link,date,details,uniLatitude,uniLongitude,hasLoadedBool,uniName,activityIndicator,detailsTitleLabel,openDayLabel,firstTimeLoad,hyphenLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+
     }
     return self;
 }
@@ -32,30 +34,71 @@
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.timeStartLabel.text = self.startTime;
     self.timeEndLabel.text = self.endTime;
-    self.detailsLabel.text = self.details;
+    self.detailsTextView.text = self.details;
+    self.detailsTextView.font = [UIFont fontWithName:@"Arial" size:15];
+    self.detailsTextView.editable = NO;
+    self.detailsTextView.scrollEnabled = NO;
+    self.detailsTextView.backgroundColor = [UIColor clearColor];
     self.openDayDateLabel.text = self.date;
     self.bookNowButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;
+    
+    [self.activityIndicator startAnimating];
+    self.timeStartLabel.hidden = YES;
+    self.timeEndLabel.hidden = YES;
+    self.openDayLabel.hidden = YES;
+    self.openDayDateLabel.hidden = YES;
+    self.detailsTextView.hidden = YES;
+    self.detailsTitleLabel.hidden = YES;
+    self.mapViewOpenDays.hidden = YES;
+    self.bookNowButton.hidden = YES;
+    self.hyphenLabel.hidden = YES;
+    self.firstTimeLoad = YES;
+    
     
     CALayer *btnLayer = [bookNowButton layer];
     [btnLayer setMasksToBounds:YES];
     [btnLayer setCornerRadius:5.0f];
     
-    //NSLog(@"uni name: %@", self.uniName);
-    PFQuery *queryForUniCode = [PFQuery queryWithClassName:@"Universities"];
-    [queryForUniCode whereKey:@"Name" matchesRegex:self.uniName modifiers:@"i"];
-    PFObject *object = [queryForUniCode getFirstObject];
-    NSString *uniCode = [object valueForKey:@"UKPRN"];
-    //NSLog(@"object: %@, unicode: %@",object,uniCode);
     
-    PFQuery *locationQuery = [PFQuery queryWithClassName:@"Location"];
-    [locationQuery whereKey:@"UKPRN" equalTo:uniCode];
-    PFObject *university = [locationQuery getFirstObject];
-    uniLatitude = [university valueForKey:@"LATITUDE"];
-    uniLongitude = [university valueForKey:@"LONGITUDE"];
-    //NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
-    self.hasLoadedBool = NO;
+    if (self.firstTimeLoad == YES) {
+        //NSLog(@"uni name: %@", self.uniName);
+        PFQuery *queryForUniCode = [PFQuery queryWithClassName:@"Universities"];
+        [queryForUniCode whereKey:@"Name" matchesRegex:self.uniName modifiers:@"i"];
+        PFObject *object = [queryForUniCode getFirstObject];
+        NSString *uniCode = [object valueForKey:@"UKPRN"];
+        //NSLog(@"object: %@, unicode: %@",object,uniCode);
+        
+        PFQuery *locationQuery = [PFQuery queryWithClassName:@"Location"];
+        [locationQuery whereKey:@"UKPRN" equalTo:uniCode];
+        PFObject *university = [locationQuery getFirstObject];
+        uniLatitude = [university valueForKey:@"LATITUDE"];
+        uniLongitude = [university valueForKey:@"LONGITUDE"];
+        //NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
+        
+        self.timeStartLabel.hidden = NO;
+        self.timeEndLabel.hidden = NO;
+        self.openDayLabel.hidden = NO;
+        self.openDayDateLabel.hidden = NO;
+        self.detailsTextView.hidden = NO;
+        self.detailsTitleLabel.hidden = NO;
+        self.mapViewOpenDays.hidden = NO;
+        self.bookNowButton.hidden = NO;
+        self.firstTimeLoad = NO;
+        self.hyphenLabel.hidden = NO;
+        [self.activityIndicator stopAnimating];
+        
+        self.hasLoadedBool = NO;
+        self.firstTimeLoad = NO;
+    }
+    
+    
 }
 
 - (void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered

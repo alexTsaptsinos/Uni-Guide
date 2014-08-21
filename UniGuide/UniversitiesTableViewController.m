@@ -356,21 +356,16 @@
     PFObject *universityObject = [queryForUniversityCode getFirstObject];
     courseListTableViewController.universityCode = [universityObject valueForKey:@"UKPRN"];
     contactUniversityPageViewController.universityCode = [universityObject valueForKey:@"UKPRN"];
-    contactUniversityPageViewController.universityName = cell.textLabel.text;
     openDaysUniversityPageTableViewController.universityUKPRN = [universityObject valueForKey:@"UKPRN"];
     uniInfoCoursePageViewController.uniCodeUniInfo = [universityObject valueForKey:@"UKPRN"];
+    
+    }
+    [self.navigationController pushViewController:universityPageTabBarController animated:YES];
     uniInfoCoursePageViewController.haveWeComeFromUniversities = YES;
     uniInfoCoursePageViewController.uniNameUniInfo = cell.textLabel.text;
     courseListTableViewController.universityName = cell.textLabel.text;
-        
-    [self.navigationController pushViewController:universityPageTabBarController animated:YES];
+    contactUniversityPageViewController.universityName = cell.textLabel.text;
 
-    }
-    else {
-        NSLog(@"no internet");
-        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [noInternetAlert show];
-    }
     
 }
 

@@ -21,7 +21,7 @@
 @implementation UniInfoCoursePageViewController
 
 
-@synthesize uniCodeUniInfo,studentSatisfactionPercentage,tableViewUniInfo,uniInfoDataSets,haveWeComeFromUniversities,uniNameUniInfo,firstTimeLoad,uniInfoDataNumbers,universityNameLabel,scroll,activityIndicator,noInternetLabel,noInternetImageView;
+@synthesize uniCodeUniInfo,studentSatisfactionPercentage,tableViewUniInfo,uniInfoDataSets,haveWeComeFromUniversities,uniNameUniInfo,firstTimeLoad,uniInfoDataNumbers,universityNameLabel,scroll,activityIndicator,noInternetLabel,noInternetImageView,sourceLabel;
 
 #pragma mark - UIViewController lifecycle methods
 
@@ -46,6 +46,7 @@
     self.uniInfoDataSets = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:@"Number of students:",@"Number of staff:",@"Number of institute owned rooms:",@"Average cost of institute accommodation:",@"Average cost of private accommodation:", nil]];
     self.firstTimeLoad = YES;
     self.scroll.hidden = YES;
+    self.sourceLabel.hidden = YES;
     [self.activityIndicator startAnimating];
 
     
@@ -96,7 +97,7 @@
         else if (self.haveWeComeFromUniversities == NO) {
             [scroll setContentSize:CGSizeMake(320, 890)];
             tableViewUniInfo = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, 320, 530)];
-            universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 20)];
+            universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, 320, 20)];
             NSLog(@"hello alex: %@",self.uniNameUniInfo);
             universityNameLabel.text = self.uniNameUniInfo;
             universityNameLabel.textAlignment = NSTextAlignmentCenter;
@@ -215,6 +216,7 @@
 
         self.firstTimeLoad = NO;
         self.scroll.hidden = NO;
+        self.sourceLabel.hidden = NO;
         [self.activityIndicator stopAnimating];
     }
     else {
@@ -225,7 +227,10 @@
         NSLog(@"no internet");
         
         if (firstTimeLoad == YES) {
-            noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 320, 429)];
+            noInternetImageView = [[UIImageView alloc] init];
+
+                noInternetImageView.frame = CGRectMake(0, 90, 320, 429);
+
             noInternetImageView.backgroundColor = [UIColor lightGrayColor];
             noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
             noInternetLabel.text = @"We're sorry, but this data is not available offline";
@@ -241,6 +246,7 @@
             universityNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
             [self.view addSubview:universityNameLabel];
             self.universityNameLabel.hidden = NO;
+            self.sourceLabel.hidden = NO;
         }
         
     }

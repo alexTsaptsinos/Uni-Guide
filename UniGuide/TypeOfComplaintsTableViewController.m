@@ -25,7 +25,14 @@
         // Custom initialization
         self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
         self.navigationController.navigationBar.translucent = NO;
-        self.navigationItem.title = @"Type";
+        UILabel *reviewComplaintTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+        reviewComplaintTitle.text = @"Type";
+        reviewComplaintTitle.backgroundColor = [UIColor clearColor];
+        reviewComplaintTitle.textColor = [UIColor whiteColor];
+        reviewComplaintTitle.font = [UIFont boldSystemFontOfSize:20.0];
+        reviewComplaintTitle.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        reviewComplaintTitle.textAlignment = NSTextAlignmentCenter;
+        self.navigationItem.titleView = reviewComplaintTitle;
     }
     return self;
 }
