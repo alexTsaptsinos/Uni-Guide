@@ -104,6 +104,7 @@
             [websiteButton setTitle:[contactDetails valueForKey:@"WebsiteContact"] forState:UIControlStateNormal];
             websiteButton.frame = CGRectMake(50.0, 70, 250.0, 20.0);
             websiteButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+            websiteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
             [websiteButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
             [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
@@ -126,6 +127,7 @@
             homeRegion.span.longitudeDelta = homeSpanY;
             
             [self.contactMapView setRegion:homeRegion animated:YES];
+            
             
             self.hasLoadedBool = NO;
             self.contactMapView.hidden = NO;

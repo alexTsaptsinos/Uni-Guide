@@ -14,15 +14,13 @@
 #import "OpenDaysQueryTableViewController.h"
 
 @interface MainMenuViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIButton *searchMenuButtonLabel;
-@property (weak, nonatomic) IBOutlet UIButton *favouritesMenuButtonLabel;
-@property (weak, nonatomic) IBOutlet UIButton *openDaysMenuButtonLabel;
-@property (weak, nonatomic) IBOutlet UIButton *universitiesMenuButtonLabel;
+
 @property (weak, nonatomic) IBOutlet UIImageView *uniGuideLogoMainMenuImageView;
 
-- (IBAction)searchMenuButtonPressed:(id)sender;
-- (IBAction)favouritesMenuButtonPressed:(id)sender;
-- (IBAction)openDaysMenuButtonPressed:(id)sender;
-- (IBAction)universitiesMenuButtonPressed:(id)sender;
+@property (strong,nonatomic) UIButton *searchMenuButtonLabel;
+@property (strong,nonatomic) UIButton *favouritesMenuButtonLabel;
+@property (strong,nonatomic) UIButton *openDaysMenuButtonLabel;
+@property (strong,nonatomic) UIButton *universitiesMenuButtonLabel;
+
 
 @end

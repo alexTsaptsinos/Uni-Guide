@@ -49,12 +49,61 @@
     // Do any additional setup after loading the view from its nib.
     
     self.uniGuideLogoMainMenuImageView.image = [UIImage imageNamed:@"ui-14"];
+    
+    self.searchMenuButtonLabel = [UIButton buttonWithType:UIButtonTypeSystem];
+    [searchMenuButtonLabel addTarget:self
+               action:@selector(searchButtonClicked:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [searchMenuButtonLabel setTitle:@"Search" forState:UIControlStateNormal];
+    [searchMenuButtonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    self.favouritesMenuButtonLabel = [UIButton buttonWithType:UIButtonTypeSystem];
+    [favouritesMenuButtonLabel addTarget:self
+                              action:@selector(favouritesButtonClicked:)
+                    forControlEvents:UIControlEventTouchUpInside];
+    [favouritesMenuButtonLabel setTitle:@"Favourites" forState:UIControlStateNormal];
+    [favouritesMenuButtonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    self.openDaysMenuButtonLabel = [UIButton buttonWithType:UIButtonTypeSystem];
+    [openDaysMenuButtonLabel addTarget:self
+                              action:@selector(openDaysButtonClicked:)
+                    forControlEvents:UIControlEventTouchUpInside];
+    [openDaysMenuButtonLabel setTitle:@"Open Days" forState:UIControlStateNormal];
+    [openDaysMenuButtonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    self.universitiesMenuButtonLabel = [UIButton buttonWithType:UIButtonTypeSystem];
+    [universitiesMenuButtonLabel addTarget:self
+                              action:@selector(universitiesButtonClicked:)
+                    forControlEvents:UIControlEventTouchUpInside];
+    [universitiesMenuButtonLabel setTitle:@"Universities" forState:UIControlStateNormal];
+    [universitiesMenuButtonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    
+    if (screenBound.size.height > 500) {
+        searchMenuButtonLabel.frame = CGRectMake(58.0, 169.0, 206.0, 45.0);
+        favouritesMenuButtonLabel.frame = CGRectMake(58.0, 240.0, 206.0, 45.0);
+        openDaysMenuButtonLabel.frame = CGRectMake(58.0, 311.0, 206.0, 45.0);
+        universitiesMenuButtonLabel.frame = CGRectMake(58.0, 382.0, 206.0, 45.0);
+    } else {
+        searchMenuButtonLabel.frame = CGRectMake(58.0, 159.0, 206.0, 39.0);
+        favouritesMenuButtonLabel.frame = CGRectMake(58.0, 216.0, 206.0, 39.0);
+        openDaysMenuButtonLabel.frame = CGRectMake(58.0, 273.0, 206.0, 39.0);
+        universitiesMenuButtonLabel.frame = CGRectMake(58.0, 330.0, 206.0, 39.0);
+    }
+    
+    [self.view addSubview:searchMenuButtonLabel];
+    [self.view addSubview:favouritesMenuButtonLabel];
+    [self.view addSubview:openDaysMenuButtonLabel];
+    [self.view addSubview:universitiesMenuButtonLabel];
+    
     self.searchMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.openDaysMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.universitiesMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.favouritesMenuButtonLabel.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;
+    
 
     //Make 5 buttons have rounded corners
     
@@ -80,20 +129,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)searchMenuButtonPressed:(id)sender {
-    
-    // if search button pressed launch search view controller
-    
+
+- (void)searchButtonClicked:(UIButton*)button
+{
     SearchViewController *searchViewController = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
     
-    
     [self.navigationController pushViewController:searchViewController animated:YES];
-  
-    
 }
 
-- (IBAction)favouritesMenuButtonPressed:(id)sender {
-    
+- (void)favouritesButtonClicked:(UIButton*)button
+{
     // if favourites button pressed launch favourites table view controller
     
     FavouritesTableViewController *favouritesTableViewController = [[FavouritesTableViewController alloc]initWithNibName:@"FavouritesTableViewController" bundle:nil];
@@ -101,26 +146,23 @@
     [self.navigationController pushViewController:favouritesTableViewController animated:YES];
 }
 
-- (IBAction)openDaysMenuButtonPressed:(id)sender {
-    
+- (void)openDaysButtonClicked:(UIButton*)button
+{
     // if open days button pressed launch open days table view controller
-        
+    
     OpenDaysQueryTableViewController *openDaysQueryTableViewController = [[OpenDaysQueryTableViewController alloc] init];
     
     [self.navigationController pushViewController:openDaysQueryTableViewController animated:YES];
 }
 
-- (IBAction)universitiesMenuButtonPressed:(id)sender {
-    
+- (void)universitiesButtonClicked:(UIButton*)button
+{
     // if universities button pressed launch universities table view controller
-
+    
     
     UniversitiesListTableViewController *universitiesListTableViewController = [[UniversitiesListTableViewController alloc] init];
     
     [self.navigationController pushViewController:universitiesListTableViewController animated:YES];
-    
-    
 }
-
 
 @end

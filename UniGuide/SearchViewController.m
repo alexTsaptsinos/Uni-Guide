@@ -33,17 +33,38 @@
     //give navigation bar title
     self.navigationItem.title = @"Search";
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-    self.searchButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
-    [searchButton setEnabled:NO];
+    
     self.pleaseSelectLabel.textColor = [UIColor grayColor];
     self.pleaseSelectLabel.text = @"Select university from list";
     self.pleaseSelectLabel.hidden = YES;
     self.haveFoundAUniversity = NO;
     [pleaseSelectLabel setFont:[UIFont systemFontOfSize:12]];
     
+    self.searchButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [searchButton addTarget:self
+                              action:@selector(searchButtonClicked:)
+                    forControlEvents:UIControlEventTouchUpInside];
+    [searchButton setTitle:@"Search" forState:UIControlStateNormal];
+    [searchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [searchButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    self.searchButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    
+    
     CALayer *btnLayer = [searchButton layer];
     [btnLayer setMasksToBounds:YES];
     [btnLayer setCornerRadius:5.0f];
+    
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    
+    if (screenBound.size.height > 500) {
+        searchButton.frame = CGRectMake(93.0, 410.0, 134.0, 37.0);
+    } else {
+        searchButton.frame = CGRectMake(93.0, 330.0, 134.0, 37.0);
+    }
+    
+    [self.view addSubview:searchButton];
+    [searchButton setEnabled:NO];
+
     
     self.haveQueriedParseForCoursesYet = NO;
     
@@ -300,8 +321,32 @@
     }
 }
 
-- (IBAction)searchButtonPressed:(id)sender {
-    
+//- (IBAction)searchButtonPressed:(id)sender {
+//    
+//    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+//    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+//    
+//    if (data) {
+//        SearchResultsTableViewController *searchResultsTableViewController = [[SearchResultsTableViewController alloc] initWithNibName:@"SearchResultsTableViewController" bundle:nil];
+//        
+//        searchResultsTableViewController.universitySearchedString = self.universityTextField.text;
+//        searchResultsTableViewController.courseSearchedString = self.courseTextField.text;
+//        if ([self.locationButton.titleLabel.text isEqualToString:@"Location...                                                   "]) {
+//            searchResultsTableViewController.locationSearchedString = @"";
+//        } else {
+//        searchResultsTableViewController.locationSearchedString = self.locationButton.titleLabel.text;
+//        }
+//        
+//        [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
+//    } else {
+//        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [noInternetAlert show];
+//    }
+//    
+//}
+
+- (void)searchButtonClicked:(UIButton*)button
+{
     NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
     NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
     
@@ -313,7 +358,7 @@
         if ([self.locationButton.titleLabel.text isEqualToString:@"Location...                                                   "]) {
             searchResultsTableViewController.locationSearchedString = @"";
         } else {
-        searchResultsTableViewController.locationSearchedString = self.locationButton.titleLabel.text;
+            searchResultsTableViewController.locationSearchedString = self.locationButton.titleLabel.text;
         }
         
         [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
@@ -321,9 +366,6 @@
         UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [noInternetAlert show];
     }
-    
-    
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

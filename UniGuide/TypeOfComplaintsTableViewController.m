@@ -80,6 +80,7 @@
     
     cell.textLabel.text = [typeOfComplaintArray objectAtIndex:indexPath.row];
     cell.textLabel.numberOfLines = 0;
+    cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     
     // Configure the cell...
     

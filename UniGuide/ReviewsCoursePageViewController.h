@@ -28,7 +28,8 @@
 @property (strong,nonatomic) NSMutableArray *reviewTexts;
 @property (strong,nonatomic) NSMutableArray *reviewCodes;
 
-@property (weak, nonatomic) IBOutlet UITableView *reviewTableView;
+//@property (weak, nonatomic) IBOutlet UITableView *reviewTableView;
+@property (strong, nonatomic) UITableView *reviewTableView;
 @property (strong, nonatomic) NSMutableArray *cellHeights;
 @property (nonatomic) BOOL haveDoneParseQueryYet;
 

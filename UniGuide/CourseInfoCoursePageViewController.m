@@ -43,7 +43,7 @@
     
     self.firstTimeLoad = YES;
     
-    courseInfoTableView = [[UITableView alloc] init];//287
+    courseInfoTableView = [[UITableView alloc] init];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     NSLog(@"tab bar height: %f and screen height: %f",self.tabBarController.tabBar.frame.size.height, screenBound.size.height);
     courseInfoTableView.frame = CGRectMake(0, 80, 320, screenBound.size.height - 80 - self.tabBarController.tabBar.frame.size.height - 64);
@@ -559,7 +559,7 @@
                 
                 [cellText.textCellDataButton setTitle:self.courseUrl forState:UIControlStateNormal];
                 cellText.textCellDataButton.titleLabel.text = self.courseUrl;
-                cellText.textCellDataButton.titleLabel.numberOfLines = 0;
+                cellText.textCellDataButton.titleLabel.numberOfLines = 3;
                 cellText.textCellDataButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:10];
                 [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
                 [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
@@ -569,6 +569,7 @@
             cellText.textCellLabel.textAlignment = NSTextAlignmentLeft;
             
             cellText.textCellDataButton.titleLabel.textAlignment = NSTextAlignmentRight;
+            cellText.textCellDataButton.titleLabel.adjustsFontSizeToFitWidth = YES;
             
             return cellText;
         }

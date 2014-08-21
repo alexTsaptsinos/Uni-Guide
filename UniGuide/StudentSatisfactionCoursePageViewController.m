@@ -37,9 +37,18 @@
     self.navigationController.navigationBar.translucent = NO;
     self.tabBarController.tabBar.translucent = NO;
     NSLog(@"course code: %@ and uni UKPRN: %@",self.courseCodeStudentSatisfaction,self.uniCodeStudentSatisfaction);
+    
     CGRect screenBound = [[UIScreen mainScreen] bounds];
-    [self.tableViewStudentSatisfaction setFrame:CGRectMake(0, 80, 320, screenBound.size.height - 80 - self.tabBarController.tabBar.frame.size.height - 64)];
+    self.tableViewStudentSatisfaction = [[UITableView alloc] init];
+    self.tableViewStudentSatisfaction.frame = CGRectMake(0, 90, 320, screenBound.size.height - 90 - self.tabBarController.tabBar.frame.size.height - 64);
     self.tableViewStudentSatisfaction.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    tableViewStudentSatisfaction.delegate = self;
+    tableViewStudentSatisfaction.dataSource = self;
+    tableViewStudentSatisfaction.bounces = YES;
+    tableViewStudentSatisfaction.scrollEnabled = YES;
+    tableViewStudentSatisfaction.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    [self.view addSubview:tableViewStudentSatisfaction];
+    
     self.firstTimeLoad = YES;
     self.courseNameLabel.hidden = YES;
     self.universityNameLabel.hidden = YES;

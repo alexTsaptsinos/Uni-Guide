@@ -21,6 +21,9 @@
 @property (strong, nonatomic) NSMutableArray *uniInfoDataSets;
 @property (strong, nonatomic) NSMutableArray *uniInfoDataNumbers;
 @property (nonatomic, strong) NSString *studentSatisfactionPercentage;
+//@property (nonatomic, strong) NSString *averageCostOfLivingInstitute;
+//@property (nonatomic, strong) NSString *averageCostOfLivingPrivate;
+
 
 @property (nonatomic) BOOL haveWeComeFromUniversities;
 @property (nonatomic) BOOL firstTimeLoad;

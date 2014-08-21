@@ -32,7 +32,8 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) NSNumber *whichTextFieldActive;
 @property (nonatomic, retain) UITextField *locationTextField;
-@property (weak, nonatomic) IBOutlet UIButton *searchButton;
+//@property (weak, nonatomic) IBOutlet UIButton *searchButton;
+@property (strong,nonatomic) UIButton *searchButton;
 @property (nonatomic) BOOL anyFound;
 @property (nonatomic) BOOL haveQueriedParseForCoursesYet;
 @property (nonatomic) BOOL haveFoundAUniversity;
@@ -41,7 +42,7 @@
 
 - (void)filterUniversitiesForSearchText:(NSString*)searchText;
 - (void)parseQueryForCourses:(NSString*)searchText;
-- (IBAction)searchButtonPressed:(id)sender;
+//- (IBAction)searchButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *pleaseSelectLabel;
 - (IBAction)locationButtonPressed:(id)sender;
 

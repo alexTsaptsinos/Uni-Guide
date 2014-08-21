@@ -10,7 +10,6 @@
                 <outlet property="courseNameLabel" destination="ezP-v8-Gf1" id="XwC-ew-0bR"/>
                 <outlet property="descriptionLabel" destination="LPc-7R-Mcm" id="YUm-xo-NNY"/>
                 <outlet property="sourceLabel" destination="h55-9o-L3g" id="0es-lG-HqY"/>
-                <outlet property="tableViewStudentSatisfaction" destination="pPc-LX-HY9" id="Flu-SQ-Zfj"/>
                 <outlet property="universityNameLabel" destination="O7n-aF-qdY" id="wTU-AW-BPQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -20,18 +19,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pPc-LX-HY9">
-                    <rect key="frame" x="0.0" y="90" width="320" height="280"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="280" id="nhO-mS-jwX"/>
-                    </constraints>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="o83-eh-pae"/>
-                        <outlet property="delegate" destination="-1" id="DkG-7X-su2"/>
-                    </connections>
-                </tableView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Source: KIS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h55-9o-L3g">
                     <rect key="frame" x="5" y="57" width="66" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

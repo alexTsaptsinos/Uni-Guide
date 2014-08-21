@@ -37,6 +37,16 @@
     self.navigationController.navigationBar.translucent = NO;
     //self.behindStarsImageView.backgroundColor = [UIColor yellowColor];
     
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    self.reviewTableView = [[UITableView alloc] init];
+    self.reviewTableView.frame = CGRectMake(0, 90, 320, screenBound.size.height - 90 - self.tabBarController.tabBar.frame.size.height - 64);
+    self.reviewTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    reviewTableView.delegate = self;
+    reviewTableView.dataSource = self;
+    reviewTableView.bounces = YES;
+    reviewTableView.scrollEnabled = YES;
+    reviewTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    [self.view addSubview:reviewTableView];
     
     self.haveDoneParseQueryYet = NO;
     self.haveReloadedHeights = NO;
