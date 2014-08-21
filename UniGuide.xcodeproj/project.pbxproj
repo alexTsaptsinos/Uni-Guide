@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9E598611198F8FB200D7A690 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E598610198F8FB200D7A690 /* FacebookSDK.framework */; };
 		9E6C4FD31994D9B700A536E3 /* NSManagedObject+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C4FD21994D9B700A536E3 /* NSManagedObject+CRUD.m */; };
 		9E6C4FD51994D9C900A536E3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6C4FD41994D9C900A536E3 /* CoreData.framework */; };
 		9E6C4FD81994DA5500A536E3 /* UniGuide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C4FD61994DA5500A536E3 /* UniGuide.xcdatamodeld */; };
@@ -152,7 +151,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9E598610198F8FB200D7A690 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = UniGuide/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		9E6C4FD11994D9B700A536E3 /* NSManagedObject+CRUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+CRUD.h"; sourceTree = "<group>"; };
 		9E6C4FD21994D9B700A536E3 /* NSManagedObject+CRUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+CRUD.m"; sourceTree = "<group>"; };
 		9E6C4FD41994D9C900A536E3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -404,7 +402,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E6C4FD51994D9C900A536E3 /* CoreData.framework in Frameworks */,
-				9E598611198F8FB200D7A690 /* FacebookSDK.framework in Frameworks */,
 				EFB107DD198A885700814C53 /* Social.framework in Frameworks */,
 				EF207C74198A805C00F2CFB3 /* Accelerate.framework in Frameworks */,
 				EF8B1161198811BB0011D746 /* MapKit.framework in Frameworks */,
@@ -463,7 +460,6 @@
 			isa = PBXGroup;
 			children = (
 				9E6C4FD41994D9C900A536E3 /* CoreData.framework */,
-				9E598610198F8FB200D7A690 /* FacebookSDK.framework */,
 				EFB107DC198A885700814C53 /* Social.framework */,
 				EF207C75198A812D00F2CFB3 /* Parse.framework */,
 				EF207C73198A805C00F2CFB3 /* Accelerate.framework */,
@@ -1162,7 +1158,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/UniGuide/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniGuide/UniGuide-Prefix.pch";
@@ -1173,7 +1168,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"$(PROJECT_DIR)/libCorePlot-CocoaTouch.a",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -1187,7 +1185,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/UniGuide/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniGuide/UniGuide-Prefix.pch";
@@ -1198,7 +1195,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-force_load",
+					"$(PROJECT_DIR)/libCorePlot-CocoaTouch.a",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
