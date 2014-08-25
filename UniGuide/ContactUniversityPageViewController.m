@@ -83,7 +83,8 @@
                       forControlEvents:UIControlEventTouchUpInside];
             telephoneButton.exclusiveTouch = YES;
             [telephoneButton setTitle:[contactDetails valueForKey:@"TelephoneContact"] forState:UIControlStateNormal];
-            telephoneButton.frame = CGRectMake(50.0, 20, 250.0, 20.0);
+            telephoneButton.frame = CGRectMake(50.0, 11, 250.0, 20.0);
+            telephoneButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
             telephoneButton.titleLabel.textAlignment = NSTextAlignmentLeft;
             [telephoneButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
             [telephoneButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -104,7 +105,8 @@
             } else {
                 [emailButton setTitle:email forState:UIControlStateNormal];
             }
-            emailButton.frame = CGRectMake(50.0, 44, 250.0, 20.0);
+            emailButton.frame = CGRectMake(50.0, 41, 250.0, 20.0);
+            emailButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
             emailButton.titleLabel.textAlignment = NSTextAlignmentLeft;
             [emailButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
             [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -117,7 +119,8 @@
                     forControlEvents:UIControlEventTouchUpInside];
             websiteButton.exclusiveTouch = YES;
             [websiteButton setTitle:[contactDetails valueForKey:@"WebsiteContact"] forState:UIControlStateNormal];
-            websiteButton.frame = CGRectMake(50.0, 70, 250.0, 20.0);
+            websiteButton.frame = CGRectMake(45.0, 71, 275.0, 20.0);
+            //websiteButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
             websiteButton.titleLabel.textAlignment = NSTextAlignmentLeft;
             websiteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
             [websiteButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
@@ -230,6 +233,7 @@
 {
     NSString *number = @"telprompt://";
     number = [number stringByAppendingString:self.telephoneButton.titleLabel.text];
+    number = [number stringByReplacingOccurrencesOfString:@" " withString:@""];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:number]];
 }
 

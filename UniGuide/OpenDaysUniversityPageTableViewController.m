@@ -40,7 +40,7 @@
         noInternetLabel.hidden = YES;
         noInternetImageView.hidden = YES;
         
-        if (self.firstTimeLoad) {
+        if (self.firstTimeLoad == YES) {
             
             //NSLog(@"university name: %@", self.universityName);
             PFQuery *query = [PFQuery queryWithClassName:@"OpenDays"];
@@ -55,8 +55,8 @@
                 links = [objects valueForKey:@"BookingLink"];
                 //NSLog(@"open days: %@ and dates %@", openDays, openDayDates);
                 if (openDays.count == 0) {
-                    //            openDays = [[NSMutableArray alloc]initWithObjects:@"None coming up LOL", nil];
-                    //            openDayDates = [[NSMutableArray alloc] initWithObjects:@"Sorry", nil];
+                                openDays = [[NSMutableArray alloc]initWithObjects:@"Placeholder", nil];
+                                openDayDates = [[NSMutableArray alloc] initWithObjects:@"Placeholder", nil];
                     self.foundAnyBool = NO;
                 } else {
                     self.foundAnyBool = YES;

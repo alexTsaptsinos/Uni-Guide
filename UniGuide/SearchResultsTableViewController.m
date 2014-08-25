@@ -51,9 +51,11 @@
 {
     [super viewDidLoad];
     self.tableView.hidden = YES;
+    //CGRect screenBound = [[UIScreen mainScreen] bounds];
+    //self.tableView.frame = CGRectMake(0, 90, 320, screenBound.size.height - 90 - self.tabBarController.tabBar.frame.size.height - 64);
     [self.activityIndicator startAnimating];
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-    self.limit = 10;
+    self.limit = 12;
     self.skip = 0;
     self.searchResults = [[NSMutableArray alloc] init];
     self.searchResultsCourseCodes = [[NSMutableArray alloc] init];
@@ -64,15 +66,15 @@
     self.haveFoundEverySeachValue = NO;
     self.anyResults = YES;
     
-    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
-    
-    if (data) {
+//    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+//    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+//    
+//    if (data) {
         [self queryForSearchResults];
-    } else {
-        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [noInternetAlert show];
-    }
+//    } else {
+//        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//        [noInternetAlert show];
+//    }
     
     
 }
@@ -295,7 +297,7 @@
             PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
             [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
             // find this number per university
-            [bigQuery setLimit:10];
+            [bigQuery setLimit:12];
             [bigQuery setSkip:self.skip];
             [bigQuery whereKeyExists:@"TITLE"];
             [bigQuery whereKeyExists:@"UKPRN"];
