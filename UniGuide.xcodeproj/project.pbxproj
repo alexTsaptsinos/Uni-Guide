@@ -905,7 +905,7 @@
 				ORGANIZATIONNAME = ATsaptsinos;
 				TargetAttributes = {
 					A4C6C893197AD22F0065311C = {
-						DevelopmentTeam = 5QH4J4Z4KK;
+						DevelopmentTeam = G2CRBUKG8K;
 					};
 					A4C6C8AE197AD22F0065311C = {
 						TestTargetID = A4C6C893197AD22F0065311C;
