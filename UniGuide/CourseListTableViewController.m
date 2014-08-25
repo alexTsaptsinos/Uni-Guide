@@ -121,6 +121,7 @@
                 
                 [self.tableView reloadData];
                 self.firstTimeLoad = NO;
+                self.tableView.scrollEnabled = YES;
                 
                 
             }];
@@ -139,6 +140,7 @@
             noInternetLabel.textAlignment = NSTextAlignmentCenter;
             [noInternetImageView addSubview:noInternetLabel];
             [self.view addSubview:noInternetImageView];
+            self.tableView.scrollEnabled = NO;
         }
         
     }

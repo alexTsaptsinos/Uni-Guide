@@ -42,6 +42,16 @@
     self.websiteLabel.hidden = YES;
     [self.activityIndicator startAnimating];
     self.firstTimeLoad = YES;
+    
+    MKCoordinateRegion homeRegion;
+    homeRegion.center.latitude = 54.013175;
+    homeRegion.center.longitude = -2.3252278;
+    float homeSpanX = 10;
+    float homeSpanY = 10;
+    homeRegion.span.latitudeDelta = homeSpanX;
+    homeRegion.span.longitudeDelta = homeSpanY;
+    
+    [self.contactMapView setRegion:homeRegion animated:YES];
 
    // NSLog(@"code: %@", self.universityCode);
     
@@ -71,6 +81,7 @@
             [telephoneButton addTarget:self
                                 action:@selector(telephoneButton:)
                       forControlEvents:UIControlEventTouchUpInside];
+            telephoneButton.exclusiveTouch = YES;
             [telephoneButton setTitle:[contactDetails valueForKey:@"TelephoneContact"] forState:UIControlStateNormal];
             telephoneButton.frame = CGRectMake(50.0, 20, 250.0, 20.0);
             telephoneButton.titleLabel.textAlignment = NSTextAlignmentLeft;
@@ -83,10 +94,13 @@
             [emailButton addTarget:self
                             action:@selector(emailButton:)
                   forControlEvents:UIControlEventTouchUpInside];
+            emailButton.exclusiveTouch = YES;
             NSString *email = [contactDetails valueForKey:@"EmailContact"];
             if (email.length == 0) {
-                [emailButton setTitle:@"Not available" forState:UIControlStateNormal];
                 emailButton.enabled = NO;
+                [emailButton setTitle:@"Not available" forState:UIControlStateDisabled];
+                [emailButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+
             } else {
                 [emailButton setTitle:email forState:UIControlStateNormal];
             }
@@ -101,6 +115,7 @@
             [websiteButton addTarget:self
                               action:@selector(websiteButton:)
                     forControlEvents:UIControlEventTouchUpInside];
+            websiteButton.exclusiveTouch = YES;
             [websiteButton setTitle:[contactDetails valueForKey:@"WebsiteContact"] forState:UIControlStateNormal];
             websiteButton.frame = CGRectMake(50.0, 70, 250.0, 20.0);
             websiteButton.titleLabel.textAlignment = NSTextAlignmentLeft;
@@ -113,32 +128,49 @@
             
             PFQuery *locationQuery = [PFQuery queryWithClassName:@"Location"];
             [locationQuery whereKey:@"UKPRN" equalTo:universityCode];
-            PFObject *university = [locationQuery getFirstObject];
-            uniLatitude = [university valueForKey:@"LATITUDE"];
-            uniLongitude = [university valueForKey:@"LONGITUDE"];
-            //NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
             
-            MKCoordinateRegion homeRegion;
-            homeRegion.center.latitude = 54.013175;
-            homeRegion.center.longitude = -2.3252278;
-            float homeSpanX = 10;
-            float homeSpanY = 10;
-            homeRegion.span.latitudeDelta = homeSpanX;
-            homeRegion.span.longitudeDelta = homeSpanY;
+            [locationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                NSArray *bedNumbersString = [objects valueForKey:@"INSTBEDS"];
+                NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+                [f setNumberStyle:NSNumberFormatterDecimalStyle];
+                NSMutableArray *bedNumbers = [[NSMutableArray alloc] init];
+                int i;
+                for (i=0; i<bedNumbersString.count; i++) {
+                    NSString *tempString = [bedNumbersString objectAtIndex:i];
+                    NSNumber *tempNumber = [f numberFromString:tempString];
+                    [bedNumbers addObject:tempNumber];
+                }
+                NSLog(@"bed numbers: %@",bedNumbers);
+                
+                NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
+                NSArray *bedNumbersSorted = [bedNumbers sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
+                
+                //NSArray *bedNumbersSorted = [bedNumbers sortedArrayUsingSelector: @selector(compare:)];
+                NSLog(@"bed numbers sorted: %@", bedNumbersSorted);
+                NSNumber *topBedNumber = [bedNumbersSorted objectAtIndex:0];
+                NSString *topBedString = [topBedNumber stringValue];
+                NSInteger originalIndexPath = [bedNumbersString indexOfObject:topBedString];
+                NSArray *latitudes = [objects valueForKey:@"LATITUDE"];
+                NSArray *longitudes = [objects valueForKey:@"LONGITUDE"];
+                uniLatitude = [latitudes objectAtIndex:originalIndexPath];
+                uniLongitude = [longitudes objectAtIndex:originalIndexPath];
+                NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
+                
+                
+                
+                self.hasLoadedBool = NO;
+                self.contactMapView.hidden = NO;
+                self.telephoneButton.hidden = NO;
+                self.emailButton.hidden = NO;
+                self.websiteButton.hidden = NO;
+                self.telephoneLabel.hidden = NO;
+                self.emailLabel.hidden = NO;
+                self.websiteLabel.hidden = NO;
+                [self.activityIndicator stopAnimating];
+                self.firstTimeLoad = NO;
+            }];
             
-            [self.contactMapView setRegion:homeRegion animated:YES];
             
-            
-            self.hasLoadedBool = NO;
-            self.contactMapView.hidden = NO;
-            self.telephoneButton.hidden = NO;
-            self.emailButton.hidden = NO;
-            self.websiteButton.hidden = NO;
-            self.telephoneLabel.hidden = NO;
-            self.emailLabel.hidden = NO;
-            self.websiteLabel.hidden = NO;
-            [self.activityIndicator stopAnimating];
-            self.firstTimeLoad = NO;
         }
     }
     else {

@@ -68,10 +68,10 @@
     
     self.haveQueriedParseForCoursesYet = NO;
     
-    self.universitiesFromParse = [[NSMutableArray alloc] initWithObjects:@"Anglia Ruskin University",@"Aston University",@"Bath Spa University",@"The University of Bath",@"University of Bedfordshire",@"Birkbeck College",@"Birmingham City University",@"The University of Birmingham",@"University College Birmingham",@"Bishop Grosseteste University",@"The University of Bolton",@"The Arts University Bournemouth",@"Bournemouth University",@"The University of Bradford",@"The University of Brighton",@"The University of Bristol",@"Brunel University",@"Buckinghamshire New University",@"The University of Buckingham",@"The University of Cambridge",@"The Institute of Cancer Research",@"Canterbury Christ Church University",@"The University of Central Lancashire",@"Central School of Speech and Drama",@"University of Chester",@"The University of Chichester",@"The City University",@"Conservatoire for Dance and Drama",@"Courtauld Institute of Art",@"Coventry University",@"Cranfield University",@"University for the Creative Arts",@"University of Cumbria",@"De Montfort University",@"University of Derby",@"University of Durham",@"The University of East Anglia",@"The University of East London",@"Edge Hill University",@"The University of Essex",@"The University of Exeter",@"Falmouth University",@"University of Gloucestershire",@"Goldsmiths College",@"The University of Greenwich",@"Guildhall School of Music and Drama",@"Harper Adams University",@"University of Hertfordshire",@"Heythrop College",@"The University of Huddersfield",@"The University of Hull",@"Imperial College of Science, Technology and Medicine",@"Institute of Education",@"The University of Keele",@"The University of Kent",@"King's College London",@"Kingston University",@"The University of Lancaster",@"Leeds College of Art",@"Leeds Metropolitan University",@"The University of Leeds",@"Leeds Trinity University",@"The University of Leicester",@"The University of Lincoln",@"Liverpool Hope University",@"Liverpool John Moores University",@"The Liverpool Institute for Performing Arts",@"The University of Liverpool",@"University of the Arts, London",@"London Business School",@"University of London (Institutes and activities)",@"London Metropolitan University",@"London South Bank University",@"London School of Economics and Political Science",@"London School of Hygiene and Tropical Medicine",@"Loughborough University",@"The Manchester Metropolitan University",@"The University of Manchester",@"Middlesex University",@"The University of Newcastle-upon-Tyne",@"Newman University",@"The University of Northampton",@"The University of Northumbria at Newcastle",@"Norwich University of the Arts",@"The University of Nottingham",@"The Nottingham Trent University",@"The Open University",@"Oxford Brookes University",@"The University of Oxford",@"The University of Plymouth",@"The University of Portsmouth",@"Queen Mary University of London",@"Ravensbourne",@"The University of Reading",@"Roehampton University",@"Rose Bruford College",@"Royal Academy of Music",@"Royal Agricultural University",@"Royal College of Art",@"Royal College of Music",@"Royal Holloway and Bedford New College",@"Royal Northern College of Music",@"The Royal Veterinary College",@"St George's Hospital Medical School",@"St Mary's University College, Twickenham",@"The University of Salford",@"The School of Oriental and African Studies",@"Sheffield Hallam University",@"The University of Sheffield",@"Southampton Solent University",@"The University of Southampton",@"Staffordshire University",@"University of St Mark and St John",@"University Campus Suffolk",@"The University of Sunderland",@"The University of Surrey",@"The University of Sussex",@"Teesside University",@"Trinity Laban Conservatoire of Music and Dance",@"University College London",@"The University of Warwick",@"University of the West of England, Bristol",@"The University of West London",@"The University of Westminster",@"The University of Winchester",@"The University of Wolverhampton",@"The University of Worcester",@"Writtle College",@"York St John University",@"The University of York",@"Aberystwyth University",@"Bangor University",@"Cardiff University",@"Cardiff Metropolitan University",@"University of Glamorgan",@"Glyndŵr University",@"The University of Wales, Newport",@"Swansea University",@"University of Wales Trinity Saint David",@"The University of Aberdeen",@"University of Abertay Dundee",@"The University of Dundee",@"Edinburgh Napier University",@"The University of Edinburgh",@"Glasgow Caledonian University",@"Glasgow School of Art",@"The University of Glasgow",@"Heriot-Watt University",@"Queen Margaret University, Edinburgh",@"The Robert Gordon University",@"Royal Conservatoire of Scotland",@"The University of St Andrews",@"SRUC",@"The University of Stirling",@"The University of Strathclyde",@"University of the Highlands and Islands",@"The University of the West of Scotland",@"The Queen's University of Belfast",@"St Mary's University College",@"Stranmillis University College",@"University of Ulster", nil];
+    self.universitiesFromParse = [[NSMutableArray alloc] initWithObjects:@"Anglia Ruskin University",@"Aston University",@"Bath Spa University",@"The University of Bath",@"University of Bedfordshire",@"Birkbeck College",@"Birmingham City University",@"The University of Birmingham",@"University College Birmingham",@"Bishop Grosseteste University",@"The University of Bolton",@"The Arts University Bournemouth",@"Bournemouth University",@"The University of Bradford",@"The University of Brighton",@"The University of Bristol",@"Brunel University",@"Buckinghamshire New University",@"The University of Buckingham",@"The University of Cambridge",@"The Institute of Cancer Research",@"Canterbury Christ Church University",@"The University of Central Lancashire",@"Central School of Speech and Drama",@"University of Chester",@"The University of Chichester",@"The City University",@"Conservatoire for Dance and Drama",@"Courtauld Institute of Art",@"Coventry University",@"Cranfield University",@"University for the Creative Arts",@"University of Cumbria",@"De Montfort University",@"University of Derby",@"University of Durham",@"The University of East Anglia",@"The University of East London",@"Edge Hill University",@"The University of Essex",@"The University of Exeter",@"Falmouth University",@"University of Gloucestershire",@"Goldsmiths College",@"The University of Greenwich",@"Guildhall School of Music and Drama",@"Harper Adams University",@"University of Hertfordshire",@"Heythrop College",@"The University of Huddersfield",@"The University of Hull",@"Imperial College of Science, Technology and Medicine",@"Institute of Education",@"The University of Keele",@"The University of Kent",@"King's College London",@"Kingston University",@"The University of Lancaster",@"Leeds College of Art",@"Leeds Metropolitan University",@"The University of Leeds",@"Leeds Trinity University",@"The University of Leicester",@"The University of Lincoln",@"Liverpool Hope University",@"Liverpool John Moores University",@"The Liverpool Institute for Performing Arts",@"The University of Liverpool",@"University of the Arts, London",@"London Business School",@"University of London (Institutes and activities)",@"London Metropolitan University",@"London South Bank University",@"London School of Economics and Political Science",@"London School of Hygiene and Tropical Medicine",@"Loughborough University",@"The Manchester Metropolitan University",@"The University of Manchester",@"Middlesex University",@"The University of Newcastle-upon-Tyne",@"Newman University",@"The University of Northampton",@"The University of Northumbria at Newcastle",@"Norwich University of the Arts",@"The University of Nottingham",@"The Nottingham Trent University",@"The Open University",@"Oxford Brookes University",@"The University of Oxford",@"The University of Plymouth",@"The University of Portsmouth",@"Queen Mary University of London",@"Ravensbourne",@"The University of Reading",@"Roehampton University",@"Rose Bruford College",@"Royal Academy of Music",@"Royal Agricultural University",@"Royal College of Art",@"Royal College of Music",@"Royal Holloway and Bedford New College",@"Royal Northern College of Music",@"The Royal Veterinary College",@"St George's Hospital Medical School",@"St Mary's University College, Twickenham",@"The University of Salford",@"The School of Oriental and African Studies",@"Sheffield Hallam University",@"The University of Sheffield",@"Southampton Solent University",@"The University of Southampton",@"Staffordshire University",@"University of St Mark and St John",@"University Campus Suffolk",@"The University of Sunderland",@"The University of Surrey",@"The University of Sussex",@"Teesside University",@"Trinity Laban Conservatoire of Music and Dance",@"University College London",@"The University of Warwick",@"University of the West of England, Bristol",@"The University of West London",@"The University of Westminster",@"The University of Winchester",@"The University of Wolverhampton",@"The University of Worcester",@"Writtle College",@"York St John University",@"The University of York",@"Aberystwyth University",@"Bangor University",@"Cardiff University",@"Cardiff Metropolitan University",@"Glyndŵr University",@"The University of Wales, Newport",@"Swansea University",@"University of Wales Trinity Saint David",@"The University of Aberdeen",@"University of Abertay Dundee",@"The University of Dundee",@"Edinburgh Napier University",@"The University of Edinburgh",@"Glasgow Caledonian University",@"Glasgow School of Art",@"The University of Glasgow",@"Heriot-Watt University",@"Queen Margaret University, Edinburgh",@"The Robert Gordon University",@"Royal Conservatoire of Scotland",@"The University of St Andrews",@"SRUC",@"The University of Stirling",@"The University of Strathclyde",@"University of the Highlands and Islands",@"The University of the West of Scotland",@"The Queen's University of Belfast",@"St Mary's University College",@"Stranmillis University College",@"University of Ulster", nil];
     
     
-    self.universityUKPRNFromParse = [[NSMutableArray alloc] initWithObjects:@"10000291",@"10007759",@"10000571",@"10007850",@"10007152",@"10007760",@"10007140",@"10006840",@"10000712",@"10007811", @"10006841",@"10000385",@"10000824",@"10007785",@"10000886",@"10007786",@"10000961",@"10000975",@"10007787",@"10007788",@"10003324",@"10001143",@"10007141",@"10007816",@"10007848",@"10007137",@"10001478",@"10001653",@"10007761",@"10001726",@"10007822",@"10006427",@"10007842",@"10001883",@"10007851",@"10007143",@"10007789",@"10007144",@"10007823",@"10007791",@"10007792",@"10008640",@"10007145",@"10002718",@"10007146",@"10007825",@"10040812",@"10007147",@"10007765",@"10007148",@"10007149",@"10003270",@"10007766",@"10007767",@"10007150",@"10003645",@"10003678",@"10007768",@"10003854",@"10003861",@"10007795",@"10003863",@"10007796",@"10007151",@"10003956",@"10003957",@"10003945",@"10006842",@"10007162",@"10007769",@"10007797",@"10004048",@"10004078",@"10004063",@"10007771",@"10004113",@"10004180",@"10007798",@"10004351",@"10007799",@"10007832",@"10007138",@"10001282",@"10004775",@"10007154",@"10004797",@"10007773",@"10004930",@"10007774",@"10007801",@"10007155",@"10007775",@"10005389",@"10007802",@"10007776",@"10005523",@"10007835",@"10005545",@"10007777",@"10007778",@"10005553",@"10007837",@"10007779",@"10007782",@"10007843",@"10007156",@"10007780",@"10005790",@"10007157",@"10006022",@"10007158",@"10006299",@"10037449",@"10014001",@"10007159",@"10007160",@"10007806",@"10007161",@"10008017",@"10007784",@"10007163",@"10007164",@"10006566",@"10007165",@"10003614",@"10007166",@"10007139",@"10007657",@"10007713",@"10007167",@"10007856",@"10007857",@"10007814",@"10007854",@"10007793",@"10007833",@"10007853",@"10007855",@"10007858",@"10007783",@"10007849",@"10007852",@"10007772",@"10007790",@"10007762",@"10002681",@"10007794",@"10007764",@"10005337",@"10005500",@"10005561",@"10007803",@"10005700",@"10007804",@"10007805",@"10007114",@"10007800",@"10005343",@"10008026",@"10008010",@"10007807", nil];
+    self.universityUKPRNFromParse = [[NSMutableArray alloc] initWithObjects:@"10000291",@"10007759",@"10000571",@"10007850",@"10007152",@"10007760",@"10007140",@"10006840",@"10000712",@"10007811", @"10006841",@"10000385",@"10000824",@"10007785",@"10000886",@"10007786",@"10000961",@"10000975",@"10007787",@"10007788",@"10003324",@"10001143",@"10007141",@"10007816",@"10007848",@"10007137",@"10001478",@"10001653",@"10007761",@"10001726",@"10007822",@"10006427",@"10007842",@"10001883",@"10007851",@"10007143",@"10007789",@"10007144",@"10007823",@"10007791",@"10007792",@"10008640",@"10007145",@"10002718",@"10007146",@"10007825",@"10040812",@"10007147",@"10007765",@"10007148",@"10007149",@"10003270",@"10007766",@"10007767",@"10007150",@"10003645",@"10003678",@"10007768",@"10003854",@"10003861",@"10007795",@"10003863",@"10007796",@"10007151",@"10003956",@"10003957",@"10003945",@"10006842",@"10007162",@"10007769",@"10007797",@"10004048",@"10004078",@"10004063",@"10007771",@"10004113",@"10004180",@"10007798",@"10004351",@"10007799",@"10007832",@"10007138",@"10001282",@"10004775",@"10007154",@"10004797",@"10007773",@"10004930",@"10007774",@"10007801",@"10007155",@"10007775",@"10005389",@"10007802",@"10007776",@"10005523",@"10007835",@"10005545",@"10007777",@"10007778",@"10005553",@"10007837",@"10007779",@"10007782",@"10007843",@"10007156",@"10007780",@"10005790",@"10007157",@"10006022",@"10007158",@"10006299",@"10037449",@"10014001",@"10007159",@"10007160",@"10007806",@"10007161",@"10008017",@"10007784",@"10007163",@"10007164",@"10006566",@"10007165",@"10003614",@"10007166",@"10007139",@"10007657",@"10007713",@"10007167",@"10007856",@"10007857",@"10007814",@"10007854",@"10007833",@"10007853",@"10007855",@"10007858",@"10007783",@"10007849",@"10007852",@"10007772",@"10007790",@"10007762",@"10002681",@"10007794",@"10007764",@"10005337",@"10005500",@"10005561",@"10007803",@"10005700",@"10007804",@"10007805",@"10007114",@"10007800",@"10005343",@"10008026",@"10008010",@"10007807", nil];
     
     
     self.locationDict = [[NSDictionary alloc] initWithObjectsAndKeys:@"East Of England", @"EAST", @"West Midlands", @"WMID",@"South West",@"SWES",@"London",@"LOND",@"East Midlands",@"EMID",@"North West",@"NWES",@"Yorkshire And The Humber",@"YORH",@"South East",@"SEAS", @"North East",@"NEAS",@"Wales",@"WALE",@"Scotland",@"SCOT",@"Northern Ireland",@"NIRE",nil];
@@ -93,6 +93,9 @@
     self.locationButton.titleLabel.textColor = [UIColor lightGrayColor];
     self.locationButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:14];
     self.locationButton.backgroundColor = [UIColor whiteColor];
+    self.locationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.locationButton.contentEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
+
     
     CALayer *btnLayer2 = [self.locationButton layer];
     [btnLayer2 setMasksToBounds:YES];
@@ -152,6 +155,7 @@
                     NSString *location = [locationDict valueForKey:tempKey];
                      [self.searchButton setEnabled:YES];
                     [self.locationButton setTitle:location forState:UIControlStateDisabled];
+                    [self.locationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled]; 
                       self.pleaseSelectLabel.hidden = YES;
                //     self.locationButton.enabled = NO;
                 }
@@ -175,6 +179,9 @@
             self.locationButton.enabled = YES;
             self.locationButton.backgroundColor = [UIColor whiteColor];
             self.haveFoundAUniversity = NO;
+            if (self.courseTextField.text.length) {
+                self.searchButton.enabled = YES;
+            }
         }
         if (self.universityTextField.text.length == 0) {
             self.pleaseSelectLabel.hidden = YES;
@@ -182,7 +189,7 @@
     }
     if (textField == self.courseTextField) {
         [self.scrollView setContentOffset:CGPointMake(0.0, -6) animated:YES];
-        if (self.courseTextField.text.length != 0 || self.haveFoundAUniversity == YES) {
+        if ((self.courseTextField.text.length != 0 && self.universityTextField.text.length == 0) || self.haveFoundAUniversity == YES) {
             self.searchButton.enabled = YES;
         }
     }
@@ -205,6 +212,9 @@
     
     if (self.anyFound == NO) {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.textColor = [UIColor lightGrayColor];
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
     }
     
     cell.textLabel.text = [autocompleteUniversities objectAtIndex:indexPath.row];
@@ -260,13 +270,7 @@
     
     
     if (self.autocompleteUniversities.count == 0) {
-        NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-        NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
-        if (data) {
-            self.autocompleteUniversities = [[NSMutableArray alloc] initWithObjects:@"None", nil];
-        } else {
-            self.autocompleteUniversities = [[NSMutableArray alloc] initWithObjects:@"No internet", nil];
-        }
+        self.autocompleteUniversities = [[NSMutableArray alloc] initWithObjects:@"No Results", nil];
         self.anyFound = NO;
     } else {
         self.anyFound = YES;
@@ -320,30 +324,6 @@
         
     }
 }
-
-//- (IBAction)searchButtonPressed:(id)sender {
-//    
-//    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-//    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
-//    
-//    if (data) {
-//        SearchResultsTableViewController *searchResultsTableViewController = [[SearchResultsTableViewController alloc] initWithNibName:@"SearchResultsTableViewController" bundle:nil];
-//        
-//        searchResultsTableViewController.universitySearchedString = self.universityTextField.text;
-//        searchResultsTableViewController.courseSearchedString = self.courseTextField.text;
-//        if ([self.locationButton.titleLabel.text isEqualToString:@"Location...                                                   "]) {
-//            searchResultsTableViewController.locationSearchedString = @"";
-//        } else {
-//        searchResultsTableViewController.locationSearchedString = self.locationButton.titleLabel.text;
-//        }
-//        
-//        [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
-//    } else {
-//        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [noInternetAlert show];
-//    }
-//    
-//}
 
 - (void)searchButtonClicked:(UIButton*)button
 {

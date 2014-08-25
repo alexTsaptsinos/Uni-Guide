@@ -22,5 +22,4 @@
 @property (strong,nonatomic) UIButton *openDaysMenuButtonLabel;
 @property (strong,nonatomic) UIButton *universitiesMenuButtonLabel;
 
-
 @end

@@ -63,9 +63,18 @@
     self.numberOfReviewsLabel.hidden = YES;
     [self.activityIndicator startAnimating];
     
-    
+    self.addReviewButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [addReviewButton addTarget:self
+                     action:@selector(addReviewButtonClicked:)
+           forControlEvents:UIControlEventTouchUpInside];
+    [addReviewButton setTitle:@"Add Review" forState:UIControlStateNormal];
+    [addReviewButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.addReviewButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
-    self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
+    self.addReviewButton.frame = CGRectMake(212, 54, 105, 30);
+    self.addReviewButton.hidden = YES;
+    [self.view addSubview:addReviewButton];
+    
+    
     
     uniNameLabel.frame = CGRectMake(0, 2, 320, 30);
     uniNameLabel.text = self.uniNameReviews;
@@ -95,10 +104,11 @@
 {
     [super viewDidAppear:animated];
     self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
-    if (self.reviewTableView.hidden == YES) {
-        self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
-        self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
-    }
+//    if (self.reviewTableView.hidden == YES) {
+//        self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
+//        self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
+//        self.addReviewButton.hidden = NO;
+//    }
     
     NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
     NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
@@ -135,7 +145,22 @@
                 if (objects.count == 0) {
                     self.reviewTableView.hidden = YES;
                     self.numberOfReviewsLabel.text = @"0 Ratings";
-                    self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
+                    UILabel *noReviewsLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 110, 320, 25)];
+                    noReviewsLabel.text = @"No reviews";
+                    noReviewsLabel.numberOfLines = 1;
+                    noReviewsLabel.textAlignment = NSTextAlignmentCenter;
+                    noReviewsLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+                    [self.view addSubview:noReviewsLabel];
+                    
+                    UILabel *noReviewsPleadLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 140, 320, 60)];
+                    noReviewsPleadLabel.text = @"Do you take this course?\nWhy not add a review here";
+                    noReviewsPleadLabel.numberOfLines = 0;
+                    noReviewsPleadLabel.textAlignment = NSTextAlignmentCenter;
+                    noReviewsPleadLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+                    [self.view addSubview:noReviewsPleadLabel];
+                    [self.addReviewButton setFrame:CGRectMake(108.0f, 200.0f, 105.0f, 30.0f)];
+
+
                 }
                 else if (objects.count == 1) {
                     self.numberOfReviewsLabel.text = @"1 Rating";
@@ -201,28 +226,29 @@
                     [self.starButton5 setImage:[UIImage imageNamed:@"star-25"] forState:UIControlStateDisabled];
                 }
                 
-                
+                CALayer *btnLayer = [addReviewButton layer];
+                [btnLayer setMasksToBounds:YES];
+                [btnLayer setCornerRadius:5.0f];
+                self.firstTimeLoad = NO;
+                if (objects.count == 0) {
+                    self.reviewTableView.hidden = YES;
+                } else {
+                self.reviewTableView.hidden = NO;
+                }
+                self.courseNameLabel.hidden = NO;
+                self.uniNameLabel.hidden = NO;
+                self.addReviewButton.hidden = NO;
+                self.starButton1.hidden = NO;
+                self.starButton2.hidden = NO;
+                self.starButton3.hidden = NO;
+                self.starButton4.hidden = NO;
+                self.starButton5.hidden = NO;
+                self.numberOfReviewsLabel.hidden = NO;
+                [self.activityIndicator stopAnimating];
             }];
             
             // calculate average review
             
-            
-            
-            CALayer *btnLayer = [addReviewButton layer];
-            [btnLayer setMasksToBounds:YES];
-            [btnLayer setCornerRadius:5.0f];
-            self.firstTimeLoad = NO;
-            self.reviewTableView.hidden = NO;
-            self.courseNameLabel.hidden = NO;
-            self.uniNameLabel.hidden = NO;
-            self.addReviewButton.hidden = NO;
-            self.starButton1.hidden = NO;
-            self.starButton2.hidden = NO;
-            self.starButton3.hidden = NO;
-            self.starButton4.hidden = NO;
-            self.starButton5.hidden = NO;
-            self.numberOfReviewsLabel.hidden = NO;
-            [self.activityIndicator stopAnimating];
         }
     }
     else {
@@ -243,16 +269,6 @@
         
     }
     
-}
-
-- (void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if (self.reviewTableView.hidden == YES) {
-        self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
-        self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
-        
-    }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -334,6 +350,8 @@
     reportReviewButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:15];
     [reportReviewButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [reportReviewButton addTarget:self action:@selector(ReportButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    reportReviewButton.exclusiveTouch = YES;
+    [reportReviewButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     reportReviewButton.tag = indexPath.row;
     [cell addSubview:reportReviewButton];
     
@@ -361,8 +379,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)addReviewButtonPressed:(id)sender {
-    
+//- (IBAction)addReviewButtonPressed:(id)sender {
+//    
+//    AddReviewViewController *addReviewViewController = [[AddReviewViewController alloc]initWithNibName:@"AddReviewViewController" bundle:[NSBundle mainBundle]];
+//    
+//    
+//    UINavigationController *addReviewNavigationController = [[UINavigationController alloc]initWithRootViewController:addReviewViewController];
+//    
+//    
+//    addReviewViewController.couseKISCode = self.courseCodeReviews;
+//    
+//    [self presentViewController:addReviewNavigationController animated:YES completion:nil];
+//    
+//}
+
+- (void)addReviewButtonClicked:(UIButton*)button
+{
     AddReviewViewController *addReviewViewController = [[AddReviewViewController alloc]initWithNibName:@"AddReviewViewController" bundle:[NSBundle mainBundle]];
     
     
@@ -372,7 +404,6 @@
     addReviewViewController.couseKISCode = self.courseCodeReviews;
     
     [self presentViewController:addReviewNavigationController animated:YES completion:nil];
-    
 }
 
 - (void)ReportButtonClicked:(id)sender

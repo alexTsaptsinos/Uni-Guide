@@ -23,6 +23,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.tabBarController.tabBar.translucent = NO;
     self.navigationController.navigationBar.translucent = NO;
+    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     //self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     self.firstTimeLoad = YES;
     
@@ -63,7 +64,7 @@
                 [self.tableView reloadData];
             }];
             
-            
+            self.tableView.scrollEnabled = YES;
             
         }
     }
@@ -78,6 +79,7 @@
             noInternetLabel.textAlignment = NSTextAlignmentCenter;
             [noInternetImageView addSubview:noInternetLabel];
             [self.view addSubview:noInternetImageView];
+            self.tableView.scrollEnabled = NO;
         }
         
     }
@@ -186,8 +188,11 @@
         cell = [tableView cellForRowAtIndexPath:indexPath];
         
         UILabel *universityTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
-        universityTitle.numberOfLines = 2;
         universityTitle.text = [openDays objectAtIndex:indexPath.row];
+        universityTitle.backgroundColor = [UIColor clearColor];
+        universityTitle.textColor = [UIColor whiteColor];
+        universityTitle.font = [UIFont boldSystemFontOfSize:16.0];
+        //universityTitle.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
         universityTitle.textAlignment = NSTextAlignmentCenter;
         specificOpenDayViewController.navigationItem.titleView = universityTitle;
         

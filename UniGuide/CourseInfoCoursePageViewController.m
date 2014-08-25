@@ -406,6 +406,10 @@
         self.proportionInWork = tempObject.proportionInWork;
         self.commonJobs = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:tempObject.commonJobs]];
         self.commonJobsPercentages = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:tempObject.commonJobsPercentages]];
+        if (self.commonJobs.count == 0) {
+            [self.commonJobs addObject:@"Sorry we appear to have no data"];
+            [self.commonJobsPercentages addObject:@""];
+        }
         self.instituteSalary = tempObject.instituteSalary;
         self.nationalSalary = tempObject.nationalSalary;
         
@@ -490,9 +494,9 @@
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
-        static NSString *cellIdentifier = @"CommonJobsCustomCellView";
+        static NSString *cellIdentifierJobs = @"CommonJobsCustomCellView";
         
-        CommonJobsCustomCellView *cell = (CommonJobsCustomCellView *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        CommonJobsCustomCellView *cell = (CommonJobsCustomCellView *)[tableView dequeueReusableCellWithIdentifier:cellIdentifierJobs];
         
         if (cell == nil) {
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CommonJobsCustomCellView" owner:self options:nil];
@@ -515,7 +519,9 @@
         return cell;
     } else if (indexPath.section == 0) {
         
-        static NSString *cellIdentifier = @"CourseInfoTextCustomCellView";
+        NSString *cellIdentifier = [NSString stringWithFormat:@"CourseInfoTextCustomCellView%i", indexPath.row];
+
+        //static NSString *cellIdentifier = @"CourseInfoTextCustomCellView";
         static NSString *cellImageIdentifier = @"UniInfoCustomCellView";
         static NSString *cellPieIdentifier = @"CourseInfoPieCustomCellView";
         static NSString *cellSalaryIdentifier = @"CourseInfoSalaryCustomCellView";
@@ -563,6 +569,8 @@
                 cellText.textCellDataButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:10];
                 [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
                 [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+                [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateDisabled];
+
             }
             cellText.selectionStyle = UITableViewCellSelectionStyleNone;
             cellText.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];

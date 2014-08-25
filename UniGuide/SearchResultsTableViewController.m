@@ -38,8 +38,8 @@
         self.navigationItem.title = @"Results";
         
         //set up filter button on navigation bar
-        customFilterButton =[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(customFilterButtonPressed)];
-        [self.navigationItem setRightBarButtonItem:customFilterButton];
+//        customFilterButton =[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(customFilterButtonPressed)];
+//        [self.navigationItem setRightBarButtonItem:customFilterButton];
     }
     return self;
 }
@@ -137,9 +137,9 @@
                 self.skip += self.limit;
                 NSLog(@"self.skip : %d",self.skip);
                 if (self.searchResults.count == 0) {
-                    [self.searchResults addObject:@"No Results"];
-                    [self.courseDegreeTitles addObject:@"sorry"];
-                    [self.universityNamesForSearchResults addObject:@""];
+//                    [self.searchResults addObject:@"No Results"];
+//                    [self.courseDegreeTitles addObject:@""];
+//                    [self.universityNamesForSearchResults addObject:@""];
                     self.anyResults = NO;
                 }
                 self.tableView.hidden = NO;
@@ -407,6 +407,8 @@
     if (self.anyResults == NO) {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.textLabel.textColor = [UIColor lightGrayColor];
+        cell.textLabel.text = @"No results";
     }
     else {
        // cell.textLabel.adjustsFontSizeToFitWidth = YES;
@@ -531,18 +533,18 @@
 
 
 
-- (void) customFilterButtonPressed
-{
-    RightPanelViewController *rightPanelViewController = [[RightPanelViewController alloc] initWithNibName:@"RightPanelViewController" bundle:nil];
-    
-    [UIView transitionWithView:self.navigationController.view
-                      duration:0.75
-                       options:UIViewAnimationOptionTransitionFlipFromRight
-                    animations:^{
-                        [self.navigationController pushViewController:rightPanelViewController animated:NO];
-                    }
-                    completion:nil];
-}
+//- (void) customFilterButtonPressed
+//{
+//    RightPanelViewController *rightPanelViewController = [[RightPanelViewController alloc] initWithNibName:@"RightPanelViewController" bundle:nil];
+//    
+//    [UIView transitionWithView:self.navigationController.view
+//                      duration:0.75
+//                       options:UIViewAnimationOptionTransitionFlipFromRight
+//                    animations:^{
+//                        [self.navigationController pushViewController:rightPanelViewController animated:NO];
+//                    }
+//                    completion:nil];
+//}
 
 -(void) callAnotherMethod {
     

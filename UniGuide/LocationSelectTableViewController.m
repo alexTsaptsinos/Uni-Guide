@@ -36,7 +36,7 @@
 {
     [super viewDidLoad];
     
-    self.locations = [[NSArray alloc] initWithObjects: @"East Of England", @"West Midlands", @"South West", @"London", @"East Midlands", @"North West", @"Yorkshire And The Humber", @"South East", @"North East", @"Wales", @"Scotland", @"Northern Ireland",nil];
+    self.locations = [[NSArray alloc] initWithObjects: @"None",@"East Of England", @"West Midlands", @"South West", @"London", @"East Midlands", @"North West", @"Yorkshire And The Humber", @"South East", @"North East", @"Wales", @"Scotland", @"Northern Ireland",nil];
     
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelBtnPressed)];
     
@@ -94,8 +94,16 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    self.previousViewController.locationButton.titleLabel.text = [self.locations objectAtIndex:indexPath.row];
-    self.previousViewController.locationButton.titleLabel.textColor = [UIColor blackColor];
+//    self.previousViewController.locationButton.titleLabel.text = [self.locations objectAtIndex:indexPath.row];
+//    self.previousViewController.locationButton.titleLabel.textColor = [UIColor blackColor];
+    if (indexPath.row == 0) {
+        [self.previousViewController.locationButton setTitle:@"Location..." forState:UIControlStateNormal];
+        [self.previousViewController.locationButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    } else {
+    [self.previousViewController.locationButton setTitle:[self.locations objectAtIndex:indexPath.row] forState:UIControlStateNormal];
+    [self.previousViewController.locationButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+
     
     [self dismissViewControllerAnimated:YES completion:nil];
     

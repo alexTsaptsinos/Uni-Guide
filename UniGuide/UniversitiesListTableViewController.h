@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) NSMutableArray *alphabetsArray;
 @property (nonatomic, strong) NSMutableArray *universities;
+@property (nonatomic, strong) NSMutableArray *universitiesSortableNames;
 @property (nonatomic, strong) NSArray *sortedUniversities;
 @property (nonatomic, strong) NSMutableArray *universitiesUKPRNS;
 @property (nonatomic) BOOL hasSearchingCommenced;

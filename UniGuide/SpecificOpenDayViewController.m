@@ -43,6 +43,7 @@
     self.bookNowButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;
     
+    
     [self.activityIndicator startAnimating];
     self.timeStartLabel.hidden = YES;
     self.timeEndLabel.hidden = YES;
@@ -77,28 +78,51 @@
         
         PFQuery *locationQuery = [PFQuery queryWithClassName:@"Location"];
         [locationQuery whereKey:@"UKPRN" equalTo:uniCode];
-        PFObject *university = [locationQuery getFirstObject];
-        uniLatitude = [university valueForKey:@"LATITUDE"];
-        uniLongitude = [university valueForKey:@"LONGITUDE"];
-        //NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
         
-        self.timeStartLabel.hidden = NO;
-        self.timeEndLabel.hidden = NO;
-        self.openDayLabel.hidden = NO;
-        self.openDayDateLabel.hidden = NO;
-        self.detailsTextView.hidden = NO;
-        self.detailsTitleLabel.hidden = NO;
-        self.mapViewOpenDays.hidden = NO;
-        self.bookNowButton.hidden = NO;
-        self.firstTimeLoad = NO;
-        self.hyphenLabel.hidden = NO;
-        [self.activityIndicator stopAnimating];
-        
-        self.hasLoadedBool = NO;
-        self.firstTimeLoad = NO;
+        [locationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+            NSArray *bedNumbersString = [objects valueForKey:@"INSTBEDS"];
+            NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+            [f setNumberStyle:NSNumberFormatterDecimalStyle];
+            NSMutableArray *bedNumbers = [[NSMutableArray alloc] init];
+            int i;
+            for (i=0; i<bedNumbersString.count; i++) {
+                NSString *tempString = [bedNumbersString objectAtIndex:i];
+                NSNumber *tempNumber = [f numberFromString:tempString];
+                [bedNumbers addObject:tempNumber];
+            }
+            NSLog(@"bed numbers: %@",bedNumbers);
+            
+            NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
+            NSArray *bedNumbersSorted = [bedNumbers sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
+            
+            //NSArray *bedNumbersSorted = [bedNumbers sortedArrayUsingSelector: @selector(compare:)];
+            NSLog(@"bed numbers sorted: %@", bedNumbersSorted);
+            NSNumber *topBedNumber = [bedNumbersSorted objectAtIndex:0];
+            NSString *topBedString = [topBedNumber stringValue];
+            NSInteger originalIndexPath = [bedNumbersString indexOfObject:topBedString];
+            NSArray *latitudes = [objects valueForKey:@"LATITUDE"];
+            NSArray *longitudes = [objects valueForKey:@"LONGITUDE"];
+            uniLatitude = [latitudes objectAtIndex:originalIndexPath];
+            uniLongitude = [longitudes objectAtIndex:originalIndexPath];
+            NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
+            
+            self.timeStartLabel.hidden = NO;
+            self.timeEndLabel.hidden = NO;
+            self.openDayLabel.hidden = NO;
+            self.openDayDateLabel.hidden = NO;
+            self.detailsTextView.hidden = NO;
+            self.detailsTitleLabel.hidden = NO;
+            self.mapViewOpenDays.hidden = NO;
+            self.bookNowButton.hidden = NO;
+            self.firstTimeLoad = NO;
+            self.hyphenLabel.hidden = NO;
+            [self.activityIndicator stopAnimating];
+            
+            self.hasLoadedBool = NO;
+            self.firstTimeLoad = NO;
+            
+        }];
     }
-    
-    
 }
 
 - (void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered

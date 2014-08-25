@@ -10,7 +10,6 @@
                 <outlet property="locationButton" destination="Eip-Zr-FFo" id="Es1-R7-Snz"/>
                 <outlet property="pleaseSelectLabel" destination="AeY-8z-X4A" id="E6q-ck-7X0"/>
                 <outlet property="scrollView" destination="NaP-DH-w5Z" id="AdR-r3-HPT"/>
-                <outlet property="searchButton" destination="TAh-Zj-0ZY" id="Wrr-89-soN"/>
                 <outlet property="universityTextField" destination="cLl-HB-tnh" id="IdM-MY-ELj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -42,20 +41,6 @@
                                 <outlet property="delegate" destination="-1" id="AjM-ba-pvM"/>
                             </connections>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TAh-Zj-0ZY">
-                            <rect key="frame" x="93" y="396" width="134" height="37"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Search">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="disabled">
-                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="searchButtonPressed:" destination="-1" eventType="touchUpInside" id="d5S-d4-ZTz"/>
-                            </connections>
-                        </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeY-8z-X4A">
                             <rect key="frame" x="24" y="144" width="276" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

@@ -12,8 +12,9 @@
 #import "ReviewCustomCellView.h"
 
 @interface ReviewsCoursePageViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UIButton *addReviewButton;
-- (IBAction)addReviewButtonPressed:(id)sender;
+//@property (weak, nonatomic) IBOutlet UIButton *addReviewButton;
+@property (strong,nonatomic) UIButton *addReviewButton;
+//- (IBAction)addReviewButtonPressed:(id)sender;
 @property (strong, nonatomic) NSString *courseCodeReviews;
 @property (strong,nonatomic) NSString *uniCodeReviews;
 @property (weak, nonatomic) IBOutlet UILabel *numberOfReviewsLabel;

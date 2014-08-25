@@ -50,6 +50,7 @@
 		EF207C77198A814B00F2CFB3 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF207C75198A812D00F2CFB3 /* Parse.framework */; };
 		EF22D9AF19A5EBFB00864E71 /* UniversitiesListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF22D9AD19A5EBFB00864E71 /* UniversitiesListTableViewController.m */; };
 		EF22D9B019A5EBFB00864E71 /* UniversitiesListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF22D9AE19A5EBFB00864E71 /* UniversitiesListTableViewController.xib */; };
+		EF22D9B419A7365B00864E71 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF22D9B319A7365B00864E71 /* iAd.framework */; };
 		EF274081198F9EBA00B932DC /* ReviewCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF274080198F9EBA00B932DC /* ReviewCustomCellView.xib */; };
 		EF274087198F9F8800B932DC /* ReviewCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF274086198F9F8800B932DC /* ReviewCustomCellView.m */; };
 		EF27408A198FE52C00B932DC /* TypeOfComplaintsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF274089198FE52C00B932DC /* TypeOfComplaintsTableViewController.m */; };
@@ -291,6 +292,7 @@
 		EF22D9AC19A5EBFB00864E71 /* UniversitiesListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniversitiesListTableViewController.h; sourceTree = "<group>"; };
 		EF22D9AD19A5EBFB00864E71 /* UniversitiesListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniversitiesListTableViewController.m; sourceTree = "<group>"; };
 		EF22D9AE19A5EBFB00864E71 /* UniversitiesListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniversitiesListTableViewController.xib; sourceTree = "<group>"; };
+		EF22D9B319A7365B00864E71 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		EF274080198F9EBA00B932DC /* ReviewCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReviewCustomCellView.xib; sourceTree = "<group>"; };
 		EF274085198F9F8800B932DC /* ReviewCustomCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewCustomCellView.h; sourceTree = "<group>"; };
 		EF274086198F9F8800B932DC /* ReviewCustomCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewCustomCellView.m; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF22D9B419A7365B00864E71 /* iAd.framework in Frameworks */,
 				EF93A59A19A3F574007F5CAB /* MessageUI.framework in Frameworks */,
 				9E6C4FD51994D9C900A536E3 /* CoreData.framework in Frameworks */,
 				EFB107DD198A885700814C53 /* Social.framework in Frameworks */,
@@ -464,6 +467,7 @@
 		A4C6C896197AD22F0065311C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EF22D9B319A7365B00864E71 /* iAd.framework */,
 				EF93A59919A3F574007F5CAB /* MessageUI.framework */,
 				9E6C4FD41994D9C900A536E3 /* CoreData.framework */,
 				EFB107DC198A885700814C53 /* Social.framework */,
@@ -1172,6 +1176,8 @@
 		A4C6C8C1197AD22F0065311C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1191,6 +1197,7 @@
 					"$(PROJECT_DIR)/libCorePlot-CocoaTouch.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1199,6 +1206,8 @@
 		A4C6C8C2197AD22F0065311C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1218,6 +1227,7 @@
 					"$(PROJECT_DIR)/libCorePlot-CocoaTouch.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};

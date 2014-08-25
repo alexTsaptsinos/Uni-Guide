@@ -29,7 +29,7 @@
     if (self) {
         //this table displays items in the universities class
         self.parseClassName = @"OpenDays";
-        self.pullToRefreshEnabled = NO;
+        self.pullToRefreshEnabled = YES;
         self.paginationEnabled = YES;
         self.objectsPerPage = 50;
         self.navigationItem.title = @"Open Days";
@@ -82,8 +82,9 @@
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
     [query orderByAscending:@"ParseDate"];
-
-    
+    NSDate *today = [NSDate date];
+    NSLog(@"today: %@",today);
+    [query whereKey:@"ParseDate" greaterThanOrEqualTo:today];
     
     return query;
 }
@@ -91,6 +92,20 @@
 -(void)objectsDidLoad:(NSError *)error
 {
     [super objectsDidLoad:error];
+    
+    UILabel *noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 190, 320, 60)];
+    noInternetLabel.textAlignment = NSTextAlignmentCenter;
+    noInternetLabel.textColor = [UIColor blackColor];
+    noInternetLabel.numberOfLines = 0;
+    noInternetLabel.text = @"We're sorry but Open Days\nare not available offline";
+    noInternetLabel.hidden = YES;
+    [self.view addSubview:noInternetLabel];
+    
+    if (error != nil) {
+        noInternetLabel.hidden = NO;
+    } else {
+        noInternetLabel.hidden = YES;
+    }
     
     openDays = [self.objects valueForKey:@"University"];
     openDayDates = [self.objects valueForKey:@"ParseDate"];
@@ -151,7 +166,7 @@
     self.searchController.searchResultsDelegate = self;
     self.searchController.delegate = self;
     
-    
+    self.tableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.searchResults = [NSMutableArray array];
     
 }
