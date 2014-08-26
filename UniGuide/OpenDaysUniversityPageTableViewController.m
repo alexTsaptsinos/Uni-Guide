@@ -45,6 +45,8 @@
             //NSLog(@"university name: %@", self.universityName);
             PFQuery *query = [PFQuery queryWithClassName:@"OpenDays"];
             [query whereKey:@"UKPRN" equalTo:self.universityUKPRN];
+            NSDate *today = [NSDate date];
+            [query whereKey:@"ParseDate" greaterThanOrEqualTo:today];
             [query orderByAscending:@"ParseDate"];
             [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
                 openDays = [objects valueForKey:@"University"];

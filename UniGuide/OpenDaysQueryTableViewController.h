@@ -18,6 +18,12 @@
 @property (strong, nonatomic) NSMutableArray *endTimes;
 @property (strong, nonatomic) NSMutableArray *details;
 @property (strong, nonatomic) NSMutableArray *links;
+@property (nonatomic, strong) NSArray *searchResults;
+@property (nonatomic) NSUInteger i;
+@property (nonatomic) BOOL firstTimeForDates;
+@property (nonatomic,strong) NSArray *allObjects;
+
+
 
 
 @end

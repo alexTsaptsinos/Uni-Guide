@@ -34,6 +34,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.timeStartLabel.text = self.startTime;
     self.timeEndLabel.text = self.endTime;
+    NSLog(@"details: %@",self.details);
     self.detailsTextView.text = self.details;
     self.detailsTextView.font = [UIFont fontWithName:@"Arial" size:15];
     self.detailsTextView.editable = NO;
@@ -80,46 +81,51 @@
         [locationQuery whereKey:@"UKPRN" equalTo:uniCode];
         
         [locationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
-            NSArray *bedNumbersString = [objects valueForKey:@"INSTBEDS"];
-            NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-            [f setNumberStyle:NSNumberFormatterDecimalStyle];
-            NSMutableArray *bedNumbers = [[NSMutableArray alloc] init];
-            int i;
-            for (i=0; i<bedNumbersString.count; i++) {
-                NSString *tempString = [bedNumbersString objectAtIndex:i];
-                NSNumber *tempNumber = [f numberFromString:tempString];
-                [bedNumbers addObject:tempNumber];
+            if (!error) {
+                NSArray *bedNumbersString = [objects valueForKey:@"INSTBEDS"];
+                NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+                [f setNumberStyle:NSNumberFormatterDecimalStyle];
+                NSMutableArray *bedNumbers = [[NSMutableArray alloc] init];
+                int i;
+                for (i=0; i<bedNumbersString.count; i++) {
+                    NSString *tempString = [bedNumbersString objectAtIndex:i];
+                    NSNumber *tempNumber = [f numberFromString:tempString];
+                    [bedNumbers addObject:tempNumber];
+                }
+                NSLog(@"bed numbers: %@",bedNumbers);
+                
+                NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
+                NSArray *bedNumbersSorted = [bedNumbers sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
+                
+                //NSArray *bedNumbersSorted = [bedNumbers sortedArrayUsingSelector: @selector(compare:)];
+                NSLog(@"bed numbers sorted: %@", bedNumbersSorted);
+                NSNumber *topBedNumber = [bedNumbersSorted objectAtIndex:0];
+                NSString *topBedString = [topBedNumber stringValue];
+                NSInteger originalIndexPath = [bedNumbersString indexOfObject:topBedString];
+                NSArray *latitudes = [objects valueForKey:@"LATITUDE"];
+                NSArray *longitudes = [objects valueForKey:@"LONGITUDE"];
+                uniLatitude = [latitudes objectAtIndex:originalIndexPath];
+                uniLongitude = [longitudes objectAtIndex:originalIndexPath];
+                NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
+                
+                self.timeStartLabel.hidden = NO;
+                self.timeEndLabel.hidden = NO;
+                self.openDayLabel.hidden = NO;
+                self.openDayDateLabel.hidden = NO;
+                self.detailsTextView.hidden = NO;
+                self.detailsTitleLabel.hidden = NO;
+                self.mapViewOpenDays.hidden = NO;
+                self.bookNowButton.hidden = NO;
+                self.firstTimeLoad = NO;
+                self.hyphenLabel.hidden = NO;
+                [self.activityIndicator stopAnimating];
+                
+                self.hasLoadedBool = NO;
+                self.firstTimeLoad = NO;
             }
-            NSLog(@"bed numbers: %@",bedNumbers);
-            
-            NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
-            NSArray *bedNumbersSorted = [bedNumbers sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
-            
-            //NSArray *bedNumbersSorted = [bedNumbers sortedArrayUsingSelector: @selector(compare:)];
-            NSLog(@"bed numbers sorted: %@", bedNumbersSorted);
-            NSNumber *topBedNumber = [bedNumbersSorted objectAtIndex:0];
-            NSString *topBedString = [topBedNumber stringValue];
-            NSInteger originalIndexPath = [bedNumbersString indexOfObject:topBedString];
-            NSArray *latitudes = [objects valueForKey:@"LATITUDE"];
-            NSArray *longitudes = [objects valueForKey:@"LONGITUDE"];
-            uniLatitude = [latitudes objectAtIndex:originalIndexPath];
-            uniLongitude = [longitudes objectAtIndex:originalIndexPath];
-            NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
-            
-            self.timeStartLabel.hidden = NO;
-            self.timeEndLabel.hidden = NO;
-            self.openDayLabel.hidden = NO;
-            self.openDayDateLabel.hidden = NO;
-            self.detailsTextView.hidden = NO;
-            self.detailsTitleLabel.hidden = NO;
-            self.mapViewOpenDays.hidden = NO;
-            self.bookNowButton.hidden = NO;
-            self.firstTimeLoad = NO;
-            self.hyphenLabel.hidden = NO;
-            [self.activityIndicator stopAnimating];
-            
-            self.hasLoadedBool = NO;
-            self.firstTimeLoad = NO;
+            else {
+                NSLog(@"error: %@ %@",error,[error userInfo]);
+            }
             
         }];
     }

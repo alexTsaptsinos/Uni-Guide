@@ -15,13 +15,12 @@
 
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UISearchDisplayController *searchController;
-@property (nonatomic, strong) NSMutableArray *searchResults;
 
 @end
 
 @implementation OpenDaysQueryTableViewController
 
-@synthesize openDayDates,openDays,startTimes,endTimes,details,links;
+@synthesize openDayDates,openDays,startTimes,endTimes,details,links,searchResults,i,firstTimeForDates,allObjects;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -108,6 +107,7 @@
         noInternetLabel.hidden = YES;
     }
     
+    self.allObjects = self.objects;
     openDays = [self.objects valueForKey:@"University"];
     openDayDates = [self.objects valueForKey:@"ParseDate"];
     startTimes = [self.objects valueForKey:@"TimeStart"];
@@ -137,13 +137,28 @@
         if ([self.searchBar.text length] == 0 ) {
             
         } else {
-        PFObject *object2 = [PFObject objectWithClassName:@"OpenDays"];
-        NSLog(@"search results: %@",self.searchResults);
-        object2 = [self.searchResults objectAtIndex:indexPath.row];
-        cell.textLabel.text = [object2 valueForKey:@"University"];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"dd-MM-yy"];
-        cell.detailTextLabel.text = [formatter stringFromDate:object2[@"ParseDate"]];
+            
+            NSString *temp  =[self.searchResults objectAtIndex:indexPath.row];
+            cell.textLabel.text = temp;
+            
+            if (indexPath.row == 0 && self.firstTimeForDates == YES) {
+                i = 0;
+                self.firstTimeForDates = NO;
+            }
+            if (i < self.openDays.count) {
+                NSLog(@"i first: %i",i);
+                NSRange range = NSMakeRange(i, self.openDays.count - i);
+                NSLog(@"range %i and length %i",range.location,range.length);
+                NSInteger indexPath = [self.openDays indexOfObject:temp inRange:range];
+                NSLog(@"index path: %i",indexPath);
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                [formatter setDateFormat:@"dd-MM-yy"];
+                cell.detailTextLabel.text = [formatter stringFromDate:[openDayDates objectAtIndex:indexPath]];
+                i = indexPath+1;
+                NSLog(@"i: %i",i);
+            }
+            
+            
         }
     }
     
@@ -174,16 +189,9 @@
 
 -(void)filterResults:(NSString *)searchTerm {
     
-    PFQuery *query = [PFQuery queryWithClassName:self.parseClassName];
-    
-    [query whereKey:@"University" matchesRegex:searchTerm modifiers:@"i"];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [self.searchResults removeAllObjects];
-        [self.searchResults addObjectsFromArray:objects];
-        NSLog(@"search results two: %@", self.searchResults);
-        [self.searchDisplayController.searchResultsTableView reloadData];
-    }];
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchTerm];
+    self.searchResults = [self.openDays filteredArrayUsingPredicate:resultPredicate];
+    [self.searchDisplayController.searchResultsTableView reloadData];
     
     
 }
@@ -191,53 +199,75 @@
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     [self filterResults:searchString];
+    self.firstTimeForDates = YES;
     return YES;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+//    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+//    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (data) {
-        SpecificOpenDayViewController *specificOpenDayViewController = [[SpecificOpenDayViewController alloc] initWithNibName:@"SpecificOpenDayViewController" bundle:nil];
-        
-        UITableViewCell *cell = [[UITableViewCell alloc] init];
-        if (tableView != self.searchDisplayController.searchResultsTableView) {
-            cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        } else {
-            cell = [self.searchDisplayController.searchResultsTableView cellForRowAtIndexPath:indexPath];
-        }
-
-        
-        UILabel *universityTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
-        universityTitle.text = cell.textLabel.text;
-        universityTitle.backgroundColor = [UIColor clearColor];
-        universityTitle.textColor = [UIColor whiteColor];
-        universityTitle.font = [UIFont boldSystemFontOfSize:16.0];
-        //universityTitle.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-        universityTitle.textAlignment = NSTextAlignmentCenter;
-        specificOpenDayViewController.navigationItem.titleView = universityTitle;
-        
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"dd-MM-yy"];
+    // if (data) {
+    SpecificOpenDayViewController *specificOpenDayViewController = [[SpecificOpenDayViewController alloc] initWithNibName:@"SpecificOpenDayViewController" bundle:nil];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yy"];
+    
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    if (tableView != self.searchDisplayController.searchResultsTableView) {
+        cell = [self.tableView cellForRowAtIndexPath:indexPath];
         specificOpenDayViewController.date = [formatter stringFromDate:[openDayDates objectAtIndex:indexPath.row]];
         specificOpenDayViewController.details = [details objectAtIndex:indexPath.row];
         specificOpenDayViewController.endTime = [endTimes objectAtIndex:indexPath.row];
         specificOpenDayViewController.startTime = [startTimes objectAtIndex:indexPath.row];
         specificOpenDayViewController.uniName = cell.textLabel.text;
         specificOpenDayViewController.link = [links objectAtIndex:indexPath.row];
-        
-
-        
-        
-        [self.navigationController pushViewController:specificOpenDayViewController animated:YES];
     } else {
-        NSLog(@"no internet");
-        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        [noInternetAlert show];
+        cell = [self.searchDisplayController.searchResultsTableView cellForRowAtIndexPath:indexPath];
+        
+        NSLog(@"textabc: %@",cell.detailTextLabel.text);
+        NSDate *date = [formatter dateFromString:cell.detailTextLabel.text];
+        
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier: NSGregorianCalendar];
+        NSDateComponents *components = [gregorian components: NSUIntegerMax fromDate: date];
+
+        [components setHour: 0];
+        [components setMinute: 0];
+        [components setSecond: 0];
+        [components setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        NSDate *newDate = [gregorian dateFromComponents: components];
+        NSLog(@"datedate: %@",newDate);
+        
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"(University == %@) AND (ParseDate == %@)",cell.textLabel.text,newDate];
+        NSArray *results = [self.allObjects filteredArrayUsingPredicate:pred];
+        NSLog(@"resultswoo: %@",results);
+        
+        specificOpenDayViewController.date = [formatter stringFromDate:[[results valueForKey:@"ParseDate"] objectAtIndex:0]];
+        specificOpenDayViewController.details = [[results valueForKey:@"Details"] objectAtIndex:0];
+        specificOpenDayViewController.endTime = [[results valueForKey:@"TimeEnd"] objectAtIndex:0];
+        specificOpenDayViewController.startTime = [[results valueForKey:@"TimeStart"] objectAtIndex:0];
+        specificOpenDayViewController.uniName = cell.textLabel.text;
+        specificOpenDayViewController.link = [[results valueForKey:@"BookingLink"] objectAtIndex:0];
     }
+    
+    
+    UILabel *universityTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+    universityTitle.text = cell.textLabel.text;
+    universityTitle.backgroundColor = [UIColor clearColor];
+    universityTitle.textColor = [UIColor whiteColor];
+    universityTitle.font = [UIFont boldSystemFontOfSize:16.0];
+    //universityTitle.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    universityTitle.textAlignment = NSTextAlignmentCenter;
+    specificOpenDayViewController.navigationItem.titleView = universityTitle;
+    
+    
+    [self.navigationController pushViewController:specificOpenDayViewController animated:YES];
+    //    } else {
+    //        NSLog(@"no internet");
+    //        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    //        [noInternetAlert show];
+    //    }
     
     
 }
