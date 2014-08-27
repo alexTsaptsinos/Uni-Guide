@@ -33,22 +33,19 @@
 {
     [super viewDidAppear:animated];
     
-    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    noInternetLabel.hidden = YES;
+    noInternetImageView.hidden = YES;
     
-    if (data) {
-        noInternetLabel.hidden = YES;
-        noInternetImageView.hidden = YES;
+    if (self.firstTimeLoad == YES) {
         
-        if (self.firstTimeLoad == YES) {
-            
-            //NSLog(@"university name: %@", self.universityName);
-            PFQuery *query = [PFQuery queryWithClassName:@"OpenDays"];
-            [query whereKey:@"UKPRN" equalTo:self.universityUKPRN];
-            NSDate *today = [NSDate date];
-            [query whereKey:@"ParseDate" greaterThanOrEqualTo:today];
-            [query orderByAscending:@"ParseDate"];
-            [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+        //NSLog(@"university name: %@", self.universityName);
+        PFQuery *query = [PFQuery queryWithClassName:@"OpenDays"];
+        [query whereKey:@"UKPRN" equalTo:self.universityUKPRN];
+        NSDate *today = [NSDate date];
+        [query whereKey:@"ParseDate" greaterThanOrEqualTo:today];
+        [query orderByAscending:@"ParseDate"];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+            if (!error) {
                 openDays = [objects valueForKey:@"University"];
                 openDayDates = [objects valueForKey:@"ParseDate"];
                 startTimes = [objects valueForKey:@"TimeStart"];
@@ -57,34 +54,33 @@
                 links = [objects valueForKey:@"BookingLink"];
                 //NSLog(@"open days: %@ and dates %@", openDays, openDayDates);
                 if (openDays.count == 0) {
-                                openDays = [[NSMutableArray alloc]initWithObjects:@"Placeholder", nil];
-                                openDayDates = [[NSMutableArray alloc] initWithObjects:@"Placeholder", nil];
+                    openDays = [[NSMutableArray alloc]initWithObjects:@"Placeholder", nil];
+                    openDayDates = [[NSMutableArray alloc] initWithObjects:@"Placeholder", nil];
                     self.foundAnyBool = NO;
                 } else {
                     self.foundAnyBool = YES;
                 }
                 [self.tableView reloadData];
-            }];
+            }
+            else {
+                NSLog(@"error");
+                noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 22, 320, 429)];
+                noInternetImageView.backgroundColor = [UIColor lightGrayColor];
+                noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+                noInternetLabel.text = @"We're sorry, but this data is not available offline";
+                noInternetLabel.numberOfLines = 0;
+                noInternetLabel.textAlignment = NSTextAlignmentCenter;
+                [noInternetImageView addSubview:noInternetLabel];
+                [self.view addSubview:noInternetImageView];
+                self.tableView.scrollEnabled = NO;
+            }
             
-            self.tableView.scrollEnabled = YES;
-            
-        }
-    }
-    else {
-        NSLog(@"no internet");
-        if (self.firstTimeLoad == YES) {
-            noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 22, 320, 429)];
-            noInternetImageView.backgroundColor = [UIColor lightGrayColor];
-            noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
-            noInternetLabel.text = @"We're sorry, but this data is not available offline";
-            noInternetLabel.numberOfLines = 0;
-            noInternetLabel.textAlignment = NSTextAlignmentCenter;
-            [noInternetImageView addSubview:noInternetLabel];
-            [self.view addSubview:noInternetImageView];
-            self.tableView.scrollEnabled = NO;
-        }
+        }];
+        
+        self.tableView.scrollEnabled = YES;
         
     }
+    
     
 }
 

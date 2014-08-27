@@ -47,8 +47,9 @@
     self.firstTimeLoad = YES;
     self.scroll.hidden = YES;
     self.sourceLabel.hidden = YES;
+    self.universityNameLabel.hidden = YES;
     [self.activityIndicator startAnimating];
-
+    
     
     
 }
@@ -58,37 +59,36 @@
 {
     [super viewDidAppear:animated];
     
-    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
-    
-    if (data) {
-    
     if (self.firstTimeLoad == YES) {
         
         NSLog(@"code: %@", self.uniCodeUniInfo);
         
         CGRect screenBound = [[UIScreen mainScreen] bounds];
         
-       // scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+        // scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
         scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, screenBound.size.height)];
-
+        
         [self.view addSubview:scroll];
         scroll.showsHorizontalScrollIndicator = YES;
         scroll.scrollEnabled = YES;
         scroll.delegate = self;
         scroll.bounces = YES;
         scroll.userInteractionEnabled = YES;
+        scroll.hidden = YES;
         
         UIImageView *unionSatisfactionImageView = [[UIImageView alloc] init];
         UIImageView *unionSatisfactionImageViewFull = [[UIImageView alloc] init];
         unionSatisfactionImageViewFull.contentMode = UIViewContentModeTop;
         unionSatisfactionImageView.image = [UIImage imageNamed:@"ui-19emptysmall"];
         unionSatisfactionImageViewFull.image = [UIImage imageNamed:@"ui-19fillsmall"];
+        unionSatisfactionImageView.hidden = YES;
+        unionSatisfactionImageViewFull.hidden = YES;
         [scroll addSubview:unionSatisfactionImageViewFull];
         
         UILabel *unionSatisfactionNumberLabel = [[UILabel alloc] init];
         UILabel *unionSatisfactionLabel = [[UILabel alloc] init];
-
+        unionSatisfactionLabel.hidden = YES;
+        unionSatisfactionNumberLabel.hidden = YES;
         
         if (self.haveWeComeFromUniversities == YES) {
             [scroll setContentSize:CGSizeMake(320, 850)];
@@ -106,6 +106,7 @@
             universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, 320, 20)];
             NSLog(@"hello alex: %@",self.uniNameUniInfo);
             universityNameLabel.text = self.uniNameUniInfo;
+            universityNameLabel.hidden = NO;
             universityNameLabel.textAlignment = NSTextAlignmentCenter;
             universityNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
             universityNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
@@ -119,6 +120,7 @@
         tableViewUniInfo.delegate = self;
         tableViewUniInfo.dataSource = self;
         tableViewUniInfo.bounces = NO;
+        tableViewUniInfo.hidden = YES;
         tableViewUniInfo.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
         [scroll addSubview:tableViewUniInfo];
         
@@ -139,157 +141,166 @@
         PFQuery *queryForStudentSatisfaction = [PFQuery queryWithClassName:@"Institution"];
         [queryForStudentSatisfaction whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
         [queryForStudentSatisfaction whereKeyExists:@"Q24"];
-        PFObject *object1 = [queryForStudentSatisfaction getFirstObject];
-        studentSatisfactionPercentage = [object1 valueForKey:@"Q24"];
-        if (studentSatisfactionPercentage != NULL) {
-            unionSatisfactionNumberLabel.text = [NSString stringWithFormat:@"%@%%",studentSatisfactionPercentage];
-        } else {
-            unionSatisfactionNumberLabel.text = @"N/A";
-        }
-
+        [queryForStudentSatisfaction findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+            if (!error) {
+                NSArray *temp = [objects objectAtIndex:0];
+                studentSatisfactionPercentage = [temp valueForKey:@"Q24"];
+                if (studentSatisfactionPercentage != NULL) {
+                    unionSatisfactionNumberLabel.text = [NSString stringWithFormat:@"%@%%",studentSatisfactionPercentage];
+                } else {
+                    unionSatisfactionNumberLabel.text = @"N/A";
+                }
+                
+                
+                NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+                [f setNumberStyle:NSNumberFormatterDecimalStyle];
+                NSNumber * unionPercentage = [f numberFromString:studentSatisfactionPercentage];
+                unionPercentage = [NSNumber numberWithFloat:([unionPercentage floatValue] / 100.0f)];
+                unionPercentage = [NSNumber numberWithFloat:(1.0f - [unionPercentage floatValue])];
+                NSLog(@"union percentage: %@",unionPercentage);
+                
+                [unionSatisfactionImageView setFrame:CGRectMake(unionSatisfactionImageViewFull.frame.origin.x, unionSatisfactionImageViewFull.frame.origin.y, unionSatisfactionImageViewFull.frame.size.width, unionSatisfactionImageViewFull.frame.size.height * [unionPercentage floatValue])];
+                unionSatisfactionImageView.contentMode = UIViewContentModeTop; // This determines position of image
+                unionSatisfactionImageView.clipsToBounds = YES;
+                [scroll addSubview:unionSatisfactionImageView];
+                
+                // query to get total number of students
+                PFQuery *queryForTotalNumberOfStudents = [PFQuery queryWithClassName:@"Institution1213"];
+                [queryForTotalNumberOfStudents whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
+                [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"TotalAllStudents"]];
+                PFObject *tempObject1 = [queryForTotalNumberOfStudents getFirstObject];
+                NSString *totalNumberOfStudents = [tempObject1 valueForKey:@"TotalAllStudents"];
+                
+                
+                
+                
+                // query to get total number of staff
+                PFQuery *queryForTotalNumberOfStaff = [PFQuery queryWithClassName:@"StaffInst1213"];
+                [queryForTotalNumberOfStaff whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
+                [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"Total"]];
+                PFObject *tempObject2 = [queryForTotalNumberOfStaff getFirstObject];
+                NSString *totalNumberOfStaff = [tempObject2 valueForKey:@"Total"];
+                
+                
+                
+                //query to get data on total number of beds
+                PFQuery *queryForAccomodation = [PFQuery queryWithClassName:@"Location"];
+                [queryForAccomodation whereKeyExists:@"INSTBEDS"];
+                [queryForAccomodation whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
+                NSArray *object = [queryForAccomodation findObjects];
+                NSArray *numberOfBeds = [object valueForKey:@"INSTBEDS"];
+                NSString *totalNumberOfBedsString;
+                if (numberOfBeds.count != 0) {
+                    NSNumber * totalNumberOfBeds = [numberOfBeds valueForKeyPath:@"@sum.self"];
+                    totalNumberOfBedsString = [totalNumberOfBeds stringValue];
+                } else {
+                    totalNumberOfBedsString = @"N/A";
+                }
+                
+                
+                
+                
+                //calculate average cost for private accom.
+                NSArray *lowerQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATELOWER"];
+                NSArray *upperQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATEUPPER"];
+                NSString *averageCostOfLivingPrivateString;
+                NSString *averageCostOfLivingInstituteString;
+                // NSLog(@"anything exist? %@ and %@",lowerQuartileCostOfPrivateBeds,upperQuartileCostOfPrivateBeds);
+                if (lowerQuartileCostOfPrivateBeds.count != 0 && upperQuartileCostOfPrivateBeds.count != 0) {
+                    NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+                    NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+                    // NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+                    NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+                    // NSLog(@"sum: %@",sumOfQuartiles);
+                    NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfPrivateBeds.count + upperQuartileCostOfPrivateBeds.count)];
+                    // NSLog(@"total values %@",totalNumberOfValues);
+                    NSNumber *averageCostOfLivingPrivate = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+                    int privateRounded = lroundf([averageCostOfLivingPrivate floatValue]);
+                    averageCostOfLivingPrivateString = @"£";
+                    averageCostOfLivingPrivateString = [averageCostOfLivingPrivateString stringByAppendingString:[NSString stringWithFormat:@"%d", privateRounded]];
+                } else {
+                    averageCostOfLivingPrivateString = @"N/A";
+                }
+                
+                
+                //calculate average cost for institute accom.
+                
+                NSArray *lowerQuartileCostOfInstituteBeds = [object valueForKey:@"INSTLOWER"];
+                NSArray *upperQuartileCostOfInstituteBeds = [object valueForKey:@"INSTUPPER"];
+                if (lowerQuartileCostOfInstituteBeds.count != 0 && upperQuartileCostOfInstituteBeds.count != 0) {
+                    NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+                    NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+                    //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+                    NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+                    //NSLog(@"sum: %@",sumOfQuartiles);
+                    NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfInstituteBeds.count + upperQuartileCostOfInstituteBeds.count)];
+                    //NSLog(@"total values %@",totalNumberOfValues);
+                    NSNumber *averageCostOfLivingInstitute = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+                    int instituteRounded = lroundf([averageCostOfLivingInstitute floatValue]);
+                    averageCostOfLivingInstituteString = @"£";
+                    averageCostOfLivingInstituteString = [averageCostOfLivingInstituteString stringByAppendingString:[NSString stringWithFormat:@"%d", instituteRounded]];
+                    NSLog(@"averageL %@",averageCostOfLivingInstituteString);
+                } else {
+                    averageCostOfLivingInstituteString = @"N/A";
+                    
+                }
+                
+                NSLog(@"1: %@ 2: %@ 3: %@ 4: %@ 5: %@",totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString);
+                
+                self.uniInfoDataNumbers = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString, nil]];
+                NSLog(@"numbers: %@",self.uniInfoDataNumbers);
+                
+                self.firstTimeLoad = NO;
+                self.scroll.hidden = NO;
+                self.sourceLabel.hidden = NO;
+                unionSatisfactionLabel.hidden = NO;
+                unionSatisfactionNumberLabel.hidden = NO;
+                unionSatisfactionImageView.hidden = NO;
+                unionSatisfactionImageViewFull.hidden = NO;
+                [self.activityIndicator stopAnimating];
+                [self.tableViewUniInfo reloadData];
+                self.tableViewUniInfo.hidden = NO;
+                
+            }
+            else {
+                NSLog(@"no internet");
+                
+                
+                noInternetImageView = [[UIImageView alloc] init];
+                
+                noInternetImageView.backgroundColor = [UIColor lightGrayColor];
+                noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+                noInternetLabel.text = @"We're sorry, but this data is not available offline";
+                noInternetLabel.numberOfLines = 0;
+                noInternetLabel.textAlignment = NSTextAlignmentCenter;
+                [noInternetImageView addSubview:noInternetLabel];
+                [self.view addSubview:noInternetImageView];
+                
+                if (self.haveWeComeFromUniversities == NO) {
+                    noInternetImageView.frame = CGRectMake(0, 90, 320, 429);
+                    universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 20)];
+                    universityNameLabel.text = self.uniNameUniInfo;
+                    universityNameLabel.textAlignment = NSTextAlignmentCenter;
+                    universityNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+                    universityNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+                    [self.view addSubview:universityNameLabel];
+                    self.universityNameLabel.hidden = NO;
+                } else {
+                    self.universityNameLabel.hidden = YES;
+                    noInternetImageView.frame = CGRectMake(0, 22, 320, 429);
+                    
+                }
+                
+                
+                self.sourceLabel.hidden = NO;
+            }
+            
+        }];
         
-        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-        [f setNumberStyle:NSNumberFormatterDecimalStyle];
-        NSNumber * unionPercentage = [f numberFromString:studentSatisfactionPercentage];
-        unionPercentage = [NSNumber numberWithFloat:([unionPercentage floatValue] / 100.0f)];
-        unionPercentage = [NSNumber numberWithFloat:(1.0f - [unionPercentage floatValue])];
-        NSLog(@"union percentage: %@",unionPercentage);
-        
-        [unionSatisfactionImageView setFrame:CGRectMake(unionSatisfactionImageViewFull.frame.origin.x, unionSatisfactionImageViewFull.frame.origin.y, unionSatisfactionImageViewFull.frame.size.width, unionSatisfactionImageViewFull.frame.size.height * [unionPercentage floatValue])];
-        unionSatisfactionImageView.contentMode = UIViewContentModeTop; // This determines position of image
-        unionSatisfactionImageView.clipsToBounds = YES;
-        [scroll addSubview:unionSatisfactionImageView];
-        
-        // query to get total number of students
-        PFQuery *queryForTotalNumberOfStudents = [PFQuery queryWithClassName:@"Institution1213"];
-        [queryForTotalNumberOfStudents whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
-        [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"TotalAllStudents"]];
-        PFObject *tempObject1 = [queryForTotalNumberOfStudents getFirstObject];
-        NSString *totalNumberOfStudents = [tempObject1 valueForKey:@"TotalAllStudents"];
-        
-        
-
-        
-        // query to get total number of staff
-        PFQuery *queryForTotalNumberOfStaff = [PFQuery queryWithClassName:@"StaffInst1213"];
-        [queryForTotalNumberOfStaff whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
-        [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"Total"]];
-        PFObject *tempObject2 = [queryForTotalNumberOfStaff getFirstObject];
-        NSString *totalNumberOfStaff = [tempObject2 valueForKey:@"Total"];
-        
-        
-        
-        //query to get data on total number of beds
-        PFQuery *queryForAccomodation = [PFQuery queryWithClassName:@"Location"];
-        [queryForAccomodation whereKeyExists:@"INSTBEDS"];
-        [queryForAccomodation whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
-        NSArray *object = [queryForAccomodation findObjects];
-        NSArray *numberOfBeds = [object valueForKey:@"INSTBEDS"];
-        NSString *totalNumberOfBedsString;
-        if (numberOfBeds.count != 0) {
-            NSNumber * totalNumberOfBeds = [numberOfBeds valueForKeyPath:@"@sum.self"];
-            totalNumberOfBedsString = [totalNumberOfBeds stringValue];
-        } else {
-            totalNumberOfBedsString = @"N/A";
-        }
-        
-        
-        
-        
-        //calculate average cost for private accom.
-        NSArray *lowerQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATELOWER"];
-        NSArray *upperQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATEUPPER"];
-        NSString *averageCostOfLivingPrivateString;
-        NSString *averageCostOfLivingInstituteString;
-       // NSLog(@"anything exist? %@ and %@",lowerQuartileCostOfPrivateBeds,upperQuartileCostOfPrivateBeds);
-        if (lowerQuartileCostOfPrivateBeds.count != 0 && upperQuartileCostOfPrivateBeds.count != 0) {
-            NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
-            NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
-           // NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
-            NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
-           // NSLog(@"sum: %@",sumOfQuartiles);
-            NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfPrivateBeds.count + upperQuartileCostOfPrivateBeds.count)];
-           // NSLog(@"total values %@",totalNumberOfValues);
-            NSNumber *averageCostOfLivingPrivate = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
-            int privateRounded = lroundf([averageCostOfLivingPrivate floatValue]);
-            averageCostOfLivingPrivateString = @"£";
-            averageCostOfLivingPrivateString = [averageCostOfLivingPrivateString stringByAppendingString:[NSString stringWithFormat:@"%d", privateRounded]];
-        } else {
-            averageCostOfLivingPrivateString = @"N/A";
-        }
-        
-        
-        //calculate average cost for institute accom.
-        
-        NSArray *lowerQuartileCostOfInstituteBeds = [object valueForKey:@"INSTLOWER"];
-        NSArray *upperQuartileCostOfInstituteBeds = [object valueForKey:@"INSTUPPER"];
-        if (lowerQuartileCostOfInstituteBeds.count != 0 && upperQuartileCostOfInstituteBeds.count != 0) {
-            NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
-            NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
-            //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
-            NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
-            //NSLog(@"sum: %@",sumOfQuartiles);
-            NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfInstituteBeds.count + upperQuartileCostOfInstituteBeds.count)];
-            //NSLog(@"total values %@",totalNumberOfValues);
-            NSNumber *averageCostOfLivingInstitute = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
-            int instituteRounded = lroundf([averageCostOfLivingInstitute floatValue]);
-            averageCostOfLivingInstituteString = @"£";
-            averageCostOfLivingInstituteString = [averageCostOfLivingInstituteString stringByAppendingString:[NSString stringWithFormat:@"%d", instituteRounded]];
-            NSLog(@"averageL %@",averageCostOfLivingInstituteString);
-        } else {
-            averageCostOfLivingInstituteString = @"N/A";
-
-        }
-        
-        NSLog(@"1: %@ 2: %@ 3: %@ 4: %@ 5: %@",totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString);
-        
-        self.uniInfoDataNumbers = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString, nil]];
-        NSLog(@"numbers: %@",self.uniInfoDataNumbers);
-
-        self.firstTimeLoad = NO;
-        self.scroll.hidden = NO;
-        self.sourceLabel.hidden = NO;
-        [self.activityIndicator stopAnimating];
     }
     else {
         NSLog(@"not first time load");
     }
-    }
-    else {
-        NSLog(@"no internet");
-        
-        if (firstTimeLoad == YES) {
-            noInternetImageView = [[UIImageView alloc] init];
-
-            noInternetImageView.backgroundColor = [UIColor lightGrayColor];
-            noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
-            noInternetLabel.text = @"We're sorry, but this data is not available offline";
-            noInternetLabel.numberOfLines = 0;
-            noInternetLabel.textAlignment = NSTextAlignmentCenter;
-            [noInternetImageView addSubview:noInternetLabel];
-            [self.view addSubview:noInternetImageView];
-            
-            if (self.haveWeComeFromUniversities == NO) {
-                noInternetImageView.frame = CGRectMake(0, 90, 320, 429);
-                universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 20)];
-                universityNameLabel.text = self.uniNameUniInfo;
-                universityNameLabel.textAlignment = NSTextAlignmentCenter;
-                universityNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
-                universityNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
-                [self.view addSubview:universityNameLabel];
-                self.universityNameLabel.hidden = NO;
-            } else {
-                self.universityNameLabel.hidden = YES;
-                noInternetImageView.frame = CGRectMake(0, 22, 320, 429);
-
-            }
-            
-            
-            self.sourceLabel.hidden = NO;
-        }
-        
-    }
-    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

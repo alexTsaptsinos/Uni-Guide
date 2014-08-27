@@ -27,7 +27,7 @@
 
 @implementation SearchResultsTableViewController
 
-@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityUKPRNString,searchResultsUniversityCodes,searchResultsCourseCodes,activityIndicator,limit,skip,courseDegreeTitles,universitySearchedUKPRN,haveFoundEverySeachValue,anyResults,courseInfoCoursePageViewController;
+@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityUKPRNString,searchResultsUniversityCodes,searchResultsCourseCodes,activityIndicator,limit,skip,courseDegreeTitles,universitySearchedUKPRN,haveFoundEverySeachValue,anyResults,courseInfoCoursePageViewController,firstTimeLoad;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,16 +65,8 @@
     self.searchResultsUniversityCodes = [[NSMutableArray alloc] init];
     self.haveFoundEverySeachValue = NO;
     self.anyResults = YES;
-    
-//    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-//    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
-//    
-//    if (data) {
-        [self queryForSearchResults];
-//    } else {
-//        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [noInternetAlert show];
-//    }
+    self.firstTimeLoad = YES;
+
     
     
 }
@@ -94,13 +86,24 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (self.firstTimeLoad == YES) {
+        NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
+        NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+        
+        if (data) {
+            [self queryForSearchResults];
+        } else {
+            UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [noInternetAlert show];
+        }
+    }
+    
+    
+
 }
 
 - (void)queryForSearchResults
 {
-    //    if ([self.locationSearchedString isEqualToString:@"Location..."]) {
-    //        self.locationSearchedString = @"";
-    //    }
     NSLog(@"searched university: %@ and searched course: %@ and locaton searched: %@", self.universitySearchedString,self.courseSearchedString,self.locationSearchedString);
     
     
@@ -127,26 +130,32 @@
             [bigQuery orderByAscending:@"TITLE"];
             [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
                 // NSLog(@"objects: %@",objects);
-                NSArray *tempNames = [objects valueForKey:@"TITLE"];
-                [self.searchResults addObjectsFromArray:tempNames];
-                [self.searchResultsCourseCodes addObjectsFromArray:[objects valueForKey:@"KISCOURSEID"]];
-                [self.courseSearchResultsKisAimCodes addObjectsFromArray:[objects valueForKey:@"KISAIMCODE"]];
-                [self.courseDegreeTitles addObjectsFromArray:[objects valueForKey:@"CourseHonour"]];
-                if (objects.count == 0) {
-                    self.haveFoundEverySeachValue = YES;
+                if (!error) {
+                    NSArray *tempNames = [objects valueForKey:@"TITLE"];
+                    [self.searchResults addObjectsFromArray:tempNames];
+                    [self.searchResultsCourseCodes addObjectsFromArray:[objects valueForKey:@"KISCOURSEID"]];
+                    [self.courseSearchResultsKisAimCodes addObjectsFromArray:[objects valueForKey:@"KISAIMCODE"]];
+                    [self.courseDegreeTitles addObjectsFromArray:[objects valueForKey:@"CourseHonour"]];
+                    if (objects.count == 0) {
+                        self.haveFoundEverySeachValue = YES;
+                    }
+                    NSLog(@"search results: %@",self.searchResults);
+                    self.skip += self.limit;
+                    NSLog(@"self.skip : %d",self.skip);
+                    if (self.searchResults.count == 0) {
+                        self.anyResults = NO;
+                    }
+                    self.tableView.hidden = NO;
+                    [self.activityIndicator stopAnimating];
+                    [self.tableView reloadData];
                 }
-                NSLog(@"search results: %@",self.searchResults);
-                self.skip += self.limit;
-                NSLog(@"self.skip : %d",self.skip);
-                if (self.searchResults.count == 0) {
-//                    [self.searchResults addObject:@"No Results"];
-//                    [self.courseDegreeTitles addObject:@""];
-//                    [self.universityNamesForSearchResults addObject:@""];
-                    self.anyResults = NO;
+                
+                else {
+                    NSString *errorMessage = [NSString stringWithFormat:@"%@",[error localizedDescription]];
+                    UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [noInternetAlert show];
                 }
-                self.tableView.hidden = NO;
-                [self.activityIndicator stopAnimating];
-                [self.tableView reloadData];
+                
             }];
         }
         
@@ -162,26 +171,34 @@
             [bigQuery orderByAscending:@"TITLE"];
             [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
                 //NSLog(@"objects: %@",objects);
-                NSArray *tempNames = [objects valueForKey:@"TITLE"];
-                [self.searchResults addObjectsFromArray:tempNames];
-                [self.searchResultsCourseCodes addObjectsFromArray:[objects valueForKey:@"KISCOURSEID"]];
-                [self.courseSearchResultsKisAimCodes addObjectsFromArray:[objects valueForKey:@"KISAIMCODE"]];
-                [self.courseDegreeTitles addObjectsFromArray:[objects valueForKey:@"CourseHonour"]];
-                if (objects.count == 0) {
-                    self.haveFoundEverySeachValue = YES;
+                if (!error) {
+                    NSArray *tempNames = [objects valueForKey:@"TITLE"];
+                    [self.searchResults addObjectsFromArray:tempNames];
+                    [self.searchResultsCourseCodes addObjectsFromArray:[objects valueForKey:@"KISCOURSEID"]];
+                    [self.courseSearchResultsKisAimCodes addObjectsFromArray:[objects valueForKey:@"KISAIMCODE"]];
+                    [self.courseDegreeTitles addObjectsFromArray:[objects valueForKey:@"CourseHonour"]];
+                    if (objects.count == 0) {
+                        self.haveFoundEverySeachValue = YES;
+                    }
+                    NSLog(@"search results: %@",self.searchResults);
+                    self.skip += self.limit;
+                    NSLog(@"self.skip : %d",self.skip);
+                    if (self.searchResults.count == 0) {
+                        [self.searchResults addObject:@"No Results"];
+                        [self.courseDegreeTitles addObject:@"sorry"];
+                        [self.universityNamesForSearchResults addObject:@""];
+                        self.anyResults = NO;
+                    }
+                    self.tableView.hidden = NO;
+                    [self.activityIndicator stopAnimating];
+                    [self.tableView reloadData];
                 }
-                NSLog(@"search results: %@",self.searchResults);
-                self.skip += self.limit;
-                NSLog(@"self.skip : %d",self.skip);
-                if (self.searchResults.count == 0) {
-                    [self.searchResults addObject:@"No Results"];
-                    [self.courseDegreeTitles addObject:@"sorry"];
-                    [self.universityNamesForSearchResults addObject:@""];
-                    self.anyResults = NO;
+                else {
+                    NSString *errorMessage = [NSString stringWithFormat:@"%@",[error localizedDescription]];
+                    UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [noInternetAlert show];
                 }
-                self.tableView.hidden = NO;
-                [self.activityIndicator stopAnimating];
-                [self.tableView reloadData];
+                
             }];
             
         }
@@ -238,55 +255,62 @@
                 [bigQuery orderByAscending:@"TITLE"];
                 [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
                     // now find university name
-                    PFQuery *universityNameQuery = [PFQuery queryWithClassName:@"Institution1213"];
-                    [universityNameQuery whereKey:@"UKPRN" equalTo:[locationUniversityUKPRNS objectAtIndex:i]];
-                    [universityNameQuery selectKeys:[NSArray arrayWithObject:@"Institution"]];
-                    PFObject *tempObject = [universityNameQuery getFirstObject];
-                    NSString *universityNameTemp = [tempObject valueForKey:@"Institution"];
-                    NSLog(@"uni name temp: %@",universityNameTemp);
-                    
-                    //for however many courses found add the university name this many times
-                    for (int j=0; j<objects.count; j++) {
-                        [self.universityNamesForSearchResults addObject:universityNameTemp];
-                        //  [self.searchResultsUniversityCodes addObject:[locationUniversityUKPRNS objectAtIndex:i]];
-                        // NSLog(@"university names: %@ and uni ukprns: %@",self.universityNamesForSearchResults,self.searchResultsUniversityCodes);
+                    if (!error) {
+                        PFQuery *universityNameQuery = [PFQuery queryWithClassName:@"Institution1213"];
+                        [universityNameQuery whereKey:@"UKPRN" equalTo:[locationUniversityUKPRNS objectAtIndex:i]];
+                        [universityNameQuery selectKeys:[NSArray arrayWithObject:@"Institution"]];
+                        PFObject *tempObject = [universityNameQuery getFirstObject];
+                        NSString *universityNameTemp = [tempObject valueForKey:@"Institution"];
+                        NSLog(@"uni name temp: %@",universityNameTemp);
+                        
+                        //for however many courses found add the university name this many times
+                        for (int j=0; j<objects.count; j++) {
+                            [self.universityNamesForSearchResults addObject:universityNameTemp];
+                            //  [self.searchResultsUniversityCodes addObject:[locationUniversityUKPRNS objectAtIndex:i]];
+                            // NSLog(@"university names: %@ and uni ukprns: %@",self.universityNamesForSearchResults,self.searchResultsUniversityCodes);
+                        }
+                        
+                        // now add the courses we found
+                        [cumulativeSearchResults addObjectsFromArray:objects];
+                        NSLog(@"cum search results count: %d",cumulativeSearchResults.count);
+                        
+                        // if we have got to the final university in this region
+                        if (i == locationUniversityUKPRNS.count - 1) {
+                            if (cumulativeSearchResults.count == 0) {
+                                self.haveFoundEverySeachValue = YES;
+                            }
+                            [self.searchResults  addObjectsFromArray:[cumulativeSearchResults valueForKey:@"TITLE"]];
+                            NSLog(@"search results first; %@",self.searchResults);
+                            [self.searchResultsUniversityCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"UKPRN"]];
+                            [self.courseSearchResultsKisAimCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"KISAIMCODE"]];
+                            NSLog(@"kis codes: %@",self.courseSearchResultsKisAimCodes);
+                            [self.searchResultsCourseCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"KISCOURSEID"]];
+                            [self.courseDegreeTitles addObjectsFromArray:[cumulativeSearchResults valueForKey:@"CourseHonour"]];
+                            if (objects.count == 0) {
+                                self.haveFoundEverySeachValue = YES;
+                            }
+                            if (locationUniversityUKPRNS.count >5) {
+                                self.skip += 2;
+                            } else {
+                                self.skip +=5;
+                            }
+                            NSLog(@"uni names %@",self.universityNamesForSearchResults);
+                            NSLog(@"self.skip : %d",self.skip);
+                            if (self.searchResults.count == 0) {
+                                [self.searchResults addObject:@"No Results"];
+                                [self.courseDegreeTitles addObject:@"sorry"];
+                                [self.universityNamesForSearchResults addObject:@""];
+                                self.anyResults = NO;
+                            }
+                            self.tableView.hidden = NO;
+                            [self.activityIndicator stopAnimating];
+                            [self.tableView reloadData];
+                        }
                     }
-                    
-                    // now add the courses we found
-                    [cumulativeSearchResults addObjectsFromArray:objects];
-                    NSLog(@"cum search results count: %d",cumulativeSearchResults.count);
-                    
-                    // if we have got to the final university in this region
-                    if (i == locationUniversityUKPRNS.count - 1) {
-                        if (cumulativeSearchResults.count == 0) {
-                            self.haveFoundEverySeachValue = YES;
-                        }
-                        [self.searchResults  addObjectsFromArray:[cumulativeSearchResults valueForKey:@"TITLE"]];
-                        NSLog(@"search results first; %@",self.searchResults);
-                        [self.searchResultsUniversityCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"UKPRN"]];
-                        [self.courseSearchResultsKisAimCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"KISAIMCODE"]];
-                        NSLog(@"kis codes: %@",self.courseSearchResultsKisAimCodes);
-                        [self.searchResultsCourseCodes addObjectsFromArray:[cumulativeSearchResults valueForKey:@"KISCOURSEID"]];
-                        [self.courseDegreeTitles addObjectsFromArray:[cumulativeSearchResults valueForKey:@"CourseHonour"]];
-                        if (objects.count == 0) {
-                            self.haveFoundEverySeachValue = YES;
-                        }
-                        if (locationUniversityUKPRNS.count >5) {
-                            self.skip += 2;
-                        } else {
-                            self.skip +=5;
-                        }
-                        NSLog(@"uni names %@",self.universityNamesForSearchResults);
-                        NSLog(@"self.skip : %d",self.skip);
-                        if (self.searchResults.count == 0) {
-                            [self.searchResults addObject:@"No Results"];
-                            [self.courseDegreeTitles addObject:@"sorry"];
-                            [self.universityNamesForSearchResults addObject:@""];
-                            self.anyResults = NO;
-                        }
-                        self.tableView.hidden = NO;
-                        [self.activityIndicator stopAnimating];
-                        [self.tableView reloadData];
+                    else {
+                        NSString *errorMessage = [NSString stringWithFormat:@"%@",[error localizedDescription]];
+                        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                        [noInternetAlert show];
                     }
                 }];
                 
@@ -304,42 +328,49 @@
             [bigQuery orderByAscending:@"TITLE"];
             [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
                 // now find university name
-                for (PFObject *object in objects) {
-                    PFQuery *universityNameQuery = [PFQuery queryWithClassName:@"Institution1213"];
-                    [universityNameQuery whereKey:@"UKPRN" equalTo:[object valueForKey:@"UKPRN"]];
-                    [universityNameQuery selectKeys:[NSArray arrayWithObject:@"Institution"]];
-                    PFObject *tempObject = [universityNameQuery getFirstObject];
-                    if (tempObject != NULL) {
-                        NSString *universityNameTemp = [tempObject valueForKey:@"Institution"];
-                        NSLog(@"uni name temp: %@",universityNameTemp);
-                        NSLog(@"university code: %@, course codes: %@, course names: %@",[object valueForKey:@"UKPRN"],self.searchResultsCourseCodes,self.searchResults);
-                        [self.universityNamesForSearchResults addObject:universityNameTemp];
-                        [self.searchResultsUniversityCodes addObject:[object valueForKey:@"UKPRN"]];
-                        [self.searchResults addObject:[object valueForKey:@"TITLE"]];
-                        [self.searchResultsCourseCodes addObject:[object valueForKey:@"KISCOURSEID"]];
-                        [self.courseSearchResultsKisAimCodes addObject:[object valueForKey:@"KISAIMCODE"]];
-                        [self.courseDegreeTitles addObject:[object valueForKey:@"CourseHonour"]];
-                        NSLog(@"SECOND IME university code: %@, course codes: %@, course names: %@",[object valueForKey:@"UKPRN"],self.searchResultsCourseCodes,self.searchResults);
-
+                if (!error) {
+                    for (PFObject *object in objects) {
+                        PFQuery *universityNameQuery = [PFQuery queryWithClassName:@"Institution1213"];
+                        [universityNameQuery whereKey:@"UKPRN" equalTo:[object valueForKey:@"UKPRN"]];
+                        [universityNameQuery selectKeys:[NSArray arrayWithObject:@"Institution"]];
+                        PFObject *tempObject = [universityNameQuery getFirstObject];
+                        if (tempObject != NULL) {
+                            NSString *universityNameTemp = [tempObject valueForKey:@"Institution"];
+                            NSLog(@"uni name temp: %@",universityNameTemp);
+                            NSLog(@"university code: %@, course codes: %@, course names: %@",[object valueForKey:@"UKPRN"],self.searchResultsCourseCodes,self.searchResults);
+                            [self.universityNamesForSearchResults addObject:universityNameTemp];
+                            [self.searchResultsUniversityCodes addObject:[object valueForKey:@"UKPRN"]];
+                            [self.searchResults addObject:[object valueForKey:@"TITLE"]];
+                            [self.searchResultsCourseCodes addObject:[object valueForKey:@"KISCOURSEID"]];
+                            [self.courseSearchResultsKisAimCodes addObject:[object valueForKey:@"KISAIMCODE"]];
+                            [self.courseDegreeTitles addObject:[object valueForKey:@"CourseHonour"]];
+                            NSLog(@"SECOND IME university code: %@, course codes: %@, course names: %@",[object valueForKey:@"UKPRN"],self.searchResultsCourseCodes,self.searchResults);
+                            
+                        }
+                        
                     }
                     
+                    if (objects.count == 0) {
+                        self.haveFoundEverySeachValue = YES;
+                    }
+                    NSLog(@"search results: %@",self.searchResults);
+                    self.skip += 10;
+                    NSLog(@"self.skip : %d",self.skip);
+                    if (self.searchResults.count == 0) {
+                        [self.searchResults addObject:@"No Results"];
+                        [self.courseDegreeTitles addObject:@"sorry"];
+                        [self.universityNamesForSearchResults addObject:@""];
+                        self.anyResults = NO;
+                    }
+                    self.tableView.hidden = NO;
+                    [self.activityIndicator stopAnimating];
+                    [self.tableView reloadData];
                 }
-                
-                if (objects.count == 0) {
-                    self.haveFoundEverySeachValue = YES;
+                else {
+                    NSString *errorMessage = [NSString stringWithFormat:@"%@",[error localizedDescription]];
+                    UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    [noInternetAlert show];
                 }
-                NSLog(@"search results: %@",self.searchResults);
-                self.skip += 10;
-                NSLog(@"self.skip : %d",self.skip);
-                if (self.searchResults.count == 0) {
-                    [self.searchResults addObject:@"No Results"];
-                    [self.courseDegreeTitles addObject:@"sorry"];
-                    [self.universityNamesForSearchResults addObject:@""];
-                    self.anyResults = NO;
-                }
-                self.tableView.hidden = NO;
-                [self.activityIndicator stopAnimating];
-                [self.tableView reloadData];
             }];
             
         }
@@ -533,27 +564,11 @@
     }
 }
 
-
-
-//- (void) customFilterButtonPressed
-//{
-//    RightPanelViewController *rightPanelViewController = [[RightPanelViewController alloc] initWithNibName:@"RightPanelViewController" bundle:nil];
-//    
-//    [UIView transitionWithView:self.navigationController.view
-//                      duration:0.75
-//                       options:UIViewAnimationOptionTransitionFlipFromRight
-//                    animations:^{
-//                        [self.navigationController pushViewController:rightPanelViewController animated:NO];
-//                    }
-//                    completion:nil];
-//}
-
 -(void) callAnotherMethod {
     
     courseInfoCoursePageViewController.favouritesButton = self.favouritesButton;
     [courseInfoCoursePageViewController customBtnPressed];
 }
-
 
 
 @end

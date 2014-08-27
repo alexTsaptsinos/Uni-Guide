@@ -65,8 +65,8 @@
     
     self.addReviewButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [addReviewButton addTarget:self
-                     action:@selector(addReviewButtonClicked:)
-           forControlEvents:UIControlEventTouchUpInside];
+                        action:@selector(addReviewButtonClicked:)
+              forControlEvents:UIControlEventTouchUpInside];
     [addReviewButton setTitle:@"Add Review" forState:UIControlStateNormal];
     [addReviewButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.addReviewButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
@@ -104,44 +104,35 @@
 {
     [super viewDidAppear:animated];
     self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
-//    if (self.reviewTableView.hidden == YES) {
-//        self.addReviewButton.frame = CGRectMake(100.0f, 100.0f, 105.0f, 30.0f);
-//        self.addReviewButton.titleLabel.textColor = [UIColor whiteColor];
-//        self.addReviewButton.hidden = NO;
-//    }
     
-    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
-    
-    if (data) {
+    if (self.firstTimeLoad == YES) {
         
-        if (self.firstTimeLoad == YES) {
-            
-            self.noInternetImageView.hidden = YES;
-            self.noInternetLabel.hidden = YES;
-            
-            NSString *uniAndCourse = [self.uniNameReviews stringByAppendingString:@" - "];
-            uniAndCourse = [uniAndCourse stringByAppendingString:self.courseNameReviews];
-            
-            
-            self.reviewTableView.bounces = YES;
-            self.reviewTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-            self.reviewTableView.delegate = self;
-            [self.starButton5 setEnabled:NO];
-            [self.starButton4 setEnabled:NO];
-            [self.starButton3 setEnabled:NO];
-            [self.starButton2 setEnabled:NO];
-            [self.starButton1 setEnabled:NO];
-            [self.starButton1 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
-            [self.starButton2 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
-            [self.starButton3 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
-            [self.starButton4 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
-            [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
-            
-            PFQuery *queryForReviews = [PFQuery queryWithClassName:@"CourseReviews"];
-            [queryForReviews whereKey:@"CourseCode" equalTo:self.courseCodeReviews];
-            [queryForReviews orderByDescending:@"createdAt"];
-            [queryForReviews findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+        self.noInternetImageView.hidden = YES;
+        self.noInternetLabel.hidden = YES;
+        
+        NSString *uniAndCourse = [self.uniNameReviews stringByAppendingString:@" - "];
+        uniAndCourse = [uniAndCourse stringByAppendingString:self.courseNameReviews];
+        
+        
+        self.reviewTableView.bounces = YES;
+        self.reviewTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+        self.reviewTableView.delegate = self;
+        [self.starButton5 setEnabled:NO];
+        [self.starButton4 setEnabled:NO];
+        [self.starButton3 setEnabled:NO];
+        [self.starButton2 setEnabled:NO];
+        [self.starButton1 setEnabled:NO];
+        [self.starButton1 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+        [self.starButton2 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+        [self.starButton3 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+        [self.starButton4 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+        [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
+        
+        PFQuery *queryForReviews = [PFQuery queryWithClassName:@"CourseReviews"];
+        [queryForReviews whereKey:@"CourseCode" equalTo:self.courseCodeReviews];
+        [queryForReviews orderByDescending:@"createdAt"];
+        [queryForReviews findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+            if (!error) {
                 if (objects.count == 0) {
                     self.reviewTableView.hidden = YES;
                     self.numberOfReviewsLabel.text = @"0 Ratings";
@@ -159,8 +150,8 @@
                     noReviewsPleadLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
                     [self.view addSubview:noReviewsPleadLabel];
                     [self.addReviewButton setFrame:CGRectMake(108.0f, 200.0f, 105.0f, 30.0f)];
-
-
+                    
+                    
                 }
                 else if (objects.count == 1) {
                     self.numberOfReviewsLabel.text = @"1 Rating";
@@ -233,7 +224,7 @@
                 if (objects.count == 0) {
                     self.reviewTableView.hidden = YES;
                 } else {
-                self.reviewTableView.hidden = NO;
+                    self.reviewTableView.hidden = NO;
                 }
                 self.courseNameLabel.hidden = NO;
                 self.uniNameLabel.hidden = NO;
@@ -245,26 +236,23 @@
                 self.starButton5.hidden = NO;
                 self.numberOfReviewsLabel.hidden = NO;
                 [self.activityIndicator stopAnimating];
-            }];
-            
-            // calculate average review
-            
-        }
-    }
-    else {
-        if (self.firstTimeLoad == YES) {
-            NSLog(@"no internet");
-            noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 320, 429)];
-            noInternetImageView.backgroundColor = [UIColor lightGrayColor];
-            noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
-            noInternetLabel.text = @"We're sorry, but this data is not available offline";
-            noInternetLabel.numberOfLines = 0;
-            noInternetLabel.textAlignment = NSTextAlignmentCenter;
-            [noInternetImageView addSubview:noInternetLabel];
-            [self.view addSubview:noInternetImageView];
-            self.uniNameLabel.hidden = NO;
-            self.courseNameLabel.hidden = NO;
-        }
+            }
+            else {
+                NSLog(@"no internet");
+                noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 320, 429)];
+                noInternetImageView.backgroundColor = [UIColor lightGrayColor];
+                noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+                noInternetLabel.text = @"We're sorry, but this data is not available offline";
+                noInternetLabel.numberOfLines = 0;
+                noInternetLabel.textAlignment = NSTextAlignmentCenter;
+                [noInternetImageView addSubview:noInternetLabel];
+                [self.view addSubview:noInternetImageView];
+                self.uniNameLabel.hidden = NO;
+                self.courseNameLabel.hidden = NO;
+            }
+        }];
+        
+        // calculate average review
         
         
     }
@@ -294,7 +282,7 @@
     
     cell.reviewNumber = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@.",myNumber]];
     cell.reviewTitle = [[NSString alloc] initWithString:[self.reviewTitles objectAtIndex:indexPath.row]];
-
+    
     cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd-MM-yy"];
@@ -380,17 +368,17 @@
 }
 
 //- (IBAction)addReviewButtonPressed:(id)sender {
-//    
+//
 //    AddReviewViewController *addReviewViewController = [[AddReviewViewController alloc]initWithNibName:@"AddReviewViewController" bundle:[NSBundle mainBundle]];
-//    
-//    
+//
+//
 //    UINavigationController *addReviewNavigationController = [[UINavigationController alloc]initWithRootViewController:addReviewViewController];
-//    
-//    
+//
+//
 //    addReviewViewController.couseKISCode = self.courseCodeReviews;
-//    
+//
 //    [self presentViewController:addReviewNavigationController animated:YES completion:nil];
-//    
+//
 //}
 
 - (void)addReviewButtonClicked:(UIButton*)button

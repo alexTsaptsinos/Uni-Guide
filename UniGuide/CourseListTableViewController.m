@@ -57,21 +57,18 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    noInternetLabel.hidden = YES;
+    noInternetImageView.hidden = YES;
     
-    if (data) {
-        noInternetLabel.hidden = YES;
-        noInternetImageView.hidden = YES;
+    if (self.firstTimeLoad) {
         
-        if (self.firstTimeLoad) {
-            
-            PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
-            [query whereKey:@"UKPRN" equalTo:self.universityCode];
-            [query setLimit:600];
-            [query whereKeyExists:@"TITLE"];
-            [query orderByAscending:@"TITLE"];
-            [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+        PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
+        [query whereKey:@"UKPRN" equalTo:self.universityCode];
+        [query setLimit:600];
+        [query whereKeyExists:@"TITLE"];
+        [query orderByAscending:@"TITLE"];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+            if (!error) {
                 for (PFObject *object in objects) {
                     NSString *fullName = [object valueForKey:@"TITLE"];
                     fullName = [fullName stringByAppendingString:@" - "];
@@ -122,27 +119,21 @@
                 [self.tableView reloadData];
                 self.firstTimeLoad = NO;
                 self.tableView.scrollEnabled = YES;
-                
-                
-            }];
-        }
-        
-        
-    }
-    else {
-        NSLog(@"no internet");
-        if (self.firstTimeLoad == YES) {
-            noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 320, 429)];
-            noInternetImageView.backgroundColor = [UIColor lightGrayColor];
-            noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
-            noInternetLabel.text = @"We're sorry, but this data is not available offline";
-            noInternetLabel.numberOfLines = 0;
-            noInternetLabel.textAlignment = NSTextAlignmentCenter;
-            [noInternetImageView addSubview:noInternetLabel];
-            [self.view addSubview:noInternetImageView];
-            self.tableView.scrollEnabled = NO;
-        }
-        
+            }
+            else {
+                NSLog(@"error");
+                noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 43, 320, 429)];
+                noInternetImageView.backgroundColor = [UIColor lightGrayColor];
+                noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+                noInternetLabel.text = @"We're sorry, but this data is not available offline";
+                noInternetLabel.numberOfLines = 0;
+                noInternetLabel.textAlignment = NSTextAlignmentCenter;
+                [noInternetImageView addSubview:noInternetLabel];
+                [self.view addSubview:noInternetImageView];
+                self.tableView.scrollEnabled = NO;
+            }
+            
+        }];
     }
 }
 

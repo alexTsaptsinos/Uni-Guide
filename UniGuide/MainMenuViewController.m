@@ -53,9 +53,7 @@
     [searchMenuButtonLabel addTarget:self
                action:@selector(searchButtonClicked:)
      forControlEvents:UIControlEventTouchUpInside];
-    [searchMenuButtonLabel addTarget:self
-                              action:@selector(buttonsDisabled:)
-                    forControlEvents:UIControlEventTouchDown];
+    self.searchMenuButtonLabel.exclusiveTouch = YES;
     [searchMenuButtonLabel setTitle:@"Search" forState:UIControlStateNormal];
     [searchMenuButtonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
@@ -63,9 +61,7 @@
     [favouritesMenuButtonLabel addTarget:self
                               action:@selector(favouritesButtonClicked:)
                     forControlEvents:UIControlEventTouchUpInside];
-    [favouritesMenuButtonLabel addTarget:self
-                              action:@selector(buttonsDisabled:)
-                    forControlEvents:UIControlEventTouchDown];
+    self.favouritesMenuButtonLabel.exclusiveTouch = YES;
     [favouritesMenuButtonLabel setTitle:@"Favourites" forState:UIControlStateNormal];
     [favouritesMenuButtonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
@@ -73,9 +69,7 @@
     [openDaysMenuButtonLabel addTarget:self
                               action:@selector(openDaysButtonClicked:)
                     forControlEvents:UIControlEventTouchUpInside];
-    [openDaysMenuButtonLabel addTarget:self
-                              action:@selector(buttonsDisabled:)
-                    forControlEvents:UIControlEventTouchDown];
+    self.openDaysMenuButtonLabel.exclusiveTouch = YES;
     [openDaysMenuButtonLabel setTitle:@"Open Days" forState:UIControlStateNormal];
     [openDaysMenuButtonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
@@ -83,9 +77,7 @@
     [universitiesMenuButtonLabel addTarget:self
                               action:@selector(universitiesButtonClicked:)
                     forControlEvents:UIControlEventTouchUpInside];
-    [universitiesMenuButtonLabel addTarget:self
-                              action:@selector(buttonsDisabled:)
-                    forControlEvents:UIControlEventTouchDown];
+    self.universitiesMenuButtonLabel.exclusiveTouch = YES;
     [universitiesMenuButtonLabel setTitle:@"Universities" forState:UIControlStateNormal];
     [universitiesMenuButtonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
@@ -135,15 +127,6 @@
     [btnLayer setCornerRadius:5.0f];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.searchMenuButtonLabel.enabled = YES;
-    self.favouritesMenuButtonLabel.enabled = YES;
-    self.openDaysMenuButtonLabel.enabled = YES;
-    self.universitiesMenuButtonLabel.enabled = YES;
-    
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -151,13 +134,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)buttonsDisabled:(UIButton*)button
-{
-    self.searchMenuButtonLabel.enabled = NO;
-    self.favouritesMenuButtonLabel.enabled = NO;
-    self.openDaysMenuButtonLabel.enabled = NO;
-    self.universitiesMenuButtonLabel.enabled = NO;
-}
 
 - (void)searchButtonClicked:(UIButton*)button
 {

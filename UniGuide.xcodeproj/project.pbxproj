@@ -38,7 +38,6 @@
 		A4C6C92C197AF7000065311C /* UniInfoCoursePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C92A197AF7000065311C /* UniInfoCoursePageViewController.m */; };
 		A4C6C92D197AF7000065311C /* UniInfoCoursePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C92B197AF7000065311C /* UniInfoCoursePageViewController.xib */; };
 		A4C6C934197BF7670065311C /* favouritesButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C933197BF7670065311C /* favouritesButton.png */; };
-		A4C6C936197BF8050065311C /* favouritesButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C935197BF8050065311C /* favouritesButtonSelected.png */; };
 		A4C6C944197BF8C80065311C /* ContactUniversityPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C942197BF8C80065311C /* ContactUniversityPageViewController.m */; };
 		A4C6C945197BF8C80065311C /* ContactUniversityPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C6C943197BF8C80065311C /* ContactUniversityPageViewController.xib */; };
 		A4C6C949197C64890065311C /* FavouritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6C947197C64890065311C /* FavouritesTableViewController.m */; };
@@ -69,7 +68,6 @@
 		EF5B6EDC19926D4300B2E18D /* CourseInfoTextCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5B6EDB19926D4300B2E18D /* CourseInfoTextCustomCellView.m */; };
 		EF5B6EDE19927BBD00B2E18D /* CourseInfoPieCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5B6EDD19927BBD00B2E18D /* CourseInfoPieCustomCellView.xib */; };
 		EF5B6EE119927C0300B2E18D /* CourseInfoPieCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5B6EE019927C0300B2E18D /* CourseInfoPieCustomCellView.m */; };
-		EF5B6EE319927EC000B2E18D /* favouritesButtonHollow.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5B6EE219927EC000B2E18D /* favouritesButtonHollow.png */; };
 		EF5B6EE51992A9F200B2E18D /* CourseInfoSalaryCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5B6EE41992A9F200B2E18D /* CourseInfoSalaryCustomCellView.xib */; };
 		EF5B6EE81992AA9400B2E18D /* CourseInfoSalaryCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5B6EE71992AA9400B2E18D /* CourseInfoSalaryCustomCellView.m */; };
 		EF66F5CB1988F0890048A82E /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5C51988F0890048A82E /* AppIcon29x29.png */; };
@@ -92,8 +90,6 @@
 		EF7B89571993968C00F09894 /* splash 640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7B89551993968C00F09894 /* splash 640x1136.png */; };
 		EF7B895B1993979200F09894 /* splash 640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7B895A1993979200F09894 /* splash 640x960.png */; };
 		EF7F6F0B197E82C90009DB60 /* Favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */; };
-		EF7F6F0D197E82D20009DB60 /* Happy_Face@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */; };
-		EF7F6F0F197E82F90009DB60 /* Top_Charts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */; };
 		EF7F6F27197E87EA0009DB60 /* city_hall-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F26197E87EA0009DB60 /* city_hall-32.png */; };
 		EF7F6F29197E880E0009DB60 /* info-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F28197E880E0009DB60 /* info-32.png */; };
 		EF7F6F2B197E886F0009DB60 /* student2-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F2A197E886F0009DB60 /* student2-32.png */; };
@@ -104,8 +100,6 @@
 		EF7F6F64197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F62197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m */; };
 		EF7F6F65197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F63197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib */; };
 		EF7F6F67197FF0C90009DB60 /* electric_megaphone-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F66197FF0C90009DB60 /* electric_megaphone-32.png */; };
-		EF7F6F6B197FF2500009DB60 /* directions-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F6A197FF2500009DB60 /* directions-32.png */; };
-		EF7F6F6F197FF2EC0009DB60 /* today-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F6D197FF2EC0009DB60 /* today-32.png */; };
 		EF7F6F71197FF45A0009DB60 /* courses-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F70197FF45A0009DB60 /* courses-32.png */; };
 		EF7F6F73197FF4E10009DB60 /* calendar-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F72197FF4E10009DB60 /* calendar-32.png */; };
 		EF7F6F8119804D810009DB60 /* AddReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F7F19804D810009DB60 /* AddReviewViewController.m */; };
@@ -198,7 +192,6 @@
 		A4C6C92A197AF7000065311C /* UniInfoCoursePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniInfoCoursePageViewController.m; sourceTree = "<group>"; };
 		A4C6C92B197AF7000065311C /* UniInfoCoursePageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniInfoCoursePageViewController.xib; sourceTree = "<group>"; };
 		A4C6C933197BF7670065311C /* favouritesButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favouritesButton.png; sourceTree = "<group>"; };
-		A4C6C935197BF8050065311C /* favouritesButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favouritesButtonSelected.png; sourceTree = "<group>"; };
 		A4C6C941197BF8C80065311C /* ContactUniversityPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactUniversityPageViewController.h; sourceTree = "<group>"; };
 		A4C6C942197BF8C80065311C /* ContactUniversityPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactUniversityPageViewController.m; sourceTree = "<group>"; };
 		A4C6C943197BF8C80065311C /* ContactUniversityPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactUniversityPageViewController.xib; sourceTree = "<group>"; };
@@ -320,7 +313,6 @@
 		EF5B6EDD19927BBD00B2E18D /* CourseInfoPieCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseInfoPieCustomCellView.xib; sourceTree = "<group>"; };
 		EF5B6EDF19927C0300B2E18D /* CourseInfoPieCustomCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseInfoPieCustomCellView.h; sourceTree = "<group>"; };
 		EF5B6EE019927C0300B2E18D /* CourseInfoPieCustomCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseInfoPieCustomCellView.m; sourceTree = "<group>"; };
-		EF5B6EE219927EC000B2E18D /* favouritesButtonHollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favouritesButtonHollow.png; sourceTree = "<group>"; };
 		EF5B6EE41992A9F200B2E18D /* CourseInfoSalaryCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseInfoSalaryCustomCellView.xib; sourceTree = "<group>"; };
 		EF5B6EE61992AA9400B2E18D /* CourseInfoSalaryCustomCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseInfoSalaryCustomCellView.h; sourceTree = "<group>"; };
 		EF5B6EE71992AA9400B2E18D /* CourseInfoSalaryCustomCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseInfoSalaryCustomCellView.m; sourceTree = "<group>"; };
@@ -344,8 +336,6 @@
 		EF7B89551993968C00F09894 /* splash 640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash 640x1136.png"; sourceTree = "<group>"; };
 		EF7B895A1993979200F09894 /* splash 640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash 640x960.png"; sourceTree = "<group>"; };
 		EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorites@2x.png"; sourceTree = "<group>"; };
-		EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Happy_Face@2x.png"; sourceTree = "<group>"; };
-		EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Top_Charts@2x.png"; sourceTree = "<group>"; };
 		EF7F6F26197E87EA0009DB60 /* city_hall-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "city_hall-32.png"; sourceTree = "<group>"; };
 		EF7F6F28197E880E0009DB60 /* info-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-32.png"; sourceTree = "<group>"; };
 		EF7F6F2A197E886F0009DB60 /* student2-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "student2-32.png"; sourceTree = "<group>"; };
@@ -358,8 +348,6 @@
 		EF7F6F62197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenDaysUniversityPageTableViewController.m; sourceTree = "<group>"; };
 		EF7F6F63197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpenDaysUniversityPageTableViewController.xib; sourceTree = "<group>"; };
 		EF7F6F66197FF0C90009DB60 /* electric_megaphone-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "electric_megaphone-32.png"; sourceTree = "<group>"; };
-		EF7F6F6A197FF2500009DB60 /* directions-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "directions-32.png"; sourceTree = "<group>"; };
-		EF7F6F6D197FF2EC0009DB60 /* today-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "today-32.png"; sourceTree = "<group>"; };
 		EF7F6F70197FF45A0009DB60 /* courses-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "courses-32.png"; sourceTree = "<group>"; };
 		EF7F6F72197FF4E10009DB60 /* calendar-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar-32.png"; sourceTree = "<group>"; };
 		EF7F6F7E19804D810009DB60 /* AddReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddReviewViewController.h; sourceTree = "<group>"; };
@@ -833,26 +821,20 @@
 				EF66F5DE1988F0E80048A82E /* iTunesArtwork@2x.png */,
 				EF5533761981AA0D00120FEA /* checked_checkbox.png */,
 				EF5533781981AA1400120FEA /* unchecked_checkbox.png */,
-				EF7F6F0E197E82F90009DB60 /* Top_Charts@2x.png */,
 				EF7F6F2C197E887C0009DB60 /* talk-32.png */,
 				EF7F6F28197E880E0009DB60 /* info-32.png */,
-				EF7F6F6A197FF2500009DB60 /* directions-32.png */,
 				EF7F6F70197FF45A0009DB60 /* courses-32.png */,
 				EF7F6F72197FF4E10009DB60 /* calendar-32.png */,
 				EFE3B2851994C46700F6331F /* star-24.png */,
 				EFE3B2871994C4B300F6331F /* star-25.png */,
 				EFE3B27D1994C33600F6331F /* star-26.png */,
 				EFE3B2891994CCEF00F6331F /* star-27.png */,
-				EF7F6F6D197FF2EC0009DB60 /* today-32.png */,
 				EF7F6F66197FF0C90009DB60 /* electric_megaphone-32.png */,
 				EF7F6F26197E87EA0009DB60 /* city_hall-32.png */,
 				EF7F6F2A197E886F0009DB60 /* student2-32.png */,
-				EF7F6F0C197E82D20009DB60 /* Happy_Face@2x.png */,
 				EF7F6F3A197EAF510009DB60 /* UniGuideLogo.png */,
 				EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */,
 				A4C6C933197BF7670065311C /* favouritesButton.png */,
-				A4C6C935197BF8050065311C /* favouritesButtonSelected.png */,
-				EF5B6EE219927EC000B2E18D /* favouritesButtonHollow.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -937,11 +919,9 @@
 			files = (
 				EF7F6F73197FF4E10009DB60 /* calendar-32.png in Resources */,
 				A4C6C928197AF6F40065311C /* ReviewsCoursePageViewController.xib in Resources */,
-				EF5B6EE319927EC000B2E18D /* favouritesButtonHollow.png in Resources */,
 				EFF5C0691987905A00E87159 /* CourseListTableViewController.xib in Resources */,
 				EFE3B2801994C33600F6331F /* star-26.png in Resources */,
 				EF66F5CF1988F0890048A82E /* AppIcon50x50.png in Resources */,
-				EF7F6F6B197FF2500009DB60 /* directions-32.png in Resources */,
 				EF553330198150C400120FEA /* FilterTableViewController.xib in Resources */,
 				EF66F5E21988F0E80048A82E /* AppIcon76x76@2x.png in Resources */,
 				EF5B6EE51992A9F200B2E18D /* CourseInfoSalaryCustomCellView.xib in Resources */,
@@ -958,7 +938,6 @@
 				EF66F5E41988F0E80048A82E /* iTunesArtwork@2x.png in Resources */,
 				EF66F5D51988F0DF0048A82E /* AppIcon57x57.png in Resources */,
 				EF66F5CB1988F0890048A82E /* AppIcon29x29.png in Resources */,
-				EF7F6F0D197E82D20009DB60 /* Happy_Face@2x.png in Resources */,
 				EF7F6F3B197EAF510009DB60 /* UniGuideLogo.png in Resources */,
 				A4C6C914197AF1400065311C /* SearchResultsTableViewController.xib in Resources */,
 				EF55332A1981508B00120FEA /* SortFilterViewController.xib in Resources */,
@@ -978,8 +957,6 @@
 				EF7F6F65197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib in Resources */,
 				A4C6C945197BF8C80065311C /* ContactUniversityPageViewController.xib in Resources */,
 				EF5533771981AA0D00120FEA /* checked_checkbox.png in Resources */,
-				EF7F6F0F197E82F90009DB60 /* Top_Charts@2x.png in Resources */,
-				A4C6C936197BF8050065311C /* favouritesButtonSelected.png in Resources */,
 				EF7B89571993968C00F09894 /* splash 640x1136.png in Resources */,
 				A4C6C8A2197AD22F0065311C /* InfoPlist.strings in Resources */,
 				EFC88A4819921E7E003BB792 /* UniInfoCustomCellView.xib in Resources */,
@@ -1006,7 +983,6 @@
 				EF207C14198A342A00F2CFB3 /* OpenDaysQueryTableViewController.xib in Resources */,
 				EF93A59719A36101007F5CAB /* LocationSelectTableViewController.xib in Resources */,
 				EF66F5E819891A8B0048A82E /* ui-14.png in Resources */,
-				EF7F6F6F197FF2EC0009DB60 /* today-32.png in Resources */,
 				EFC88A5019923B70003BB792 /* ui-19.png in Resources */,
 				EF66F5D71988F0DF0048A82E /* AppIcon60x60.png in Resources */,
 				EF66F5DF1988F0E80048A82E /* AppIcon72x72.png in Resources */,

@@ -49,7 +49,6 @@
     [searchButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     self.searchButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
     
-    
     CALayer *btnLayer = [searchButton layer];
     [btnLayer setMasksToBounds:YES];
     [btnLayer setCornerRadius:5.0f];
@@ -80,8 +79,9 @@
     
     self.autocompleteUniversities = [[NSMutableArray alloc] init];
     
+    
     self.autocompleteUniversitiesTableView = [[UITableView alloc] initWithFrame:
-                                              CGRectMake(0, 40, 320, 200) style:UITableViewStylePlain];
+                                              CGRectMake(0, 40, 320, screenBound.size.height - 320) style:UITableViewStylePlain];
     self.autocompleteUniversitiesTableView.delegate = self;
     self.autocompleteUniversitiesTableView.dataSource = self;
     self.autocompleteUniversitiesTableView.scrollEnabled = YES;
@@ -143,31 +143,29 @@
             PFQuery *queryForSelectedLocation = [PFQuery queryWithClassName:@"Institution1213"];
             [queryForSelectedLocation whereKey:@"Institution" equalTo:self.universityTextField.text];
             [queryForSelectedLocation selectKeys:[NSArray arrayWithObject:@"RegionOfInstitution"]];
-            
-            NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-            NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
-            if (data) {
+
                 NSLog(@"device connected");
                 
                 [queryForSelectedLocation findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
-                    NSArray *tempArray = [objects objectAtIndex:0];
-                    NSString *tempKey = [tempArray valueForKey:@"RegionOfInstitution"];
-                    NSLog(@"tempKey: %@",tempKey);
-                    if (tempKey.length != 0) {
-                        NSString *location = [locationDict valueForKey:tempKey];
-                        [self.searchButton setEnabled:YES];
-                        [self.locationButton setTitle:location forState:UIControlStateDisabled];
-                        [self.locationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
-                        self.pleaseSelectLabel.hidden = YES;
+                    if (!error) {
+                        NSArray *tempArray = [objects objectAtIndex:0];
+                        NSString *tempKey = [tempArray valueForKey:@"RegionOfInstitution"];
+                        NSLog(@"tempKey: %@",tempKey);
+                        if (tempKey.length != 0) {
+                            NSString *location = [locationDict valueForKey:tempKey];
+                            [self.searchButton setEnabled:YES];
+                            [self.locationButton setTitle:location forState:UIControlStateDisabled];
+                            [self.locationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+                            self.pleaseSelectLabel.hidden = YES;
+                        }
                     }
+                    else {
+                        NSString *noLocation = @"Locked";
+                        [self.locationButton setTitle:noLocation forState:UIControlStateDisabled];
+                        self.locationButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+                    }
+                    
                 }];
-                
-            }
-            else {
-                NSString *noLocation = @"Locked";
-                [self.locationButton setTitle:noLocation forState:UIControlStateDisabled];
-                self.locationButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-            }
             
             self.haveFoundAUniversity = YES;
         }
@@ -255,7 +253,7 @@
         self.autocompleteUniversities = [universitiesFromParse filteredArrayUsingPredicate:universitiesPredicate];
     } else if ([self.whichTextFieldActive intValue] == 2) {
         
-        if (self.courseTextField.text.length < 4) {
+        if (self.courseTextField.text.length < 2) {
             
             self.autocompleteUniversities = [[NSMutableArray alloc] initWithObjects:@"Enter More For Suggestions", nil];
             self.haveQueriedParseForCoursesYet = NO;
@@ -286,10 +284,11 @@
 {
     if (self.haveQueriedParseForCoursesYet == NO) {
         
-        NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-        NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
-        
-        if (data) {
+        UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(115, 7, 20, 20)];
+        [self.autocompleteUniversitiesTableView addSubview:activity];
+        [activity startAnimating];
+        activity.color = [UIColor grayColor];
+        activity.hidesWhenStopped = YES;
             PFQuery *coursesQuery = [PFQuery queryWithClassName:@"Kiscourse"];
             [coursesQuery setLimit:1000];
             [coursesQuery whereKeyExists:@"TITLE"];
@@ -310,46 +309,39 @@
             }
             [coursesQuery selectKeys:[NSArray arrayWithObject:@"TITLE"]];
             [coursesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                
-                NSArray *tempObjects = [objects valueForKey:@"TITLE"];
-                self.coursesFromParse = [tempObjects valueForKeyPath:@"@distinctUnionOfObjects.self"];
-                self.autocompleteUniversities = self.coursesFromParse;
-                //NSLog(@"autocomplete 1: %@",self.coursesFromParse);
-                [self.autocompleteUniversitiesTableView reloadData];
+                if (!error) {
+                    NSArray *tempObjects = [objects valueForKey:@"TITLE"];
+                    self.coursesFromParse = [tempObjects valueForKeyPath:@"@distinctUnionOfObjects.self"];
+                    self.autocompleteUniversities = self.coursesFromParse;
+                    //NSLog(@"autocomplete 1: %@",self.coursesFromParse);
+                    [self.autocompleteUniversitiesTableView reloadData];
+                    [activity stopAnimating];
+                }
+                else {
+                    
+                }
             }];
-        }
-        else {
-            NSLog(@"no internet");
-        }
+
         self.haveQueriedParseForCoursesYet = YES;
     } else {
-        //NSLog(@"autocomplete 2: %@",self.coursesFromParse);
         
     }
 }
 
 - (void)searchButtonClicked:(UIButton*)button
 {
-   // [activityIndicator startAnimating];
-//    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-//    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
-//    
-//    if (data) {
+
         SearchResultsTableViewController *searchResultsTableViewController = [[SearchResultsTableViewController alloc] initWithNibName:@"SearchResultsTableViewController" bundle:nil];
         
         searchResultsTableViewController.universitySearchedString = self.universityTextField.text;
         searchResultsTableViewController.courseSearchedString = self.courseTextField.text;
-        if ([self.locationButton.titleLabel.text isEqualToString:@"Location...                                                   "]) {
+        if ([self.locationButton.titleLabel.text isEqualToString:@"Location..."]) {
             searchResultsTableViewController.locationSearchedString = @"";
         } else {
             searchResultsTableViewController.locationSearchedString = self.locationButton.titleLabel.text;
         }
-      //  [self.activityIndicator stopAnimating];
         [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
-//    } else {
-//        UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//        [noInternetAlert show];
-//    }
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

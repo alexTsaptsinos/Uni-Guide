@@ -39,6 +39,8 @@
 @property (strong, nonatomic) NSMutableArray *universityNamesForSearchResults;
 @property (nonatomic) BOOL haveFoundEverySeachValue;
 @property (nonatomic) BOOL anyResults;
+@property (nonatomic) BOOL firstTimeLoad;
+
 
 @property (nonatomic,strong) CourseInfoCoursePageViewController *courseInfoCoursePageViewController;
 
