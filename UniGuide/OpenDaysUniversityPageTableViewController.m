@@ -38,6 +38,13 @@
     
     if (self.firstTimeLoad == YES) {
         
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(141, 170, 20, 20)];
+        activityIndicator.color = [UIColor grayColor];
+        activityIndicator.hidesWhenStopped = YES;
+        activityIndicator.hidden = NO;
+        [activityIndicator startAnimating];
+        [self.tableView addSubview:activityIndicator];
+        
         //NSLog(@"university name: %@", self.universityName);
         PFQuery *query = [PFQuery queryWithClassName:@"OpenDays"];
         [query whereKey:@"UKPRN" equalTo:self.universityUKPRN];
@@ -60,11 +67,12 @@
                 } else {
                     self.foundAnyBool = YES;
                 }
+                self.firstTimeLoad = NO;
                 [self.tableView reloadData];
             }
             else {
                 NSLog(@"error");
-                noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 22, 320, 429)];
+                noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 22, 320, 500)];
                 noInternetImageView.backgroundColor = [UIColor lightGrayColor];
                 noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
                 noInternetLabel.text = @"We're sorry, but this data is not available offline";
@@ -74,7 +82,7 @@
                 [self.view addSubview:noInternetImageView];
                 self.tableView.scrollEnabled = NO;
             }
-            
+            [activityIndicator stopAnimating];
         }];
         
         self.tableView.scrollEnabled = YES;

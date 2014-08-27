@@ -13,6 +13,7 @@
         <attribute name="nationalSalary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="proportionInWork" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sandwichYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="timeSpent" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="ucasCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uniCode" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,6 +21,6 @@
         <attribute name="yearAbroad" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Favourites" positionX="-63" positionY="-18" width="128" height="300"/>
+        <element name="Favourites" positionX="-63" positionY="-18" width="128" height="315"/>
     </elements>
 </model>

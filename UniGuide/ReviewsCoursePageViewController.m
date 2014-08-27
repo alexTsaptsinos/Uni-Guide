@@ -367,20 +367,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-//- (IBAction)addReviewButtonPressed:(id)sender {
-//
-//    AddReviewViewController *addReviewViewController = [[AddReviewViewController alloc]initWithNibName:@"AddReviewViewController" bundle:[NSBundle mainBundle]];
-//
-//
-//    UINavigationController *addReviewNavigationController = [[UINavigationController alloc]initWithRootViewController:addReviewViewController];
-//
-//
-//    addReviewViewController.couseKISCode = self.courseCodeReviews;
-//
-//    [self presentViewController:addReviewNavigationController animated:YES completion:nil];
-//
-//}
-
 - (void)addReviewButtonClicked:(UIButton*)button
 {
     AddReviewViewController *addReviewViewController = [[AddReviewViewController alloc]initWithNibName:@"AddReviewViewController" bundle:[NSBundle mainBundle]];

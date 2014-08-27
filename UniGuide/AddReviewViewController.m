@@ -149,7 +149,13 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
+    
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    if (screenBound.size.height > 500) {
+        self.reviewTextView.frame = CGRectMake(0, 203, 320, 146);
+    } else {
     self.reviewTextView.frame = CGRectMake(0, 203, 320, 60);
+    }
 
 }
 

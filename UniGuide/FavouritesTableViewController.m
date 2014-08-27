@@ -14,7 +14,7 @@
 
 @implementation FavouritesTableViewController
 
-@synthesize uniCodes,uniNames,courseCodes,courseNames,courseInfoCoursePageViewController,favouritesButton,favouriteObjects;
+@synthesize uniCodes,uniNames,courseCodes,courseNames,courseInfoCoursePageViewController,favouritesButton,favouriteObjects,reversed;
 
 - (void)viewDidLoad
 {
@@ -32,6 +32,7 @@
     self.uniCodes = [[NSMutableArray alloc] init];
     self.courseNames = [[NSMutableArray alloc] init];
     self.courseCodes = [[NSMutableArray alloc] init];
+    self.reversed = [[NSMutableArray alloc] init];
     [self updateArrays];
     
     
@@ -47,6 +48,7 @@
     [self updateArrays];
     [self.tableView reloadData];
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -71,6 +73,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *cellIdentifier = @"cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -90,6 +93,8 @@
     
     cell.detailTextLabel.textColor = [UIColor grayColor];
     cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    
+    
     
     return cell;
 }
@@ -134,9 +139,49 @@
  // Override to support rearranging the table view.
  - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
  {
- }
- 
+     
+     NSUInteger fromIndex = fromIndexPath.row;
+     NSUInteger toIndex = toIndexPath.row;
+     
+     if (fromIndex == toIndex) {
+         return;
+     }
+     
+     Favourites *affectedObject = [self.reversed objectAtIndex:fromIndex];
+     NSLog(@"Updated %@ / %@ from %@ to %i", affectedObject.courseName, affectedObject.uniName, affectedObject.sortNumber, self.favouriteObjects.count - toIndex - 1);
+     affectedObject.sortNumber = [NSNumber numberWithInt:self.favouriteObjects.count - toIndex - 1];
 
+     
+     NSUInteger start, end;
+     int delta;
+     
+     if (fromIndex < toIndex) {
+         // move was down, need to shift up
+         delta = 1;
+         start = fromIndex + 1;
+         end = toIndex;
+     } else { // fromIndex > toIndex
+         // move was up, need to shift down
+         delta = -1;
+         start = toIndex;
+         end = fromIndex - 1;
+     }
+     
+     for (NSUInteger i = start; i <= end; i++) {
+         Favourites *otherObject = [self.reversed objectAtIndex:i];
+         NSNumber *tempSort = [NSNumber numberWithInt:[otherObject.sortNumber intValue]];
+         NSLog(@"Updated %@ / %@ from %@ to %f", otherObject.courseName, otherObject.uniName, otherObject.sortNumber, [tempSort floatValue] + delta);
+         otherObject.sortNumber = [NSNumber numberWithFloat:[tempSort floatValue] + delta];
+     }
+     
+     //NSLog(@"favourite second: %@",favouriteObjects);
+
+     
+ }
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [Favourites saveDatabase];
+}
 
  // Override to support conditional rearranging of the table view.
  - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -217,12 +262,29 @@
     [self.uniNames removeAllObjects];
     [self.courseCodes removeAllObjects];
     [self.courseNames removeAllObjects];
+    [self.reversed removeAllObjects];
 
-    [self.favouriteObjects addObjectsFromArray:[Favourites readAllObjects]];
-    [self.uniNames addObjectsFromArray:[self.favouriteObjects valueForKey:@"uniName"]];
-    [self.uniCodes addObjectsFromArray:[self.favouriteObjects valueForKey:@"uniCode"]];
-    [self.courseNames addObjectsFromArray:[self.favouriteObjects valueForKey:@"courseName"]];
-    [self.courseCodes addObjectsFromArray:[self.favouriteObjects valueForKey:@"courseCode"]];
+    [self.favouriteObjects addObjectsFromArray:[Favourites readObjectsWithPredicate:nil andSortKey:@"sortNumber"]];
+    
+    NSArray *temp = [self.favouriteObjects valueForKey:@"courseName"];
+    
+    int i;
+    for (i=0; i < self.favouriteObjects.count; i++) {
+        Favourites *tempObject = [self.favouriteObjects objectAtIndex:i];
+        tempObject.sortNumber = [NSNumber numberWithInt:i];
+    }
+    [Favourites saveDatabase];
+    
+    NSArray *temp2 = [self.favouriteObjects valueForKey:@"sortNumber"];
+    NSLog(@"temp: %@ and %@",temp,temp2);
+    
+    [self.reversed addObjectsFromArray:[[self.favouriteObjects reverseObjectEnumerator] allObjects]];
+
+    [self.uniNames addObjectsFromArray:[reversed valueForKey:@"uniName"]];
+    [self.uniCodes addObjectsFromArray:[reversed valueForKey:@"uniCode"]];
+    [self.courseNames addObjectsFromArray:[reversed valueForKey:@"courseName"]];
+    [self.courseCodes addObjectsFromArray:[reversed valueForKey:@"courseCode"]];
+    
 }
 
 

@@ -278,7 +278,7 @@
                 
                 if (self.haveWeComeFromUniversities == NO) {
                     noInternetImageView.frame = CGRectMake(0, 90, 320, 429);
-                    universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 20)];
+                    universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, 320, 20)];
                     universityNameLabel.text = self.uniNameUniInfo;
                     universityNameLabel.textAlignment = NSTextAlignmentCenter;
                     universityNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
@@ -287,7 +287,7 @@
                     self.universityNameLabel.hidden = NO;
                 } else {
                     self.universityNameLabel.hidden = YES;
-                    noInternetImageView.frame = CGRectMake(0, 22, 320, 429);
+                    noInternetImageView.frame = CGRectMake(0, 22, 320, 500);
                     
                 }
                 

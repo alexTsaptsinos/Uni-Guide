@@ -42,8 +42,8 @@
     
     self.searchButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [searchButton addTarget:self
-                              action:@selector(searchButtonClicked:)
-                    forControlEvents:UIControlEventTouchUpInside];
+                     action:@selector(searchButtonClicked:)
+           forControlEvents:UIControlEventTouchUpInside];
     [searchButton setTitle:@"Search" forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [searchButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
@@ -63,7 +63,7 @@
     
     [self.view addSubview:searchButton];
     [searchButton setEnabled:NO];
-
+    
     
     self.haveQueriedParseForCoursesYet = NO;
     
@@ -95,7 +95,7 @@
     self.locationButton.backgroundColor = [UIColor whiteColor];
     self.locationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.locationButton.contentEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
-
+    
     
     CALayer *btnLayer2 = [self.locationButton layer];
     [btnLayer2 setMasksToBounds:YES];
@@ -116,7 +116,7 @@
         [self.scrollView setContentOffset:CGPointMake(0.0,12) animated:YES];
         self.whichTextFieldActive = [NSNumber numberWithInt:1];
         self.pleaseSelectLabel.hidden = NO;
-
+        
     }
     if (textField == self.courseTextField) {
         [self.scrollView setContentOffset:CGPointMake(0.0,80) animated:YES];
@@ -143,29 +143,29 @@
             PFQuery *queryForSelectedLocation = [PFQuery queryWithClassName:@"Institution1213"];
             [queryForSelectedLocation whereKey:@"Institution" equalTo:self.universityTextField.text];
             [queryForSelectedLocation selectKeys:[NSArray arrayWithObject:@"RegionOfInstitution"]];
-
-                NSLog(@"device connected");
+            
+            NSLog(@"device connected");
+            
+            [queryForSelectedLocation findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+                if (!error) {
+                    NSArray *tempArray = [objects objectAtIndex:0];
+                    NSString *tempKey = [tempArray valueForKey:@"RegionOfInstitution"];
+                    NSLog(@"tempKey: %@",tempKey);
+                    if (tempKey.length != 0) {
+                        NSString *location = [locationDict valueForKey:tempKey];
+                        [self.searchButton setEnabled:YES];
+                        [self.locationButton setTitle:location forState:UIControlStateDisabled];
+                        [self.locationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+                        self.pleaseSelectLabel.hidden = YES;
+                    }
+                }
+                else {
+                    NSString *noLocation = @"Locked";
+                    [self.locationButton setTitle:noLocation forState:UIControlStateDisabled];
+                    self.locationButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+                }
                 
-                [queryForSelectedLocation findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
-                    if (!error) {
-                        NSArray *tempArray = [objects objectAtIndex:0];
-                        NSString *tempKey = [tempArray valueForKey:@"RegionOfInstitution"];
-                        NSLog(@"tempKey: %@",tempKey);
-                        if (tempKey.length != 0) {
-                            NSString *location = [locationDict valueForKey:tempKey];
-                            [self.searchButton setEnabled:YES];
-                            [self.locationButton setTitle:location forState:UIControlStateDisabled];
-                            [self.locationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
-                            self.pleaseSelectLabel.hidden = YES;
-                        }
-                    }
-                    else {
-                        NSString *noLocation = @"Locked";
-                        [self.locationButton setTitle:noLocation forState:UIControlStateDisabled];
-                        self.locationButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-                    }
-                    
-                }];
+            }];
             
             self.haveFoundAUniversity = YES;
         }
@@ -194,7 +194,7 @@
             self.searchButton.enabled = YES;
         }
     }
-
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -253,7 +253,7 @@
         self.autocompleteUniversities = [universitiesFromParse filteredArrayUsingPredicate:universitiesPredicate];
     } else if ([self.whichTextFieldActive intValue] == 2) {
         
-        if (self.courseTextField.text.length < 2) {
+        if (self.courseTextField.text.length < 3) {
             
             self.autocompleteUniversities = [[NSMutableArray alloc] initWithObjects:@"Enter More For Suggestions", nil];
             self.haveQueriedParseForCoursesYet = NO;
@@ -289,24 +289,20 @@
         [activity startAnimating];
         activity.color = [UIColor grayColor];
         activity.hidesWhenStopped = YES;
-            PFQuery *coursesQuery = [PFQuery queryWithClassName:@"Kiscourse"];
-            [coursesQuery setLimit:1000];
-            [coursesQuery whereKeyExists:@"TITLE"];
-            //NSLog(@"test: %@",self.universityUKPRNFromParse);
-            [coursesQuery whereKey:@"TITLE" matchesRegex:searchText modifiers:@"i"];
-            [coursesQuery whereKeyExists:@"TITLE"];
-            if (self.universityTextField.text.length != 0) {
-                PFQuery *queryForUKPRN = [PFQuery queryWithClassName:@"Institution1213"];
-                [queryForUKPRN whereKey:@"Institution" matchesRegex:self.universityTextField.text modifiers:@"i"];
-                [queryForUKPRN selectKeys:[NSArray arrayWithObject:@"UKPRN"]];
-                PFObject *tempObject = [queryForUKPRN getFirstObject];
-                NSString *ukprn = [tempObject valueForKey:@"UKPRN"];
-                NSLog(@"object: %@, ukprn: %@",tempObject,ukprn);
-                if (ukprn.length != 0) {
-                    [coursesQuery whereKey:@"UKPRN" equalTo:ukprn];
-                    NSLog(@"got here");
-                }
-            }
+        PFQuery *coursesQuery = [PFQuery queryWithClassName:@"Kiscourse"];
+        [coursesQuery setLimit:1000];
+        [coursesQuery whereKeyExists:@"TITLE"];
+        //NSLog(@"test: %@",self.universityUKPRNFromParse);
+        [coursesQuery whereKey:@"TITLE" matchesRegex:searchText modifiers:@"i"];
+        [coursesQuery whereKeyExists:@"TITLE"];
+        if (self.haveFoundAUniversity == YES) {
+            NSInteger indexPath = [self.universitiesFromParse indexOfObject:self.universityTextField.text];
+            NSString *ukprn = [self.universityUKPRNFromParse objectAtIndex:indexPath];
+            NSLog(@"ukprn: %@",ukprn);
+            [coursesQuery whereKey:@"UKPRN" equalTo:ukprn];
+            
+        }
+        if ([self.locationButton.titleLabel.text isEqualToString:@"Location..."] || self.haveFoundAUniversity == YES) {
             [coursesQuery selectKeys:[NSArray arrayWithObject:@"TITLE"]];
             [coursesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (!error) {
@@ -321,7 +317,54 @@
                     
                 }
             }];
-
+            
+        }
+        else {
+            NSLog(@"filter courses by location");
+            [coursesQuery selectKeys:[NSArray arrayWithObject:@"TITLE"]];
+            
+            
+            // find the location searched id using the dictionary
+            NSArray *locationIDArray = [self.locationDict allKeysForObject:self.locationButton.titleLabel.text];
+            NSString *locationID = [locationIDArray objectAtIndex:0];
+            NSLog(@"array: %@ and ID: %@",locationIDArray,locationID);
+            
+            PFQuery *locationsQuery = [PFQuery queryWithClassName:@"Institution1213"];
+            [locationsQuery whereKeyExists:@"UKPRN"];
+            [locationsQuery selectKeys:[NSArray arrayWithObject:@"UKPRN"]];
+            [locationsQuery whereKey:@"RegionOfInstitution" equalTo:locationID];
+            
+            [locationsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                NSArray *locationUniversityUKPRNS = [objects valueForKey:@"UKPRN"];
+                // array of the possible ukprns
+                NSLog(@"number of possible unis: %d",locationUniversityUKPRNS.count);
+                
+                // we use the cumulative search results to keep adding results
+                
+                NSMutableArray *cumulativeSearchResults = [[NSMutableArray alloc] init];
+                [cumulativeSearchResults removeAllObjects];
+                
+                for (int i=0; i < locationUniversityUKPRNS.count; i++) {
+                    // now query courses using ukprns
+                    NSLog(@"i value: %d",i);
+                    [coursesQuery whereKey:@"UKPRN" equalTo:[locationUniversityUKPRNS objectAtIndex:i]];
+                    NSArray *objects2 = [coursesQuery findObjects];
+                    
+                    NSArray *tempObjects = [objects2 valueForKey:@"TITLE"];
+                    [cumulativeSearchResults addObjectsFromArray:tempObjects];
+                    
+                    if (i == locationUniversityUKPRNS.count - 1) {
+                        self.coursesFromParse = [cumulativeSearchResults valueForKeyPath:@"@distinctUnionOfObjects.self"];
+                        self.autocompleteUniversities = self.coursesFromParse;
+                        [self.autocompleteUniversitiesTableView reloadData];
+                        [activity stopAnimating];
+                    }
+                    
+                    
+                }
+            }];
+        }
+        
         self.haveQueriedParseForCoursesYet = YES;
     } else {
         
@@ -330,18 +373,18 @@
 
 - (void)searchButtonClicked:(UIButton*)button
 {
-
-        SearchResultsTableViewController *searchResultsTableViewController = [[SearchResultsTableViewController alloc] initWithNibName:@"SearchResultsTableViewController" bundle:nil];
-        
-        searchResultsTableViewController.universitySearchedString = self.universityTextField.text;
-        searchResultsTableViewController.courseSearchedString = self.courseTextField.text;
-        if ([self.locationButton.titleLabel.text isEqualToString:@"Location..."]) {
-            searchResultsTableViewController.locationSearchedString = @"";
-        } else {
-            searchResultsTableViewController.locationSearchedString = self.locationButton.titleLabel.text;
-        }
-        [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
-
+    
+    SearchResultsTableViewController *searchResultsTableViewController = [[SearchResultsTableViewController alloc] initWithNibName:@"SearchResultsTableViewController" bundle:nil];
+    
+    searchResultsTableViewController.universitySearchedString = self.universityTextField.text;
+    searchResultsTableViewController.courseSearchedString = self.courseTextField.text;
+    if ([self.locationButton.titleLabel.text isEqualToString:@"Location..."]) {
+        searchResultsTableViewController.locationSearchedString = @"";
+    } else {
+        searchResultsTableViewController.locationSearchedString = self.locationButton.titleLabel.text;
+    }
+    [self.navigationController pushViewController:searchResultsTableViewController animated:YES];
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -363,14 +406,11 @@
             [queryForSelectedLocation selectKeys:[NSArray arrayWithObject:@"RegionOfInstitution"]];
             [self.searchButton setEnabled:YES];
             self.pleaseSelectLabel.hidden = YES;
-
             
-            NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-            NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
-            if (data) {
-                NSLog(@"device connected");
-                
-                [queryForSelectedLocation findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+            NSLog(@"device connected");
+            
+            [queryForSelectedLocation findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
+                if (!error) {
                     NSArray *tempArray = [objects objectAtIndex:0];
                     NSString *tempKey = [tempArray valueForKey:@"RegionOfInstitution"];
                     NSLog(@"tempKey: %@",tempKey);
@@ -381,11 +421,14 @@
                         [self.locationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
                         self.pleaseSelectLabel.hidden = YES;
                     }
-                }];
-
-            } else {
-                NSLog(@"device not connected");
-            }
+                }
+                else {
+                    NSLog(@"device not connected");
+                    
+                }
+                
+            }];
+            
             
         }
         else if ([self.whichTextFieldActive intValue] == 2) {

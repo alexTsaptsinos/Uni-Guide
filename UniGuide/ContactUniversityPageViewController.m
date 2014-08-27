@@ -70,58 +70,75 @@
         PFQuery *contactQuery = [PFQuery queryWithClassName:@"Institution1213"];
         [contactQuery whereKey:@"UKPRN" equalTo:self.universityCode];
         [contactQuery selectKeys:[NSArray arrayWithObjects:@"TelephoneContact",@"EmailContact",@"WebsiteContact", nil]];
-        PFObject *contactDetails = [contactQuery getFirstObject];
+        [contactQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+            if (!error) {
+                NSArray *contactDetails = [objects objectAtIndex:0];
+
+                telephoneButton = [UIButton buttonWithType:UIButtonTypeSystem];
+                [telephoneButton addTarget:self
+                                    action:@selector(telephoneButton:)
+                          forControlEvents:UIControlEventTouchUpInside];
+                telephoneButton.exclusiveTouch = YES;
+                [telephoneButton setTitle:[contactDetails valueForKey:@"TelephoneContact"] forState:UIControlStateNormal];
+                telephoneButton.frame = CGRectMake(50.0, 11, 250.0, 20.0);
+                telephoneButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
+                telephoneButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+                [telephoneButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+                [telephoneButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [telephoneButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+                [self.view addSubview:telephoneButton];
+                
+                emailButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                [emailButton addTarget:self
+                                action:@selector(emailButton:)
+                      forControlEvents:UIControlEventTouchUpInside];
+                emailButton.exclusiveTouch = YES;
+                NSString *email = [contactDetails valueForKey:@"EmailContact"];
+                if (email.length == 0) {
+                    emailButton.enabled = NO;
+                    [emailButton setTitle:@"Not available" forState:UIControlStateDisabled];
+                    [emailButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+                    
+                } else {
+                    [emailButton setTitle:email forState:UIControlStateNormal];
+                }
+                emailButton.frame = CGRectMake(50.0, 41, 250.0, 20.0);
+                emailButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
+                emailButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+                [emailButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+                [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+                [self.view addSubview:emailButton];
+                
+                websiteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                [websiteButton addTarget:self
+                                  action:@selector(websiteButton:)
+                        forControlEvents:UIControlEventTouchUpInside];
+                websiteButton.exclusiveTouch = YES;
+                [websiteButton setTitle:[contactDetails valueForKey:@"WebsiteContact"] forState:UIControlStateNormal];
+                websiteButton.frame = CGRectMake(45.0, 71, 275.0, 20.0);
+                //websiteButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
+                websiteButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+                websiteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+                [websiteButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+                [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+                [self.view addSubview:websiteButton];
+            }
+            else {
+                NSLog(@"error");
+                noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 22, 320, 500)];
+                noInternetImageView.backgroundColor = [UIColor lightGrayColor];
+                noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+                noInternetLabel.text = @"We're sorry, but this data is not available offline";
+                noInternetLabel.numberOfLines = 0;
+                noInternetLabel.textAlignment = NSTextAlignmentCenter;
+                [noInternetImageView addSubview:noInternetLabel];
+                [self.view addSubview:noInternetImageView];
+            }
+        }];
         
-        telephoneButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [telephoneButton addTarget:self
-                            action:@selector(telephoneButton:)
-                  forControlEvents:UIControlEventTouchUpInside];
-        telephoneButton.exclusiveTouch = YES;
-        [telephoneButton setTitle:[contactDetails valueForKey:@"TelephoneContact"] forState:UIControlStateNormal];
-        telephoneButton.frame = CGRectMake(50.0, 11, 250.0, 20.0);
-        telephoneButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
-        telephoneButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-        [telephoneButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
-        [telephoneButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [telephoneButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-        [self.view addSubview:telephoneButton];
         
-        emailButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [emailButton addTarget:self
-                        action:@selector(emailButton:)
-              forControlEvents:UIControlEventTouchUpInside];
-        emailButton.exclusiveTouch = YES;
-        NSString *email = [contactDetails valueForKey:@"EmailContact"];
-        if (email.length == 0) {
-            emailButton.enabled = NO;
-            [emailButton setTitle:@"Not available" forState:UIControlStateDisabled];
-            [emailButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-            
-        } else {
-            [emailButton setTitle:email forState:UIControlStateNormal];
-        }
-        emailButton.frame = CGRectMake(50.0, 41, 250.0, 20.0);
-        emailButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
-        emailButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-        [emailButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
-        [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-        [self.view addSubview:emailButton];
-        
-        websiteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [websiteButton addTarget:self
-                          action:@selector(websiteButton:)
-                forControlEvents:UIControlEventTouchUpInside];
-        websiteButton.exclusiveTouch = YES;
-        [websiteButton setTitle:[contactDetails valueForKey:@"WebsiteContact"] forState:UIControlStateNormal];
-        websiteButton.frame = CGRectMake(45.0, 71, 275.0, 20.0);
-        //websiteButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
-        websiteButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-        websiteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-        [websiteButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
-        [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-        [self.view addSubview:websiteButton];
         
         
         PFQuery *locationQuery = [PFQuery queryWithClassName:@"Location"];
@@ -170,7 +187,7 @@
             }
             else {
                 NSLog(@"error");
-                noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 22, 320, 429)];
+                noInternetImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 22, 320, 500)];
                 noInternetImageView.backgroundColor = [UIColor lightGrayColor];
                 noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
                 noInternetLabel.text = @"We're sorry, but this data is not available offline";

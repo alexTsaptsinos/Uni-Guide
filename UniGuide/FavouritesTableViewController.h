@@ -21,6 +21,8 @@
 @property (nonatomic,strong) NSMutableArray *uniNames;
 @property (nonatomic,strong) NSMutableArray *uniCodes;
 @property (nonatomic,strong) NSMutableArray *favouriteObjects;
+@property (nonatomic,strong) NSMutableArray *reversed;
+
 
 @property (nonatomic, strong) UIBarButtonItem *favouritesButton;
 

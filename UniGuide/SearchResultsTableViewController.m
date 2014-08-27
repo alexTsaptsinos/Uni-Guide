@@ -96,6 +96,7 @@
             UIAlertView *noInternetAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"You appear to have no internet connection" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [noInternetAlert show];
         }
+        self.firstTimeLoad = NO;
     }
     
     

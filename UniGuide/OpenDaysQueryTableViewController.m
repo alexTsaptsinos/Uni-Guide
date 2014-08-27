@@ -205,11 +205,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
-//    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    // if (data) {
     SpecificOpenDayViewController *specificOpenDayViewController = [[SpecificOpenDayViewController alloc] initWithNibName:@"SpecificOpenDayViewController" bundle:nil];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd-MM-yy"];

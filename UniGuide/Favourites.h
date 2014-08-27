@@ -30,11 +30,7 @@
 @property (nonatomic,retain) NSData *commonJobsPercentages;
 @property (nonatomic,retain) NSString *instituteSalary;
 @property (nonatomic,retain) NSString *nationalSalary;
-
-
-
-
-
+@property (nonatomic,retain) NSNumber *sortNumber;
 
 
 

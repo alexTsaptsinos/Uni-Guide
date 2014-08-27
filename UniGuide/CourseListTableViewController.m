@@ -60,7 +60,14 @@
     noInternetLabel.hidden = YES;
     noInternetImageView.hidden = YES;
     
-    if (self.firstTimeLoad) {
+    if (self.firstTimeLoad == YES) {
+        
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(141, 170, 20, 20)];
+        activityIndicator.color = [UIColor grayColor];
+        activityIndicator.hidesWhenStopped = YES;
+        activityIndicator.hidden = NO;
+        [activityIndicator startAnimating];
+        [self.tableView addSubview:activityIndicator];
         
         PFQuery *query = [PFQuery queryWithClassName:@"Kiscourse"];
         [query whereKey:@"UKPRN" equalTo:self.universityCode];
@@ -132,7 +139,8 @@
                 [self.view addSubview:noInternetImageView];
                 self.tableView.scrollEnabled = NO;
             }
-            
+            [activityIndicator stopAnimating];
+
         }];
     }
 }
