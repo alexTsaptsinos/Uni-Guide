@@ -81,7 +81,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-    self.reviewTextView.frame = CGRectMake(0, 203, 320, 277);
+    self.reviewTextView.frame = CGRectMake(0, 203, 320, 365);
 }
 
 
@@ -172,6 +172,7 @@
     [self.starButton4 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
     [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
     [self.reviewTextView resignFirstResponder];
+    self.reviewTextView.frame = CGRectMake(0, 203, 320, 365);
     self.howManyStars = [NSNumber numberWithInt:1];
     self.haveTheyRatedStars = YES;
 }
@@ -183,6 +184,7 @@
     [self.starButton4 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
     [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
     [self.reviewTextView resignFirstResponder];
+    self.reviewTextView.frame = CGRectMake(0, 203, 320, 365);
     self.howManyStars = [NSNumber numberWithInt:2];
     self.haveTheyRatedStars = YES;
 }
@@ -194,6 +196,7 @@
     [self.starButton4 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
     [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
     [self.reviewTextView resignFirstResponder];
+    self.reviewTextView.frame = CGRectMake(0, 203, 320, 365);
     self.howManyStars = [NSNumber numberWithInt:3];
     self.haveTheyRatedStars = YES;
 }
@@ -205,6 +208,7 @@
     [self.starButton4 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
     [self.starButton5 setImage:[UIImage imageNamed:@"star-26"] forState:UIControlStateNormal];
     [self.reviewTextView resignFirstResponder];
+    self.reviewTextView.frame = CGRectMake(0, 203, 320, 365);
     self.howManyStars = [NSNumber numberWithInt:4];
     self.haveTheyRatedStars = YES;
 }
@@ -216,6 +220,7 @@
     [self.starButton4 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
     [self.starButton5 setImage:[UIImage imageNamed:@"star-27"] forState:UIControlStateNormal];
     [self.reviewTextView resignFirstResponder];
+    self.reviewTextView.frame = CGRectMake(0, 203, 320, 365);
     self.howManyStars = [NSNumber numberWithInt:5];
     self.haveTheyRatedStars = YES;
 }

@@ -175,7 +175,7 @@
      }
      
      //NSLog(@"favourite second: %@",favouriteObjects);
-
+     [Favourites saveDatabase];
      
  }
 

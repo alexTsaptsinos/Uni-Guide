@@ -105,6 +105,7 @@
                 emailButton.frame = CGRectMake(50.0, 41, 250.0, 20.0);
                 emailButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
                 emailButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+                emailButton.titleLabel.adjustsFontSizeToFitWidth = YES;
                 [emailButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
                 [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
@@ -143,10 +144,12 @@
         
         PFQuery *locationQuery = [PFQuery queryWithClassName:@"Location"];
         [locationQuery whereKey:@"UKPRN" equalTo:universityCode];
+        [locationQuery whereKeyExists:@"INSTBEDS"];
         
         [locationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
             if (!error) {
                 NSArray *bedNumbersString = [objects valueForKey:@"INSTBEDS"];
+                NSLog(@"boobooboo: %@",bedNumbersString);
                 NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
                 [f setNumberStyle:NSNumberFormatterDecimalStyle];
                 NSMutableArray *bedNumbers = [[NSMutableArray alloc] init];

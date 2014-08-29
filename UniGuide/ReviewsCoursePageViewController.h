@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <Parse/Parse.h>
 #import "ReviewCustomCellView.h"
+#import "AddReviewViewController.h"
 
 @interface ReviewsCoursePageViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 //@property (weak, nonatomic) IBOutlet UIButton *addReviewButton;

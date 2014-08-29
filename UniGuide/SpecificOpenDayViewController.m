@@ -70,9 +70,9 @@
     [super viewDidAppear:animated];
     
     if (self.firstTimeLoad == YES) {
-        //NSLog(@"uni name: %@", self.uniName);
-        PFQuery *queryForUniCode = [PFQuery queryWithClassName:@"Universities"];
-        [queryForUniCode whereKey:@"Name" matchesRegex:self.uniName modifiers:@"i"];
+        NSLog(@"uni name: %@", self.uniName);
+        PFQuery *queryForUniCode = [PFQuery queryWithClassName:@"Institution1213"];
+        [queryForUniCode whereKey:@"Institution" equalTo:self.uniName];
         PFObject *object = [queryForUniCode getFirstObject];
         NSString *uniCode = [object valueForKey:@"UKPRN"];
         //NSLog(@"object: %@, unicode: %@",object,uniCode);
@@ -161,15 +161,18 @@
 -(void)viewWillAppear:(BOOL)animated {
     
     //Uk Region
-    MKCoordinateRegion homeRegion;
-    homeRegion.center.latitude = 54.013175;
-    homeRegion.center.longitude = -2.3252278;
-    float homeSpanX = 10;
-    float homeSpanY = 10;
-    homeRegion.span.latitudeDelta = homeSpanX;
-    homeRegion.span.longitudeDelta = homeSpanY;
-    
-    [self.mapViewOpenDays setRegion:homeRegion animated:YES];
+    if (self.firstTimeLoad == YES) {
+        MKCoordinateRegion homeRegion;
+        homeRegion.center.latitude = 54.013175;
+        homeRegion.center.longitude = -2.3252278;
+        float homeSpanX = 10;
+        float homeSpanY = 10;
+        homeRegion.span.latitudeDelta = homeSpanX;
+        homeRegion.span.longitudeDelta = homeSpanY;
+        
+        [self.mapViewOpenDays setRegion:homeRegion animated:YES];
+    }
+
     
 }
 

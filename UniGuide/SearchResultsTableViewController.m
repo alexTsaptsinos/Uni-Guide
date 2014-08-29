@@ -124,10 +124,19 @@
             NSLog(@"code to search: %@ and course to search: %@", self.universitySearchedUKPRN,courseSearchedString);
             PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
             [bigQuery whereKey:@"UKPRN" equalTo:self.universitySearchedUKPRN];
-            [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
+            NSRange range = [courseSearchedString rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"()[]"]];
+            NSLog(@"range: %i and %i",range.location,range.length);
+            if (range.length == 0) {
+                NSLog(@"No weird symbols");
+                [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
+
+            } else {
+                NSLog(@"weird symbols");
+                [bigQuery whereKey:@"TITLE" equalTo:courseSearchedString];
+            }
+                                                 
             [bigQuery setLimit:self.limit];
             [bigQuery setSkip:self.skip];
-            [bigQuery whereKeyExists:@"TITLE"];
             [bigQuery orderByAscending:@"TITLE"];
             [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
                 // NSLog(@"objects: %@",objects);
@@ -145,6 +154,8 @@
                     NSLog(@"self.skip : %d",self.skip);
                     if (self.searchResults.count == 0) {
                         self.anyResults = NO;
+                        [self.searchResults addObject:@"No Results"];
+                        [self.courseDegreeTitles addObject:@""];
                     }
                     self.tableView.hidden = NO;
                     [self.activityIndicator stopAnimating];
@@ -186,7 +197,7 @@
                     NSLog(@"self.skip : %d",self.skip);
                     if (self.searchResults.count == 0) {
                         [self.searchResults addObject:@"No Results"];
-                        [self.courseDegreeTitles addObject:@"sorry"];
+                        [self.courseDegreeTitles addObject:@""];
                         [self.universityNamesForSearchResults addObject:@""];
                         self.anyResults = NO;
                     }
@@ -242,7 +253,16 @@
                 // now query courses using ukprns
                 NSLog(@"i value: %d",i);
                 PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
-                [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
+                NSRange range = [courseSearchedString rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"()[]"]];
+                NSLog(@"range: %i and %i",range.location,range.length);
+                if (range.length == 0) {
+                    NSLog(@"No weird symbols");
+                    [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
+                    
+                } else {
+                    NSLog(@"weird symbols");
+                    [bigQuery whereKey:@"TITLE" equalTo:courseSearchedString];
+                }
                 // find this number per university
                 if (locationUniversityUKPRNS.count >5) {
                     [bigQuery setLimit:2];
@@ -252,7 +272,6 @@
                 [bigQuery setSkip:self.skip];
                 NSLog(@"ukprn: %@",[locationUniversityUKPRNS objectAtIndex:i]);
                 [bigQuery whereKey:@"UKPRN" equalTo:[locationUniversityUKPRNS objectAtIndex:i]];
-                [bigQuery whereKeyExists:@"TITLE"];
                 [bigQuery orderByAscending:@"TITLE"];
                 [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
                     // now find university name
@@ -299,7 +318,7 @@
                             NSLog(@"self.skip : %d",self.skip);
                             if (self.searchResults.count == 0) {
                                 [self.searchResults addObject:@"No Results"];
-                                [self.courseDegreeTitles addObject:@"sorry"];
+                                [self.courseDegreeTitles addObject:@""];
                                 [self.universityNamesForSearchResults addObject:@""];
                                 self.anyResults = NO;
                             }
@@ -320,11 +339,19 @@
         //if user has searched only by course
         else {
             PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
-            [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
+            NSRange range = [courseSearchedString rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"()[]"]];
+            NSLog(@"range: %i and %i",range.location,range.length);
+            if (range.length == 0) {
+                NSLog(@"No weird symbols");
+                [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
+                
+            } else {
+                NSLog(@"weird symbols");
+                [bigQuery whereKey:@"TITLE" equalTo:courseSearchedString];
+            }
             // find this number per university
             [bigQuery setLimit:12];
             [bigQuery setSkip:self.skip];
-            [bigQuery whereKeyExists:@"TITLE"];
             [bigQuery whereKeyExists:@"UKPRN"];
             [bigQuery orderByAscending:@"TITLE"];
             [bigQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
@@ -359,7 +386,7 @@
                     NSLog(@"self.skip : %d",self.skip);
                     if (self.searchResults.count == 0) {
                         [self.searchResults addObject:@"No Results"];
-                        [self.courseDegreeTitles addObject:@"sorry"];
+                        [self.courseDegreeTitles addObject:@""];
                         [self.universityNamesForSearchResults addObject:@""];
                         self.anyResults = NO;
                     }

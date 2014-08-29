@@ -95,7 +95,7 @@
             PFQuery *queryKiscourse = [PFQuery queryWithClassName:@"Kiscourse"];
             [queryKiscourse whereKey:@"KISCOURSEID" equalTo:self.courseCodeCourseInfo];
             [queryKiscourse whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
-            [queryKiscourse selectKeys:[NSArray arrayWithObjects:@"CRSEURL",@"UCASCOURSEID",@"YEARABROAD",@"SANDWICH", nil]];
+            [queryKiscourse selectKeys:[NSArray arrayWithObjects:@"CRSEURL",@"YEARABROAD",@"SANDWICH", nil]];
             [queryKiscourse findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
                 if (!error) {
                     NSArray *tempKiscourseObject = [objects objectAtIndex:0];
@@ -103,20 +103,22 @@
                     if (courseUrl.length == 0) {
                         courseUrl = @"N/A";
                     }
-                    ucasCourseCode = [tempKiscourseObject valueForKey:@"UCASCOURSEID"];
-                    if (ucasCourseCode.length == 0) {
-                        ucasCourseCode = @"N/A";
-                    }
+//                    ucasCourseCode = [tempKiscourseObject valueForKey:@"UCASCOURSEID"];
+//                    if (ucasCourseCode.length == 0) {
+//                        ucasCourseCode = @"N/A";
+//                    }
                     UILabel *yearAbroadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 42, 320, 30)];
                     yearAbroadLabel.textAlignment = NSTextAlignmentCenter;
                     yearAbroadLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
                     yearAbroadLabel.font = [UIFont fontWithName:@"Arial" size:12];
+                    yearAbroadLabel.hidden = YES;
                     [self.view addSubview:yearAbroadLabel];
                     
                     UILabel *yearIndustryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 54, 320, 30)];
                     yearIndustryLabel.textAlignment = NSTextAlignmentCenter;
                     yearIndustryLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
                     yearIndustryLabel.font = [UIFont fontWithName:@"Arial" size:12];
+                    yearIndustryLabel.hidden = YES;
                     [self.view addSubview:yearIndustryLabel];
                     
                     self.yearAbroad = [tempKiscourseObject valueForKey:@"YEARABROAD"];
@@ -329,6 +331,8 @@
                             self.courseNameLabel.hidden = NO;
                             self.universityNameLabel.hidden = NO;
                             self.sourceLabel.hidden = NO;
+                            yearAbroadLabel.hidden = NO;
+                            yearIndustryLabel.hidden = NO;
                         }
                     }];
                     self.firstTimeLoad = NO;
@@ -393,7 +397,7 @@
         
         //   NSLog(@"temp object: %@",tempObject);
         
-        self.ucasCourseCode = tempObject.ucasCode;
+        //self.ucasCourseCode = tempObject.ucasCode;
         self.courseUrl = tempObject.courseUrl;
         self.yearAbroad = tempObject.yearAbroad;
         self.sandwichYear = tempObject.sandwichYear;
@@ -477,7 +481,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 8;
+        return 7;
     } else {
         return self.commonJobs.count;
     }
@@ -517,11 +521,13 @@
     } else if (indexPath.section == 0) {
         
         NSString *cellIdentifier = [NSString stringWithFormat:@"CourseInfoTextCustomCellView%i", indexPath.row];
-        
-        //static NSString *cellIdentifier = @"CourseInfoTextCustomCellView";
-        static NSString *cellImageIdentifier = @"UniInfoCustomCellView";
-        static NSString *cellPieIdentifier = @"CourseInfoPieCustomCellView";
-        static NSString *cellSalaryIdentifier = @"CourseInfoSalaryCustomCellView";
+        NSString *cellImageIdentifier = [NSString stringWithFormat:@"UniInfoCustomCellView%i", indexPath.row];
+        NSString *cellPieIdentifier = [NSString stringWithFormat:@"CourseInfoPieCustomCellView%i", indexPath.row];
+        NSString *cellSalaryIdentifier = [NSString stringWithFormat:@"CourseInfoSalaryCustomCellView%i", indexPath.row];
+
+//        static NSString *cellImageIdentifier = @"UniInfoCustomCellView";
+//        static NSString *cellPieIdentifier = @"CourseInfoPieCustomCellView";
+//        static NSString *cellSalaryIdentifier = @"CourseInfoSalaryCustomCellView";
         
         
         CourseInfoTextCustomCellView *cellText = (CourseInfoTextCustomCellView*)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -547,17 +553,18 @@
         }
         cellPie.legendTitles = [[NSMutableArray alloc] init];
         
-        if (indexPath.row == 0 || indexPath.row == 1) {
+        if (indexPath.row == 0) {
             cellText.textCellLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
             cellText.textCellLabel.font = [UIFont fontWithName:@"Arial" size:14];
-            if (indexPath.row == 0) {
-                cellText.textCellLabel.text = @"UCAS Course Code:";
-                cellText.textCellDataButton.enabled = NO;
-                // cellText.textCellDataButton.titleLabel.text = self.ucasCourseCode;
-                [cellText.textCellDataButton setTitle:self.ucasCourseCode forState:UIControlStateNormal];
-                [cellText.textCellDataButton setTitle:self.ucasCourseCode forState:UIControlStateDisabled];
-                [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateDisabled];
-            } else if (indexPath.row == 1) {
+//            if (indexPath.row == 0) {
+//                cellText.textCellLabel.text = @"UCAS Course Code:";
+//                cellText.textCellDataButton.enabled = NO;
+//                // cellText.textCellDataButton.titleLabel.text = self.ucasCourseCode;
+//                [cellText.textCellDataButton setTitle:self.ucasCourseCode forState:UIControlStateNormal];
+//                [cellText.textCellDataButton setTitle:self.ucasCourseCode forState:UIControlStateDisabled];
+//                [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateDisabled];
+           // } else
+               // if (indexPath.row == 0) {
                 cellText.textCellLabel.text = @"Course URL:";
                 
                 [cellText.textCellDataButton setTitle:self.courseUrl forState:UIControlStateNormal];
@@ -568,7 +575,7 @@
                 [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
                 [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateDisabled];
                 
-            }
+          //  }
             cellText.selectionStyle = UITableViewCellSelectionStyleNone;
             cellText.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
             cellText.textCellLabel.textAlignment = NSTextAlignmentLeft;
@@ -579,7 +586,7 @@
             return cellText;
         }
         
-        else if (indexPath.row == 3 || indexPath.row == 6) {
+        else if (indexPath.row == 2 || indexPath.row == 5) {
             
             cellImage.imageViewUniInfo.image = [UIImage imageNamed:@"ui-17"];
             cellImage.uniInfoTypeLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
@@ -595,7 +602,7 @@
             cellImage.selectionStyle = UITableViewCellSelectionStyleNone;
             
             
-            if (indexPath.row == 3) {
+            if (indexPath.row == 2) {
                 cellImage.numberDataLabelUniInfo.text = self.averageTariffString;
                 cellImage.uniInfoTypeLabel.hidden = YES;
                 UILabel *cellTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 183, 67)];
@@ -679,7 +686,7 @@
                     [cellImage addSubview:equivalentLabel];
                 }
             }
-            if (indexPath.row == 6) {
+            if (indexPath.row == 5) {
                 cellImage.uniInfoTypeLabel.text = @"Proportion of students employed after 6 months:";
                 cellImage.numberDataLabelUniInfo.text = self.proportionInWork;
             }
@@ -688,7 +695,7 @@
             return cellImage;
         }
         
-        else if (indexPath.row == 2 || indexPath.row == 4 || indexPath.row == 5) {
+        else if (indexPath.row == 1 || indexPath.row == 3 || indexPath.row == 4) {
             
             cellPie.cellTitleLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
             cellPie.cellTitleLabel.textAlignment = NSTextAlignmentLeft;
@@ -697,7 +704,7 @@
             cellPie.selectionStyle = UITableViewCellSelectionStyleNone;
             
             
-            if (indexPath.row == 2) {
+            if (indexPath.row == 1) {
                 cellPie.cellTitleLabel.text = @"Degree classes obtained:";
                 //cellPie.legendTitles = [[NSMutableArray alloc] initWithObjects:@"1st",@"Upper 2nd",@"Lower 2nd",@"Other",@"Ordinary",@"N/A", nil];
                 [cellPie.legendTitles removeAllObjects];
@@ -706,7 +713,7 @@
                 cellPie.legendPoint = CGPointMake(-148, 18.0);
                 cellPie.whichPieChart = 1;
             }
-            if (indexPath.row == 4) {
+            if (indexPath.row == 3) {
                 cellPie.cellTitleLabel.text = @"Assessment methods breakdown:";
                 //cellPie.legendTitles = [[NSMutableArray alloc] initWithObjects:@"Written",@"Coursework",@"Practical", nil];
                 [cellPie.legendTitles removeAllObjects];
@@ -715,7 +722,7 @@
                 cellPie.legendPoint = CGPointMake(-155, 40);
                 cellPie.whichPieChart = 2;
             }
-            if (indexPath.row == 5) {
+            if (indexPath.row == 4) {
                 cellPie.cellTitleLabel.text = @"Learning time breakdown:";
                 //cellPie.legendTitles = [[NSMutableArray alloc] initWithObjects:@"Independent",@"Placements",@"Scheduled", nil];
                 [cellPie.legendTitles removeAllObjects];
@@ -728,7 +735,7 @@
             return cellPie;
         }
         
-        else if (indexPath.row == 7) {
+        else if (indexPath.row == 6) {
             cellSalary.centreLabel.text = @"Average salary for subject 6 months after graduating";
             cellSalary.centreLabel.numberOfLines = 0;
             cellSalary.centreLabel.font = [UIFont fontWithName:@"Arial" size:14];
@@ -771,13 +778,13 @@
         return 40;
     }
     else if (indexPath.section == 0) {
-        if (indexPath.row == 0 || indexPath.row == 1) {
+        if (indexPath.row == 0) {
             return 40;
         }
-        else if (indexPath.row == 3 || indexPath.row == 6) {
+        else if (indexPath.row == 2 || indexPath.row == 5) {
             return 100;
         }
-        else if (indexPath.row == 2 || indexPath.row == 4 || indexPath.row == 5 || indexPath.row == 7) {
+        else if (indexPath.row == 1 || indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 6) {
             return 130;
         }
     }
@@ -809,7 +816,7 @@
         temp.yearAbroad = self.yearAbroad;
         temp.sandwichYear = self.sandwichYear;
         temp.courseUrl = self.courseUrl;
-        temp.ucasCode = self.ucasCourseCode;
+        //temp.ucasCode = self.ucasCourseCode;
         temp.degreeClasses = [NSKeyedArchiver archivedDataWithRootObject:self.degreeStatistics];
         temp.averageTariffString = self.averageTariffString;
         temp.assessmentMethods = [NSKeyedArchiver archivedDataWithRootObject:self.assessmentMethods];

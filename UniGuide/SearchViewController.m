@@ -211,14 +211,17 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoCompleteUniversitiesRowIdentifier];
     }
     
-    if (self.anyFound == NO) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.textColor = [UIColor lightGrayColor];
-    } else {
-        cell.textLabel.textColor = [UIColor blackColor];
-    }
+    
     
     cell.textLabel.text = [autocompleteUniversities objectAtIndex:indexPath.row];
+    if ([cell.textLabel.text isEqualToString:@"Enter More For Suggestions"] || [cell.textLabel.text isEqualToString:@"No Results"]) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.textColor = [UIColor lightGrayColor];
+        self.anyFound = NO;
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
+        self.anyFound = YES;
+    }
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.textLabel.numberOfLines = 0;
     cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
@@ -253,7 +256,7 @@
         self.autocompleteUniversities = [universitiesFromParse filteredArrayUsingPredicate:universitiesPredicate];
     } else if ([self.whichTextFieldActive intValue] == 2) {
         
-        if (self.courseTextField.text.length < 3) {
+        if (searchText.length < 4) {
             
             self.autocompleteUniversities = [[NSMutableArray alloc] initWithObjects:@"Enter More For Suggestions", nil];
             self.haveQueriedParseForCoursesYet = NO;
@@ -265,11 +268,7 @@
         }
         
         
-    } else if ([self.whichTextFieldActive intValue] == 3) {
-        self.autocompleteUniversities = [locationsArray filteredArrayUsingPredicate:universitiesPredicate];
     }
-    
-    
     if (self.autocompleteUniversities.count == 0) {
         self.autocompleteUniversities = [[NSMutableArray alloc] initWithObjects:@"No Results", nil];
         self.anyFound = NO;

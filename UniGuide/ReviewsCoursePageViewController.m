@@ -282,6 +282,7 @@
     
     cell.reviewNumber = [[NSString alloc] initWithString:[NSString stringWithFormat:@"%@.",myNumber]];
     cell.reviewTitle = [[NSString alloc] initWithString:[self.reviewTitles objectAtIndex:indexPath.row]];
+    cell.reviewTitleLabel.adjustsFontSizeToFitWidth = YES;
     
     cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

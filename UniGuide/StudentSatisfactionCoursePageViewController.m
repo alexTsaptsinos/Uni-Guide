@@ -195,7 +195,7 @@
     NSArray *questionNames = [[NSArray alloc] initWithObjects:@"Staff are good at explaining things",@"Staff have made the subject interesting",@"Staff are enthusiastic about what they are teaching",@"The course is intellectually stimulating",@"The criteria used in marking have been clear in advance",@"Assessment arrangements and marking have been fair",@"Feedback on my work has been promt",@"I have received detailed comments on my work",@"Feedback on my work has helped me clarify things I did not understand",@"I have received sufficient advice and support with my studies",@"I have been able to contact staff when I needed to",@"Good advice was available when I needed to make study choices",@"The timetable works efficiently as far as my activities are concerned",@"Any changes in the course or teaching have been communicated effectively",@"The course is well organised and is running smoothly",@"The library resources and services are good enough for my needs",@"I have been able to access general IT resources when I needed to",@"I have been able to access specialised equipment, facilities or rooms when I needed to",@"The course has helped me present myself with confidence",@"My communication skills have improved",@"As a results of the course, I feel confident in tackling unfamiliar problems",@"Overall, I am satisfied with the quality of the course", nil];
     cell.questionLabel.text =[questionNames objectAtIndex:indexPath.row];
     cell.questionLabel.numberOfLines = 0;
-    cell.questionLabel.font = [UIFont fontWithName:@"Arial" size:14];
+    cell.questionLabel.font = [UIFont fontWithName:@"Arial" size:13];
     
     NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
     [f setNumberStyle:NSNumberFormatterDecimalStyle];

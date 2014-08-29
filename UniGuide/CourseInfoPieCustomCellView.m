@@ -12,7 +12,7 @@
 
 
 
-@synthesize cellTitleLabel,middleCircleImageView,legendTitles,sectionData,legendPoint,whichPieChart;
+@synthesize cellTitleLabel,middleCircleImageView,legendTitles,sectionData,legendPoint,whichPieChart,noDataImageView,noDataLabel;
 
 @synthesize hostView = hostView_;
 @synthesize selectedTheme = selectedTheme_;
@@ -168,13 +168,15 @@
 - (void)layoutSubviews
 {
    // NSLog(@"legend titles: %@",self.legendTitles);
-   // NSLog(@"data: %@", self.sectionData);
+    NSLog(@"data: %@", self.sectionData);
     if (self.sectionData.count != 0) {
         [self initPlot];
+        noDataImageView.hidden = YES;
+        noDataLabel.hidden = YES;
     } else {
-        UIImageView *noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, 320, 100)];
+        noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, 320, 100)];
         noDataImageView.backgroundColor = [UIColor clearColor];
-        UILabel *noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 80)];
+        noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 80)];
         noDataLabel.text = @"We're sorry, but we appear to have no data for this course.";
         noDataLabel.numberOfLines = 0;
         noDataLabel.textAlignment = NSTextAlignmentCenter;

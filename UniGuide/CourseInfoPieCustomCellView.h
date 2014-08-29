@@ -17,6 +17,9 @@
 @property (strong, nonatomic) NSMutableArray *sectionData;
 @property (nonatomic) int whichPieChart;
 @property (nonatomic) CGPoint legendPoint;
+@property (strong, nonatomic) UIImageView *noDataImageView;
+@property (strong, nonatomic) UILabel *noDataLabel;
+
 -(void)initPlot;
 -(void)configureHost;
 -(void)configureGraph;
