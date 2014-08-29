@@ -7,7 +7,6 @@
 //
 
 
-#import "RightPanelViewController.h"
 #import <Parse/Parse.h>
 #import "Favourites.h"
 #import "NSManagedObject+CRUD.h"
@@ -15,7 +14,6 @@
 #import "StudentSatisfactionCoursePageViewController.h"
 #import "ReviewsCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
-#import "RightPanelViewController.h"
 
 @interface SearchResultsTableViewController: UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
@@ -24,7 +22,6 @@
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) UIBarButtonItem *customFilterButton;
 
 @property (strong, nonatomic) NSString *universitySearchedString;
 @property (strong, nonatomic) NSString *courseSearchedString;

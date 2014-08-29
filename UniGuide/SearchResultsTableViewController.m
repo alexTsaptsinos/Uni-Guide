@@ -27,7 +27,7 @@
 
 @implementation SearchResultsTableViewController
 
-@synthesize allCourses,favouritesButton,tableView,customFilterButton,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityUKPRNString,searchResultsUniversityCodes,searchResultsCourseCodes,activityIndicator,limit,skip,courseDegreeTitles,universitySearchedUKPRN,haveFoundEverySeachValue,anyResults,courseInfoCoursePageViewController,firstTimeLoad;
+@synthesize allCourses,favouritesButton,tableView,universitySearchedString,courseSearchedString,locationSearchedString,searchResults,universityUKPRNString,searchResultsUniversityCodes,searchResultsCourseCodes,activityIndicator,limit,skip,courseDegreeTitles,universitySearchedUKPRN,haveFoundEverySeachValue,anyResults,courseInfoCoursePageViewController,firstTimeLoad;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,10 +36,7 @@
         
         //set navigation bar title
         self.navigationItem.title = @"Results";
-        
-        //set up filter button on navigation bar
-//        customFilterButton =[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(customFilterButtonPressed)];
-//        [self.navigationItem setRightBarButtonItem:customFilterButton];
+
     }
     return self;
 }

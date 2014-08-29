@@ -58,10 +58,6 @@
 		EF2740921990F30900B932DC /* StudentSatisfactionCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2740911990F30900B932DC /* StudentSatisfactionCustomCellView.m */; };
 		EF27409419912E6C00B932DC /* CommonJobsCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF27409319912E6C00B932DC /* CommonJobsCustomCellView.xib */; };
 		EF27409719912EAD00B932DC /* CommonJobsCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */; };
-		EF5533291981508B00120FEA /* SortFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5533271981508B00120FEA /* SortFilterViewController.m */; };
-		EF55332A1981508B00120FEA /* SortFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5533281981508B00120FEA /* SortFilterViewController.xib */; };
-		EF55332F198150C400120FEA /* FilterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF55332D198150C300120FEA /* FilterTableViewController.m */; };
-		EF553330198150C400120FEA /* FilterTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF55332E198150C300120FEA /* FilterTableViewController.xib */; };
 		EF5533771981AA0D00120FEA /* checked_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5533761981AA0D00120FEA /* checked_checkbox.png */; };
 		EF5533791981AA1400120FEA /* unchecked_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5533781981AA1400120FEA /* unchecked_checkbox.png */; };
 		EF5B6ED919926CC200B2E18D /* CourseInfoTextCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */; };
@@ -95,8 +91,6 @@
 		EF7F6F2B197E886F0009DB60 /* student2-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F2A197E886F0009DB60 /* student2-32.png */; };
 		EF7F6F2D197E887C0009DB60 /* talk-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F2C197E887C0009DB60 /* talk-32.png */; };
 		EF7F6F3B197EAF510009DB60 /* UniGuideLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F3A197EAF510009DB60 /* UniGuideLogo.png */; };
-		EF7F6F44197EB7130009DB60 /* RightPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */; };
-		EF7F6F45197EB7130009DB60 /* RightPanelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */; };
 		EF7F6F64197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7F6F62197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m */; };
 		EF7F6F65197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F63197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib */; };
 		EF7F6F67197FF0C90009DB60 /* electric_megaphone-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F66197FF0C90009DB60 /* electric_megaphone-32.png */; };
@@ -299,12 +293,6 @@
 		EF27409319912E6C00B932DC /* CommonJobsCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonJobsCustomCellView.xib; sourceTree = "<group>"; };
 		EF27409519912EAD00B932DC /* CommonJobsCustomCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonJobsCustomCellView.h; sourceTree = "<group>"; };
 		EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonJobsCustomCellView.m; sourceTree = "<group>"; };
-		EF5533261981508B00120FEA /* SortFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortFilterViewController.h; sourceTree = "<group>"; };
-		EF5533271981508B00120FEA /* SortFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortFilterViewController.m; sourceTree = "<group>"; };
-		EF5533281981508B00120FEA /* SortFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SortFilterViewController.xib; sourceTree = "<group>"; };
-		EF55332C198150C300120FEA /* FilterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterTableViewController.h; sourceTree = "<group>"; };
-		EF55332D198150C300120FEA /* FilterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTableViewController.m; sourceTree = "<group>"; };
-		EF55332E198150C300120FEA /* FilterTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterTableViewController.xib; sourceTree = "<group>"; };
 		EF5533761981AA0D00120FEA /* checked_checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked_checkbox.png; sourceTree = "<group>"; };
 		EF5533781981AA1400120FEA /* unchecked_checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked_checkbox.png; sourceTree = "<group>"; };
 		EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseInfoTextCustomCellView.xib; sourceTree = "<group>"; };
@@ -341,9 +329,6 @@
 		EF7F6F2A197E886F0009DB60 /* student2-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "student2-32.png"; sourceTree = "<group>"; };
 		EF7F6F2C197E887C0009DB60 /* talk-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "talk-32.png"; sourceTree = "<group>"; };
 		EF7F6F3A197EAF510009DB60 /* UniGuideLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UniGuideLogo.png; sourceTree = "<group>"; };
-		EF7F6F41197EB7130009DB60 /* RightPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightPanelViewController.h; sourceTree = "<group>"; };
-		EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightPanelViewController.m; sourceTree = "<group>"; };
-		EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightPanelViewController.xib; sourceTree = "<group>"; };
 		EF7F6F61197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenDaysUniversityPageTableViewController.h; sourceTree = "<group>"; };
 		EF7F6F62197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenDaysUniversityPageTableViewController.m; sourceTree = "<group>"; };
 		EF7F6F63197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpenDaysUniversityPageTableViewController.xib; sourceTree = "<group>"; };
@@ -626,22 +611,6 @@
 			path = CorePlotHeaders;
 			sourceTree = "<group>";
 		};
-		EF55332B1981509300120FEA /* FilterFunction */ = {
-			isa = PBXGroup;
-			children = (
-				EF7F6F41197EB7130009DB60 /* RightPanelViewController.h */,
-				EF7F6F42197EB7130009DB60 /* RightPanelViewController.m */,
-				EF7F6F43197EB7130009DB60 /* RightPanelViewController.xib */,
-				EF5533261981508B00120FEA /* SortFilterViewController.h */,
-				EF5533271981508B00120FEA /* SortFilterViewController.m */,
-				EF5533281981508B00120FEA /* SortFilterViewController.xib */,
-				EF55332C198150C300120FEA /* FilterTableViewController.h */,
-				EF55332D198150C300120FEA /* FilterTableViewController.m */,
-				EF55332E198150C300120FEA /* FilterTableViewController.xib */,
-			);
-			name = FilterFunction;
-			sourceTree = "<group>";
-		};
 		EF5B6ED6199266F800B2E18D /* Uni Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -680,7 +649,6 @@
 				A4C6C910197AF1400065311C /* SearchResultsTableViewController.h */,
 				A4C6C911197AF1400065311C /* SearchResultsTableViewController.m */,
 				A4C6C912197AF1400065311C /* SearchResultsTableViewController.xib */,
-				EF55332B1981509300120FEA /* FilterFunction */,
 				EF7F6F48197EE6230009DB60 /* CoursePageTabBars */,
 			);
 			name = "Search Function";
@@ -922,7 +890,6 @@
 				EFF5C0691987905A00E87159 /* CourseListTableViewController.xib in Resources */,
 				EFE3B2801994C33600F6331F /* star-26.png in Resources */,
 				EF66F5CF1988F0890048A82E /* AppIcon50x50.png in Resources */,
-				EF553330198150C400120FEA /* FilterTableViewController.xib in Resources */,
 				EF66F5E21988F0E80048A82E /* AppIcon76x76@2x.png in Resources */,
 				EF5B6EE51992A9F200B2E18D /* CourseInfoSalaryCustomCellView.xib in Resources */,
 				EFE3B28A1994CCEF00F6331F /* star-27.png in Resources */,
@@ -931,7 +898,6 @@
 				EF22D9B019A5EBFB00864E71 /* UniversitiesListTableViewController.xib in Resources */,
 				EF5B6EDE19927BBD00B2E18D /* CourseInfoPieCustomCellView.xib in Resources */,
 				EF27408F1990F29600B932DC /* StudentSatisfactionCustomCellView.xib in Resources */,
-				EF7F6F45197EB7130009DB60 /* RightPanelViewController.xib in Resources */,
 				EF7F6F71197FF45A0009DB60 /* courses-32.png in Resources */,
 				EF7F6F8D198063570009DB60 /* SpecificOpenDayViewController.xib in Resources */,
 				EF66F5D01988F0890048A82E /* AppIcon50x50@2x.png in Resources */,
@@ -940,7 +906,6 @@
 				EF66F5CB1988F0890048A82E /* AppIcon29x29.png in Resources */,
 				EF7F6F3B197EAF510009DB60 /* UniGuideLogo.png in Resources */,
 				A4C6C914197AF1400065311C /* SearchResultsTableViewController.xib in Resources */,
-				EF55332A1981508B00120FEA /* SortFilterViewController.xib in Resources */,
 				EF66F5D81988F0DF0048A82E /* AppIcon60x60@2x.png in Resources */,
 				EF7B895B1993979200F09894 /* splash 640x960.png in Resources */,
 				A4C6C91E197AF6D80065311C /* CourseInfoCoursePageViewController.xib in Resources */,
@@ -1006,7 +971,6 @@
 			files = (
 				9E6C4FD81994DA5500A536E3 /* UniGuide.xcdatamodeld in Sources */,
 				A4C6C8A8197AD22F0065311C /* AppDelegate.m in Sources */,
-				EF5533291981508B00120FEA /* SortFilterViewController.m in Sources */,
 				EF27408D198FFC1F00B932DC /* WhatYearForNewReviewTableViewController.m in Sources */,
 				EF27409719912EAD00B932DC /* CommonJobsCustomCellView.m in Sources */,
 				EF7F6F8C198063570009DB60 /* SpecificOpenDayViewController.m in Sources */,
@@ -1024,7 +988,6 @@
 				A4C6C8C9197AD3630065311C /* MainMenuViewController.m in Sources */,
 				A4C6C8CE197AD78F0065311C /* SearchViewController.m in Sources */,
 				EFF5C0681987905A00E87159 /* CourseListTableViewController.m in Sources */,
-				EF55332F198150C400120FEA /* FilterTableViewController.m in Sources */,
 				A4C6C927197AF6F40065311C /* ReviewsCoursePageViewController.m in Sources */,
 				EF5B6EDC19926D4300B2E18D /* CourseInfoTextCustomCellView.m in Sources */,
 				EF5B6EE81992AA9400B2E18D /* CourseInfoSalaryCustomCellView.m in Sources */,
@@ -1033,7 +996,6 @@
 				EF5B6EE119927C0300B2E18D /* CourseInfoPieCustomCellView.m in Sources */,
 				A4C6C944197BF8C80065311C /* ContactUniversityPageViewController.m in Sources */,
 				A4C6C8A4197AD22F0065311C /* main.m in Sources */,
-				EF7F6F44197EB7130009DB60 /* RightPanelViewController.m in Sources */,
 				EF93A59619A36101007F5CAB /* LocationSelectTableViewController.m in Sources */,
 				EF7F6F8119804D810009DB60 /* AddReviewViewController.m in Sources */,
 				EF274087198F9F8800B932DC /* ReviewCustomCellView.m in Sources */,
