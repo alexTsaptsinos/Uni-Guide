@@ -151,11 +151,14 @@
                 NSLog(@"range %i and length %i",range.location,range.length);
                 NSInteger indexPath = [self.openDays indexOfObject:temp inRange:range];
                 NSLog(@"index path: %i",indexPath);
-                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-                [formatter setDateFormat:@"dd-MM-yy"];
-                cell.detailTextLabel.text = [formatter stringFromDate:[openDayDates objectAtIndex:indexPath]];
+                if (indexPath < self.openDays.count) {
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    [formatter setDateFormat:@"dd-MM-yy"];
+                    cell.detailTextLabel.text = [formatter stringFromDate:[openDayDates objectAtIndex:indexPath]];
+                }
                 i = indexPath+1;
                 NSLog(@"i: %i",i);
+                
             }
             
             
@@ -258,6 +261,9 @@
     //universityTitle.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     universityTitle.textAlignment = NSTextAlignmentCenter;
     specificOpenDayViewController.navigationItem.titleView = universityTitle;
+    
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
     
     
     [self.navigationController pushViewController:specificOpenDayViewController animated:YES];

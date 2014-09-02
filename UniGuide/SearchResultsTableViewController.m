@@ -9,10 +9,6 @@
 #import "SearchResultsTableViewController.h"
 
 
-
-
-
-
 @class Courses;
 
 @interface SearchResultsTableViewController ()

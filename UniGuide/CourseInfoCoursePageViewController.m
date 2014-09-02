@@ -238,11 +238,11 @@
                         NSNumber *tt600 = [NSNumber numberWithFloat:([t600 floatValue] * 600)];
                         
                         NSNumber *numberOfEntries = [NSNumber numberWithFloat:([t1 floatValue] + [t120 floatValue] + [t160 floatValue] + [t200 floatValue] + [t240 floatValue] + [t280 floatValue] + [t320 floatValue] + [t360 floatValue] + [t400 floatValue] + [t440 floatValue] + [t480 floatValue] + [t520 floatValue] + [t560 floatValue] + [t600 floatValue])];
-                        // NSLog(@"numberofentries: %@",numberOfEntries);
+                         NSLog(@"numberofentries: %@",numberOfEntries);
                         NSNumber *averageTariff = [NSNumber numberWithFloat:([tt1 floatValue] + [tt120 floatValue] + [tt160 floatValue] + [tt200 floatValue] + [tt240 floatValue] + [tt280 floatValue] + [tt320 floatValue] + [tt360 floatValue] + [tt400 floatValue] + [tt440 floatValue] + [tt480 floatValue] + [tt520 floatValue] + [tt560 floatValue] + [tt600 floatValue])];
-                        // NSLog(@"average 1: %@",averageTariff);
+                         NSLog(@"average 1: %@",averageTariff);
                         averageTariff = [NSNumber numberWithFloat:([averageTariff floatValue] / [numberOfEntries floatValue])];
-                        // NSLog(@"average 2: %@",averageTariff);
+                         NSLog(@"average 2: %@",averageTariff);
                         int privateRounded = lroundf([averageTariff floatValue]);
                         averageTariffString = [NSString stringWithFormat:@"%d",privateRounded];
                     }

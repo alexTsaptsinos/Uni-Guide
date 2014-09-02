@@ -79,10 +79,12 @@
         
         PFQuery *locationQuery = [PFQuery queryWithClassName:@"Location"];
         [locationQuery whereKey:@"UKPRN" equalTo:uniCode];
+        [locationQuery whereKeyExists:@"INSTBEDS"];
         
         [locationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
             if (!error) {
                 NSArray *bedNumbersString = [objects valueForKey:@"INSTBEDS"];
+                NSLog(@"bed nos: %@",bedNumbersString);
                 NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
                 [f setNumberStyle:NSNumberFormatterDecimalStyle];
                 NSMutableArray *bedNumbers = [[NSMutableArray alloc] init];
