@@ -130,6 +130,7 @@
         
         PFQuery *queryForReviews = [PFQuery queryWithClassName:@"CourseReviews"];
         [queryForReviews whereKey:@"CourseCode" equalTo:self.courseCodeReviews];
+        [queryForReviews whereKey:@"UKPRN" equalTo:self.uniCodeReviews];
         [queryForReviews orderByDescending:@"createdAt"];
         [queryForReviews findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
             if (!error) {
@@ -377,6 +378,7 @@
     
     
     addReviewViewController.couseKISCode = self.courseCodeReviews;
+    addReviewViewController.uniCodeAddReview = self.uniCodeReviews;
     
     [self presentViewController:addReviewNavigationController animated:YES completion:nil];
 }

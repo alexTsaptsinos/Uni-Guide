@@ -46,6 +46,7 @@
 @property (strong, nonatomic) UITableView *courseInfoTableView;
 @property (nonatomic) BOOL firstTimeLoad;
 @property (nonatomic) BOOL haveComeFromFavourites;
+@property (nonatomic) BOOL isItFavourite;
 
 -(void) customBtnPressed;
 

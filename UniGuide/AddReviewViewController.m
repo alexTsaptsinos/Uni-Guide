@@ -14,7 +14,7 @@
 
 @implementation AddReviewViewController
 
-@synthesize titleTextField,nameTextField,reviewTextView,starButton1,starButton2,starButton3,starButton4,starButton5,firstTimeTextEdit,haveTheyRatedStars,couseKISCode,howManyStars,selectYearButton,haveTheySelectedYear;
+@synthesize titleTextField,nameTextField,reviewTextView,starButton1,starButton2,starButton3,starButton4,starButton5,firstTimeTextEdit,haveTheyRatedStars,couseKISCode,howManyStars,selectYearButton,haveTheySelectedYear,uniCodeAddReview;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -121,6 +121,10 @@
         UIAlertView *noYearAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter your year" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [noYearAlert show];
     }
+    else if ([self.selectYearButton.titleLabel.text isEqualToString:@"     - Select Year -    "]) {
+        UIAlertView *noYearAlert = [[UIAlertView alloc] initWithTitle:@"Hold On There!" message:@"Please enter your year" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [noYearAlert show];
+    }
     else {
         NSURL *scriptUrl = [NSURL URLWithString:@"http://google.com"];
         NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
@@ -137,6 +141,7 @@
             newReview[@"CourseCode"] = self.couseKISCode;
             newReview[@"StarRating"] = self.howManyStars;
             newReview[@"ReviewerYear"] = self.selectYearButton.titleLabel.text;
+            newReview[@"UKPRN"] = self.uniCodeAddReview;
             [newReview saveInBackground];
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {

@@ -329,10 +329,12 @@
             favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-25"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
             favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
             [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+            courseInfoCoursePageViewController.isItFavourite = YES;
         } else {
             favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
             favouritesButton.tintColor = [UIColor whiteColor];
             [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
+            courseInfoCoursePageViewController.isItFavourite = NO;
         }
         
         

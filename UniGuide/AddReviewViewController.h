@@ -32,6 +32,7 @@
 @property (nonatomic) BOOL haveTheySelectedYear;
 @property (nonatomic,strong) NSString *couseKISCode;
 @property (nonatomic) NSNumber *howManyStars;
+@property (nonatomic,strong) NSString *uniCodeAddReview;
 
 
 @end

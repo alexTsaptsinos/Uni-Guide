@@ -16,7 +16,7 @@
 
 @implementation CourseInfoCoursePageViewController
 
-@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear,favouritesButton,activityIndicator,haveComeFromFavourites,noInternetImageView,noInternetLabel,sourceLabel;
+@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear,favouritesButton,activityIndicator,haveComeFromFavourites,noInternetImageView,noInternetLabel,sourceLabel,isItFavourite;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -458,6 +458,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 22;
+}
+
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, courseInfoTableView.bounds.size.width, 30)];
@@ -772,6 +777,8 @@
     return NULL;
 }
 
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
@@ -793,7 +800,7 @@
 
 -(void) customBtnPressed
 {
-    if (favouritesButton.image == [UIImage imageNamed:@"star-25"]) {
+    if (self.isItFavourite == YES) {
         favouritesButton.image = [UIImage imageNamed:@"star-24"];
         favouritesButton.tintColor = [UIColor whiteColor];
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeCourseInfo,self.uniCodeCourseInfo] andSortKey:@"courseName"];
@@ -804,8 +811,9 @@
             
         }
         [Favourites saveDatabase];
+        self.isItFavourite = NO;
     }
-    else if (favouritesButton.image == [UIImage imageNamed:@"star-24"]) {
+    else if (self.isItFavourite == NO) {
         favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
         favouritesButton.image = [UIImage imageNamed:@"star-25"];
         Favourites * temp = [Favourites createObject];
@@ -827,6 +835,7 @@
         temp.instituteSalary = self.instituteSalary;
         temp.nationalSalary = self.nationalSalary;
         [Favourites saveDatabase];
+        self.isItFavourite = YES;
     }
     
 }

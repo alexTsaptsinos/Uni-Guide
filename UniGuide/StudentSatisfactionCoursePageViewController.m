@@ -89,8 +89,9 @@
         [queryForStudentSatisfactionData whereKey:@"UKPRN" equalTo:self.uniCodeStudentSatisfaction];
         [queryForStudentSatisfactionData findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
             if (!error) {
-                NSArray *tempObject = [objects objectAtIndex:0];
-                if (tempObject == NULL) {
+                //NSArray *tempObject = [objects objectAtIndex:0];
+                NSLog(@"objects: %@",objects);
+                if (objects.count == 0) {
                     //  NSLog(@"this worked");
                     UIImageView *noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 320, 429)];
                     noDataImageView.backgroundColor = [UIColor lightGrayColor];
@@ -102,7 +103,7 @@
                     [self.view addSubview:noDataImageView];
                     
                 } else {
-                    
+                    NSArray *tempObject = [objects objectAtIndex:0];
                     NSString *question1 = [tempObject valueForKey:@"Q1"];
                     NSString *question2 = [tempObject valueForKey:@"Q2"];
                     NSString *question3 = [tempObject valueForKey:@"Q3"];

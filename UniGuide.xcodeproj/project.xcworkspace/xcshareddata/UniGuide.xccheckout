@@ -10,29 +10,29 @@
 	<string>UniGuide</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>F6E8760F-A84F-4BB9-898D-AD6ADD079600</key>
+		<key>B293B91070AF3CC6A078A2FA58ECC9CA0BACAF25</key>
 		<string>http://softwaredevelopment.mobi/appcamp-bristol/alex-uniguide.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>UniGuide.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>F6E8760F-A84F-4BB9-898D-AD6ADD079600</key>
+		<key>B293B91070AF3CC6A078A2FA58ECC9CA0BACAF25</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>http://softwaredevelopment.mobi/appcamp-bristol/alex-uniguide.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>F6E8760F-A84F-4BB9-898D-AD6ADD079600</string>
+	<string>B293B91070AF3CC6A078A2FA58ECC9CA0BACAF25</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>F6E8760F-A84F-4BB9-898D-AD6ADD079600</string>
+			<string>B293B91070AF3CC6A078A2FA58ECC9CA0BACAF25</string>
 			<key>IDESourceControlWCCName</key>
 			<string>UniGuide</string>
 		</dict>
