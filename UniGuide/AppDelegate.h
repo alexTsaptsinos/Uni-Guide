@@ -4,7 +4,7 @@
 //
 //  Created by Alex Tsaptsinos on 19/07/2014.
 //  Copyright (c) 2014 ATsaptsinos. All rights reserved.
-// Test Github
+// Test Github 2
 //
 
 #import <UIKit/UIKit.h>
