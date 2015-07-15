@@ -121,8 +121,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "28"
             endingLineNumber = "28"
-            landmarkName = "@implementation SearchViewController"
-            landmarkType = "3">
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -452,11 +452,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/OpenDaysUniversityPageTableViewController.m"
-            timestampString = "430842086.631393"
+            timestampString = "458653695.501253"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -468,11 +468,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/OpenDaysUniversityPageTableViewController.m"
-            timestampString = "430842086.631393"
+            timestampString = "458653695.501253"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -498,6 +498,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[SearchViewController filterUniversitiesForSearchText:]"
                   moduleName = "UniGuide"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/appcamp8/Documents/XCode/UniGuide/UniGuide/SearchViewController.m"
                   timestampString = "428586331.886544"
                   startingColumnNumber = "9223372036854775807"
@@ -512,6 +513,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[SearchViewController filterUniversitiesForSearchText:]"
                   moduleName = "UniGuide"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/appcamp8/Documents/XCode/UniGuide/UniGuide/SearchViewController.m"
                   timestampString = "428586331.886938"
                   startingColumnNumber = "9223372036854775807"
@@ -608,6 +610,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[SearchResultsTableViewController universityUKPRNString]"
                   moduleName = "UniGuide"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/appcamp8/Documents/XCode/UniGuide/UniGuide/SearchResultsTableViewController.h"
                   timestampString = "428591918.175659"
                   startingColumnNumber = "9223372036854775807"
@@ -622,6 +625,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[SearchResultsTableViewController setUniversityUKPRNString:]"
                   moduleName = "UniGuide"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/appcamp8/Documents/XCode/UniGuide/UniGuide/SearchResultsTableViewController.h"
                   timestampString = "428591918.176173"
                   startingColumnNumber = "9223372036854775807"
@@ -784,11 +788,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/UniInfoCoursePageViewController.m"
-            timestampString = "432764950.331127"
+            timestampString = "458650743.268904"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "377"
+            endingLineNumber = "377"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1166,6 +1170,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[SearchResultsTableViewController queryForSearchResults]"
                   moduleName = "UniGuide"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/appcamp8/Documents/XCode/UniGuide/UniGuide/SearchResultsTableViewController.m"
                   timestampString = "430231435.519899"
                   startingColumnNumber = "9223372036854775807"
@@ -1180,6 +1185,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "__57-[SearchResultsTableViewController queryForSearchResults]_block_invoke"
                   moduleName = "UniGuide"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/appcamp8/Documents/XCode/UniGuide/UniGuide/SearchResultsTableViewController.m"
                   timestampString = "430231435.520216"
                   startingColumnNumber = "9223372036854775807"
@@ -1628,6 +1634,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[SpecificOpenDayViewController viewDidAppear:]"
                   moduleName = "UniGuide"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/appcamp8/Documents/XCode/UniGuide/UniGuide/SpecificOpenDayViewController.m"
                   timestampString = "430746508.602947"
                   startingColumnNumber = "9223372036854775807"
@@ -1642,6 +1649,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "__47-[SpecificOpenDayViewController viewDidAppear:]_block_invoke"
                   moduleName = "UniGuide"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/appcamp8/Documents/XCode/UniGuide/UniGuide/SpecificOpenDayViewController.m"
                   timestampString = "430746508.603155"
                   startingColumnNumber = "9223372036854775807"
@@ -1962,6 +1970,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[SearchResultsTableViewController queryForSearchResults]"
                   moduleName = "UniGuide"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/appcamp8/Documents/XCode/UniGuide/UniGuide/SearchResultsTableViewController.m"
                   timestampString = "430920533.337103"
                   startingColumnNumber = "9223372036854775807"
@@ -1976,6 +1985,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "__57-[SearchResultsTableViewController queryForSearchResults]_block_invoke186"
                   moduleName = "UniGuide"
+                  usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/appcamp8/Documents/XCode/UniGuide/UniGuide/SearchResultsTableViewController.m"
                   timestampString = "430920533.337406"
                   startingColumnNumber = "9223372036854775807"
@@ -2346,6 +2356,102 @@
             startingLineNumber = "803"
             endingLineNumber = "803"
             landmarkName = "-customBtnPressed"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UniGuide/UniversitiesListTableViewController.m"
+            timestampString = "458650148.537256"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UniGuide/UniInfoCoursePageViewController.m"
+            timestampString = "458650657.084243"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "-viewDidAppear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UniGuide/OpenDaysUniversityPageTableViewController.m"
+            timestampString = "458653695.501253"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "-viewDidAppear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UniGuide/OpenDaysUniversityPageTableViewController.m"
+            timestampString = "458653695.501253"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "-viewDidAppear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UniGuide/OpenDaysUniversityPageTableViewController.m"
+            timestampString = "458653515.123869"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "-viewDidAppear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UniGuide/OpenDaysUniversityPageTableViewController.m"
+            timestampString = "458653687.147724"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

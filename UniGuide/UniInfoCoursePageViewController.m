@@ -143,6 +143,8 @@
         [queryForStudentSatisfaction whereKeyExists:@"Q24"];
         [queryForStudentSatisfaction findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
             if (!error) {
+                if (objects.count != 0) {
+                    
                 NSArray *temp = [objects objectAtIndex:0];
                 studentSatisfactionPercentage = [temp valueForKey:@"Q24"];
                 if (studentSatisfactionPercentage != NULL) {
@@ -260,7 +262,39 @@
                 [self.activityIndicator stopAnimating];
                 [self.tableViewUniInfo reloadData];
                 self.tableViewUniInfo.hidden = NO;
-                
+                }
+                else {
+                    NSLog(@"no data");
+                    
+                    
+                    noInternetImageView = [[UIImageView alloc] init];
+                    
+                    noInternetImageView.backgroundColor = [UIColor lightGrayColor];
+                    noInternetLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+                    noInternetLabel.text = @"We're sorry, but no data is available for this university";
+                    noInternetLabel.numberOfLines = 0;
+                    noInternetLabel.textAlignment = NSTextAlignmentCenter;
+                    [noInternetImageView addSubview:noInternetLabel];
+                    [self.view addSubview:noInternetImageView];
+                    
+                    if (self.haveWeComeFromUniversities == NO) {
+                        noInternetImageView.frame = CGRectMake(0, 90, 320, 429);
+                        universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, 320, 20)];
+                        universityNameLabel.text = self.uniNameUniInfo;
+                        universityNameLabel.textAlignment = NSTextAlignmentCenter;
+                        universityNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+                        universityNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+                        [self.view addSubview:universityNameLabel];
+                        self.universityNameLabel.hidden = NO;
+                    } else {
+                        self.universityNameLabel.hidden = YES;
+                        noInternetImageView.frame = CGRectMake(0, 22, 320, 500);
+                        
+                    }
+                    
+                    
+                    self.sourceLabel.hidden = NO;
+                }
             }
             else {
                 NSLog(@"no internet");

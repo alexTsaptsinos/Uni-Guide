@@ -10,7 +10,7 @@
 #import "SpecificOpenDayViewController.h"
 
 @interface OpenDaysUniversityPageTableViewController ()
-
+ 
 @end
 
 @implementation OpenDaysUniversityPageTableViewController
@@ -45,16 +45,21 @@
         [activityIndicator startAnimating];
         [self.tableView addSubview:activityIndicator];
         
-        //NSLog(@"university name: %@", self.universityName);
+        NSLog(@"university code: %@", self.universityUKPRN);
+        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+        f.numberStyle = NSNumberFormatterDecimalStyle;
+        NSNumber *universityUKPRNNumber = [f numberFromString:self.universityUKPRN];
         PFQuery *query = [PFQuery queryWithClassName:@"OpenDays"];
-        [query whereKey:@"UKPRN" equalTo:self.universityUKPRN];
+        [query whereKey:@"UKPRN" equalTo:universityUKPRNNumber];
         NSDate *today = [NSDate date];
         [query whereKey:@"ParseDate" greaterThanOrEqualTo:today];
         [query orderByAscending:@"ParseDate"];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error) {
             if (!error) {
+                NSLog(@"objects: %@",objects);
                 openDays = [objects valueForKey:@"University"];
                 openDayDates = [objects valueForKey:@"ParseDate"];
+                NSLog(@"dates: %@",openDayDates);
                 startTimes = [objects valueForKey:@"TimeStart"];
                 endTimes = [objects valueForKey:@"TimeEnd"];
                 details = [objects valueForKey:@"Details"];

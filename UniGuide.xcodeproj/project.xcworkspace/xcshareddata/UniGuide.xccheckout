@@ -14,7 +14,7 @@
 		<string>http://softwaredevelopment.mobi/appcamp-bristol/alex-uniguide.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>UniGuide.xcodeproj/project.xcworkspace</string>
+	<string>UniGuide.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>B293B91070AF3CC6A078A2FA58ECC9CA0BACAF25</key>
