@@ -282,7 +282,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSInteger originalIndexPath = [self.universitiesSortableNames indexOfObject:cell.textLabel.text];
-    NSLog(@"orignial: %d",originalIndexPath);
+    NSLog(@"orignial: %ld",(long)originalIndexPath);
     
     courseListTableViewController.universityCode = [universitiesUKPRNS objectAtIndex:originalIndexPath];
     contactUniversityPageViewController.universityCode = [universitiesUKPRNS objectAtIndex:originalIndexPath];

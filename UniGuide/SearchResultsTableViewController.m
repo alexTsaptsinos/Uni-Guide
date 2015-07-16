@@ -118,7 +118,7 @@
             PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
             [bigQuery whereKey:@"UKPRN" equalTo:self.universitySearchedUKPRN];
             NSRange range = [courseSearchedString rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"()[]"]];
-            NSLog(@"range: %i and %i",range.location,range.length);
+            NSLog(@"range: %lu and %lu",(unsigned long)range.location,(unsigned long)range.length);
             if (range.length == 0) {
                 NSLog(@"No weird symbols");
                 [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
@@ -234,8 +234,8 @@
             NSArray *locationUniversityObjects = [locationsQuery findObjects];
             // array of the possible ukprns
             NSArray *locationUniversityUKPRNS = [locationUniversityObjects valueForKey:@"UKPRN"];
-            NSLog(@"possible unis count: %d",locationUniversityUKPRNS.count);
-            NSLog(@"number of possible unis: %d",locationUniversityUKPRNS.count);
+            NSLog(@"possible unis count: %lu",(unsigned long)locationUniversityUKPRNS.count);
+            NSLog(@"number of possible unis: %lu",(unsigned long)locationUniversityUKPRNS.count);
             
             // we use the cumulative search results to keep adding results
             
@@ -247,7 +247,7 @@
                 NSLog(@"i value: %d",i);
                 PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
                 NSRange range = [courseSearchedString rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"()[]"]];
-                NSLog(@"range: %i and %i",range.location,range.length);
+                NSLog(@"range: %lu and %lu",(unsigned long)range.location,(unsigned long)range.length);
                 if (range.length == 0) {
                     NSLog(@"No weird symbols");
                     [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
@@ -285,7 +285,7 @@
                         
                         // now add the courses we found
                         [cumulativeSearchResults addObjectsFromArray:objects];
-                        NSLog(@"cum search results count: %d",cumulativeSearchResults.count);
+                        NSLog(@"cum search results count: %lu",(unsigned long)cumulativeSearchResults.count);
                         
                         // if we have got to the final university in this region
                         if (i == locationUniversityUKPRNS.count - 1) {
@@ -333,7 +333,7 @@
         else {
             PFQuery *bigQuery = [PFQuery queryWithClassName:@"Kiscourse"];
             NSRange range = [courseSearchedString rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"()[]"]];
-            NSLog(@"range: %i and %i",range.location,range.length);
+            NSLog(@"range: %lu and %lu",(unsigned long)range.location,(unsigned long)range.length);
             if (range.length == 0) {
                 NSLog(@"No weird symbols");
                 [bigQuery whereKey:@"TITLE" matchesRegex:courseSearchedString modifiers:@"i"];
@@ -431,7 +431,7 @@
 {
     
     // Return the number of rows in the section.
-    NSLog(@"count: %d",self.searchResults.count);
+    NSLog(@"count: %lu",(unsigned long)self.searchResults.count);
     return self.searchResults.count;
 }
 
@@ -452,7 +452,7 @@
     }
     
     //    // Configure the cell...
-    NSLog(@"course names count: %d and course codes count: %d",self.searchResults.count,self.courseDegreeTitles.count);
+    NSLog(@"course names count: %lu and course codes count: %lu",(unsigned long)self.searchResults.count,(unsigned long)self.courseDegreeTitles.count);
     
     NSString *courseName = [self.searchResults objectAtIndex:indexPath.row];
     courseName = [courseName stringByAppendingString:@" - "];

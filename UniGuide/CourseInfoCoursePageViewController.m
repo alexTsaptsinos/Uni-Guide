@@ -525,10 +525,10 @@
         return cell;
     } else if (indexPath.section == 0) {
         
-        NSString *cellIdentifier = [NSString stringWithFormat:@"CourseInfoTextCustomCellView%i", indexPath.row];
-        NSString *cellImageIdentifier = [NSString stringWithFormat:@"UniInfoCustomCellView%i", indexPath.row];
-        NSString *cellPieIdentifier = [NSString stringWithFormat:@"CourseInfoPieCustomCellView%i", indexPath.row];
-        NSString *cellSalaryIdentifier = [NSString stringWithFormat:@"CourseInfoSalaryCustomCellView%i", indexPath.row];
+        NSString *cellIdentifier = [NSString stringWithFormat:@"CourseInfoTextCustomCellView%li", (long)indexPath.row];
+        NSString *cellImageIdentifier = [NSString stringWithFormat:@"UniInfoCustomCellView%li", (long)indexPath.row];
+        NSString *cellPieIdentifier = [NSString stringWithFormat:@"CourseInfoPieCustomCellView%li", (long)indexPath.row];
+        NSString *cellSalaryIdentifier = [NSString stringWithFormat:@"CourseInfoSalaryCustomCellView%li", (long)indexPath.row];
 
 //        static NSString *cellImageIdentifier = @"UniInfoCustomCellView";
 //        static NSString *cellPieIdentifier = @"CourseInfoPieCustomCellView";

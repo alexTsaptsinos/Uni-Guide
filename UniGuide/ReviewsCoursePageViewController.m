@@ -262,7 +262,7 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellIdentifier = [NSString stringWithFormat:@"ReviewCustomCellView%i", indexPath.row];
+    NSString *cellIdentifier = [NSString stringWithFormat:@"ReviewCustomCellView%li", (long)indexPath.row];
     
     ReviewCustomCellView *cell = (ReviewCustomCellView *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     

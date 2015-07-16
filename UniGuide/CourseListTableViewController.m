@@ -319,7 +319,7 @@
         NSLog(@"search results: %@ and course name: %@",self.searchResults,self.cellTitles);
         id object = [self.searchResults objectAtIndex:indexPath.row];
         NSInteger originalIndexPath = [self.cellTitles indexOfObject:object];
-        NSLog(@"%i", originalIndexPath);
+        NSLog(@"%li", (long)originalIndexPath);
         courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:originalIndexPath];
         reviewsCoursePageViewController.courseCodeReviews = [_universityCourseCodes objectAtIndex:originalIndexPath];
         studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:originalIndexPath];

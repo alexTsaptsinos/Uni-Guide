@@ -148,7 +148,7 @@
      }
      
      Favourites *affectedObject = [self.reversed objectAtIndex:fromIndex];
-     NSLog(@"Updated %@ / %@ from %@ to %i", affectedObject.courseName, affectedObject.uniName, affectedObject.sortNumber, self.favouriteObjects.count - toIndex - 1);
+     NSLog(@"Updated %@ / %@ from %@ to %lu", affectedObject.courseName, affectedObject.uniName, affectedObject.sortNumber, self.favouriteObjects.count - toIndex - 1);
      affectedObject.sortNumber = [NSNumber numberWithInt:self.favouriteObjects.count - toIndex - 1];
 
      

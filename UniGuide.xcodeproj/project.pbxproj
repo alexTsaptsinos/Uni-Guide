@@ -855,7 +855,7 @@
 				ORGANIZATIONNAME = ATsaptsinos;
 				TargetAttributes = {
 					A4C6C893197AD22F0065311C = {
-						DevelopmentTeam = G2CRBUKG8K;
+						DevelopmentTeam = JCAGCV7Y53;
 					};
 					A4C6C8AE197AD22F0065311C = {
 						TestTargetID = A4C6C893197AD22F0065311C;
@@ -1131,13 +1131,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-force_load",
 					"$(PROJECT_DIR)/libCorePlot-CocoaTouch.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1161,13 +1162,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-force_load",
 					"$(PROJECT_DIR)/libCorePlot-CocoaTouch.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1188,6 +1190,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "UniGuideTests/UniGuideTests-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -1206,6 +1209,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "UniGuide/UniGuide-Prefix.pch";
 				INFOPLIST_FILE = "UniGuideTests/UniGuideTests-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

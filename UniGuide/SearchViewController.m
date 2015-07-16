@@ -336,7 +336,7 @@
             [locationsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
                 NSArray *locationUniversityUKPRNS = [objects valueForKey:@"UKPRN"];
                 // array of the possible ukprns
-                NSLog(@"number of possible unis: %d",locationUniversityUKPRNS.count);
+                NSLog(@"number of possible unis: %lu",(unsigned long)locationUniversityUKPRNS.count);
                 
                 // we use the cumulative search results to keep adding results
                 

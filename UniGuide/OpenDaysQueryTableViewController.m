@@ -151,18 +151,18 @@
                 self.firstTimeForDates = NO;
             }
             if (i < self.openDays.count) {
-                NSLog(@"i first: %i",i);
+                NSLog(@"i first: %lu",(unsigned long)i);
                 NSRange range = NSMakeRange(i, self.openDays.count - i);
-                NSLog(@"range %i and length %i",range.location,range.length);
+                NSLog(@"range %lu and length %lu",(unsigned long)range.location,(unsigned long)range.length);
                 NSInteger indexPath = [self.openDays indexOfObject:temp inRange:range];
-                NSLog(@"index path: %i",indexPath);
+                NSLog(@"index path: %li",(long)indexPath);
                 if (indexPath < self.openDays.count) {
                     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
                     [formatter setDateFormat:@"dd-MM-yy"];
                     cell.detailTextLabel.text = [formatter stringFromDate:[openDayDates objectAtIndex:indexPath]];
                 }
                 i = indexPath+1;
-                NSLog(@"i: %i",i);
+                NSLog(@"i: %lu",(unsigned long)i);
                 
             }
             
