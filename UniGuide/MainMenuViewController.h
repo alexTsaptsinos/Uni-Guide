@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import <QuartzCore/QuartzCore.h>
 #import "SearchViewController.h"
 #import "FavouritesTableViewController.h"
 #import "UniversitiesListTableViewController.h"
 #import "OpenDaysQueryTableViewController.h"
+#import "CompareViewController.h"
+#import "ExtrasMenuViewController.h"
 
 @interface MainMenuViewController : UIViewController
 
@@ -21,5 +24,9 @@
 @property (strong,nonatomic) UIButton *favouritesMenuButtonLabel;
 @property (strong,nonatomic) UIButton *openDaysMenuButtonLabel;
 @property (strong,nonatomic) UIButton *universitiesMenuButtonLabel;
+@property (strong,nonatomic) UIButton *compareMenuButton;
+@property (strong,nonatomic) UIButton *extrasMenuButton;
+@property (strong,nonatomic) UILabel *catchphraseLabel;
+
 
 @end

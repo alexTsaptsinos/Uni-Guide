@@ -83,6 +83,11 @@
 		EF66F5E31988F0E80048A82E /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5DD1988F0E80048A82E /* iTunesArtwork.png */; };
 		EF66F5E41988F0E80048A82E /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5DE1988F0E80048A82E /* iTunesArtwork@2x.png */; };
 		EF66F5E819891A8B0048A82E /* ui-14.png in Resources */ = {isa = PBXBuildFile; fileRef = EF66F5E719891A8B0048A82E /* ui-14.png */; };
+		EF6934031B595E190040589A /* CompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF6934011B595E190040589A /* CompareViewController.m */; };
+		EF6934041B595E190040589A /* CompareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF6934021B595E190040589A /* CompareViewController.xib */; };
+		EF6934071B5A55760040589A /* CompareCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EF6934061B5A55760040589A /* CompareCollectionViewLayout.m */; };
+		EF69340B1B5A73750040589A /* CompareCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EF6934091B5A73750040589A /* CompareCollectionViewCell.m */; };
+		EF69340C1B5A73750040589A /* CompareCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF69340A1B5A73750040589A /* CompareCollectionViewCell.xib */; };
 		EF7B89571993968C00F09894 /* splash 640x1136.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7B89551993968C00F09894 /* splash 640x1136.png */; };
 		EF7B895B1993979200F09894 /* splash 640x960.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7B895A1993979200F09894 /* splash 640x960.png */; };
 		EF7F6F0B197E82C90009DB60 /* Favorites@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */; };
@@ -123,6 +128,14 @@
 		EFC88A5119923B70003BB792 /* ui-20.png in Resources */ = {isa = PBXBuildFile; fileRef = EFC88A4F19923B70003BB792 /* ui-20.png */; };
 		EFC88A541992518F003BB792 /* ui-19emptysmall.png in Resources */ = {isa = PBXBuildFile; fileRef = EFC88A521992518F003BB792 /* ui-19emptysmall.png */; };
 		EFC88A551992518F003BB792 /* ui-19fillsmall.png in Resources */ = {isa = PBXBuildFile; fileRef = EFC88A531992518F003BB792 /* ui-19fillsmall.png */; };
+		EFCCDCAF1B602E9700BACB72 /* PieCompareCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCCDCAD1B602E9700BACB72 /* PieCompareCollectionViewCell.m */; };
+		EFCCDCB01B602E9700BACB72 /* PieCompareCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCAE1B602E9700BACB72 /* PieCompareCollectionViewCell.xib */; };
+		EFCCDCB41B617B2500BACB72 /* ExtrasMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCCDCB21B617B2500BACB72 /* ExtrasMenuViewController.m */; };
+		EFCCDCB51B617B2500BACB72 /* ExtrasMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCB31B617B2500BACB72 /* ExtrasMenuViewController.xib */; };
+		EFCCDCBA1B6186B500BACB72 /* PackingListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCCDCB81B6186B500BACB72 /* PackingListTableViewController.m */; };
+		EFCCDCBB1B6186B500BACB72 /* PackingListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCB91B6186B500BACB72 /* PackingListTableViewController.xib */; };
+		EFCCDCBF1B6189C700BACB72 /* PackingSpecificTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCCDCBD1B6189C700BACB72 /* PackingSpecificTableViewController.m */; };
+		EFCCDCC01B6189C700BACB72 /* PackingSpecificTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCBE1B6189C700BACB72 /* PackingSpecificTableViewController.xib */; };
 		EFE3B2801994C33600F6331F /* star-26.png in Resources */ = {isa = PBXBuildFile; fileRef = EFE3B27D1994C33600F6331F /* star-26.png */; };
 		EFE3B2861994C46700F6331F /* star-24.png in Resources */ = {isa = PBXBuildFile; fileRef = EFE3B2851994C46700F6331F /* star-24.png */; };
 		EFE3B2881994C4B300F6331F /* star-25.png in Resources */ = {isa = PBXBuildFile; fileRef = EFE3B2871994C4B300F6331F /* star-25.png */; };
@@ -321,6 +334,14 @@
 		EF66F5DD1988F0E80048A82E /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		EF66F5DE1988F0E80048A82E /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		EF66F5E719891A8B0048A82E /* ui-14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-14.png"; sourceTree = "<group>"; };
+		EF6934001B595E190040589A /* CompareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompareViewController.h; sourceTree = "<group>"; };
+		EF6934011B595E190040589A /* CompareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompareViewController.m; sourceTree = "<group>"; };
+		EF6934021B595E190040589A /* CompareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompareViewController.xib; sourceTree = "<group>"; };
+		EF6934051B5A55760040589A /* CompareCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompareCollectionViewLayout.h; sourceTree = "<group>"; };
+		EF6934061B5A55760040589A /* CompareCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompareCollectionViewLayout.m; sourceTree = "<group>"; };
+		EF6934081B5A73750040589A /* CompareCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompareCollectionViewCell.h; sourceTree = "<group>"; };
+		EF6934091B5A73750040589A /* CompareCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompareCollectionViewCell.m; sourceTree = "<group>"; };
+		EF69340A1B5A73750040589A /* CompareCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompareCollectionViewCell.xib; sourceTree = "<group>"; };
 		EF7B89551993968C00F09894 /* splash 640x1136.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash 640x1136.png"; sourceTree = "<group>"; };
 		EF7B895A1993979200F09894 /* splash 640x960.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash 640x960.png"; sourceTree = "<group>"; };
 		EF7F6F0A197E82C90009DB60 /* Favorites@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorites@2x.png"; sourceTree = "<group>"; };
@@ -367,6 +388,18 @@
 		EFC88A4F19923B70003BB792 /* ui-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-20.png"; sourceTree = "<group>"; };
 		EFC88A521992518F003BB792 /* ui-19emptysmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-19emptysmall.png"; sourceTree = "<group>"; };
 		EFC88A531992518F003BB792 /* ui-19fillsmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-19fillsmall.png"; sourceTree = "<group>"; };
+		EFCCDCAC1B602E9700BACB72 /* PieCompareCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieCompareCollectionViewCell.h; sourceTree = "<group>"; };
+		EFCCDCAD1B602E9700BACB72 /* PieCompareCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieCompareCollectionViewCell.m; sourceTree = "<group>"; };
+		EFCCDCAE1B602E9700BACB72 /* PieCompareCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PieCompareCollectionViewCell.xib; sourceTree = "<group>"; };
+		EFCCDCB11B617B2500BACB72 /* ExtrasMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtrasMenuViewController.h; sourceTree = "<group>"; };
+		EFCCDCB21B617B2500BACB72 /* ExtrasMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtrasMenuViewController.m; sourceTree = "<group>"; };
+		EFCCDCB31B617B2500BACB72 /* ExtrasMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExtrasMenuViewController.xib; sourceTree = "<group>"; };
+		EFCCDCB71B6186B500BACB72 /* PackingListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackingListTableViewController.h; sourceTree = "<group>"; };
+		EFCCDCB81B6186B500BACB72 /* PackingListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PackingListTableViewController.m; sourceTree = "<group>"; };
+		EFCCDCB91B6186B500BACB72 /* PackingListTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PackingListTableViewController.xib; sourceTree = "<group>"; };
+		EFCCDCBC1B6189C700BACB72 /* PackingSpecificTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackingSpecificTableViewController.h; sourceTree = "<group>"; };
+		EFCCDCBD1B6189C700BACB72 /* PackingSpecificTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PackingSpecificTableViewController.m; sourceTree = "<group>"; };
+		EFCCDCBE1B6189C700BACB72 /* PackingSpecificTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PackingSpecificTableViewController.xib; sourceTree = "<group>"; };
 		EFE3B27D1994C33600F6331F /* star-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-26.png"; sourceTree = "<group>"; };
 		EFE3B2851994C46700F6331F /* star-24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-24.png"; sourceTree = "<group>"; };
 		EFE3B2871994C4B300F6331F /* star-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-25.png"; sourceTree = "<group>"; };
@@ -477,10 +510,12 @@
 				9E6C4FD61994DA5500A536E3 /* UniGuide.xcdatamodeld */,
 				9E6C4FD91994DA7F00A536E3 /* Favourites.h */,
 				9E6C4FDA1994DA7F00A536E3 /* Favourites.m */,
+				EF6933FF1B59586C0040589A /* Compare Function */,
 				EF7F6F46197EE5CE0009DB60 /* Search Function */,
 				EF7F6F4B197EE66B0009DB60 /* Favourites Function */,
 				EF7F6F49197EE6450009DB60 /* Open Days Function */,
 				EF7F6F4C197EE69F0009DB60 /* Universities Function */,
+				EFCCDCB61B617B3B00BACB72 /* Extras Function */,
 				A4C6C8A9197AD22F0065311C /* Images.xcassets */,
 				A4C6C89E197AD22F0065311C /* Supporting Files */,
 			);
@@ -635,6 +670,24 @@
 				EF27408E1990F29600B932DC /* StudentSatisfactionCustomCellView.xib */,
 			);
 			name = "Student Satisfaction";
+			sourceTree = "<group>";
+		};
+		EF6933FF1B59586C0040589A /* Compare Function */ = {
+			isa = PBXGroup;
+			children = (
+				EF6934001B595E190040589A /* CompareViewController.h */,
+				EF6934011B595E190040589A /* CompareViewController.m */,
+				EF6934021B595E190040589A /* CompareViewController.xib */,
+				EF6934051B5A55760040589A /* CompareCollectionViewLayout.h */,
+				EF6934061B5A55760040589A /* CompareCollectionViewLayout.m */,
+				EF6934081B5A73750040589A /* CompareCollectionViewCell.h */,
+				EF6934091B5A73750040589A /* CompareCollectionViewCell.m */,
+				EF69340A1B5A73750040589A /* CompareCollectionViewCell.xib */,
+				EFCCDCAC1B602E9700BACB72 /* PieCompareCollectionViewCell.h */,
+				EFCCDCAD1B602E9700BACB72 /* PieCompareCollectionViewCell.m */,
+				EFCCDCAE1B602E9700BACB72 /* PieCompareCollectionViewCell.xib */,
+			);
+			name = "Compare Function";
 			sourceTree = "<group>";
 		};
 		EF7F6F46197EE5CE0009DB60 /* Search Function */ = {
@@ -807,6 +860,22 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		EFCCDCB61B617B3B00BACB72 /* Extras Function */ = {
+			isa = PBXGroup;
+			children = (
+				EFCCDCB11B617B2500BACB72 /* ExtrasMenuViewController.h */,
+				EFCCDCB21B617B2500BACB72 /* ExtrasMenuViewController.m */,
+				EFCCDCB31B617B2500BACB72 /* ExtrasMenuViewController.xib */,
+				EFCCDCB71B6186B500BACB72 /* PackingListTableViewController.h */,
+				EFCCDCB81B6186B500BACB72 /* PackingListTableViewController.m */,
+				EFCCDCB91B6186B500BACB72 /* PackingListTableViewController.xib */,
+				EFCCDCBC1B6189C700BACB72 /* PackingSpecificTableViewController.h */,
+				EFCCDCBD1B6189C700BACB72 /* PackingSpecificTableViewController.m */,
+				EFCCDCBE1B6189C700BACB72 /* PackingSpecificTableViewController.xib */,
+			);
+			name = "Extras Function";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -894,6 +963,9 @@
 				EF5B6EE51992A9F200B2E18D /* CourseInfoSalaryCustomCellView.xib in Resources */,
 				EFE3B28A1994CCEF00F6331F /* star-27.png in Resources */,
 				EF7F6F27197E87EA0009DB60 /* city_hall-32.png in Resources */,
+				EFCCDCC01B6189C700BACB72 /* PackingSpecificTableViewController.xib in Resources */,
+				EFCCDCBB1B6186B500BACB72 /* PackingListTableViewController.xib in Resources */,
+				EF6934041B595E190040589A /* CompareViewController.xib in Resources */,
 				EF274081198F9EBA00B932DC /* ReviewCustomCellView.xib in Resources */,
 				EF22D9B019A5EBFB00864E71 /* UniversitiesListTableViewController.xib in Resources */,
 				EF5B6EDE19927BBD00B2E18D /* CourseInfoPieCustomCellView.xib in Resources */,
@@ -908,7 +980,9 @@
 				A4C6C914197AF1400065311C /* SearchResultsTableViewController.xib in Resources */,
 				EF66F5D81988F0DF0048A82E /* AppIcon60x60@2x.png in Resources */,
 				EF7B895B1993979200F09894 /* splash 640x960.png in Resources */,
+				EF69340C1B5A73750040589A /* CompareCollectionViewCell.xib in Resources */,
 				A4C6C91E197AF6D80065311C /* CourseInfoCoursePageViewController.xib in Resources */,
+				EFCCDCB51B617B2500BACB72 /* ExtrasMenuViewController.xib in Resources */,
 				EF66F5E11988F0E80048A82E /* AppIcon76x76.png in Resources */,
 				EFE3B2861994C46700F6331F /* star-24.png in Resources */,
 				EF7F6F8719804D940009DB60 /* ReviewComplaintViewController.xib in Resources */,
@@ -924,6 +998,7 @@
 				EF5533771981AA0D00120FEA /* checked_checkbox.png in Resources */,
 				EF7B89571993968C00F09894 /* splash 640x1136.png in Resources */,
 				A4C6C8A2197AD22F0065311C /* InfoPlist.strings in Resources */,
+				EFCCDCB01B602E9700BACB72 /* PieCompareCollectionViewCell.xib in Resources */,
 				EFC88A4819921E7E003BB792 /* UniInfoCustomCellView.xib in Resources */,
 				EFC88A5119923B70003BB792 /* ui-20.png in Resources */,
 				A4C6C923197AF6E70065311C /* StudentSatisfactionCoursePageViewController.xib in Resources */,
@@ -969,6 +1044,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF6934071B5A55760040589A /* CompareCollectionViewLayout.m in Sources */,
 				9E6C4FD81994DA5500A536E3 /* UniGuide.xcdatamodeld in Sources */,
 				A4C6C8A8197AD22F0065311C /* AppDelegate.m in Sources */,
 				EF27408D198FFC1F00B932DC /* WhatYearForNewReviewTableViewController.m in Sources */,
@@ -988,11 +1064,16 @@
 				A4C6C8C9197AD3630065311C /* MainMenuViewController.m in Sources */,
 				A4C6C8CE197AD78F0065311C /* SearchViewController.m in Sources */,
 				EFF5C0681987905A00E87159 /* CourseListTableViewController.m in Sources */,
+				EFCCDCBA1B6186B500BACB72 /* PackingListTableViewController.m in Sources */,
+				EF69340B1B5A73750040589A /* CompareCollectionViewCell.m in Sources */,
 				A4C6C927197AF6F40065311C /* ReviewsCoursePageViewController.m in Sources */,
 				EF5B6EDC19926D4300B2E18D /* CourseInfoTextCustomCellView.m in Sources */,
 				EF5B6EE81992AA9400B2E18D /* CourseInfoSalaryCustomCellView.m in Sources */,
+				EFCCDCAF1B602E9700BACB72 /* PieCompareCollectionViewCell.m in Sources */,
 				EFC88A4B19921EB1003BB792 /* UniInfoCustomCellView.m in Sources */,
 				EF22D9AF19A5EBFB00864E71 /* UniversitiesListTableViewController.m in Sources */,
+				EF6934031B595E190040589A /* CompareViewController.m in Sources */,
+				EFCCDCB41B617B2500BACB72 /* ExtrasMenuViewController.m in Sources */,
 				EF5B6EE119927C0300B2E18D /* CourseInfoPieCustomCellView.m in Sources */,
 				A4C6C944197BF8C80065311C /* ContactUniversityPageViewController.m in Sources */,
 				A4C6C8A4197AD22F0065311C /* main.m in Sources */,
@@ -1000,6 +1081,7 @@
 				EF7F6F8119804D810009DB60 /* AddReviewViewController.m in Sources */,
 				EF274087198F9F8800B932DC /* ReviewCustomCellView.m in Sources */,
 				EF7F6F64197FECF70009DB60 /* OpenDaysUniversityPageTableViewController.m in Sources */,
+				EFCCDCBF1B6189C700BACB72 /* PackingSpecificTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

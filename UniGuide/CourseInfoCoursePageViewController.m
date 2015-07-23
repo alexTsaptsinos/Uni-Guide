@@ -561,15 +561,7 @@
         if (indexPath.row == 0) {
             cellText.textCellLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
             cellText.textCellLabel.font = [UIFont fontWithName:@"Arial" size:14];
-//            if (indexPath.row == 0) {
-//                cellText.textCellLabel.text = @"UCAS Course Code:";
-//                cellText.textCellDataButton.enabled = NO;
-//                // cellText.textCellDataButton.titleLabel.text = self.ucasCourseCode;
-//                [cellText.textCellDataButton setTitle:self.ucasCourseCode forState:UIControlStateNormal];
-//                [cellText.textCellDataButton setTitle:self.ucasCourseCode forState:UIControlStateDisabled];
-//                [cellText.textCellDataButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateDisabled];
-           // } else
-               // if (indexPath.row == 0) {
+
                 cellText.textCellLabel.text = @"Course URL:";
                 
                 [cellText.textCellDataButton setTitle:self.courseUrl forState:UIControlStateNormal];
@@ -715,6 +707,7 @@
                 [cellPie.legendTitles removeAllObjects];
                 [cellPie.legendTitles addObjectsFromArray:[NSArray arrayWithObjects:@"First",@"Other",@"Upper Second",@"Ordinary",@"Lower Second",@"N/A", nil]];
                 cellPie.sectionData = self.degreeStatistics;
+                NSLog(@"ASOFASD: %@",self.degreeStatistics);
                 cellPie.legendPoint = CGPointMake(-148, 18.0);
                 cellPie.whichPieChart = 1;
             }

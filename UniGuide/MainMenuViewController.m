@@ -18,7 +18,7 @@
 
 @implementation MainMenuViewController
 
-@synthesize uniGuideLogoMainMenuImageView,searchMenuButtonLabel,favouritesMenuButtonLabel,openDaysMenuButtonLabel,universitiesMenuButtonLabel;
+@synthesize uniGuideLogoMainMenuImageView,searchMenuButtonLabel,favouritesMenuButtonLabel,openDaysMenuButtonLabel,universitiesMenuButtonLabel,compareMenuButton,extrasMenuButton,catchphraseLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -82,18 +82,15 @@
     [universitiesMenuButtonLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     CGRect screenBound = [[UIScreen mainScreen] bounds];
+
+    CGFloat widthFloat = screenBound.size.width;
+    CGFloat heightFloat = screenBound.size.height - self.navigationController.navigationBar.frame.size.height - 20;
+    searchMenuButtonLabel.frame = CGRectMake(0, heightFloat/4, widthFloat/2, heightFloat/4);
+    favouritesMenuButtonLabel.frame = CGRectMake(widthFloat/2, heightFloat/4, widthFloat/2, heightFloat/4);
+    openDaysMenuButtonLabel.frame = CGRectMake(widthFloat/2, heightFloat/2, widthFloat/2, heightFloat/4);
+    universitiesMenuButtonLabel.frame = CGRectMake(0, heightFloat*3/4, widthFloat/2, heightFloat/4);
     
-    if (screenBound.size.height > 500) {
-        searchMenuButtonLabel.frame = CGRectMake(58.0, 169.0, 206.0, 45.0);
-        favouritesMenuButtonLabel.frame = CGRectMake(58.0, 240.0, 206.0, 45.0);
-        openDaysMenuButtonLabel.frame = CGRectMake(58.0, 311.0, 206.0, 45.0);
-        universitiesMenuButtonLabel.frame = CGRectMake(58.0, 382.0, 206.0, 45.0);
-    } else {
-        searchMenuButtonLabel.frame = CGRectMake(58.0, 159.0, 206.0, 39.0);
-        favouritesMenuButtonLabel.frame = CGRectMake(58.0, 216.0, 206.0, 39.0);
-        openDaysMenuButtonLabel.frame = CGRectMake(58.0, 273.0, 206.0, 39.0);
-        universitiesMenuButtonLabel.frame = CGRectMake(58.0, 330.0, 206.0, 39.0);
-    }
+    // Set up button borders
     
     [self.view addSubview:searchMenuButtonLabel];
     [self.view addSubview:favouritesMenuButtonLabel];
@@ -108,23 +105,80 @@
     self.navigationController.navigationBar.translucent = NO;
     
 
-    //Make 5 buttons have rounded corners
+    //Make buttons have rounded corners
+    [[searchMenuButtonLabel layer] setBorderWidth:7.0f];
+    [[searchMenuButtonLabel layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+    [[openDaysMenuButtonLabel layer] setBorderWidth:7.0f];
+    [[openDaysMenuButtonLabel layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+    [[universitiesMenuButtonLabel layer] setBorderWidth:7.0f];
+    [[universitiesMenuButtonLabel layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+    [[favouritesMenuButtonLabel layer] setBorderWidth:7.0f];
+    [[favouritesMenuButtonLabel layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
     
     CALayer *btnLayer = [searchMenuButtonLabel layer];
     [btnLayer setMasksToBounds:YES];
-    [btnLayer setCornerRadius:5.0f];
+    [btnLayer setCornerRadius:15.0f];
     
     btnLayer = [favouritesMenuButtonLabel layer];
     [btnLayer setMasksToBounds:YES];
-    [btnLayer setCornerRadius:5.0f];
+    [btnLayer setCornerRadius:15.0f];
     
     btnLayer = [openDaysMenuButtonLabel layer];
     [btnLayer setMasksToBounds:YES];
-    [btnLayer setCornerRadius:5.0f];
+    [btnLayer setCornerRadius:15.0f];
     
     btnLayer = [universitiesMenuButtonLabel layer];
     [btnLayer setMasksToBounds:YES];
-    [btnLayer setCornerRadius:5.0f];
+    [btnLayer setCornerRadius:15.0f];
+    
+    // NEW FEATURES - SET UP REVIEW & EXTRAS BUTTON
+    
+    self.compareMenuButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [compareMenuButton addTarget:self
+                              action:@selector(compareButtonClicked:)
+                    forControlEvents:UIControlEventTouchUpInside];
+    compareMenuButton.frame = CGRectMake(0, heightFloat/2, widthFloat/2, heightFloat/4);
+    self.compareMenuButton.exclusiveTouch = YES;
+    [compareMenuButton setTitle:@"Compare" forState:UIControlStateNormal];
+    [compareMenuButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [[compareMenuButton layer] setBorderWidth:7.0f];
+    [[compareMenuButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+    [self.view addSubview:compareMenuButton];
+    self.compareMenuButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    btnLayer = [compareMenuButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:15.0f];
+    
+    self.extrasMenuButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [extrasMenuButton addTarget:self
+                          action:@selector(extrasButtonClicked:)
+                forControlEvents:UIControlEventTouchUpInside];
+    extrasMenuButton.frame = CGRectMake(widthFloat/2, heightFloat*3/4, widthFloat/2, heightFloat/4);
+    self.extrasMenuButton.exclusiveTouch = YES;
+    [extrasMenuButton setTitle:@"Extras" forState:UIControlStateNormal];
+    [extrasMenuButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [[extrasMenuButton layer] setBorderWidth:7.0f];
+    [[extrasMenuButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+    [self.view addSubview:extrasMenuButton];
+    self.extrasMenuButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    btnLayer = [extrasMenuButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:15.0f];
+    
+    // Add catchphrase
+    self.catchphraseLabel = [[UILabel alloc] init];
+    catchphraseLabel.frame = CGRectMake(190, 30, 130, 80);
+    catchphraseLabel.textColor = [UIColor colorWithRed:44.0f/255.0f green:61.0f/255.0f blue:76.0f/255.0f alpha:1.0f];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:@"Helping\n you find\n your way"];
+    [text addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:193.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] range:NSMakeRange(8, 4)];
+    //[text addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:193.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] range:NSMakeRange(19, 4)];
+    [catchphraseLabel setAttributedText:text];
+    catchphraseLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+    catchphraseLabel.textAlignment = NSTextAlignmentCenter;
+    
+    catchphraseLabel.numberOfLines = 3;
+    [self.view addSubview:catchphraseLabel];
+  
 }
 
 
@@ -168,6 +222,22 @@
     UniversitiesListTableViewController *universitiesListTableViewController = [[UniversitiesListTableViewController alloc] init];
     
     [self.navigationController pushViewController:universitiesListTableViewController animated:YES];
+}
+
+- (void)compareButtonClicked:(UIButton*)button
+{
+    // if compare button clicked let's go to the compare page
+    CompareViewController *compareViewController = [[CompareViewController alloc] initWithNibName:@"CompareViewController" bundle:nil];
+    [self.navigationController pushViewController:compareViewController animated:YES];
+
+}
+
+- (void)extrasButtonClicked:(UIButton*)button
+{
+    // if extras button clicked let's go to the extras menu page
+    ExtrasMenuViewController *extrasMenuViewController = [[ExtrasMenuViewController alloc] initWithNibName:@"ExtrasMenuViewController" bundle:nil];
+    [self.navigationController pushViewController:extrasMenuViewController animated:YES];
+    
 }
 
 @end

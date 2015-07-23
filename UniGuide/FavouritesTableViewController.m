@@ -14,7 +14,7 @@
 
 @implementation FavouritesTableViewController
 
-@synthesize uniCodes,uniNames,courseCodes,courseNames,courseInfoCoursePageViewController,favouritesButton,favouriteObjects,reversed;
+@synthesize uniCodes,uniNames,courseCodes,courseNames,courseInfoCoursePageViewController,favouritesButton,noFavouritesButton,noFavouritesLabel,favouriteObjects,reversed;
 
 - (void)viewDidLoad
 {
@@ -285,6 +285,42 @@
     [self.courseNames addObjectsFromArray:[reversed valueForKey:@"courseName"]];
     [self.courseCodes addObjectsFromArray:[reversed valueForKey:@"courseCode"]];
     
+    // Add something if user has no favourites:
+    if (self.favouriteObjects.count == 0) {
+        NSLog(@"got here");
+        noFavouritesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 35, 280, 60)];
+        noFavouritesLabel.text = @"You don't have any favourites at the moment";
+        noFavouritesLabel.textColor = [UIColor grayColor];
+        noFavouritesLabel.textAlignment = NSTextAlignmentCenter;
+        noFavouritesLabel.numberOfLines = 1;
+        noFavouritesLabel.font = [UIFont fontWithName:@"Helvetica"  size:14.0];
+        [self.view addSubview:noFavouritesLabel];
+        
+        CGRect screenBound = [[UIScreen mainScreen] bounds];
+        CGSize screenSize = screenBound.size;
+        CGFloat screenWidth = screenSize.width;
+        
+        self.noFavouritesButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        self.noFavouritesButton.frame = CGRectMake(screenWidth/2 - 80, 136, 160, 37);
+        [self.noFavouritesButton addTarget:self action:@selector(noFavouritesButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        noFavouritesButton.exclusiveTouch = YES;
+        noFavouritesButton.titleLabel.font = [UIFont fontWithName:@"Helvita" size:15.0];
+        [self.noFavouritesButton setTitle:@"Add Favourites" forState:UIControlStateNormal];
+        [noFavouritesButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.view addSubview:self.noFavouritesButton];
+        noFavouritesButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        CALayer *btnLayer = [noFavouritesButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:5.0f];
+        
+    }
+    else {
+        self.noFavouritesButton.hidden = YES;
+        self.noFavouritesLabel.hidden = YES;
+        
+    }
+    
+    
 }
 
 
@@ -294,5 +330,12 @@
     [courseInfoCoursePageViewController customBtnPressed];
 }
 
+- (void)noFavouritesButtonPressed:(UIButton*)button
+{
+    SearchViewController *searchViewController = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
+    [self.navigationController pushViewController:searchViewController animated:YES];
+    
+    
+}
 
 @end

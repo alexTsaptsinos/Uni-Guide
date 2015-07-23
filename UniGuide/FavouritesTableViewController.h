@@ -13,6 +13,7 @@
 #import "StudentSatisfactionCoursePageViewController.h"
 #import "ReviewsCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
+#import "SearchViewController.h"
 
 @interface FavouritesTableViewController : UITableViewController
 
@@ -23,6 +24,8 @@
 @property (nonatomic,strong) NSMutableArray *favouriteObjects;
 @property (nonatomic,strong) NSMutableArray *reversed;
 
+@property (strong,nonatomic) UIButton *noFavouritesButton;
+@property (strong,nonatomic) UILabel *noFavouritesLabel;
 
 @property (nonatomic, strong) UIBarButtonItem *favouritesButton;
 
