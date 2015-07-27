@@ -24,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *courseNameLabel;
 
 @property (nonatomic) BOOL firstTimeLoad;
+@property (nonatomic) BOOL haveComeFromFavourites;
+
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;

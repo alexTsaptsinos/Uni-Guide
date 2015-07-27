@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Favourites" syncable="YES">
         <attribute name="assessmentMethods" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="averageTariffString" optional="YES" attributeType="String" syncable="YES"/>
@@ -11,6 +11,7 @@
         <attribute name="degreeClasses" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="instituteSalary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nationalSalary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nSSScores" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="proportionInWork" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sandwichYear" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -21,6 +22,6 @@
         <attribute name="yearAbroad" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Favourites" positionX="-63" positionY="-18" width="128" height="315"/>
+        <element name="Favourites" positionX="-63" positionY="-18" width="128" height="330"/>
     </elements>
 </model>

@@ -48,6 +48,8 @@
 @property (nonatomic) BOOL firstTimeLoad;
 @property (nonatomic) BOOL haveComeFromFavourites;
 @property (nonatomic) BOOL isItFavourite;
+@property (nonatomic) BOOL isInMiddleOfFavouriteSave;
+
 
 -(void) customBtnPressed;
 

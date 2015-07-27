@@ -16,7 +16,7 @@
 
 @implementation CourseInfoCoursePageViewController
 
-@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear,favouritesButton,activityIndicator,haveComeFromFavourites,noInternetImageView,noInternetLabel,sourceLabel,isItFavourite,favouritesPopoverButton,comparePopoverButton;
+@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear,favouritesButton,activityIndicator,haveComeFromFavourites,noInternetImageView,noInternetLabel,sourceLabel,isItFavourite,favouritesPopoverButton,comparePopoverButton,isInMiddleOfFavouriteSave;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -847,10 +847,16 @@
     popoverController.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     
     favouritesPopoverButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    if (self.isItFavourite == YES) {
+    if (isInMiddleOfFavouriteSave == YES) {
+        favouritesPopoverButton.enabled = NO;
+        [favouritesPopoverButton setTitle:@"Saving..." forState:UIControlStateDisabled];
+    } else {
+    NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeCourseInfo,self.uniCodeCourseInfo] andSortKey:@"courseName"];
+    if (temp2.count != 0) {
         [favouritesPopoverButton setTitle:@"Remove from Favourites" forState:UIControlStateNormal];
-    } else if (self.isItFavourite == NO) {
+    } else {
         [favouritesPopoverButton setTitle:@"Add to Favourites" forState:UIControlStateNormal];
+    }
     }
     favouritesPopoverButton.frame = CGRectMake(5, 5, 230, 40);
     [favouritesPopoverButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -911,30 +917,99 @@
         self.haveComeFromFavourites = NO;
     }
     else if (self.isItFavourite == NO) {
+        UIActivityIndicatorView *savingFavouriteIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        savingFavouriteIndicatorView.frame = CGRectMake(10, 210, 20, 20);
+        savingFavouriteIndicatorView.hidden = NO;
+        [savingFavouriteIndicatorView startAnimating];
+        [self.favouritesPopoverButton addSubview:savingFavouriteIndicatorView];
+        
+        self.isInMiddleOfFavouriteSave = YES;
+        [favouritesPopoverButton setTitle:@"Saving..." forState:UIControlStateNormal];
         favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
         favouritesButton.image = [UIImage imageNamed:@"add_to_favorites-512.png"];
-        [favouritesPopoverButton setTitle:@"Remove from Favourites" forState:UIControlStateNormal];
-        Favourites * temp = [Favourites createObject];
-        temp.courseName = self.courseNameCourseInfo;
-        temp.uniName = self.uniNameCourseInfo;
-        temp.courseCode = self.courseCodeCourseInfo;
-        temp.uniCode = self.uniCodeCourseInfo;
-        temp.yearAbroad = self.yearAbroad;
-        temp.sandwichYear = self.sandwichYear;
-        temp.courseUrl = self.courseUrl;
-        //temp.ucasCode = self.ucasCourseCode;
-        temp.degreeClasses = [NSKeyedArchiver archivedDataWithRootObject:self.degreeStatistics];
-        temp.averageTariffString = self.averageTariffString;
-        temp.assessmentMethods = [NSKeyedArchiver archivedDataWithRootObject:self.assessmentMethods];
-        temp.timeSpent = [NSKeyedArchiver archivedDataWithRootObject:self.timeSpent];
-        temp.proportionInWork = self.proportionInWork;
-        temp.commonJobs = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobs];
-        temp.commonJobsPercentages = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobsPercentages];
-        temp.instituteSalary = self.instituteSalary;
-        temp.nationalSalary = self.nationalSalary;
-        [Favourites saveDatabase];
-        self.isItFavourite = YES;
-        self.haveComeFromFavourites = YES;
+        
+        // EXtending so it saves also student satisfaction data!!
+        
+        PFQuery *queryForStudentSatisfactionData = [PFQuery queryWithClassName:@"NSS"];
+        [queryForStudentSatisfactionData whereKey:@"KISCOURSEID" equalTo:self.courseCodeCourseInfo];
+        [queryForStudentSatisfactionData whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+        [queryForStudentSatisfactionData findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+            if (!error) {
+                NSLog(@"objects: %@",objects);
+                Favourites * temp = [Favourites createObject];
+                temp.courseName = self.courseNameCourseInfo;
+                temp.uniName = self.uniNameCourseInfo;
+                temp.courseCode = self.courseCodeCourseInfo;
+                temp.uniCode = self.uniCodeCourseInfo;
+                temp.yearAbroad = self.yearAbroad;
+                temp.sandwichYear = self.sandwichYear;
+                temp.courseUrl = self.courseUrl;
+                //temp.ucasCode = self.ucasCourseCode;
+                temp.degreeClasses = [NSKeyedArchiver archivedDataWithRootObject:self.degreeStatistics];
+                temp.averageTariffString = self.averageTariffString;
+                temp.assessmentMethods = [NSKeyedArchiver archivedDataWithRootObject:self.assessmentMethods];
+                temp.timeSpent = [NSKeyedArchiver archivedDataWithRootObject:self.timeSpent];
+                temp.proportionInWork = self.proportionInWork;
+                temp.commonJobs = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobs];
+                temp.commonJobsPercentages = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobsPercentages];
+                temp.instituteSalary = self.instituteSalary;
+                temp.nationalSalary = self.nationalSalary;
+                if (objects.count == 0) {
+                    //  NSLog(@"this worked");
+                    // SOME KIND OF ERROR MESSAGE
+                    
+                } else {
+                    NSArray *tempObject = [objects objectAtIndex:0];
+                    NSString *question1 = [tempObject valueForKey:@"Q1"];
+                    NSString *question2 = [tempObject valueForKey:@"Q2"];
+                    NSString *question3 = [tempObject valueForKey:@"Q3"];
+                    NSString *question4 = [tempObject valueForKey:@"Q4"];
+                    NSString *question5 = [tempObject valueForKey:@"Q5"];
+                    NSString *question6 = [tempObject valueForKey:@"Q6"];
+                    NSString *question7 = [tempObject valueForKey:@"Q7"];
+                    NSString *question8 = [tempObject valueForKey:@"Q8"];
+                    NSString *question9 = [tempObject valueForKey:@"Q9"];
+                    NSString *question10 = [tempObject valueForKey:@"Q10"];
+                    NSString *question11 = [tempObject valueForKey:@"Q11"];
+                    NSString *question12 = [tempObject valueForKey:@"Q12"];
+                    NSString *question13 = [tempObject valueForKey:@"Q13"];
+                    NSString *question14 = [tempObject valueForKey:@"Q14"];
+                    NSString *question15 = [tempObject valueForKey:@"Q15"];
+                    NSString *question16 = [tempObject valueForKey:@"Q16"];
+                    NSString *question17 = [tempObject valueForKey:@"Q17"];
+                    NSString *question18 = [tempObject valueForKey:@"Q18"];
+                    NSString *question19 = [tempObject valueForKey:@"Q19"];
+                    NSString *question20 = [tempObject valueForKey:@"Q20"];
+                    NSString *question21 = [tempObject valueForKey:@"Q21"];
+                    NSString *question22 = [tempObject valueForKey:@"Q22"];
+                    
+                    NSMutableArray *questionResults = [[NSMutableArray alloc] initWithObjects:question1,question2,question3,question4,question5,question6,question7,question8,question9,question10,question11,question12,question13,question14,question15,question16,question17,question18,question19,question20,question21,question22, nil];
+                    
+                    temp.nSSScores = [NSKeyedArchiver archivedDataWithRootObject:questionResults];
+                    
+                    
+                }
+                // THIS HAPPENS IF THERE IS NSS SCORES OR NOT
+                [savingFavouriteIndicatorView stopAnimating];
+                savingFavouriteIndicatorView.hidden = YES;
+                favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
+                favouritesButton.image = [UIImage imageNamed:@"add_to_favorites-512.png"];
+                [favouritesPopoverButton setTitle:@"Remove from Favourites" forState:UIControlStateNormal];
+                favouritesPopoverButton.enabled = YES;
+                self.isInMiddleOfFavouriteSave = NO;
+                [Favourites saveDatabase];
+                self.isItFavourite = YES;
+                self.haveComeFromFavourites = YES;
+            } else {
+                NSLog(@"testing");
+                favouritesButton.tintColor = [UIColor whiteColor];
+                favouritesButton.image = [UIImage imageNamed:@"add_to_favorites-512.png"];
+                self.isInMiddleOfFavouriteSave = NO;
+                UIAlertView *couldNotSaveAlertView = [[UIAlertView alloc] initWithTitle:@"Could not save!" message:@"We're sorry, but internet connection is required to save a course offline" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [couldNotSaveAlertView show];
+            }
+        }];
+        
     }
 
     

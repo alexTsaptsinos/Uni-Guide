@@ -12,6 +12,7 @@
 #import "StudentSatisfactionCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
 #import "ReviewsCoursePageViewController.h"
+#import "ContactUniversityPageViewController.h"
 
 @interface CourseListTableViewController : UITableViewController <UISearchBarDelegate,UISearchDisplayDelegate>
 

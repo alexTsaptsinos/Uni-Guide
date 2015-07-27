@@ -201,13 +201,13 @@
     
     StudentSatisfactionCoursePageViewController *studentSatisfactionCoursePageViewController = [[StudentSatisfactionCoursePageViewController alloc]initWithNibName:@"StudentSatisfactionCoursePageViewController" bundle:nil];
     
-    ReviewsCoursePageViewController *reviewsCoursePageViewController = [[ReviewsCoursePageViewController alloc] initWithNibName:@"ReviewsCoursePageViewController" bundle:nil];
+    ContactUniversityPageViewController *contactUniversityPageViewController = [[ContactUniversityPageViewController alloc] initWithNibName:@"ContactUniversityPageViewController" bundle:nil];
     
     UniInfoCoursePageViewController *uniInfoCoursePageViewController = [[UniInfoCoursePageViewController alloc] initWithNibName:@"UniInfoCoursePageViewController" bundle:nil];
     
     UITabBarController *coursePageTabBarController = [[UITabBarController alloc] initWithNibName:@"CoursePageTabBarController" bundle:nil];
     
-    coursePageTabBarController.viewControllers = [NSArray arrayWithObjects:courseInfoCoursePageViewController,studentSatisfactionCoursePageViewController,reviewsCoursePageViewController,uniInfoCoursePageViewController,nil];
+    coursePageTabBarController.viewControllers = [NSArray arrayWithObjects:courseInfoCoursePageViewController,studentSatisfactionCoursePageViewController,uniInfoCoursePageViewController,contactUniversityPageViewController,nil];
     
     // Pass the selected object to the new view controller.
     
@@ -218,16 +218,10 @@
     coursePageTabBarController.navigationItem.title = @"Course";
     coursePageTabBarController.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     [coursePageTabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f]];
-    
-    
-   // [courseInfoCoursePageViewController.favouritesPopoverButton setTitle:@"Remove from Favourites" forState:UIControlStateNormal];
 
     favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_to_favorites-512.png"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
     favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
     [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
-    
-    
-    
     
     // push to the next view controllers the course code and ukprn
     
@@ -238,15 +232,14 @@
     courseInfoCoursePageViewController.haveComeFromFavourites = YES;
     courseInfoCoursePageViewController.isItFavourite = YES;
     
-    reviewsCoursePageViewController.courseCodeReviews = [self.courseCodes objectAtIndex:indexPath.row];
-    reviewsCoursePageViewController.courseNameReviews = cell.textLabel.text;
-    reviewsCoursePageViewController.uniNameReviews = cell.detailTextLabel.text;
-    reviewsCoursePageViewController.uniCodeReviews = [self.uniCodes objectAtIndex:indexPath.row];
+    contactUniversityPageViewController.universityName = cell.detailTextLabel.text;
+    contactUniversityPageViewController.universityCode = [self.uniCodes objectAtIndex:indexPath.row];
     
     studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [self.courseCodes objectAtIndex:indexPath.row];
     studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = [self.uniCodes objectAtIndex:indexPath.row];
     studentSatisfactionCoursePageViewController.courseNameStudentSatisfaction = cell.textLabel.text;
     studentSatisfactionCoursePageViewController.uniNameStudentSatisfaction = cell.detailTextLabel.text;
+    studentSatisfactionCoursePageViewController.haveComeFromFavourites = YES;
     
     uniInfoCoursePageViewController.haveWeComeFromUniversities = NO;
     uniInfoCoursePageViewController.uniNameUniInfo = cell.detailTextLabel.text;

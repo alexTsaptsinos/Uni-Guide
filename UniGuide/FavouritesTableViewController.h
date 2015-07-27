@@ -11,7 +11,7 @@
 #import "NSManagedObject+CRUD.h"
 #import "CourseInfoCoursePageViewController.h"
 #import "StudentSatisfactionCoursePageViewController.h"
-#import "ReviewsCoursePageViewController.h"
+#import "ContactUniversityPageViewController.h"
 #import "UniInfoCoursePageViewController.h"
 #import "SearchViewController.h"
 

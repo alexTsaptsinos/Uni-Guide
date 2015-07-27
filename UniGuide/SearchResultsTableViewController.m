@@ -498,15 +498,13 @@
         
         StudentSatisfactionCoursePageViewController *studentSatisfactionCoursePageViewController = [[StudentSatisfactionCoursePageViewController alloc]initWithNibName:@"StudentSatisfactionCoursePageViewController" bundle:nil];
         
-        ReviewsCoursePageViewController *reviewsCoursePageViewController = [[ReviewsCoursePageViewController alloc] initWithNibName:@"ReviewsCoursePageViewController" bundle:nil];
-        
         ContactUniversityPageViewController*contactUniversityPageViewController = [[ContactUniversityPageViewController alloc] initWithNibName:@"ContactUniversityPageViewController" bundle:nil];
         
         UniInfoCoursePageViewController *uniInfoCoursePageViewController = [[UniInfoCoursePageViewController alloc] initWithNibName:@"UniInfoCoursePageViewController" bundle:nil];
         
         UITabBarController *coursePageTabBarController = [[UITabBarController alloc] initWithNibName:@"CoursePageTabBarController" bundle:nil];
         
-        coursePageTabBarController.viewControllers = [NSArray arrayWithObjects:courseInfoCoursePageViewController,studentSatisfactionCoursePageViewController,reviewsCoursePageViewController,uniInfoCoursePageViewController,nil];
+        coursePageTabBarController.viewControllers = [NSArray arrayWithObjects:courseInfoCoursePageViewController,studentSatisfactionCoursePageViewController,uniInfoCoursePageViewController,contactUniversityPageViewController,nil];
         
         // Pass the selected object to the new view controller.
         
@@ -523,7 +521,7 @@
             NSLog(@"just about to pass: %@",self.universitySearchedUKPRN);
             courseInfoCoursePageViewController.uniCodeCourseInfo = self.universitySearchedUKPRN;
             uniInfoCoursePageViewController.uniCodeUniInfo = self.universitySearchedUKPRN;
-            reviewsCoursePageViewController.uniCodeReviews = self.universitySearchedUKPRN;
+            contactUniversityPageViewController.universityCode = self.universitySearchedUKPRN;
             studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = self.universitySearchedUKPRN;
             NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],self.universitySearchedUKPRN] andSortKey:@"courseName"];
             NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
@@ -543,7 +541,7 @@
             NSLog(@"got to here woo: %@",self.searchResultsUniversityCodes);
             courseInfoCoursePageViewController.uniCodeCourseInfo = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
             uniInfoCoursePageViewController.uniCodeUniInfo = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
-            reviewsCoursePageViewController.uniCodeReviews = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
+            contactUniversityPageViewController.universityCode = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
             studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = [self.searchResultsUniversityCodes objectAtIndex:indexPath.row];
             NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],[self.searchResultsUniversityCodes objectAtIndex:indexPath.row]] andSortKey:@"courseName"];
             NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
@@ -560,7 +558,7 @@
             }
         }
         
-        NSLog(@"just about to pass course code: %@,does anything exist? %@",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],self.searchResultsCourseCodes);
+        //NSLog(@"just about to pass course code: %@,does anything exist? %@",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],self.searchResultsCourseCodes);
         
         // push to the next view controllers the course code and ukprn
         
@@ -569,9 +567,7 @@
         courseInfoCoursePageViewController.uniNameCourseInfo = cell.detailTextLabel.text;
         courseInfoCoursePageViewController.haveComeFromFavourites = NO;
         
-        reviewsCoursePageViewController.courseCodeReviews = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
-        reviewsCoursePageViewController.courseNameReviews = cell.textLabel.text;
-        reviewsCoursePageViewController.uniNameReviews = cell.detailTextLabel.text;
+        contactUniversityPageViewController.universityName = cell.detailTextLabel.text;
         
         studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
         studentSatisfactionCoursePageViewController.courseNameStudentSatisfaction = cell.textLabel.text;

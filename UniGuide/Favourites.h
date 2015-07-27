@@ -32,6 +32,6 @@
 @property (nonatomic,retain) NSString *nationalSalary;
 @property (nonatomic,retain) NSNumber *sortNumber;
 
-
+@property (nonatomic,retain) NSData *nSSScores;
 
 @end

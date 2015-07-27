@@ -280,14 +280,14 @@
     courseInfoCoursePageViewController = [[CourseInfoCoursePageViewController alloc] init];
     
     StudentSatisfactionCoursePageViewController *studentSatisfactionCoursePageViewController = [[StudentSatisfactionCoursePageViewController alloc]init];
-    
-    ReviewsCoursePageViewController *reviewsCoursePageViewController = [[ReviewsCoursePageViewController alloc] init];
+
+    ContactUniversityPageViewController *contactUniversityPageViewController = [[ContactUniversityPageViewController alloc] init];
     
     UniInfoCoursePageViewController *uniInfoCoursePageViewController = [[UniInfoCoursePageViewController alloc] init];
     
     UITabBarController *coursePageTabBarController = [[UITabBarController alloc] init];
     
-    coursePageTabBarController.viewControllers = [NSArray arrayWithObjects:courseInfoCoursePageViewController,studentSatisfactionCoursePageViewController,reviewsCoursePageViewController,uniInfoCoursePageViewController,nil];
+    coursePageTabBarController.viewControllers = [NSArray arrayWithObjects:courseInfoCoursePageViewController,studentSatisfactionCoursePageViewController,uniInfoCoursePageViewController,contactUniversityPageViewController,nil];
     [coursePageTabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f]];
     // Pass the selected object to the new view controller.
     
@@ -321,7 +321,6 @@
         NSInteger originalIndexPath = [self.cellTitles indexOfObject:object];
         NSLog(@"%li", (long)originalIndexPath);
         courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:originalIndexPath];
-        reviewsCoursePageViewController.courseCodeReviews = [_universityCourseCodes objectAtIndex:originalIndexPath];
         studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:originalIndexPath];
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[_universityCourseCodes objectAtIndex:originalIndexPath],self.universityCode] andSortKey:@"courseName"];
         NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
@@ -340,7 +339,6 @@
         
     } else {
         courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
-        reviewsCoursePageViewController.courseCodeReviews = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
         studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:indexPath.row];
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[_universityCourseCodes objectAtIndex:rowsOffset +indexPath.row],self.universityCode] andSortKey:@"courseName"];
         NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
@@ -357,9 +355,8 @@
         }
         
     }
-    reviewsCoursePageViewController.uniCodeReviews = self.universityCode;
-    reviewsCoursePageViewController.courseNameReviews = cell.textLabel.text;
-    reviewsCoursePageViewController.uniNameReviews = self.universityName;
+    contactUniversityPageViewController.universityCode = self.universityCode;
+    contactUniversityPageViewController.universityName = self.universityName;
     
     uniInfoCoursePageViewController.uniCodeUniInfo = self.universityCode;
     uniInfoCoursePageViewController.uniNameUniInfo = self.universityName;

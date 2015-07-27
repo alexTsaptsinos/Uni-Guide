@@ -16,7 +16,7 @@
 
 @implementation StudentSatisfactionCoursePageViewController
 
-@synthesize courseCodeStudentSatisfaction,uniCodeStudentSatisfaction,questionResults,tableViewStudentSatisfaction,universityNameLabel,courseNameLabel,uniNameStudentSatisfaction,firstTimeLoad,courseNameStudentSatisfaction,activityIndicator,sourceLabel,descriptionLabel,noInternetLabel,noInternetImageView;
+@synthesize courseCodeStudentSatisfaction,uniCodeStudentSatisfaction,questionResults,tableViewStudentSatisfaction,universityNameLabel,courseNameLabel,uniNameStudentSatisfaction,firstTimeLoad,courseNameStudentSatisfaction,activityIndicator,sourceLabel,descriptionLabel,noInternetLabel,noInternetImageView,haveComeFromFavourites;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -83,6 +83,37 @@
         courseNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
         courseNameLabel.adjustsFontSizeToFitWidth = YES;
         courseNameLabel.numberOfLines = 0;
+        
+        NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeStudentSatisfaction,self.uniCodeStudentSatisfaction] andSortKey:@"courseName"];
+        
+
+        
+        if (temp2.count != 0) {
+            Favourites *tempObject = [temp2 objectAtIndex:0];
+            
+            self.questionResults = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:tempObject.nSSScores]];
+            if (self.questionResults.count == 0) {
+                UIImageView *noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 90, 320, 429)];
+                noDataImageView.backgroundColor = [UIColor lightGrayColor];
+                UILabel *noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(75, 0, 160, 150)];
+                noDataLabel.text = @"We're sorry, but we appear to have no data for this course.";
+                noDataLabel.numberOfLines = 0;
+                noDataLabel.textAlignment = NSTextAlignmentCenter;
+                [noDataImageView addSubview:noDataLabel];
+                [self.view addSubview:noDataImageView];
+            }
+            
+            self.firstTimeLoad = NO;
+            
+            [self.tableViewStudentSatisfaction reloadData];
+            
+            self.courseNameLabel.hidden = NO;
+            self.universityNameLabel.hidden = NO;
+            self.sourceLabel.hidden = NO;
+            self.descriptionLabel.hidden = NO;
+            self.tableViewStudentSatisfaction.hidden = NO;
+            [self.activityIndicator stopAnimating];
+        } else {
         
         PFQuery *queryForStudentSatisfactionData = [PFQuery queryWithClassName:@"NSS"];
         [queryForStudentSatisfactionData whereKey:@"KISCOURSEID" equalTo:self.courseCodeStudentSatisfaction];
@@ -173,7 +204,7 @@
                 [self.view addSubview:noInternetImageView];
             }
         }];
-        
+        }
         
     }
     
