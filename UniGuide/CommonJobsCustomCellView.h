@@ -10,6 +10,7 @@
 
 @interface CommonJobsCustomCellView : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *percentageLabel;
-@property (weak, nonatomic) IBOutlet UILabel *jobLabel;
+@property (strong, nonatomic) UILabel *jobLabel;
+@property (nonatomic) BOOL isCompare;
 
 @end

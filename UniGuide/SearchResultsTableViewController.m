@@ -500,6 +500,8 @@
         
         ReviewsCoursePageViewController *reviewsCoursePageViewController = [[ReviewsCoursePageViewController alloc] initWithNibName:@"ReviewsCoursePageViewController" bundle:nil];
         
+        ContactUniversityPageViewController*contactUniversityPageViewController = [[ContactUniversityPageViewController alloc] initWithNibName:@"ContactUniversityPageViewController" bundle:nil];
+        
         UniInfoCoursePageViewController *uniInfoCoursePageViewController = [[UniInfoCoursePageViewController alloc] initWithNibName:@"UniInfoCoursePageViewController" bundle:nil];
         
         UITabBarController *coursePageTabBarController = [[UITabBarController alloc] initWithNibName:@"CoursePageTabBarController" bundle:nil];
@@ -517,10 +519,6 @@
         [coursePageTabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f]];
         
         
-        
-        
-        
-        
         if (self.universitySearchedString.length != 0) {
             NSLog(@"just about to pass: %@",self.universitySearchedUKPRN);
             courseInfoCoursePageViewController.uniCodeCourseInfo = self.universitySearchedUKPRN;
@@ -530,12 +528,12 @@
             NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],self.universitySearchedUKPRN] andSortKey:@"courseName"];
             NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
             if (temp2.count != 0) {
-                favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-25"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+                favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_to_favorites-512.png"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
                 favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
                 [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
                 courseInfoCoursePageViewController.isItFavourite = YES;
             } else {
-                favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+                favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_to_favorites-512.png"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
                 favouritesButton.tintColor = [UIColor whiteColor];
                 [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
                 courseInfoCoursePageViewController.isItFavourite = NO;
@@ -550,12 +548,14 @@
             NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[self.searchResultsCourseCodes objectAtIndex:indexPath.row],[self.searchResultsUniversityCodes objectAtIndex:indexPath.row]] andSortKey:@"courseName"];
             NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
             if (temp2.count != 0) {
-                favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-25"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+                favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_to_favorites-512.png"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
                 favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
+                courseInfoCoursePageViewController.isItFavourite = YES;
                 [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
             } else {
-                favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+                favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_to_favorites-512.png"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
                 favouritesButton.tintColor = [UIColor whiteColor];
+                courseInfoCoursePageViewController.isItFavourite = NO;
                 [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
             }
         }

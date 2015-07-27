@@ -16,7 +16,7 @@
 
 @implementation CourseInfoCoursePageViewController
 
-@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear,favouritesButton,activityIndicator,haveComeFromFavourites,noInternetImageView,noInternetLabel,sourceLabel,isItFavourite;
+@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear,favouritesButton,activityIndicator,haveComeFromFavourites,noInternetImageView,noInternetLabel,sourceLabel,isItFavourite,favouritesPopoverButton,comparePopoverButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -278,8 +278,48 @@
                                     [self.commonJobsPercentages removeObjectAtIndex:1];
                                     [self.commonJobsPercentages addObject:tempPerc];
                                 }
+                                NSNumber *totalTemp = [NSNumber numberWithFloat:0];
+                                NSUInteger i;
+
+                                for (i=0; i<self.commonJobsPercentages.count; i++) {
+                                    //NSLog(@"common jobs perc2: %@",self.commonJobsPercentages);
+
+                                    NSString *tempNumberString = [self.commonJobsPercentages objectAtIndex:i];
+                                    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+                                    f.numberStyle = NSNumberFormatterDecimalStyle;
+                                    NSNumber *tempNumber = [f numberFromString:tempNumberString];
+                                    totalTemp = [NSNumber numberWithFloat:[totalTemp floatValue] + [tempNumber floatValue]];
+                                    NSLog(@"i value: %lu: and total: %@",(unsigned long)i,totalTemp);
+
+                                    if ([totalTemp isEqualToNumber:[NSNumber numberWithFloat:100.0f]]) {
+                                        i = i+1;
+                                        NSArray *tempArray = [self.commonJobs objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, i)]];
+                                        [self.commonJobs removeAllObjects];
+                                        [self.commonJobs addObjectsFromArray:tempArray];
+                                        
+                                        NSArray *tempArray2 = [self.commonJobsPercentages objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, i)]];
+                                        [self.commonJobsPercentages removeAllObjects];
+                                        [self.commonJobsPercentages addObjectsFromArray:tempArray2];
+                                    } else if ([totalTemp isGreaterThan:[NSNumber numberWithFloat:100.0f]]) {
+                                        NSArray *tempArray = [self.commonJobs objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, i)]];
+                                        [self.commonJobs removeAllObjects];
+                                        [self.commonJobs addObjectsFromArray:tempArray];
+                                        
+                                        NSArray *tempArray2 = [self.commonJobsPercentages objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, i)]];
+                                        [self.commonJobsPercentages removeAllObjects];
+                                        [self.commonJobsPercentages addObjectsFromArray:tempArray2];
+                                    } else if ([tempNumber isEqualToNumber:[NSNumber numberWithFloat:0.0f]]) {
+                                        NSArray *tempArray = [self.commonJobs objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, i)]];
+                                        [self.commonJobs removeAllObjects];
+                                        [self.commonJobs addObjectsFromArray:tempArray];
+                                        
+                                        NSArray *tempArray2 = [self.commonJobsPercentages objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, i)]];
+                                        [self.commonJobsPercentages removeAllObjects];
+                                        [self.commonJobsPercentages addObjectsFromArray:tempArray2];
+                                    }
+                                    
+                                }
                             }
-                            // NSLog(@"common jobs perc2: %@",self.commonJobsPercentages);
                             [self.courseInfoTableView reloadData];
                         }
                     }];
@@ -521,7 +561,9 @@
         cell.jobLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
         cell.jobLabel.textAlignment = NSTextAlignmentRight;
         cell.jobLabel.numberOfLines = 0;
+        cell.jobLabel.frame = CGRectMake(82, 4, 228, 35);
         cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+        cell.isCompare = NO;
         return cell;
     } else if (indexPath.section == 0) {
         
@@ -603,7 +645,7 @@
                 cellImage.numberDataLabelUniInfo.text = self.averageTariffString;
                 cellImage.uniInfoTypeLabel.hidden = YES;
                 UILabel *cellTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 183, 67)];
-                cellTitleLabel.text = @"Average UCAS tariff points of entrants";
+                cellTitleLabel.text = @"Average UCAS tariff points of entrants:";
                 cellTitleLabel.textColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
                 cellTitleLabel.textAlignment = NSTextAlignmentLeft;
                 cellTitleLabel.font = [UIFont fontWithName:@"Arial" size:14];
@@ -734,7 +776,7 @@
         }
         
         else if (indexPath.row == 6) {
-            cellSalary.centreLabel.text = @"Average salary for subject 6 months after graduating";
+            cellSalary.centreLabel.text = @"Average salary for subject 6 months after graduating:";
             cellSalary.centreLabel.numberOfLines = 0;
             cellSalary.centreLabel.font = [UIFont fontWithName:@"Arial" size:14];
             cellSalary.imageViewLeft.image = [UIImage imageNamed:@"ui-17"];
@@ -793,9 +835,70 @@
 
 -(void) customBtnPressed
 {
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGFloat widthFloat = screenBound.size.width;
+    
+    ARSPopover *popoverController = [[ARSPopover alloc] init];
+    popoverController.sourceView = self.navigationController.visibleViewController.view;
+    popoverController.sourceRect = CGRectMake(widthFloat-36, -5, 0, 0);
+    //CGRectMake(CGRectGetMidX(self.view.bounds), CGRectGetMaxY(self.view.bounds), 0, 0);
+    popoverController.contentSize = CGSizeMake(240, 100);
+    popoverController.arrowDirection = UIPopoverArrowDirectionUp;
+    popoverController.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    
+    favouritesPopoverButton = [UIButton buttonWithType:UIButtonTypeSystem];
     if (self.isItFavourite == YES) {
-        favouritesButton.image = [UIImage imageNamed:@"star-24"];
+        [favouritesPopoverButton setTitle:@"Remove from Favourites" forState:UIControlStateNormal];
+    } else if (self.isItFavourite == NO) {
+        [favouritesPopoverButton setTitle:@"Add to Favourites" forState:UIControlStateNormal];
+    }
+    favouritesPopoverButton.frame = CGRectMake(5, 5, 230, 40);
+    [favouritesPopoverButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    favouritesPopoverButton.exclusiveTouch = YES;
+    favouritesPopoverButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:16];
+    favouritesPopoverButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [favouritesPopoverButton addTarget:self action:@selector(addFavouritesPopoverButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    CALayer *btnLayer = [favouritesPopoverButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:15.0f];
+    [[favouritesPopoverButton layer] setBorderWidth:3.0f];
+    [[favouritesPopoverButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+    favouritesPopoverButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    [popoverController.view addSubview:favouritesPopoverButton];
+    
+    comparePopoverButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [comparePopoverButton setTitle:@"Remove from Compare" forState:UIControlStateNormal];
+    comparePopoverButton.frame = CGRectMake(5, 55, 230, 40);
+    [comparePopoverButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    comparePopoverButton.exclusiveTouch = YES;
+    comparePopoverButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:16];
+    comparePopoverButton.titleLabel.textColor = NSTextAlignmentLeft;
+    [comparePopoverButton addTarget:self action:@selector(comparePopoverButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    btnLayer = [comparePopoverButton layer];
+    [btnLayer setMasksToBounds:YES];
+    [btnLayer setCornerRadius:15.0f];
+    [[comparePopoverButton layer] setBorderWidth:3.0f];
+    [[comparePopoverButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+    comparePopoverButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    [popoverController.view addSubview:comparePopoverButton];
+    
+    [self presentViewController:popoverController animated:YES completion:nil];
+    
+    
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)addFavouritesPopoverButtonClicked {
+    
+    if (self.isItFavourite == YES) {
+        favouritesButton.image = [UIImage imageNamed:@"add_to_favorites-512.png"];
         favouritesButton.tintColor = [UIColor whiteColor];
+        [favouritesPopoverButton setTitle:@"Add to Favourites" forState:UIControlStateNormal];
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeCourseInfo,self.uniCodeCourseInfo] andSortKey:@"courseName"];
         //  NSLog(@"yeah freaky: %@",temp2);
         
@@ -805,10 +908,12 @@
         }
         [Favourites saveDatabase];
         self.isItFavourite = NO;
+        self.haveComeFromFavourites = NO;
     }
     else if (self.isItFavourite == NO) {
         favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
-        favouritesButton.image = [UIImage imageNamed:@"star-25"];
+        favouritesButton.image = [UIImage imageNamed:@"add_to_favorites-512.png"];
+        [favouritesPopoverButton setTitle:@"Remove from Favourites" forState:UIControlStateNormal];
         Favourites * temp = [Favourites createObject];
         temp.courseName = self.courseNameCourseInfo;
         temp.uniName = self.uniNameCourseInfo;
@@ -829,20 +934,15 @@
         temp.nationalSalary = self.nationalSalary;
         [Favourites saveDatabase];
         self.isItFavourite = YES;
+        self.haveComeFromFavourites = YES;
     }
+
     
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)comparePopoverButtonClicked {
+    
 }
-
-
-
-
 
 
 

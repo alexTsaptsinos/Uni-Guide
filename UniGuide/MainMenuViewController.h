@@ -14,7 +14,10 @@
 #import "UniversitiesListTableViewController.h"
 #import "OpenDaysQueryTableViewController.h"
 #import "CompareViewController.h"
+#import "CommonJobsCompareViewController.h"
 #import "ExtrasMenuViewController.h"
+#import "StudentSatisfactionCompareViewController.h"
+#import "UniInfoCompareViewController.h"
 
 @interface MainMenuViewController : UIViewController
 

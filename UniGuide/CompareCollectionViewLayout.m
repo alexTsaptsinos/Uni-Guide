@@ -8,7 +8,7 @@
 
 #import "CompareCollectionViewLayout.h"
 
-#define NUMBEROFCOLUMNS 5
+#define NUMBEROFCOLUMNS 3
 
 @interface CompareCollectionViewLayout ()
 @property (strong, nonatomic) NSMutableArray *itemAttributes;
@@ -182,16 +182,19 @@
         default:
             break;
     }
-    CGSize size = [text sizeWithAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:15]}];
-    if (columnIndex == 0) {
-        size.width -= 32; // In our design the first column should be the widest one
-    }
-    NSLog(@"size.width = %f",size.width);
+//    CGSize size = [text sizeWithAttributes: @{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:15]}];
+//    if (columnIndex == 0) {
+//        size.width -= 32; // In our design the first column should be the widest one
+//    }
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    
+    CGFloat widthFloat = screenBound.size.width;
+   // CGFloat heightFloat = screenBound.size.height - self.navigationController.navigationBar.frame.size.height - 20;
     //return CGSizeMake([@(size.width + 50) floatValue], 80); // Extra space of 9px for all the items
-    if (columnIndex == 0) {
-        return CGSizeMake(93, 80);
+    if (columnIndex == 1) {
+        return CGSizeMake(widthFloat/3-14, 80);
     } else {
-    return CGSizeMake(110, 80);
+    return CGSizeMake(widthFloat/3+7, 80);
     }
 }
 

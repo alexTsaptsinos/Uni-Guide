@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PackingListTableViewController.h"
+#import "UsefulWebsitesTableViewController.h"
 
 @interface ExtrasMenuViewController : UIViewController
 

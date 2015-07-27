@@ -15,6 +15,7 @@
 #import "CourseInfoSalaryCustomCellView.h"
 #import "Favourites.h"
 #import "NSManagedObject+CRUD.h"
+#import "ARSPopover.h"
 
 @interface CourseInfoCoursePageViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
@@ -56,6 +57,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *universityNameLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *courseNameLabel;
+
+@property (strong,nonatomic) UIButton *favouritesPopoverButton;
+@property (strong,nonatomic) UIButton *comparePopoverButton;
+
 
 
 @end

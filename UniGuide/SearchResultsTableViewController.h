@@ -14,6 +14,7 @@
 #import "StudentSatisfactionCoursePageViewController.h"
 #import "ReviewsCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
+#import "ContactUniversityPageViewController.h"
 
 @interface SearchResultsTableViewController: UIViewController <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 

@@ -228,7 +228,32 @@
 {
     // if compare button clicked let's go to the compare page
     CompareViewController *compareViewController = [[CompareViewController alloc] initWithNibName:@"CompareViewController" bundle:nil];
-    [self.navigationController pushViewController:compareViewController animated:YES];
+    CommonJobsCompareViewController *commonJobsCompareViewController = [[CommonJobsCompareViewController alloc] initWithNibName:@"CommonJobsCompareViewController" bundle:nil];
+    StudentSatisfactionCompareViewController *studentSatisfactionCompareViewController = [[StudentSatisfactionCompareViewController alloc] initWithNibName:@"StudentSatisfactionCompareViewController" bundle:nil];
+    UniInfoCompareViewController *uniInfoCompareViewController = [[UniInfoCompareViewController alloc] initWithNibName:@"UniInfoCompareViewController" bundle:nil];
+    
+    UITabBarController *comparePageTabBarController = [[UITabBarController alloc] initWithNibName:@"ComparePageTabBarController" bundle:nil];
+    
+    comparePageTabBarController.viewControllers = [NSArray arrayWithObjects:compareViewController,commonJobsCompareViewController,studentSatisfactionCompareViewController,uniInfoCompareViewController, nil];
+    
+    // Pass the selected object to the new view controller.
+    compareViewController.tabBarItem.image = [UIImage imageNamed:@"info-32"];
+    compareViewController.title = NSLocalizedString(@"Course Info", @"Course Info");
+    commonJobsCompareViewController.tabBarItem.image = [UIImage imageNamed:@"briefcase-32"];
+    commonJobsCompareViewController.title = NSLocalizedString(@"Common Jobs", @"Common Jobs");
+    studentSatisfactionCompareViewController.tabBarItem.image = [UIImage imageNamed:@"student2-32"];
+    studentSatisfactionCompareViewController.title = NSLocalizedString(@"Student Satisfaction", @"Student Satisfaction");
+    uniInfoCompareViewController.tabBarItem.image = [UIImage imageNamed:@"city_hall-32"];
+    uniInfoCompareViewController.title = NSLocalizedString(@"Uni Info", @"Uni Info");
+    
+
+    
+    comparePageTabBarController.navigationItem.title = @"Compare";
+    comparePageTabBarController.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    [comparePageTabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f]];
+    [self.navigationController pushViewController:comparePageTabBarController animated:YES];
+
+
 
 }
 

@@ -220,8 +220,9 @@
     [coursePageTabBarController.tabBar setSelectedImageTintColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f]];
     
     
-    
-    favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-25"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+   // [courseInfoCoursePageViewController.favouritesPopoverButton setTitle:@"Remove from Favourites" forState:UIControlStateNormal];
+
+    favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_to_favorites-512.png"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
     favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
     [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
     
@@ -235,6 +236,7 @@
     courseInfoCoursePageViewController.courseNameCourseInfo = cell.textLabel.text;
     courseInfoCoursePageViewController.uniNameCourseInfo = cell.detailTextLabel.text;
     courseInfoCoursePageViewController.haveComeFromFavourites = YES;
+    courseInfoCoursePageViewController.isItFavourite = YES;
     
     reviewsCoursePageViewController.courseCodeReviews = [self.courseCodes objectAtIndex:indexPath.row];
     reviewsCoursePageViewController.courseNameReviews = cell.textLabel.text;

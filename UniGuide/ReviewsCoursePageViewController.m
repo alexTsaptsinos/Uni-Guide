@@ -391,9 +391,9 @@
     
     reviewComplaintViewController.courseKISCode = self.courseCodeReviews;
     UIButton *btn = (UIButton *)sender;
-    int indexrow = btn.tag;
-    NSLog(@"Selected row is: %d",indexrow);
-    reviewComplaintViewController.complaintCode = [self.reviewCodes objectAtIndex:indexrow];
+    //int indexrow = btn.tag;
+   // NSLog(@"Selected row is: %d",indexrow);
+    reviewComplaintViewController.complaintCode = [self.reviewCodes objectAtIndex:btn.tag];
     
     
     

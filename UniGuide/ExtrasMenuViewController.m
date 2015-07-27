@@ -154,7 +154,8 @@
 
 - (void)usefulWebsiteButtonClicked:(UIButton*)button
 {
-    
+    UsefulWebsitesTableViewController *usefulWebsitesTableViewController = [[UsefulWebsitesTableViewController alloc] initWithNibName:@"UsefulWebsitesTableViewController" bundle:nil];
+    [self.navigationController pushViewController:usefulWebsitesTableViewController animated:YES];
 }
 
 - (void)personalStatementButtonClicked:(UIButton*)button

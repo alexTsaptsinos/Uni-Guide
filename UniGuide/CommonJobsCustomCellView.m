@@ -10,13 +10,14 @@
 
 @implementation CommonJobsCustomCellView
 
-@synthesize jobLabel,percentageLabel;
+@synthesize jobLabel,percentageLabel,isCompare;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        
     }
     return self;
 }
@@ -24,6 +25,9 @@
 - (void)awakeFromNib
 {
     // Initialization code
+    jobLabel = [[UILabel alloc] init];
+    jobLabel.frame = CGRectMake(82, 4, 228, 35);
+    [self addSubview:jobLabel];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -33,4 +37,8 @@
     // Configure the view for the selected state
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+}
 @end
