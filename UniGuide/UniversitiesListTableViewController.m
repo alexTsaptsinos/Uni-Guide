@@ -286,8 +286,10 @@
     
     courseListTableViewController.universityCode = [universitiesUKPRNS objectAtIndex:originalIndexPath];
     contactUniversityPageViewController.universityCode = [universitiesUKPRNS objectAtIndex:originalIndexPath];
+    contactUniversityPageViewController.courseCodeContact = @"XXXXXXXX"; //so we cannot load from favourites
     openDaysUniversityPageTableViewController.universityUKPRN = [universitiesUKPRNS objectAtIndex:originalIndexPath];
     uniInfoCoursePageViewController.uniCodeUniInfo = [universitiesUKPRNS objectAtIndex:originalIndexPath];
+    uniInfoCoursePageViewController.courseCodeUniInfo = @"XXXXXXXX"; //so we cannot load from favourites
     
     [self.navigationController pushViewController:universityPageTabBarController animated:YES];
     uniInfoCoursePageViewController.haveWeComeFromUniversities = YES;

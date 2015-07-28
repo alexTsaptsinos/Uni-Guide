@@ -322,6 +322,8 @@
         NSLog(@"%li", (long)originalIndexPath);
         courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:originalIndexPath];
         studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:originalIndexPath];
+        uniInfoCoursePageViewController.courseCodeUniInfo = [_universityCourseCodes objectAtIndex:originalIndexPath];
+        contactUniversityPageViewController.courseCodeContact = [_universityCourseCodes objectAtIndex:originalIndexPath];
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[_universityCourseCodes objectAtIndex:originalIndexPath],self.universityCode] andSortKey:@"courseName"];
         NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
         if (temp2.count != 0) {
@@ -340,6 +342,8 @@
     } else {
         courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
         studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:indexPath.row];
+        uniInfoCoursePageViewController.courseCodeUniInfo = [_universityCourseCodes objectAtIndex:indexPath.row];
+        contactUniversityPageViewController.courseCodeContact = [_universityCourseCodes objectAtIndex:indexPath.row];
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[_universityCourseCodes objectAtIndex:rowsOffset +indexPath.row],self.universityCode] andSortKey:@"courseName"];
         NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
         if (temp2.count != 0) {

@@ -14,7 +14,7 @@
 
 @implementation ContactUniversityPageViewController
 
-@synthesize universityCode,contactMapView,universityName,uniLongitude,uniLatitude,hasLoadedBool,emailButton,websiteButton,telephoneButton,telephoneLabel,websiteLabel,emailLabel,firstTimeLoad,noInternetImageView,noInternetLabel;
+@synthesize universityCode,contactMapView,universityName,uniLongitude,uniLatitude,hasLoadedBool,emailButton,websiteButton,telephoneButton,telephoneLabel,websiteLabel,emailLabel,firstTimeLoad,noInternetImageView,noInternetLabel,courseCodeContact;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,64 +67,104 @@
     
     if (self.firstTimeLoad == YES) {
         
+        telephoneButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [telephoneButton addTarget:self
+                            action:@selector(telephoneButton:)
+                  forControlEvents:UIControlEventTouchUpInside];
+        telephoneButton.exclusiveTouch = YES;
+        telephoneButton.frame = CGRectMake(50.0, 11, 250.0, 20.0);
+        telephoneButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
+        telephoneButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        [telephoneButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+        [telephoneButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [telephoneButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+        [self.view addSubview:telephoneButton];
+        
+        emailButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [emailButton addTarget:self
+                        action:@selector(emailButton:)
+              forControlEvents:UIControlEventTouchUpInside];
+        emailButton.exclusiveTouch = YES;
+        emailButton.frame = CGRectMake(50.0, 41, 250.0, 20.0);
+        emailButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
+        emailButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        emailButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [emailButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+        [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+        [self.view addSubview:emailButton];
+        
+        websiteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [websiteButton addTarget:self
+                          action:@selector(websiteButton:)
+                forControlEvents:UIControlEventTouchUpInside];
+        websiteButton.exclusiveTouch = YES;
+        websiteButton.frame = CGRectMake(45.0, 71, 275.0, 20.0);
+        //websiteButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
+        websiteButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        websiteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [websiteButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+        [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+        [self.view addSubview:websiteButton];
+        
+        NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeContact,self.universityCode] andSortKey:@"courseName"];
+        
+        
+        
+        if (temp2.count != 0) {
+            // IF A FAVOURITE LOAD FROM CORE DATA
+            Favourites *tempObject = [temp2 objectAtIndex:0];
+            [telephoneButton setTitle:tempObject.telephoneContact forState:UIControlStateNormal];
+            
+            NSString *email = tempObject.emailContact;
+            if (email.length == 0) {
+                emailButton.enabled = NO;
+                [emailButton setTitle:@"Not available" forState:UIControlStateDisabled];
+                [emailButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+                
+            } else {
+                [emailButton setTitle:email forState:UIControlStateNormal];
+            }
+            
+            [websiteButton setTitle:tempObject.websiteContact forState:UIControlStateNormal];
+            
+            uniLatitude = tempObject.latitudeContact;
+            uniLongitude = tempObject.longitudeContact;
+            
+            self.hasLoadedBool = NO;
+            self.contactMapView.hidden = NO;
+            self.telephoneButton.hidden = NO;
+            self.emailButton.hidden = NO;
+            self.websiteButton.hidden = NO;
+            self.telephoneLabel.hidden = NO;
+            self.emailLabel.hidden = NO;
+            self.websiteLabel.hidden = NO;
+            [self.activityIndicator stopAnimating];
+            self.firstTimeLoad = NO;
+            
+        } else {
+        
         PFQuery *contactQuery = [PFQuery queryWithClassName:@"Institution1213"];
         [contactQuery whereKey:@"UKPRN" equalTo:self.universityCode];
         [contactQuery selectKeys:[NSArray arrayWithObjects:@"TelephoneContact",@"EmailContact",@"WebsiteContact", nil]];
         [contactQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
             if (!error) {
                 NSArray *contactDetails = [objects objectAtIndex:0];
-
-                telephoneButton = [UIButton buttonWithType:UIButtonTypeSystem];
-                [telephoneButton addTarget:self
-                                    action:@selector(telephoneButton:)
-                          forControlEvents:UIControlEventTouchUpInside];
-                telephoneButton.exclusiveTouch = YES;
-                [telephoneButton setTitle:[contactDetails valueForKey:@"TelephoneContact"] forState:UIControlStateNormal];
-                telephoneButton.frame = CGRectMake(50.0, 11, 250.0, 20.0);
-                telephoneButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
-                telephoneButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-                [telephoneButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
-                [telephoneButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                [telephoneButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-                [self.view addSubview:telephoneButton];
                 
-                emailButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                [emailButton addTarget:self
-                                action:@selector(emailButton:)
-                      forControlEvents:UIControlEventTouchUpInside];
-                emailButton.exclusiveTouch = YES;
+                [telephoneButton setTitle:[contactDetails valueForKey:@"TelephoneContact"] forState:UIControlStateNormal];
+                
                 NSString *email = [contactDetails valueForKey:@"EmailContact"];
                 if (email.length == 0) {
                     emailButton.enabled = NO;
                     [emailButton setTitle:@"Not available" forState:UIControlStateDisabled];
                     [emailButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-                    
                 } else {
                     [emailButton setTitle:email forState:UIControlStateNormal];
                 }
-                emailButton.frame = CGRectMake(50.0, 41, 250.0, 20.0);
-                emailButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
-                emailButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-                emailButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-                [emailButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
-                [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-                [self.view addSubview:emailButton];
                 
-                websiteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                [websiteButton addTarget:self
-                                  action:@selector(websiteButton:)
-                        forControlEvents:UIControlEventTouchUpInside];
-                websiteButton.exclusiveTouch = YES;
                 [websiteButton setTitle:[contactDetails valueForKey:@"WebsiteContact"] forState:UIControlStateNormal];
-                websiteButton.frame = CGRectMake(45.0, 71, 275.0, 20.0);
-                //websiteButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
-                websiteButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-                websiteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-                [websiteButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
-                [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-                [self.view addSubview:websiteButton];
+                
             }
             else {
                 NSLog(@"error");
@@ -175,8 +215,6 @@
                 uniLongitude = [longitudes objectAtIndex:originalIndexPath];
                 NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
                 
-                
-                
                 self.hasLoadedBool = NO;
                 self.contactMapView.hidden = NO;
                 self.telephoneButton.hidden = NO;
@@ -201,6 +239,7 @@
             }
             
         }];
+        }
         
     }
 }

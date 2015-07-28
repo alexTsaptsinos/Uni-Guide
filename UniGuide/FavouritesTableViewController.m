@@ -149,7 +149,7 @@
      
      Favourites *affectedObject = [self.reversed objectAtIndex:fromIndex];
      NSLog(@"Updated %@ / %@ from %@ to %lu", affectedObject.courseName, affectedObject.uniName, affectedObject.sortNumber, self.favouriteObjects.count - toIndex - 1);
-     affectedObject.sortNumber = [NSNumber numberWithInt:self.favouriteObjects.count - toIndex - 1];
+     affectedObject.sortNumber = [NSNumber numberWithInteger:self.favouriteObjects.count - toIndex - 1];
 
      
      NSUInteger start, end;
@@ -234,6 +234,7 @@
     
     contactUniversityPageViewController.universityName = cell.detailTextLabel.text;
     contactUniversityPageViewController.universityCode = [self.uniCodes objectAtIndex:indexPath.row];
+    contactUniversityPageViewController.courseCodeContact = [self.courseCodes objectAtIndex:indexPath.row];
     
     studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [self.courseCodes objectAtIndex:indexPath.row];
     studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = [self.uniCodes objectAtIndex:indexPath.row];
@@ -244,6 +245,8 @@
     uniInfoCoursePageViewController.haveWeComeFromUniversities = NO;
     uniInfoCoursePageViewController.uniNameUniInfo = cell.detailTextLabel.text;
     uniInfoCoursePageViewController.uniCodeUniInfo = [self.uniCodes objectAtIndex:indexPath.row];
+    uniInfoCoursePageViewController.haveComeFromFavourites = YES;
+    uniInfoCoursePageViewController.courseCodeUniInfo = [self.courseCodes objectAtIndex:indexPath.row];
     
     // Push the view controller.
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];

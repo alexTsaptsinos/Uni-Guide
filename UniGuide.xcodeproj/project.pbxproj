@@ -58,6 +58,7 @@
 		EF2740921990F30900B932DC /* StudentSatisfactionCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2740911990F30900B932DC /* StudentSatisfactionCustomCellView.m */; };
 		EF27409419912E6C00B932DC /* CommonJobsCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF27409319912E6C00B932DC /* CommonJobsCustomCellView.xib */; };
 		EF27409719912EAD00B932DC /* CommonJobsCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */; };
+		EF31C0371B6804D900511418 /* ui-19emptysmall.png in Resources */ = {isa = PBXBuildFile; fileRef = EF31C0361B6804D900511418 /* ui-19emptysmall.png */; };
 		EF5533771981AA0D00120FEA /* checked_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5533761981AA0D00120FEA /* checked_checkbox.png */; };
 		EF5533791981AA1400120FEA /* unchecked_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5533781981AA1400120FEA /* unchecked_checkbox.png */; };
 		EF5B6ED919926CC200B2E18D /* CourseInfoTextCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */; };
@@ -151,7 +152,6 @@
 		EFCCDCF31B639ED600BACB72 /* UniInfoCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCCDCF11B639ED600BACB72 /* UniInfoCompareViewController.m */; };
 		EFCCDCF41B639ED600BACB72 /* UniInfoCompareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCF21B639ED600BACB72 /* UniInfoCompareViewController.xib */; };
 		EFCCDCF61B63A6E300BACB72 /* briefcase-32.png in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCF51B63A6E300BACB72 /* briefcase-32.png */; };
-		EFCCDCFA1B6579C500BACB72 /* ui-19emptysmall.png in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCF91B6579C500BACB72 /* ui-19emptysmall.png */; };
 		EFCCDCFD1B6579DA00BACB72 /* ui-19emptysmaller.png in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCFB1B6579DA00BACB72 /* ui-19emptysmaller.png */; };
 		EFCCDCFE1B6579DA00BACB72 /* ui-19fillsmaller.png in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCFC1B6579DA00BACB72 /* ui-19fillsmaller.png */; };
 		EFCCDD001B66207600BACB72 /* add_to_favorites-512.png in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCFF1B66207600BACB72 /* add_to_favorites-512.png */; };
@@ -326,6 +326,7 @@
 		EF27409319912E6C00B932DC /* CommonJobsCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommonJobsCustomCellView.xib; sourceTree = "<group>"; };
 		EF27409519912EAD00B932DC /* CommonJobsCustomCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonJobsCustomCellView.h; sourceTree = "<group>"; };
 		EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonJobsCustomCellView.m; sourceTree = "<group>"; };
+		EF31C0361B6804D900511418 /* ui-19emptysmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-19emptysmall.png"; sourceTree = "<group>"; };
 		EF5533761981AA0D00120FEA /* checked_checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked_checkbox.png; sourceTree = "<group>"; };
 		EF5533781981AA1400120FEA /* unchecked_checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked_checkbox.png; sourceTree = "<group>"; };
 		EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseInfoTextCustomCellView.xib; sourceTree = "<group>"; };
@@ -440,7 +441,6 @@
 		EFCCDCF11B639ED600BACB72 /* UniInfoCompareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UniInfoCompareViewController.m; sourceTree = "<group>"; };
 		EFCCDCF21B639ED600BACB72 /* UniInfoCompareViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniInfoCompareViewController.xib; sourceTree = "<group>"; };
 		EFCCDCF51B63A6E300BACB72 /* briefcase-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "briefcase-32.png"; sourceTree = "<group>"; };
-		EFCCDCF91B6579C500BACB72 /* ui-19emptysmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-19emptysmall.png"; sourceTree = "<group>"; };
 		EFCCDCFB1B6579DA00BACB72 /* ui-19emptysmaller.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-19emptysmaller.png"; sourceTree = "<group>"; };
 		EFCCDCFC1B6579DA00BACB72 /* ui-19fillsmaller.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-19fillsmaller.png"; sourceTree = "<group>"; };
 		EFCCDCFF1B66207600BACB72 /* add_to_favorites-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_to_favorites-512.png"; sourceTree = "<group>"; };
@@ -886,7 +886,7 @@
 				EFC88A4F19923B70003BB792 /* ui-20.png */,
 				EF7B895A1993979200F09894 /* splash 640x960.png */,
 				EF7B89551993968C00F09894 /* splash 640x1136.png */,
-				EFCCDCF91B6579C500BACB72 /* ui-19emptysmall.png */,
+				EF31C0361B6804D900511418 /* ui-19emptysmall.png */,
 				EFC88A531992518F003BB792 /* ui-19fillsmall.png */,
 				EFCCDCFB1B6579DA00BACB72 /* ui-19emptysmaller.png */,
 				EFCCDCFC1B6579DA00BACB72 /* ui-19fillsmaller.png */,
@@ -1047,7 +1047,6 @@
 				EFF5C0691987905A00E87159 /* CourseListTableViewController.xib in Resources */,
 				EFE3B2801994C33600F6331F /* star-26.png in Resources */,
 				EF66F5CF1988F0890048A82E /* AppIcon50x50.png in Resources */,
-				EFCCDCFA1B6579C500BACB72 /* ui-19emptysmall.png in Resources */,
 				EF66F5E21988F0E80048A82E /* AppIcon76x76@2x.png in Resources */,
 				EF5B6EE51992A9F200B2E18D /* CourseInfoSalaryCustomCellView.xib in Resources */,
 				EFE3B28A1994CCEF00F6331F /* star-27.png in Resources */,
@@ -1126,6 +1125,7 @@
 				EF93A59719A36101007F5CAB /* LocationSelectTableViewController.xib in Resources */,
 				EF66F5E819891A8B0048A82E /* ui-14.png in Resources */,
 				EFC88A5019923B70003BB792 /* ui-19.png in Resources */,
+				EF31C0371B6804D900511418 /* ui-19emptysmall.png in Resources */,
 				EF66F5D71988F0DF0048A82E /* AppIcon60x60.png in Resources */,
 				EF66F5DF1988F0E80048A82E /* AppIcon72x72.png in Resources */,
 			);

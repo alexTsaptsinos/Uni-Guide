@@ -33,5 +33,15 @@
 @property (nonatomic,retain) NSNumber *sortNumber;
 
 @property (nonatomic,retain) NSData *nSSScores;
+@property (nonatomic,retain) NSData *uniInfoData;
+@property (nonatomic,retain) NSString *unionSatisfaction;
+
+@property (nonatomic,retain) NSString *telephoneContact;
+@property (nonatomic,retain) NSString *emailContact;
+@property (nonatomic,retain) NSString *websiteContact;
+@property (nonatomic,retain) NSString *latitudeContact;
+@property (nonatomic,retain) NSString *longitudeContact;
+
+
 
 @end

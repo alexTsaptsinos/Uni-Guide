@@ -243,8 +243,8 @@
                          NSLog(@"average 1: %@",averageTariff);
                         averageTariff = [NSNumber numberWithFloat:([averageTariff floatValue] / [numberOfEntries floatValue])];
                          NSLog(@"average 2: %@",averageTariff);
-                        int privateRounded = lroundf([averageTariff floatValue]);
-                        averageTariffString = [NSString stringWithFormat:@"%d",privateRounded];
+                        NSUInteger privateRounded = lroundf([averageTariff floatValue]);
+                        averageTariffString = [NSString stringWithFormat:@"%lu",(unsigned long)privateRounded];
                     }
                     
                     
@@ -990,6 +990,162 @@
                     
                 }
                 // THIS HAPPENS IF THERE IS NSS SCORES OR NOT
+                
+                // NEXT WE FIND ALL THE INFO FOR THE UNI INFO PAGE
+                PFQuery *queryForStudentSatisfaction = [PFQuery queryWithClassName:@"Institution"];
+                [queryForStudentSatisfaction whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                [queryForStudentSatisfaction whereKeyExists:@"Q24"];
+                [queryForStudentSatisfaction findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                    if (!error) {
+                        if (objects.count != 0) {
+                            
+                            NSArray *uniInfoTemp = [objects objectAtIndex:0];
+                            NSString *studentSatisfactionPercentage = [uniInfoTemp valueForKey:@"Q24"];
+                            temp.unionSatisfaction = studentSatisfactionPercentage;
+                            
+                            // query to get total number of students
+                            PFQuery *queryForTotalNumberOfStudents = [PFQuery queryWithClassName:@"Institution1213"];
+                            [queryForTotalNumberOfStudents whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                            [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"TotalAllStudents"]];
+                            PFObject *tempObject1 = [queryForTotalNumberOfStudents getFirstObject];
+                            NSString *totalNumberOfStudents = [tempObject1 valueForKey:@"TotalAllStudents"];
+            
+                            
+                            // query to get total number of staff
+                            PFQuery *queryForTotalNumberOfStaff = [PFQuery queryWithClassName:@"StaffInst1213"];
+                            [queryForTotalNumberOfStaff whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                            [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"Total"]];
+                            PFObject *tempObject2 = [queryForTotalNumberOfStaff getFirstObject];
+                            NSString *totalNumberOfStaff = [tempObject2 valueForKey:@"Total"];
+                            
+                            
+                            //query to get data on total number of beds
+                            PFQuery *queryForAccomodation = [PFQuery queryWithClassName:@"Location"];
+                            [queryForAccomodation whereKeyExists:@"INSTBEDS"];
+                            [queryForAccomodation whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                            NSArray *object = [queryForAccomodation findObjects];
+                            NSArray *numberOfBeds = [object valueForKey:@"INSTBEDS"];
+                            NSString *totalNumberOfBedsString;
+                            if (numberOfBeds.count != 0) {
+                                NSNumber * totalNumberOfBeds = [numberOfBeds valueForKeyPath:@"@sum.self"];
+                                totalNumberOfBedsString = [totalNumberOfBeds stringValue];
+                            } else {
+                                totalNumberOfBedsString = @"N/A";
+                            }
+                            
+                            //calculate average cost for private accom.
+                            NSArray *lowerQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATELOWER"];
+                            NSArray *upperQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATEUPPER"];
+                            NSString *averageCostOfLivingPrivateString;
+                            NSString *averageCostOfLivingInstituteString;
+                            // NSLog(@"anything exist? %@ and %@",lowerQuartileCostOfPrivateBeds,upperQuartileCostOfPrivateBeds);
+                            if (lowerQuartileCostOfPrivateBeds.count != 0 && upperQuartileCostOfPrivateBeds.count != 0) {
+                                NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+                                NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+                                // NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+                                NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+                                // NSLog(@"sum: %@",sumOfQuartiles);
+                                NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfPrivateBeds.count + upperQuartileCostOfPrivateBeds.count)];
+                                // NSLog(@"total values %@",totalNumberOfValues);
+                                NSNumber *averageCostOfLivingPrivate = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+                                NSUInteger privateRounded = lroundf([averageCostOfLivingPrivate floatValue]);
+                                averageCostOfLivingPrivateString = @"£";
+                                averageCostOfLivingPrivateString = [averageCostOfLivingPrivateString stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)privateRounded]];
+                            } else {
+                                averageCostOfLivingPrivateString = @"N/A";
+                            }
+                            
+                            //calculate average cost for institute accom.
+                            
+                            NSArray *lowerQuartileCostOfInstituteBeds = [object valueForKey:@"INSTLOWER"];
+                            NSArray *upperQuartileCostOfInstituteBeds = [object valueForKey:@"INSTUPPER"];
+                            if (lowerQuartileCostOfInstituteBeds.count != 0 && upperQuartileCostOfInstituteBeds.count != 0) {
+                                NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+                                NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+                                //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+                                NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+                                //NSLog(@"sum: %@",sumOfQuartiles);
+                                NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfInstituteBeds.count + upperQuartileCostOfInstituteBeds.count)];
+                                //NSLog(@"total values %@",totalNumberOfValues);
+                                NSNumber *averageCostOfLivingInstitute = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+                                NSUInteger instituteRounded = lroundf([averageCostOfLivingInstitute floatValue]);
+                                averageCostOfLivingInstituteString = @"£";
+                                averageCostOfLivingInstituteString = [averageCostOfLivingInstituteString stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)instituteRounded]];
+                                NSLog(@"averageL %@",averageCostOfLivingInstituteString);
+                            } else {
+                                averageCostOfLivingInstituteString = @"N/A";
+                                
+                            }
+                            
+                            NSLog(@"1: %@ 2: %@ 3: %@ 4: %@ 5: %@",totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString);
+                            
+                            NSMutableArray *uniInfoDataNumbers = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString, nil]];
+                            
+                            temp.uniInfoData = [NSKeyedArchiver archivedDataWithRootObject:uniInfoDataNumbers];
+                        }
+                    }
+                }];
+                 
+                // NOW WE HAVE FINISHED FINDING ALL OF THE UNI INFO WE CAN FIND CONTACT INFO
+                
+                PFQuery *contactQuery = [PFQuery queryWithClassName:@"Institution1213"];
+                [contactQuery whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                [contactQuery selectKeys:[NSArray arrayWithObjects:@"TelephoneContact",@"EmailContact",@"WebsiteContact", nil]];
+                [contactQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                    if (!error) {
+                        NSArray *contactDetails = [objects objectAtIndex:0];
+                        temp.telephoneContact = [contactDetails valueForKey:@"TelephoneContact"];
+                        temp.emailContact = [contactDetails valueForKey:@"EmailContact"];
+                        temp.websiteContact = [contactDetails valueForKey:@"WebsiteContact"];
+                    }
+                    else {
+                        NSLog(@"error finding contact details");
+                    }
+                }];
+                
+                PFQuery *locationQuery = [PFQuery queryWithClassName:@"Location"];
+                [locationQuery whereKey:@"UKPRN" equalTo:uniCodeCourseInfo];
+                [locationQuery whereKeyExists:@"INSTBEDS"];
+                
+                [locationQuery findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                    if (!error) {
+                        NSArray *bedNumbersString = [objects valueForKey:@"INSTBEDS"];
+                        NSLog(@"boobooboo: %@",bedNumbersString);
+                        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+                        [f setNumberStyle:NSNumberFormatterDecimalStyle];
+                        NSMutableArray *bedNumbers = [[NSMutableArray alloc] init];
+                        int i;
+                        for (i=0; i<bedNumbersString.count; i++) {
+                            NSString *tempString = [bedNumbersString objectAtIndex:i];
+                            NSNumber *tempNumber = [f numberFromString:tempString];
+                            [bedNumbers addObject:tempNumber];
+                        }
+                        NSLog(@"bed numbers: %@",bedNumbers);
+                        
+                        NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
+                        NSArray *bedNumbersSorted = [bedNumbers sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
+
+                        NSLog(@"bed numbers sorted: %@", bedNumbersSorted);
+                        NSNumber *topBedNumber = [bedNumbersSorted objectAtIndex:0];
+                        NSString *topBedString = [topBedNumber stringValue];
+                        NSInteger originalIndexPath = [bedNumbersString indexOfObject:topBedString];
+                        NSArray *latitudes = [objects valueForKey:@"LATITUDE"];
+                        NSArray *longitudes = [objects valueForKey:@"LONGITUDE"];
+                        NSString *uniLatitude = [latitudes objectAtIndex:originalIndexPath];
+                        NSString *uniLongitude = [longitudes objectAtIndex:originalIndexPath];
+                        NSLog(@"class: %@",[uniLatitude class]);
+                        temp.latitudeContact = uniLatitude;
+                        temp.longitudeContact = uniLongitude;
+                        NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
+                    }
+                    else {
+                        NSLog(@"error finding location");
+                    }
+                    
+                }];
+
+                
+                // WE HAVE NOW FOUND ALL THE INFO AND SO CAN FINISH
                 [savingFavouriteIndicatorView stopAnimating];
                 savingFavouriteIndicatorView.hidden = YES;
                 favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
@@ -1001,7 +1157,7 @@
                 self.isItFavourite = YES;
                 self.haveComeFromFavourites = YES;
             } else {
-                NSLog(@"testing");
+                NSLog(@"error saving to favourites");
                 favouritesButton.tintColor = [UIColor whiteColor];
                 favouritesButton.image = [UIImage imageNamed:@"add_to_favorites-512.png"];
                 self.isInMiddleOfFavouriteSave = NO;

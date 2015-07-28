@@ -788,11 +788,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/UniInfoCoursePageViewController.m"
-            timestampString = "458650743.268904"
+            timestampString = "459801212.126853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "418"
+            endingLineNumber = "418"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2190,11 +2190,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/ContactUniversityPageViewController.m"
-            timestampString = "431004194.028311"
+            timestampString = "459805086.338013"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
             landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2206,11 +2206,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/ContactUniversityPageViewController.m"
-            timestampString = "431004415.585372"
+            timestampString = "459805086.338013"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2350,11 +2350,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/UniInfoCoursePageViewController.m"
-            timestampString = "458650657.084243"
+            timestampString = "459801212.126853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2430,11 +2430,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/FavouritesTableViewController.m"
-            timestampString = "459722809.480504"
+            timestampString = "459805086.338013"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
             landmarkName = "-updateArrays"
             landmarkType = "5">
          </BreakpointContent>
@@ -2446,11 +2446,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/FavouritesTableViewController.m"
-            timestampString = "459722809.480504"
+            timestampString = "459805086.338013"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
             landmarkName = "-noFavouritesButtonPressed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2890,15 +2890,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/SearchResultsTableViewController.m"
-            timestampString = "459718882.145281"
+            timestampString = "459805086.338013"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "587"
-            endingLineNumber = "587"
+            startingLineNumber = "589"
+            endingLineNumber = "589"
             landmarkName = "-callAnotherMethod"
             landmarkType = "5">
          </BreakpointContent>
@@ -2910,11 +2910,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/CourseInfoCoursePageViewController.m"
-            timestampString = "459725994.591022"
+            timestampString = "459804219.908069"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1005"
-            endingLineNumber = "1005"
+            startingLineNumber = "1161"
+            endingLineNumber = "1161"
             landmarkName = "-addFavouritesPopoverButtonClicked"
             landmarkType = "5">
          </BreakpointContent>
@@ -2938,15 +2938,79 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UniGuide/CourseInfoCoursePageViewController.m"
-            timestampString = "459725994.591022"
+            timestampString = "459804219.908069"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "995"
-            endingLineNumber = "995"
+            startingLineNumber = "1151"
+            endingLineNumber = "1151"
+            landmarkName = "-addFavouritesPopoverButtonClicked"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UniGuide/UniInfoCoursePageViewController.m"
+            timestampString = "459793083.812124"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "-viewDidAppear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UniGuide/UniInfoCoursePageViewController.m"
+            timestampString = "459801212.126853"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "-viewDidAppear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UniGuide/CourseInfoCoursePageViewController.m"
+            timestampString = "459803374.535057"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1134"
+            endingLineNumber = "1134"
+            landmarkName = "-addFavouritesPopoverButtonClicked"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UniGuide/CourseInfoCoursePageViewController.m"
+            timestampString = "459804213.564379"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1135"
+            endingLineNumber = "1135"
             landmarkName = "-addFavouritesPopoverButtonClicked"
             landmarkType = "5">
          </BreakpointContent>

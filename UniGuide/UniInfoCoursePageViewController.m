@@ -21,7 +21,7 @@
 @implementation UniInfoCoursePageViewController
 
 
-@synthesize uniCodeUniInfo,studentSatisfactionPercentage,tableViewUniInfo,uniInfoDataSets,haveWeComeFromUniversities,uniNameUniInfo,firstTimeLoad,uniInfoDataNumbers,universityNameLabel,scroll,activityIndicator,noInternetLabel,noInternetImageView,sourceLabel;
+@synthesize uniCodeUniInfo,studentSatisfactionPercentage,tableViewUniInfo,uniInfoDataSets,haveWeComeFromUniversities,uniNameUniInfo,firstTimeLoad,uniInfoDataNumbers,universityNameLabel,scroll,activityIndicator,noInternetLabel,noInternetImageView,sourceLabel,haveComeFromFavourites,courseCodeUniInfo;
 
 #pragma mark - UIViewController lifecycle methods
 
@@ -137,6 +137,46 @@
         unionSatisfactionNumberLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
         [scroll addSubview:unionSatisfactionNumberLabel];
         
+        NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeUniInfo,self.uniCodeUniInfo] andSortKey:@"courseName"];
+        
+        if (temp2.count != 0) {
+            // If this is in favourites then we can load from favourites woo!
+            Favourites *tempObject = [temp2 objectAtIndex:0];
+            self.uniInfoDataNumbers = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:tempObject.uniInfoData]];
+            self.studentSatisfactionPercentage = tempObject.unionSatisfaction;
+            if (studentSatisfactionPercentage != NULL) {
+                unionSatisfactionNumberLabel.text = [NSString stringWithFormat:@"%@%%",studentSatisfactionPercentage];
+            } else {
+                unionSatisfactionNumberLabel.text = @"N/A";
+            }
+            
+            NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+            [f setNumberStyle:NSNumberFormatterDecimalStyle];
+            NSLog(@"percentage: %@",studentSatisfactionPercentage);
+            NSNumber * unionPercentage = [f numberFromString:studentSatisfactionPercentage];
+            unionPercentage = [NSNumber numberWithFloat:([unionPercentage floatValue] / 100.0f)];
+            unionPercentage = [NSNumber numberWithFloat:(1.0f - [unionPercentage floatValue])];
+            NSLog(@"union percentage: %@",unionPercentage);
+            
+            [unionSatisfactionImageView setFrame:CGRectMake(unionSatisfactionImageViewFull.frame.origin.x, unionSatisfactionImageViewFull.frame.origin.y, unionSatisfactionImageViewFull.frame.size.width, unionSatisfactionImageViewFull.frame.size.height * [unionPercentage floatValue])];
+            unionSatisfactionImageView.contentMode = UIViewContentModeTop; // This determines position of image
+            unionSatisfactionImageView.clipsToBounds = YES;
+            [scroll addSubview:unionSatisfactionImageView];
+            
+            self.firstTimeLoad = NO;
+            self.scroll.hidden = NO;
+            self.sourceLabel.hidden = NO;
+            unionSatisfactionLabel.hidden = NO;
+            unionSatisfactionNumberLabel.hidden = NO;
+            unionSatisfactionImageView.hidden = NO;
+            unionSatisfactionImageViewFull.hidden = NO;
+            [self.activityIndicator stopAnimating];
+            [self.tableViewUniInfo reloadData];
+            self.tableViewUniInfo.hidden = NO;
+            
+
+        } else {
+        
         // query to get satisfaction with union
         PFQuery *queryForStudentSatisfaction = [PFQuery queryWithClassName:@"Institution"];
         [queryForStudentSatisfaction whereKey:@"UKPRN" equalTo:self.uniCodeUniInfo];
@@ -217,9 +257,9 @@
                     NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfPrivateBeds.count + upperQuartileCostOfPrivateBeds.count)];
                     // NSLog(@"total values %@",totalNumberOfValues);
                     NSNumber *averageCostOfLivingPrivate = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
-                    int privateRounded = lroundf([averageCostOfLivingPrivate floatValue]);
+                    NSUInteger privateRounded = lroundf([averageCostOfLivingPrivate floatValue]);
                     averageCostOfLivingPrivateString = @"£";
-                    averageCostOfLivingPrivateString = [averageCostOfLivingPrivateString stringByAppendingString:[NSString stringWithFormat:@"%d", privateRounded]];
+                    averageCostOfLivingPrivateString = [averageCostOfLivingPrivateString stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)privateRounded]];
                 } else {
                     averageCostOfLivingPrivateString = @"N/A";
                 }
@@ -238,9 +278,9 @@
                     NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfInstituteBeds.count + upperQuartileCostOfInstituteBeds.count)];
                     //NSLog(@"total values %@",totalNumberOfValues);
                     NSNumber *averageCostOfLivingInstitute = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
-                    int instituteRounded = lroundf([averageCostOfLivingInstitute floatValue]);
+                    NSUInteger instituteRounded = lroundf([averageCostOfLivingInstitute floatValue]);
                     averageCostOfLivingInstituteString = @"£";
-                    averageCostOfLivingInstituteString = [averageCostOfLivingInstituteString stringByAppendingString:[NSString stringWithFormat:@"%d", instituteRounded]];
+                    averageCostOfLivingInstituteString = [averageCostOfLivingInstituteString stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)instituteRounded]];
                     NSLog(@"averageL %@",averageCostOfLivingInstituteString);
                 } else {
                     averageCostOfLivingInstituteString = @"N/A";
@@ -330,6 +370,7 @@
             }
             
         }];
+        }
         
     }
     else {

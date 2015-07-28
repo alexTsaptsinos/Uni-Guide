@@ -9,19 +9,26 @@
         <attribute name="courseName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="degreeClasses" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="emailContact" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="instituteSalary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitudeContact" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitudeContact" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nationalSalary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nSSScores" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="proportionInWork" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sandwichYear" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sortNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="telephoneContact" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeSpent" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="ucasCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uniCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uniInfoData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="uniName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unionSatisfaction" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="websiteContact" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="yearAbroad" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Favourites" positionX="-63" positionY="-18" width="128" height="330"/>
+        <element name="Favourites" positionX="-63" positionY="-18" width="128" height="435"/>
     </elements>
 </model>

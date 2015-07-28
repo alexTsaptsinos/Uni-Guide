@@ -568,6 +568,7 @@
         courseInfoCoursePageViewController.haveComeFromFavourites = NO;
         
         contactUniversityPageViewController.universityName = cell.detailTextLabel.text;
+        contactUniversityPageViewController.courseCodeContact = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
         
         studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
         studentSatisfactionCoursePageViewController.courseNameStudentSatisfaction = cell.textLabel.text;
@@ -575,6 +576,7 @@
         
         uniInfoCoursePageViewController.haveWeComeFromUniversities = NO;
         uniInfoCoursePageViewController.uniNameUniInfo = cell.detailTextLabel.text;
+        uniInfoCoursePageViewController.courseCodeUniInfo = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
         
         NSLog(@"course code: %@",[self.searchResultsCourseCodes objectAtIndex:indexPath.row]);
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <Parse/Parse.h>
 #import <MessageUI/MessageUI.h>
+#import "Favourites.h"
 
 @interface ContactUniversityPageViewController : UIViewController <MKMapViewDelegate,MFMailComposeViewControllerDelegate>
 
@@ -17,8 +18,9 @@
 
 @property (strong, nonatomic) NSString *universityCode;
 @property (strong, nonatomic) NSString *universityName;
-@property (strong, nonatomic) NSNumber *uniLatitude;
-@property (strong, nonatomic) NSNumber *uniLongitude;
+@property (strong, nonatomic) NSString *courseCodeContact;
+@property (strong, nonatomic) NSString *uniLatitude;
+@property (strong, nonatomic) NSString *uniLongitude;
 @property (nonatomic) BOOL hasLoadedBool;
 
 @property (nonatomic, strong) UIButton *telephoneButton;
@@ -30,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *websiteLabel;
 
 @property (nonatomic) BOOL firstTimeLoad;
+
 @property (strong, nonatomic) UIImageView *noInternetImageView;
 @property (strong, nonatomic) UILabel *noInternetLabel;
 

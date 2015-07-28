@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "UniInfoCustomCellView.h"
+#import <QuartzCore/QuartzCore.h>
+#import "Favourites.h"
 
 @interface UniInfoCoursePageViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) NSString *uniCodeUniInfo;
 @property (strong, nonatomic) NSString *uniNameUniInfo;
+@property (strong, nonatomic) NSString *courseCodeUniInfo;
 
 @property (strong, nonatomic) UITableView *tableViewUniInfo;
 
@@ -29,6 +32,7 @@
 @property (nonatomic) BOOL firstTimeLoad;
 @property (strong,nonatomic) UILabel *universityNameLabel;
 @property (strong,nonatomic) UIScrollView *scroll;
+@property (nonatomic) BOOL haveComeFromFavourites;
 
 @property (strong, nonatomic) UIImageView *noInternetImageView;
 @property (strong, nonatomic) UILabel *noInternetLabel;

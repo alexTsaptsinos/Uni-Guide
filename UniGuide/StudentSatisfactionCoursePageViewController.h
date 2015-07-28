@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import <QuartzCore/QuartzCore.h>
 #import "StudentSatisfactionCustomCellView.h"
+#import "Favourites.h"
 
 @interface StudentSatisfactionCoursePageViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
