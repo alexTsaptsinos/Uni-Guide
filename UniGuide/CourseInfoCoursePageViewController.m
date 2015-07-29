@@ -16,7 +16,7 @@
 
 @implementation CourseInfoCoursePageViewController
 
-@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear,favouritesButton,activityIndicator,haveComeFromFavourites,noInternetImageView,noInternetLabel,sourceLabel,isItFavourite,favouritesPopoverButton,comparePopoverButton,isInMiddleOfFavouriteSave;
+@synthesize uniCodeCourseInfo,courseCodeCourseInfo,commonJobs,commonJobsPercentages,firstTimeLoad,courseInfoTableView,courseUrl,ucasCourseCode,averageTariffString,proportionInWork,instituteSalary,nationalSalary,degreeStatistics,assessmentMethods,timeSpent,uniNameCourseInfo,courseNameCourseInfo,universityNameLabel,courseNameLabel,yearAbroad,sandwichYear,favouritesButton,activityIndicator,haveComeFromFavourites,noInternetImageView,noInternetLabel,sourceLabel,isItFavourite,favouritesPopoverButton,comparePopoverButton,isInMiddleOfFavouriteSave,isInMiddleOfCompareSave,popoverController,replaceSecondButton,replaceFirstButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -838,18 +838,17 @@
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGFloat widthFloat = screenBound.size.width;
     
-    ARSPopover *popoverController = [[ARSPopover alloc] init];
+    popoverController = [[ARSPopover alloc] init];
     popoverController.sourceView = self.navigationController.visibleViewController.view;
     popoverController.sourceRect = CGRectMake(widthFloat-36, -5, 0, 0);
-    //CGRectMake(CGRectGetMidX(self.view.bounds), CGRectGetMaxY(self.view.bounds), 0, 0);
-    popoverController.contentSize = CGSizeMake(240, 100);
+    popoverController.contentSize = CGSizeMake(widthFloat-10, 100);
     popoverController.arrowDirection = UIPopoverArrowDirectionUp;
     popoverController.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     
     favouritesPopoverButton = [UIButton buttonWithType:UIButtonTypeSystem];
     if (isInMiddleOfFavouriteSave == YES) {
         favouritesPopoverButton.enabled = NO;
-        [favouritesPopoverButton setTitle:@"Saving..." forState:UIControlStateDisabled];
+        [favouritesPopoverButton setTitle:@"Adding..." forState:UIControlStateDisabled];
     } else {
     NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeCourseInfo,self.uniCodeCourseInfo] andSortKey:@"courseName"];
     if (temp2.count != 0) {
@@ -858,7 +857,7 @@
         [favouritesPopoverButton setTitle:@"Add to Favourites" forState:UIControlStateNormal];
     }
     }
-    favouritesPopoverButton.frame = CGRectMake(5, 5, 230, 40);
+    favouritesPopoverButton.frame = CGRectMake(5, 5, widthFloat-30, 40);
     [favouritesPopoverButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     favouritesPopoverButton.exclusiveTouch = YES;
     favouritesPopoverButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:16];
@@ -873,8 +872,18 @@
     [popoverController.view addSubview:favouritesPopoverButton];
     
     comparePopoverButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [comparePopoverButton setTitle:@"Remove from Compare" forState:UIControlStateNormal];
-    comparePopoverButton.frame = CGRectMake(5, 55, 230, 40);
+    if (isInMiddleOfCompareSave == YES) {
+        comparePopoverButton.enabled = NO;
+        [comparePopoverButton setTitle:@"Adding..." forState:UIControlStateDisabled];
+    } else {
+        NSArray * temp2 = [Compares readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeCourseInfo,self.uniCodeCourseInfo] andSortKey:@"courseName"];
+        if (temp2.count != 0) {
+            [comparePopoverButton setTitle:@"Remove from Compare" forState:UIControlStateNormal];
+        } else {
+            [comparePopoverButton setTitle:@"Add to Compare" forState:UIControlStateNormal];
+        }
+    }
+    comparePopoverButton.frame = CGRectMake(5, 55, widthFloat-30, 40);
     [comparePopoverButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     comparePopoverButton.exclusiveTouch = YES;
     comparePopoverButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:16];
@@ -917,16 +926,12 @@
         self.haveComeFromFavourites = NO;
     }
     else if (self.isItFavourite == NO) {
-        UIActivityIndicatorView *savingFavouriteIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        savingFavouriteIndicatorView.frame = CGRectMake(10, 210, 20, 20);
-        savingFavouriteIndicatorView.hidden = NO;
-        [savingFavouriteIndicatorView startAnimating];
-        [self.favouritesPopoverButton addSubview:savingFavouriteIndicatorView];
         
         self.isInMiddleOfFavouriteSave = YES;
-        [favouritesPopoverButton setTitle:@"Saving..." forState:UIControlStateNormal];
+        [favouritesPopoverButton setTitle:@"Adding..." forState:UIControlStateNormal];
         favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
         favouritesButton.image = [UIImage imageNamed:@"add_to_favorites-512.png"];
+        favouritesPopoverButton.enabled = NO;
         
         // EXtending so it saves also student satisfaction data!!
         
@@ -1146,8 +1151,6 @@
 
                 
                 // WE HAVE NOW FOUND ALL THE INFO AND SO CAN FINISH
-                [savingFavouriteIndicatorView stopAnimating];
-                savingFavouriteIndicatorView.hidden = YES;
                 favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
                 favouritesButton.image = [UIImage imageNamed:@"add_to_favorites-512.png"];
                 [favouritesPopoverButton setTitle:@"Remove from Favourites" forState:UIControlStateNormal];
@@ -1160,6 +1163,8 @@
                 NSLog(@"error saving to favourites");
                 favouritesButton.tintColor = [UIColor whiteColor];
                 favouritesButton.image = [UIImage imageNamed:@"add_to_favorites-512.png"];
+                favouritesPopoverButton.enabled = YES;
+                [favouritesPopoverButton setTitle:@"Remove from Favourites" forState:UIControlStateNormal];
                 self.isInMiddleOfFavouriteSave = NO;
                 UIAlertView *couldNotSaveAlertView = [[UIAlertView alloc] initWithTitle:@"Could not save!" message:@"We're sorry, but internet connection is required to save a course offline" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
                 [couldNotSaveAlertView show];
@@ -1172,9 +1177,765 @@
 }
 
 - (void)comparePopoverButtonClicked {
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGFloat widthFloat = screenBound.size.width;
+    NSArray *comparesArray1 = [Compares readAllObjects];
+    NSLog(@"count1: %lu",(unsigned long)comparesArray1.count);
+    
+    NSArray * temp2 = [Compares readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeCourseInfo,self.uniCodeCourseInfo] andSortKey:@"courseName"];
+    
+    if (temp2.count != 0) {
+        // IT IS IN COMPARE SO NEED TO REMOVE IT
+        [comparePopoverButton setTitle:@"Add to Compare" forState:UIControlStateNormal];
+        
+        for (Compares * temp in temp2) {
+            [Compares deleteObject:temp];
+            
+        }
+        [Compares saveDatabase];
+    } else {
+        // IT IS NOT IN COMPARE SO NEED TO ADD IT
+    NSArray *comparesArray = [Compares readAllObjects];
+
+    if (comparesArray.count == 2) {
+        // THEN THERE IS NO SPACE SO WE MUST REPLACE ANOTHER COURSE
+        
+        
+        
+        Compares *tempObject1 = [comparesArray objectAtIndex:0];
+        Compares *tempObject2 = [comparesArray objectAtIndex:1];
+        NSString *courseName1 = tempObject1.courseName;
+        NSString *courseName2 = tempObject2.courseName;
+        NSString *uniName1 = tempObject1.uniName;
+        NSString *uniName2 = tempObject2.uniName;
+        
+        replaceFirstButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [replaceFirstButton setTitle:@"  Replace:" forState:UIControlStateNormal];
+        replaceFirstButton.frame = CGRectMake(5, 5, widthFloat-30, 40);
+        [replaceFirstButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [replaceFirstButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        replaceFirstButton.exclusiveTouch = YES;
+        replaceFirstButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:13];
+        replaceFirstButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [replaceFirstButton addTarget:self action:@selector(replaceFirstButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        CALayer *btnLayer = [replaceFirstButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:15.0f];
+        [[replaceFirstButton layer] setBorderWidth:3.0f];
+        [[replaceFirstButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+        replaceFirstButton.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+        replaceFirstButton.hidden = YES;
+        
+        UILabel *nameLabel1 = [[UILabel alloc] init];
+        nameLabel1.frame = CGRectMake(65, 4, widthFloat-105, 16);
+        nameLabel1.font = [UIFont fontWithName:@"Arial" size:14];
+        nameLabel1.textAlignment = NSTextAlignmentRight;
+        nameLabel1.adjustsFontSizeToFitWidth = YES;
+        nameLabel1.text = courseName1;
+        nameLabel1.textColor = [UIColor whiteColor];
+        [replaceFirstButton addSubview:nameLabel1];
+        
+        UILabel *uniNameLabel1 = [[UILabel alloc] init];
+        uniNameLabel1.frame = CGRectMake(65, 20, widthFloat-105, 13);
+        uniNameLabel1.font = [UIFont fontWithName:@"Arial" size:12];
+        uniNameLabel1.textAlignment = NSTextAlignmentRight;
+        uniNameLabel1.adjustsFontSizeToFitWidth = YES;
+        uniNameLabel1.text = uniName1;
+        uniNameLabel1.textColor = [UIColor whiteColor];
+        [replaceFirstButton addSubview:uniNameLabel1];
+        [popoverController.view addSubview:replaceFirstButton];
+        
+        replaceSecondButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [replaceSecondButton setTitle:@"  Replace:" forState:UIControlStateNormal];
+        [replaceSecondButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        replaceSecondButton.frame = CGRectMake(5, 55, widthFloat-30, 40);
+        [replaceSecondButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        replaceSecondButton.exclusiveTouch = YES;
+        replaceSecondButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:13];
+        replaceSecondButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [replaceSecondButton addTarget:self action:@selector(replaceSecondButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        btnLayer = [replaceSecondButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:15.0f];
+        [[replaceSecondButton layer] setBorderWidth:3.0f];
+        [[replaceSecondButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+        replaceSecondButton.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+        replaceSecondButton.hidden = YES;
+        
+        UILabel *nameLabel2 = [[UILabel alloc] init];
+        nameLabel2.frame = CGRectMake(65, 4, widthFloat-105, 16);
+        nameLabel2.font = [UIFont fontWithName:@"Arial" size:14];
+        nameLabel2.textAlignment = NSTextAlignmentRight;
+        nameLabel2.adjustsFontSizeToFitWidth = YES;
+        nameLabel2.text = courseName2;
+        nameLabel2.textColor = [UIColor whiteColor];
+        [replaceSecondButton addSubview:nameLabel2];
+        
+        UILabel *uniNameLabel2 = [[UILabel alloc] init];
+        uniNameLabel2.frame = CGRectMake(65, 20, widthFloat-105, 13);
+        uniNameLabel2.font = [UIFont fontWithName:@"Arial" size:12];
+        uniNameLabel2.textAlignment = NSTextAlignmentRight;
+        uniNameLabel2.adjustsFontSizeToFitWidth = YES;
+        uniNameLabel2.text = uniName2;
+        uniNameLabel2.textColor = [UIColor whiteColor];
+        [replaceSecondButton addSubview:uniNameLabel2];
+        [popoverController.view addSubview:replaceSecondButton];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            favouritesPopoverButton.alpha = 0;
+        } completion: ^(BOOL finished) {//creates a variable (BOOL) called "finished" that is set to *YES* when animation IS completed.
+            favouritesPopoverButton.hidden = finished;//if animation is finished ("finished" == *YES*), then hidden = "finished" ... (aka hidden = *YES*)
+            if (finished) {
+                replaceFirstButton.alpha = 0;
+                replaceFirstButton.hidden = NO;
+                [UIView animateWithDuration:0.3 animations:^{
+                    replaceFirstButton.alpha = 1;
+                }];
+            }
+        }];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            comparePopoverButton.alpha = 0;
+        } completion: ^(BOOL finished) {//creates a variable (BOOL) called "finished" that is set to *YES* when animation IS completed.
+            comparePopoverButton.hidden = finished;//if animation is finished ("finished" == *YES*), then hidden = "finished" ... (aka hidden = *YES*)
+            if (finished) {
+                replaceSecondButton.alpha = 0;
+                replaceSecondButton.hidden = NO;
+                [UIView animateWithDuration:0.3 animations:^{
+                    replaceSecondButton.alpha = 1;
+                }];
+            }
+        }];
+        
+
+
+        
+        
+        
+    } else {
+        // THERE IS SPACE SO WE CAN SAVE THE COURSE
+
+        
+        self.isInMiddleOfCompareSave = YES;
+        [comparePopoverButton setTitle:@"Adding..." forState:UIControlStateNormal];
+        comparePopoverButton.enabled = NO;
+        
+        // EXtending so it saves also student satisfaction data!!
+        
+        PFQuery *queryForStudentSatisfactionData = [PFQuery queryWithClassName:@"NSS"];
+        [queryForStudentSatisfactionData whereKey:@"KISCOURSEID" equalTo:self.courseCodeCourseInfo];
+        [queryForStudentSatisfactionData whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+        [queryForStudentSatisfactionData findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+            if (!error) {
+                NSLog(@"objects: %@",objects);
+                Compares * tempCompares = [Compares createObject];
+                tempCompares.courseName = self.courseNameCourseInfo;
+                tempCompares.uniName = self.uniNameCourseInfo;
+                tempCompares.courseCode = self.courseCodeCourseInfo;
+                tempCompares.uniCode = self.uniCodeCourseInfo;
+                tempCompares.yearAbroad = self.yearAbroad;
+                tempCompares.sandwichYear = self.sandwichYear;
+                tempCompares.courseUrl = self.courseUrl;
+                //temp.ucasCode = self.ucasCourseCode;
+                tempCompares.degreeClasses = [NSKeyedArchiver archivedDataWithRootObject:self.degreeStatistics];
+                tempCompares.averageTariffString = self.averageTariffString;
+                tempCompares.assessmentMethods = [NSKeyedArchiver archivedDataWithRootObject:self.assessmentMethods];
+                tempCompares.timeSpent = [NSKeyedArchiver archivedDataWithRootObject:self.timeSpent];
+                tempCompares.proportionInWork = self.proportionInWork;
+                tempCompares.commonJobs = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobs];
+                tempCompares.commonJobsPercentages = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobsPercentages];
+                tempCompares.instituteSalary = self.instituteSalary;
+                tempCompares.nationalSalary = self.nationalSalary;
+                if (objects.count == 0) {
+                    //  NSLog(@"this worked");
+                    // SOME KIND OF ERROR MESSAGE
+                    
+                } else {
+                    NSArray *tempObject = [objects objectAtIndex:0];
+                    NSString *question1 = [tempObject valueForKey:@"Q1"];
+                    NSString *question2 = [tempObject valueForKey:@"Q2"];
+                    NSString *question3 = [tempObject valueForKey:@"Q3"];
+                    NSString *question4 = [tempObject valueForKey:@"Q4"];
+                    NSString *question5 = [tempObject valueForKey:@"Q5"];
+                    NSString *question6 = [tempObject valueForKey:@"Q6"];
+                    NSString *question7 = [tempObject valueForKey:@"Q7"];
+                    NSString *question8 = [tempObject valueForKey:@"Q8"];
+                    NSString *question9 = [tempObject valueForKey:@"Q9"];
+                    NSString *question10 = [tempObject valueForKey:@"Q10"];
+                    NSString *question11 = [tempObject valueForKey:@"Q11"];
+                    NSString *question12 = [tempObject valueForKey:@"Q12"];
+                    NSString *question13 = [tempObject valueForKey:@"Q13"];
+                    NSString *question14 = [tempObject valueForKey:@"Q14"];
+                    NSString *question15 = [tempObject valueForKey:@"Q15"];
+                    NSString *question16 = [tempObject valueForKey:@"Q16"];
+                    NSString *question17 = [tempObject valueForKey:@"Q17"];
+                    NSString *question18 = [tempObject valueForKey:@"Q18"];
+                    NSString *question19 = [tempObject valueForKey:@"Q19"];
+                    NSString *question20 = [tempObject valueForKey:@"Q20"];
+                    NSString *question21 = [tempObject valueForKey:@"Q21"];
+                    NSString *question22 = [tempObject valueForKey:@"Q22"];
+                    
+                    NSMutableArray *questionResults = [[NSMutableArray alloc] initWithObjects:question1,question2,question3,question4,question5,question6,question7,question8,question9,question10,question11,question12,question13,question14,question15,question16,question17,question18,question19,question20,question21,question22, nil];
+                    
+                    tempCompares.nSSScores = [NSKeyedArchiver archivedDataWithRootObject:questionResults];
+                    
+                    
+                }
+                // THIS HAPPENS IF THERE IS NSS SCORES OR NOT
+                
+                // NEXT WE FIND ALL THE INFO FOR THE UNI INFO PAGE
+                PFQuery *queryForStudentSatisfaction = [PFQuery queryWithClassName:@"Institution"];
+                [queryForStudentSatisfaction whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                [queryForStudentSatisfaction whereKeyExists:@"Q24"];
+                [queryForStudentSatisfaction findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                    if (!error) {
+                        if (objects.count != 0) {
+                            
+                            NSArray *uniInfoTemp = [objects objectAtIndex:0];
+                            NSString *studentSatisfactionPercentage = [uniInfoTemp valueForKey:@"Q24"];
+                            tempCompares.unionSatisfaction = studentSatisfactionPercentage;
+                            
+                            // query to get total number of students
+                            PFQuery *queryForTotalNumberOfStudents = [PFQuery queryWithClassName:@"Institution1213"];
+                            [queryForTotalNumberOfStudents whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                            [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"TotalAllStudents"]];
+                            PFObject *tempObject1 = [queryForTotalNumberOfStudents getFirstObject];
+                            NSString *totalNumberOfStudents = [tempObject1 valueForKey:@"TotalAllStudents"];
+                            
+                            
+                            // query to get total number of staff
+                            PFQuery *queryForTotalNumberOfStaff = [PFQuery queryWithClassName:@"StaffInst1213"];
+                            [queryForTotalNumberOfStaff whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                            [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"Total"]];
+                            PFObject *tempObject2 = [queryForTotalNumberOfStaff getFirstObject];
+                            NSString *totalNumberOfStaff = [tempObject2 valueForKey:@"Total"];
+                            
+                            
+                            //query to get data on total number of beds
+                            PFQuery *queryForAccomodation = [PFQuery queryWithClassName:@"Location"];
+                            [queryForAccomodation whereKeyExists:@"INSTBEDS"];
+                            [queryForAccomodation whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                            NSArray *object = [queryForAccomodation findObjects];
+                            NSArray *numberOfBeds = [object valueForKey:@"INSTBEDS"];
+                            NSString *totalNumberOfBedsString;
+                            if (numberOfBeds.count != 0) {
+                                NSNumber * totalNumberOfBeds = [numberOfBeds valueForKeyPath:@"@sum.self"];
+                                totalNumberOfBedsString = [totalNumberOfBeds stringValue];
+                            } else {
+                                totalNumberOfBedsString = @"N/A";
+                            }
+                            
+                            //calculate average cost for private accom.
+                            NSArray *lowerQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATELOWER"];
+                            NSArray *upperQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATEUPPER"];
+                            NSString *averageCostOfLivingPrivateString;
+                            NSString *averageCostOfLivingInstituteString;
+                            // NSLog(@"anything exist? %@ and %@",lowerQuartileCostOfPrivateBeds,upperQuartileCostOfPrivateBeds);
+                            if (lowerQuartileCostOfPrivateBeds.count != 0 && upperQuartileCostOfPrivateBeds.count != 0) {
+                                NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+                                NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+                                // NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+                                NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+                                // NSLog(@"sum: %@",sumOfQuartiles);
+                                NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfPrivateBeds.count + upperQuartileCostOfPrivateBeds.count)];
+                                // NSLog(@"total values %@",totalNumberOfValues);
+                                NSNumber *averageCostOfLivingPrivate = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+                                NSUInteger privateRounded = lroundf([averageCostOfLivingPrivate floatValue]);
+                                averageCostOfLivingPrivateString = @"£";
+                                averageCostOfLivingPrivateString = [averageCostOfLivingPrivateString stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)privateRounded]];
+                            } else {
+                                averageCostOfLivingPrivateString = @"N/A";
+                            }
+                            
+                            //calculate average cost for institute accom.
+                            
+                            NSArray *lowerQuartileCostOfInstituteBeds = [object valueForKey:@"INSTLOWER"];
+                            NSArray *upperQuartileCostOfInstituteBeds = [object valueForKey:@"INSTUPPER"];
+                            if (lowerQuartileCostOfInstituteBeds.count != 0 && upperQuartileCostOfInstituteBeds.count != 0) {
+                                NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+                                NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+                                //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+                                NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+                                //NSLog(@"sum: %@",sumOfQuartiles);
+                                NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfInstituteBeds.count + upperQuartileCostOfInstituteBeds.count)];
+                                //NSLog(@"total values %@",totalNumberOfValues);
+                                NSNumber *averageCostOfLivingInstitute = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+                                NSUInteger instituteRounded = lroundf([averageCostOfLivingInstitute floatValue]);
+                                averageCostOfLivingInstituteString = @"£";
+                                averageCostOfLivingInstituteString = [averageCostOfLivingInstituteString stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)instituteRounded]];
+                                NSLog(@"averageL %@",averageCostOfLivingInstituteString);
+                            } else {
+                                averageCostOfLivingInstituteString = @"N/A";
+                                
+                            }
+                            
+                            //NSLog(@"1: %@ 2: %@ 3: %@ 4: %@ 5: %@",totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString);
+                            
+                            NSMutableArray *uniInfoDataNumbers = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString, nil]];
+                            
+                            tempCompares.uniInfoData = [NSKeyedArchiver archivedDataWithRootObject:uniInfoDataNumbers];
+                        }
+                    }
+                }];
+                
+                // WE HAVE NOW FOUND ALL THE INFO AND SO CAN FINISH
+
+                [comparePopoverButton setTitle:@"Remove from Compare" forState:UIControlStateNormal];
+                comparePopoverButton.enabled = YES;
+                self.isInMiddleOfCompareSave = NO;
+                [Compares saveDatabase];
+            } else {
+                NSLog(@"error saving to compare");
+                [comparePopoverButton setTitle:@"Add to Compare" forState:UIControlStateNormal];
+                self.self.isInMiddleOfCompareSave = NO;
+                comparePopoverButton.enabled = YES;
+                UIAlertView *couldNotSaveAlertView = [[UIAlertView alloc] initWithTitle:@"Could not save!" message:@"We're sorry, but internet connection is required to add a course to compare" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [couldNotSaveAlertView show];
+            }
+        }];
+    }
+
+    }
+    
     
 }
 
+- (void)replaceFirstButtonClicked {
+    self.isInMiddleOfCompareSave = YES;
+    [UIView animateWithDuration:0.3 animations:^{
+        replaceFirstButton.alpha = 0;
+    } completion: ^(BOOL finished) {//creates a variable (BOOL) called "finished" that is set to *YES* when animation IS completed.
+        replaceFirstButton.hidden = finished;//if animation is finished ("finished" == *YES*), then hidden = "finished" ... (aka hidden = *YES*)
+        if (finished) {
+            favouritesPopoverButton.alpha = 0;
+            favouritesPopoverButton.hidden = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                favouritesPopoverButton.alpha = 1;
+            }];
+        }
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        replaceSecondButton.alpha = 0;
+    } completion: ^(BOOL finished) {//creates a variable (BOOL) called "finished" that is set to *YES* when animation IS completed.
+        replaceSecondButton.hidden = finished;//if animation is finished ("finished" == *YES*), then hidden = "finished" ... (aka hidden = *YES*)
+        if (finished) {
+            comparePopoverButton.alpha = 0;
+            comparePopoverButton.hidden = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                comparePopoverButton.alpha = 1;
+            }];
+        }
+    }];
+    
+    [comparePopoverButton setTitle:@"Adding..." forState:UIControlStateNormal];
+    comparePopoverButton.enabled = NO;
 
+    
+    // FIRST LET'S DELETE THE OLD COURSE
+
+    NSArray *temp1 = [Compares readAllObjects];
+    NSManagedObject *temp2 = [temp1 objectAtIndex:0];
+    NSLog(@"temp2: %@",temp2);
+    [Compares deleteObject:temp2];
+
+    [Compares saveDatabase];
+    
+    // NOW ADD THE NEW COURSE
+    
+    PFQuery *queryForStudentSatisfactionData = [PFQuery queryWithClassName:@"NSS"];
+    [queryForStudentSatisfactionData whereKey:@"KISCOURSEID" equalTo:self.courseCodeCourseInfo];
+    [queryForStudentSatisfactionData whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+    [queryForStudentSatisfactionData findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+        if (!error) {
+            NSLog(@"objects: %@",objects);
+            Compares * tempCompares = [Compares createObject];
+            tempCompares.courseName = self.courseNameCourseInfo;
+            tempCompares.uniName = self.uniNameCourseInfo;
+            tempCompares.courseCode = self.courseCodeCourseInfo;
+            tempCompares.uniCode = self.uniCodeCourseInfo;
+            tempCompares.yearAbroad = self.yearAbroad;
+            tempCompares.sandwichYear = self.sandwichYear;
+            tempCompares.courseUrl = self.courseUrl;
+            //temp.ucasCode = self.ucasCourseCode;
+            tempCompares.degreeClasses = [NSKeyedArchiver archivedDataWithRootObject:self.degreeStatistics];
+            tempCompares.averageTariffString = self.averageTariffString;
+            tempCompares.assessmentMethods = [NSKeyedArchiver archivedDataWithRootObject:self.assessmentMethods];
+            tempCompares.timeSpent = [NSKeyedArchiver archivedDataWithRootObject:self.timeSpent];
+            tempCompares.proportionInWork = self.proportionInWork;
+            tempCompares.commonJobs = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobs];
+            tempCompares.commonJobsPercentages = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobsPercentages];
+            tempCompares.instituteSalary = self.instituteSalary;
+            tempCompares.nationalSalary = self.nationalSalary;
+            if (objects.count == 0) {
+                //  NSLog(@"this worked");
+                // SOME KIND OF ERROR MESSAGE
+                
+            } else {
+                NSArray *tempObject = [objects objectAtIndex:0];
+                NSString *question1 = [tempObject valueForKey:@"Q1"];
+                NSString *question2 = [tempObject valueForKey:@"Q2"];
+                NSString *question3 = [tempObject valueForKey:@"Q3"];
+                NSString *question4 = [tempObject valueForKey:@"Q4"];
+                NSString *question5 = [tempObject valueForKey:@"Q5"];
+                NSString *question6 = [tempObject valueForKey:@"Q6"];
+                NSString *question7 = [tempObject valueForKey:@"Q7"];
+                NSString *question8 = [tempObject valueForKey:@"Q8"];
+                NSString *question9 = [tempObject valueForKey:@"Q9"];
+                NSString *question10 = [tempObject valueForKey:@"Q10"];
+                NSString *question11 = [tempObject valueForKey:@"Q11"];
+                NSString *question12 = [tempObject valueForKey:@"Q12"];
+                NSString *question13 = [tempObject valueForKey:@"Q13"];
+                NSString *question14 = [tempObject valueForKey:@"Q14"];
+                NSString *question15 = [tempObject valueForKey:@"Q15"];
+                NSString *question16 = [tempObject valueForKey:@"Q16"];
+                NSString *question17 = [tempObject valueForKey:@"Q17"];
+                NSString *question18 = [tempObject valueForKey:@"Q18"];
+                NSString *question19 = [tempObject valueForKey:@"Q19"];
+                NSString *question20 = [tempObject valueForKey:@"Q20"];
+                NSString *question21 = [tempObject valueForKey:@"Q21"];
+                NSString *question22 = [tempObject valueForKey:@"Q22"];
+                
+                NSMutableArray *questionResults = [[NSMutableArray alloc] initWithObjects:question1,question2,question3,question4,question5,question6,question7,question8,question9,question10,question11,question12,question13,question14,question15,question16,question17,question18,question19,question20,question21,question22, nil];
+                
+                tempCompares.nSSScores = [NSKeyedArchiver archivedDataWithRootObject:questionResults];
+                
+                
+            }
+            // THIS HAPPENS IF THERE IS NSS SCORES OR NOT
+            
+            // NEXT WE FIND ALL THE INFO FOR THE UNI INFO PAGE
+            PFQuery *queryForStudentSatisfaction = [PFQuery queryWithClassName:@"Institution"];
+            [queryForStudentSatisfaction whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+            [queryForStudentSatisfaction whereKeyExists:@"Q24"];
+            [queryForStudentSatisfaction findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                if (!error) {
+                    if (objects.count != 0) {
+                        
+                        NSArray *uniInfoTemp = [objects objectAtIndex:0];
+                        NSString *studentSatisfactionPercentage = [uniInfoTemp valueForKey:@"Q24"];
+                        tempCompares.unionSatisfaction = studentSatisfactionPercentage;
+                        
+                        // query to get total number of students
+                        PFQuery *queryForTotalNumberOfStudents = [PFQuery queryWithClassName:@"Institution1213"];
+                        [queryForTotalNumberOfStudents whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                        [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"TotalAllStudents"]];
+                        PFObject *tempObject1 = [queryForTotalNumberOfStudents getFirstObject];
+                        NSString *totalNumberOfStudents = [tempObject1 valueForKey:@"TotalAllStudents"];
+                        
+                        
+                        // query to get total number of staff
+                        PFQuery *queryForTotalNumberOfStaff = [PFQuery queryWithClassName:@"StaffInst1213"];
+                        [queryForTotalNumberOfStaff whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                        [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"Total"]];
+                        PFObject *tempObject2 = [queryForTotalNumberOfStaff getFirstObject];
+                        NSString *totalNumberOfStaff = [tempObject2 valueForKey:@"Total"];
+                        
+                        
+                        //query to get data on total number of beds
+                        PFQuery *queryForAccomodation = [PFQuery queryWithClassName:@"Location"];
+                        [queryForAccomodation whereKeyExists:@"INSTBEDS"];
+                        [queryForAccomodation whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                        NSArray *object = [queryForAccomodation findObjects];
+                        NSArray *numberOfBeds = [object valueForKey:@"INSTBEDS"];
+                        NSString *totalNumberOfBedsString;
+                        if (numberOfBeds.count != 0) {
+                            NSNumber * totalNumberOfBeds = [numberOfBeds valueForKeyPath:@"@sum.self"];
+                            totalNumberOfBedsString = [totalNumberOfBeds stringValue];
+                        } else {
+                            totalNumberOfBedsString = @"N/A";
+                        }
+                        
+                        //calculate average cost for private accom.
+                        NSArray *lowerQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATELOWER"];
+                        NSArray *upperQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATEUPPER"];
+                        NSString *averageCostOfLivingPrivateString;
+                        NSString *averageCostOfLivingInstituteString;
+                        // NSLog(@"anything exist? %@ and %@",lowerQuartileCostOfPrivateBeds,upperQuartileCostOfPrivateBeds);
+                        if (lowerQuartileCostOfPrivateBeds.count != 0 && upperQuartileCostOfPrivateBeds.count != 0) {
+                            NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+                            NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+                            // NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+                            NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+                            // NSLog(@"sum: %@",sumOfQuartiles);
+                            NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfPrivateBeds.count + upperQuartileCostOfPrivateBeds.count)];
+                            // NSLog(@"total values %@",totalNumberOfValues);
+                            NSNumber *averageCostOfLivingPrivate = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+                            NSUInteger privateRounded = lroundf([averageCostOfLivingPrivate floatValue]);
+                            averageCostOfLivingPrivateString = @"£";
+                            averageCostOfLivingPrivateString = [averageCostOfLivingPrivateString stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)privateRounded]];
+                        } else {
+                            averageCostOfLivingPrivateString = @"N/A";
+                        }
+                        
+                        //calculate average cost for institute accom.
+                        
+                        NSArray *lowerQuartileCostOfInstituteBeds = [object valueForKey:@"INSTLOWER"];
+                        NSArray *upperQuartileCostOfInstituteBeds = [object valueForKey:@"INSTUPPER"];
+                        if (lowerQuartileCostOfInstituteBeds.count != 0 && upperQuartileCostOfInstituteBeds.count != 0) {
+                            NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+                            NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+                            //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+                            NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+                            //NSLog(@"sum: %@",sumOfQuartiles);
+                            NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfInstituteBeds.count + upperQuartileCostOfInstituteBeds.count)];
+                            //NSLog(@"total values %@",totalNumberOfValues);
+                            NSNumber *averageCostOfLivingInstitute = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+                            NSUInteger instituteRounded = lroundf([averageCostOfLivingInstitute floatValue]);
+                            averageCostOfLivingInstituteString = @"£";
+                            averageCostOfLivingInstituteString = [averageCostOfLivingInstituteString stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)instituteRounded]];
+                            NSLog(@"averageL %@",averageCostOfLivingInstituteString);
+                        } else {
+                            averageCostOfLivingInstituteString = @"N/A";
+                            
+                        }
+                        
+                        //NSLog(@"1: %@ 2: %@ 3: %@ 4: %@ 5: %@",totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString);
+                        
+                        NSMutableArray *uniInfoDataNumbers = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString, nil]];
+                        
+                        tempCompares.uniInfoData = [NSKeyedArchiver archivedDataWithRootObject:uniInfoDataNumbers];
+                    }
+                }
+            }];
+            
+            // WE HAVE NOW FOUND ALL THE INFO AND SO CAN FINISH
+            
+            [comparePopoverButton setTitle:@"Remove from Compare" forState:UIControlStateNormal];
+            comparePopoverButton.enabled = YES;
+            self.isInMiddleOfCompareSave = NO;
+            [Compares saveDatabase];
+
+        } else {
+            NSLog(@"error saving to favourites");
+            [comparePopoverButton setTitle:@"Add to Compare" forState:UIControlStateNormal];
+            comparePopoverButton.enabled = YES;
+            self.isInMiddleOfCompareSave = NO;
+            UIAlertView *couldNotSaveAlertView = [[UIAlertView alloc] initWithTitle:@"Could not save!" message:@"We're sorry, but internet connection is required to add a course to compare" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [couldNotSaveAlertView show];
+        }
+    }];
+
+
+}
+
+- (void)replaceSecondButtonClicked {
+    
+    self.isInMiddleOfCompareSave = YES;
+    [UIView animateWithDuration:0.3 animations:^{
+        replaceFirstButton.alpha = 0;
+    } completion: ^(BOOL finished) {//creates a variable (BOOL) called "finished" that is set to *YES* when animation IS completed.
+        replaceFirstButton.hidden = finished;//if animation is finished ("finished" == *YES*), then hidden = "finished" ... (aka hidden = *YES*)
+        if (finished) {
+            favouritesPopoverButton.alpha = 0;
+            favouritesPopoverButton.hidden = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                favouritesPopoverButton.alpha = 1;
+            }];
+        }
+    }];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        replaceSecondButton.alpha = 0;
+    } completion: ^(BOOL finished) {//creates a variable (BOOL) called "finished" that is set to *YES* when animation IS completed.
+        replaceSecondButton.hidden = finished;//if animation is finished ("finished" == *YES*), then hidden = "finished" ... (aka hidden = *YES*)
+        if (finished) {
+            comparePopoverButton.alpha = 0;
+            comparePopoverButton.hidden = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                comparePopoverButton.alpha = 1;
+            }];
+        }
+    }];
+    
+    [comparePopoverButton setTitle:@"Adding..." forState:UIControlStateNormal];
+    comparePopoverButton.enabled = NO;
+    
+    
+    // FIRST LET'S DELETE THE OLD COURSE
+    
+    NSArray *temp1 = [Compares readAllObjects];
+    NSManagedObject *temp2 = [temp1 objectAtIndex:1];
+    NSLog(@"temp2: %@",temp2);
+    [Compares deleteObject:temp2];
+    
+    [Compares saveDatabase];
+    
+    // NOW ADD THE NEW COURSE
+    
+    PFQuery *queryForStudentSatisfactionData = [PFQuery queryWithClassName:@"NSS"];
+    [queryForStudentSatisfactionData whereKey:@"KISCOURSEID" equalTo:self.courseCodeCourseInfo];
+    [queryForStudentSatisfactionData whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+    [queryForStudentSatisfactionData findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+        if (!error) {
+            NSLog(@"objects: %@",objects);
+            Compares * tempCompares = [Compares createObject];
+            tempCompares.courseName = self.courseNameCourseInfo;
+            tempCompares.uniName = self.uniNameCourseInfo;
+            tempCompares.courseCode = self.courseCodeCourseInfo;
+            tempCompares.uniCode = self.uniCodeCourseInfo;
+            tempCompares.yearAbroad = self.yearAbroad;
+            tempCompares.sandwichYear = self.sandwichYear;
+            tempCompares.courseUrl = self.courseUrl;
+            //temp.ucasCode = self.ucasCourseCode;
+            tempCompares.degreeClasses = [NSKeyedArchiver archivedDataWithRootObject:self.degreeStatistics];
+            tempCompares.averageTariffString = self.averageTariffString;
+            tempCompares.assessmentMethods = [NSKeyedArchiver archivedDataWithRootObject:self.assessmentMethods];
+            tempCompares.timeSpent = [NSKeyedArchiver archivedDataWithRootObject:self.timeSpent];
+            tempCompares.proportionInWork = self.proportionInWork;
+            tempCompares.commonJobs = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobs];
+            tempCompares.commonJobsPercentages = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobsPercentages];
+            tempCompares.instituteSalary = self.instituteSalary;
+            tempCompares.nationalSalary = self.nationalSalary;
+            if (objects.count == 0) {
+                //  NSLog(@"this worked");
+                // SOME KIND OF ERROR MESSAGE
+                
+            } else {
+                NSArray *tempObject = [objects objectAtIndex:0];
+                NSString *question1 = [tempObject valueForKey:@"Q1"];
+                NSString *question2 = [tempObject valueForKey:@"Q2"];
+                NSString *question3 = [tempObject valueForKey:@"Q3"];
+                NSString *question4 = [tempObject valueForKey:@"Q4"];
+                NSString *question5 = [tempObject valueForKey:@"Q5"];
+                NSString *question6 = [tempObject valueForKey:@"Q6"];
+                NSString *question7 = [tempObject valueForKey:@"Q7"];
+                NSString *question8 = [tempObject valueForKey:@"Q8"];
+                NSString *question9 = [tempObject valueForKey:@"Q9"];
+                NSString *question10 = [tempObject valueForKey:@"Q10"];
+                NSString *question11 = [tempObject valueForKey:@"Q11"];
+                NSString *question12 = [tempObject valueForKey:@"Q12"];
+                NSString *question13 = [tempObject valueForKey:@"Q13"];
+                NSString *question14 = [tempObject valueForKey:@"Q14"];
+                NSString *question15 = [tempObject valueForKey:@"Q15"];
+                NSString *question16 = [tempObject valueForKey:@"Q16"];
+                NSString *question17 = [tempObject valueForKey:@"Q17"];
+                NSString *question18 = [tempObject valueForKey:@"Q18"];
+                NSString *question19 = [tempObject valueForKey:@"Q19"];
+                NSString *question20 = [tempObject valueForKey:@"Q20"];
+                NSString *question21 = [tempObject valueForKey:@"Q21"];
+                NSString *question22 = [tempObject valueForKey:@"Q22"];
+                
+                NSMutableArray *questionResults = [[NSMutableArray alloc] initWithObjects:question1,question2,question3,question4,question5,question6,question7,question8,question9,question10,question11,question12,question13,question14,question15,question16,question17,question18,question19,question20,question21,question22, nil];
+                
+                tempCompares.nSSScores = [NSKeyedArchiver archivedDataWithRootObject:questionResults];
+                
+                
+            }
+            // THIS HAPPENS IF THERE IS NSS SCORES OR NOT
+            
+            // NEXT WE FIND ALL THE INFO FOR THE UNI INFO PAGE
+            PFQuery *queryForStudentSatisfaction = [PFQuery queryWithClassName:@"Institution"];
+            [queryForStudentSatisfaction whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+            [queryForStudentSatisfaction whereKeyExists:@"Q24"];
+            [queryForStudentSatisfaction findObjectsInBackgroundWithBlock:^(NSArray *objects,NSError *error){
+                if (!error) {
+                    if (objects.count != 0) {
+                        
+                        NSArray *uniInfoTemp = [objects objectAtIndex:0];
+                        NSString *studentSatisfactionPercentage = [uniInfoTemp valueForKey:@"Q24"];
+                        tempCompares.unionSatisfaction = studentSatisfactionPercentage;
+                        
+                        // query to get total number of students
+                        PFQuery *queryForTotalNumberOfStudents = [PFQuery queryWithClassName:@"Institution1213"];
+                        [queryForTotalNumberOfStudents whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                        [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"TotalAllStudents"]];
+                        PFObject *tempObject1 = [queryForTotalNumberOfStudents getFirstObject];
+                        NSString *totalNumberOfStudents = [tempObject1 valueForKey:@"TotalAllStudents"];
+                        
+                        
+                        // query to get total number of staff
+                        PFQuery *queryForTotalNumberOfStaff = [PFQuery queryWithClassName:@"StaffInst1213"];
+                        [queryForTotalNumberOfStaff whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                        [queryForTotalNumberOfStudents selectKeys:[NSArray arrayWithObject:@"Total"]];
+                        PFObject *tempObject2 = [queryForTotalNumberOfStaff getFirstObject];
+                        NSString *totalNumberOfStaff = [tempObject2 valueForKey:@"Total"];
+                        
+                        
+                        //query to get data on total number of beds
+                        PFQuery *queryForAccomodation = [PFQuery queryWithClassName:@"Location"];
+                        [queryForAccomodation whereKeyExists:@"INSTBEDS"];
+                        [queryForAccomodation whereKey:@"UKPRN" equalTo:self.uniCodeCourseInfo];
+                        NSArray *object = [queryForAccomodation findObjects];
+                        NSArray *numberOfBeds = [object valueForKey:@"INSTBEDS"];
+                        NSString *totalNumberOfBedsString;
+                        if (numberOfBeds.count != 0) {
+                            NSNumber * totalNumberOfBeds = [numberOfBeds valueForKeyPath:@"@sum.self"];
+                            totalNumberOfBedsString = [totalNumberOfBeds stringValue];
+                        } else {
+                            totalNumberOfBedsString = @"N/A";
+                        }
+                        
+                        //calculate average cost for private accom.
+                        NSArray *lowerQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATELOWER"];
+                        NSArray *upperQuartileCostOfPrivateBeds = [object valueForKey:@"PRIVATEUPPER"];
+                        NSString *averageCostOfLivingPrivateString;
+                        NSString *averageCostOfLivingInstituteString;
+                        // NSLog(@"anything exist? %@ and %@",lowerQuartileCostOfPrivateBeds,upperQuartileCostOfPrivateBeds);
+                        if (lowerQuartileCostOfPrivateBeds.count != 0 && upperQuartileCostOfPrivateBeds.count != 0) {
+                            NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+                            NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfPrivateBeds valueForKeyPath:@"@sum.self"];
+                            // NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+                            NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+                            // NSLog(@"sum: %@",sumOfQuartiles);
+                            NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfPrivateBeds.count + upperQuartileCostOfPrivateBeds.count)];
+                            // NSLog(@"total values %@",totalNumberOfValues);
+                            NSNumber *averageCostOfLivingPrivate = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+                            NSUInteger privateRounded = lroundf([averageCostOfLivingPrivate floatValue]);
+                            averageCostOfLivingPrivateString = @"£";
+                            averageCostOfLivingPrivateString = [averageCostOfLivingPrivateString stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)privateRounded]];
+                        } else {
+                            averageCostOfLivingPrivateString = @"N/A";
+                        }
+                        
+                        //calculate average cost for institute accom.
+                        
+                        NSArray *lowerQuartileCostOfInstituteBeds = [object valueForKey:@"INSTLOWER"];
+                        NSArray *upperQuartileCostOfInstituteBeds = [object valueForKey:@"INSTUPPER"];
+                        if (lowerQuartileCostOfInstituteBeds.count != 0 && upperQuartileCostOfInstituteBeds.count != 0) {
+                            NSNumber *sumOfLowerQuartiles = [lowerQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+                            NSNumber *sumOfUpperQuartiles = [upperQuartileCostOfInstituteBeds valueForKeyPath:@"@sum.self"];
+                            //NSLog(@"lower quartiles sum: %@, upper quartiles sum: %@", sumOfLowerQuartiles,sumOfUpperQuartiles);
+                            NSNumber *sumOfQuartiles = [NSNumber numberWithFloat:([sumOfLowerQuartiles floatValue] + [sumOfUpperQuartiles floatValue])];
+                            //NSLog(@"sum: %@",sumOfQuartiles);
+                            NSNumber *totalNumberOfValues = [NSNumber numberWithFloat:(lowerQuartileCostOfInstituteBeds.count + upperQuartileCostOfInstituteBeds.count)];
+                            //NSLog(@"total values %@",totalNumberOfValues);
+                            NSNumber *averageCostOfLivingInstitute = [NSNumber numberWithFloat:([sumOfQuartiles floatValue] / [totalNumberOfValues floatValue])];
+                            NSUInteger instituteRounded = lroundf([averageCostOfLivingInstitute floatValue]);
+                            averageCostOfLivingInstituteString = @"£";
+                            averageCostOfLivingInstituteString = [averageCostOfLivingInstituteString stringByAppendingString:[NSString stringWithFormat:@"%lu", (unsigned long)instituteRounded]];
+                            NSLog(@"averageL %@",averageCostOfLivingInstituteString);
+                        } else {
+                            averageCostOfLivingInstituteString = @"N/A";
+                            
+                        }
+                        
+                        //NSLog(@"1: %@ 2: %@ 3: %@ 4: %@ 5: %@",totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString);
+                        
+                        NSMutableArray *uniInfoDataNumbers = [[NSMutableArray alloc] initWithArray:[NSArray arrayWithObjects:totalNumberOfStudents,totalNumberOfStaff,totalNumberOfBedsString,averageCostOfLivingInstituteString,averageCostOfLivingPrivateString, nil]];
+                        
+                        tempCompares.uniInfoData = [NSKeyedArchiver archivedDataWithRootObject:uniInfoDataNumbers];
+                    }
+                }
+            }];
+            
+            // WE HAVE NOW FOUND ALL THE INFO AND SO CAN FINISH
+            
+            [comparePopoverButton setTitle:@"Remove from Compare" forState:UIControlStateNormal];
+            comparePopoverButton.enabled = YES;
+            self.isInMiddleOfCompareSave = NO;
+            [Compares saveDatabase];
+            
+        } else {
+            NSLog(@"error saving to favourites");
+            [comparePopoverButton setTitle:@"Add to Compare" forState:UIControlStateNormal];
+            comparePopoverButton.enabled = YES;
+            self.isInMiddleOfCompareSave = NO;
+            UIAlertView *couldNotSaveAlertView = [[UIAlertView alloc] initWithTitle:@"Could not save!" message:@"We're sorry, but internet connection is required to add a course to compare" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [couldNotSaveAlertView show];
+        }
+    }];
+    
+}
 
 @end

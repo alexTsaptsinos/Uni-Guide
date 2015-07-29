@@ -59,6 +59,7 @@
 		EF27409419912E6C00B932DC /* CommonJobsCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF27409319912E6C00B932DC /* CommonJobsCustomCellView.xib */; };
 		EF27409719912EAD00B932DC /* CommonJobsCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */; };
 		EF31C0371B6804D900511418 /* ui-19emptysmall.png in Resources */ = {isa = PBXBuildFile; fileRef = EF31C0361B6804D900511418 /* ui-19emptysmall.png */; };
+		EF31C03A1B68EAC800511418 /* Compares.m in Sources */ = {isa = PBXBuildFile; fileRef = EF31C0391B68EAC800511418 /* Compares.m */; };
 		EF5533771981AA0D00120FEA /* checked_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5533761981AA0D00120FEA /* checked_checkbox.png */; };
 		EF5533791981AA1400120FEA /* unchecked_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5533781981AA1400120FEA /* unchecked_checkbox.png */; };
 		EF5B6ED919926CC200B2E18D /* CourseInfoTextCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */; };
@@ -327,6 +328,8 @@
 		EF27409519912EAD00B932DC /* CommonJobsCustomCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonJobsCustomCellView.h; sourceTree = "<group>"; };
 		EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonJobsCustomCellView.m; sourceTree = "<group>"; };
 		EF31C0361B6804D900511418 /* ui-19emptysmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-19emptysmall.png"; sourceTree = "<group>"; };
+		EF31C0381B68EAC800511418 /* Compares.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compares.h; sourceTree = "<group>"; };
+		EF31C0391B68EAC800511418 /* Compares.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Compares.m; sourceTree = "<group>"; };
 		EF5533761981AA0D00120FEA /* checked_checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked_checkbox.png; sourceTree = "<group>"; };
 		EF5533781981AA1400120FEA /* unchecked_checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked_checkbox.png; sourceTree = "<group>"; };
 		EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseInfoTextCustomCellView.xib; sourceTree = "<group>"; };
@@ -556,6 +559,8 @@
 				9E6C4FD61994DA5500A536E3 /* UniGuide.xcdatamodeld */,
 				9E6C4FD91994DA7F00A536E3 /* Favourites.h */,
 				9E6C4FDA1994DA7F00A536E3 /* Favourites.m */,
+				EF31C0381B68EAC800511418 /* Compares.h */,
+				EF31C0391B68EAC800511418 /* Compares.m */,
 				EF6933FF1B59586C0040589A /* Compare Function */,
 				EF7F6F46197EE5CE0009DB60 /* Search Function */,
 				EF7F6F4B197EE66B0009DB60 /* Favourites Function */,
@@ -1184,6 +1189,7 @@
 				A4C6C8A4197AD22F0065311C /* main.m in Sources */,
 				EF93A59619A36101007F5CAB /* LocationSelectTableViewController.m in Sources */,
 				EFCCDCD21B62D5BA00BACB72 /* UsefulWebsitesTableViewCell.m in Sources */,
+				EF31C03A1B68EAC800511418 /* Compares.m in Sources */,
 				EF7F6F8119804D810009DB60 /* AddReviewViewController.m in Sources */,
 				EF274087198F9F8800B932DC /* ReviewCustomCellView.m in Sources */,
 				EFCCDD091B668A7000BACB72 /* ARSPopover.m in Sources */,

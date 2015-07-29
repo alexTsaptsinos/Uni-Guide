@@ -16,6 +16,7 @@
 #import "Favourites.h"
 #import "NSManagedObject+CRUD.h"
 #import "ARSPopover.h"
+#import "Compares.h"
 
 @interface CourseInfoCoursePageViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
@@ -49,6 +50,7 @@
 @property (nonatomic) BOOL haveComeFromFavourites;
 @property (nonatomic) BOOL isItFavourite;
 @property (nonatomic) BOOL isInMiddleOfFavouriteSave;
+@property (nonatomic) BOOL isInMiddleOfCompareSave;
 
 
 -(void) customBtnPressed;
@@ -60,8 +62,11 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *courseNameLabel;
 
+@property (strong,nonatomic) ARSPopover *popoverController;
 @property (strong,nonatomic) UIButton *favouritesPopoverButton;
 @property (strong,nonatomic) UIButton *comparePopoverButton;
+@property (strong,nonatomic) UIButton *replaceFirstButton;
+@property (strong,nonatomic) UIButton *replaceSecondButton;
 
 
 
