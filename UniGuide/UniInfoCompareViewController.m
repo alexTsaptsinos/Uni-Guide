@@ -14,7 +14,7 @@
 
 @implementation UniInfoCompareViewController
 
-@synthesize compareCollectionView;
+@synthesize compareCollectionView,courseObject;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,6 +43,55 @@
     compareCollectionView.directionalLockEnabled = YES;
     
     [self.view addSubview:compareCollectionView];
+    
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (comparesArray.count == 0) {
+        // THERE ARE NO COMPARES SO SET UP A MESSAGE AND A BUTTON TO ADD FROM FAVOURITES
+        UILabel *noFavouritesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 35, 280, 60)];
+        noFavouritesLabel.text = @"You don't have any courses added to compare at the moment";
+        noFavouritesLabel.textColor = [UIColor grayColor];
+        noFavouritesLabel.textAlignment = NSTextAlignmentCenter;
+        noFavouritesLabel.numberOfLines = 0;
+        noFavouritesLabel.font = [UIFont fontWithName:@"Helvetica"  size:16.0];
+        [self.view addSubview:noFavouritesLabel];
+        
+        UIButton *noComparesButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        noComparesButton.frame = CGRectMake(widthFloat/2 - 90, 136, 180, 37);
+        [noComparesButton addTarget:self action:@selector(noComparesButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        noComparesButton.exclusiveTouch = YES;
+        noComparesButton.titleLabel.font = [UIFont fontWithName:@"Helvita" size:15.0];
+        [noComparesButton setTitle:@"Add from Favourites" forState:UIControlStateNormal];
+        [noComparesButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.view addSubview:noComparesButton];
+        noComparesButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        CALayer *btnLayer = [noComparesButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:5.0f];
+    } else if (comparesArray.count == 1) {
+        // ONLY ONE COMPARE
+        UILabel *oneFavouriteLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthFloat*2/3 - 5, 43, widthFloat/3, 200)];
+        oneFavouriteLabel.text = @"You only have one course added to compare";
+        oneFavouriteLabel.textColor = [UIColor grayColor];
+        oneFavouriteLabel.textAlignment = NSTextAlignmentCenter;
+        oneFavouriteLabel.numberOfLines = 0;
+        oneFavouriteLabel.font = [UIFont fontWithName:@"Helvetica"  size:16.0];
+        [self.view addSubview:oneFavouriteLabel];
+        
+        UIButton *oneCompareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        oneCompareButton.frame = CGRectMake(widthFloat*2/3, 220, widthFloat/3-10, 50);
+        [oneCompareButton addTarget:self action:@selector(noComparesButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        oneCompareButton.exclusiveTouch = YES;
+        oneCompareButton.titleLabel.font = [UIFont fontWithName:@"Helvita" size:15.0];
+        oneCompareButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [oneCompareButton setTitle:@"Add from Favourites" forState:UIControlStateNormal];
+        [oneCompareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        oneCompareButton.titleLabel.numberOfLines = 0;
+        [self.view addSubview:oneCompareButton];
+        oneCompareButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        CALayer *btnLayer = [oneCompareButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:5.0f];
+    }
 
 }
 
@@ -57,13 +106,28 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (comparesArray.count == 0) {
+        return 0;
+    } else if (comparesArray.count == 1) {
+        return 2;
+    } else {
+        return 3;
+    }
 }
 
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGFloat widthFloat = screenBound.size.width;
+    
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (indexPath.row == 0) {
+        self.courseObject = [comparesArray objectAtIndex:0];
+        //self.courseObject = [comparesArray objectAtIndex:0];
+    } else if (indexPath.row == 2) {
+        self.courseObject = [comparesArray objectAtIndex:1];
+    }
     
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
@@ -99,8 +163,25 @@
                 cell = [nib objectAtIndex:0];
             }
             cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-            cell.uniNameLabel.text = @"University Name";
-            cell.courseNameLabel.text = @"Course Name";
+            cell.uniNameLabel.text = courseObject.uniName;
+            cell.courseNameLabel.text = courseObject.courseName;
+            NSString *yearAbroad = courseObject.yearAbroad;
+            NSString *yearIndustry = courseObject.sandwichYear;
+            if ([yearAbroad isEqualToString:@"1"]) {
+                cell.yearAbroadLabel.text = @"Year abroad optional";
+            } else if ([yearAbroad isEqualToString:@"2"]) {
+                cell.yearAbroadLabel.text = @"Year abroad compulsory";
+            } else {
+                cell.yearAbroadLabel.text = @"Year abroad not available";
+            }
+            
+            if ([yearIndustry isEqualToString:@"1"]) {
+                cell.yearIndustryLabel.text = @"Year in industry optional";
+            } else if ([yearIndustry isEqualToString:@"2"]) {
+                cell.yearIndustryLabel.text = @"Year in industry compulsory";
+            } else {
+                cell.yearIndustryLabel.text = @"Year in industry not available";
+            }
             cell.uniNameLabel.hidden = NO;
             cell.courseNameLabel.hidden = NO;
             cell.yearAbroadLabel.hidden = NO;
@@ -146,8 +227,13 @@
             unionSatisfactionImageViewFull.image = [UIImage imageNamed:@"ui-19fillsmaller"];
             [cell addSubview:unionSatisfactionImageViewFull];
             
+            NSLog(@"heasfasdf: %@",courseObject.unionSatisfaction);
             UILabel *unionSatisfactionNumberLabel = [[UILabel alloc] init];
-            unionSatisfactionNumberLabel.text = @"11%";
+            if ([courseObject.unionSatisfaction isEqualToString:@""]) {
+                unionSatisfactionNumberLabel.text = @"N/A";
+            } else {
+            unionSatisfactionNumberLabel.text = [NSString stringWithFormat:@"%@%%",courseObject.unionSatisfaction];
+            }
             unionSatisfactionNumberLabel.textAlignment = NSTextAlignmentCenter;
             unionSatisfactionNumberLabel.frame = CGRectMake(27, 17, 40, 20);
             unionSatisfactionNumberLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:13];
@@ -157,7 +243,7 @@
             
             NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
             [f setNumberStyle:NSNumberFormatterDecimalStyle];
-            NSNumber * unionPercentage = [f numberFromString:@"11"];
+            NSNumber * unionPercentage = [f numberFromString:courseObject.unionSatisfaction];
             unionPercentage = [NSNumber numberWithFloat:([unionPercentage floatValue] / 100.0f)];
             unionPercentage = [NSNumber numberWithFloat:(1.0f - [unionPercentage floatValue])];
             
@@ -206,7 +292,8 @@
             
             UILabel *cellNumberLabel = [[UILabel alloc] init];
             cellNumberLabel.frame = CGRectMake(25, 28, 60, 20);
-            cellNumberLabel.text = @"123";
+            NSMutableArray *uniDataTemp = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:courseObject.uniInfoData]];
+            cellNumberLabel.text = [uniDataTemp objectAtIndex:indexPath.section - 1];
             cellNumberLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
             cellNumberLabel.textAlignment = NSTextAlignmentCenter;
             cellNumberLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
@@ -216,6 +303,9 @@
         return cell;
         
     }
+}
+
+- (void)noComparesButtonClicked {
     
 }
 

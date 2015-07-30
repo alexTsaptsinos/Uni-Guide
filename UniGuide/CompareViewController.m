@@ -14,7 +14,7 @@
 
 @implementation CompareViewController
 
-@synthesize compareCollectionView;
+@synthesize compareCollectionView,courseObject;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,8 +46,54 @@
     
     [self.view addSubview:compareCollectionView];
     
-    // SET UP EXAMPLE DATA TO USE FOR BUILDING PURPOSES
-    
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (comparesArray.count == 0) {
+        // THERE ARE NO COMPARES SO SET UP A MESSAGE AND A BUTTON TO ADD FROM FAVOURITES
+        UILabel *noFavouritesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 35, 280, 60)];
+        noFavouritesLabel.text = @"You don't have any courses added to compare at the moment";
+        noFavouritesLabel.textColor = [UIColor grayColor];
+        noFavouritesLabel.textAlignment = NSTextAlignmentCenter;
+        noFavouritesLabel.numberOfLines = 0;
+        noFavouritesLabel.font = [UIFont fontWithName:@"Helvetica"  size:16.0];
+        [self.view addSubview:noFavouritesLabel];
+        
+        UIButton *noComparesButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        noComparesButton.frame = CGRectMake(widthFloat/2 - 90, 136, 180, 37);
+        [noComparesButton addTarget:self action:@selector(noComparesButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        noComparesButton.exclusiveTouch = YES;
+        noComparesButton.titleLabel.font = [UIFont fontWithName:@"Helvita" size:15.0];
+        [noComparesButton setTitle:@"Add from Favourites" forState:UIControlStateNormal];
+        [noComparesButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.view addSubview:noComparesButton];
+        noComparesButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        CALayer *btnLayer = [noComparesButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:5.0f];
+    } else if (comparesArray.count == 1) {
+        // ONLY ONE COMPARE
+        UILabel *oneFavouriteLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthFloat*2/3 - 5, 43, widthFloat/3, 200)];
+        oneFavouriteLabel.text = @"You only have one course added to compare";
+        oneFavouriteLabel.textColor = [UIColor grayColor];
+        oneFavouriteLabel.textAlignment = NSTextAlignmentCenter;
+        oneFavouriteLabel.numberOfLines = 0;
+        oneFavouriteLabel.font = [UIFont fontWithName:@"Helvetica"  size:16.0];
+        [self.view addSubview:oneFavouriteLabel];
+        
+        UIButton *oneCompareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        oneCompareButton.frame = CGRectMake(widthFloat*2/3, 220, widthFloat/3-10, 50);
+        [oneCompareButton addTarget:self action:@selector(noComparesButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        oneCompareButton.exclusiveTouch = YES;
+        oneCompareButton.titleLabel.font = [UIFont fontWithName:@"Helvita" size:15.0];
+        oneCompareButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [oneCompareButton setTitle:@"Add from Favourites" forState:UIControlStateNormal];
+        [oneCompareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        oneCompareButton.titleLabel.numberOfLines = 0;
+        [self.view addSubview:oneCompareButton];
+        oneCompareButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        CALayer *btnLayer = [oneCompareButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:5.0f];
+    }
     
 }
 
@@ -64,11 +110,25 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (comparesArray.count == 0) {
+         return 0;
+    } else if (comparesArray.count == 1) {
+        return 2;
+    } else {
+        return 3;
+    }
 }
 
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (indexPath.row == 0) {
+        self.courseObject = [comparesArray objectAtIndex:0];
+        //self.courseObject = [comparesArray objectAtIndex:0];
+    } else if (indexPath.row == 2) {
+        self.courseObject = [comparesArray objectAtIndex:1];
+    }
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
             // TOP MIDDLE
@@ -103,8 +163,25 @@
                 cell = [nib objectAtIndex:0];
             }
             cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-            cell.uniNameLabel.text = @"University Name";
-            cell.courseNameLabel.text = @"Course Name";
+            cell.uniNameLabel.text = courseObject.uniName;
+            cell.courseNameLabel.text = courseObject.courseName;
+            NSString *yearAbroad = courseObject.yearAbroad;
+            NSString *yearIndustry = courseObject.sandwichYear;
+            if ([yearAbroad isEqualToString:@"1"]) {
+                cell.yearAbroadLabel.text = @"Year abroad optional";
+            } else if ([yearAbroad isEqualToString:@"2"]) {
+                cell.yearAbroadLabel.text = @"Year abroad compulsory";
+            } else {
+                cell.yearAbroadLabel.text = @"Year abroad not available";
+            }
+            
+            if ([yearIndustry isEqualToString:@"1"]) {
+                cell.yearIndustryLabel.text = @"Year in industry optional";
+            } else if ([yearIndustry isEqualToString:@"2"]) {
+                cell.yearIndustryLabel.text = @"Year in industry compulsory";
+            } else {
+                cell.yearIndustryLabel.text = @"Year in industry not available";
+            }
             cell.uniNameLabel.hidden = NO;
             cell.courseNameLabel.hidden = NO;
             cell.yearAbroadLabel.hidden = NO;
@@ -163,9 +240,8 @@
             cellPie.cellTitleLabel.hidden = YES;
             [cellPie.legendTitles removeAllObjects];
             [cellPie.legendTitles addObjectsFromArray:[NSArray arrayWithObjects:@"First",@"Other",@"2:1",@"Ordinary",@"2:2",@"N/A", nil]];
-            NSMutableArray *tempArray = [[NSMutableArray alloc] initWithObjects:@"25",@"26",@"27",@"28",@"29",@"30", nil];
-            //cellPie.sectionData = self.degreeStatistics;
-            cellPie.sectionData = tempArray;
+            NSMutableArray *degreeStatistics = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:courseObject.degreeClasses]];
+            cellPie.sectionData = degreeStatistics;
             cellPie.legendPoint = CGPointMake(-207, 50);
             cellPie.whichPieChart = 1;
             cellPie.onlyPieChart = YES;
@@ -212,7 +288,7 @@
             
             UILabel *cellNumberLabel = [[UILabel alloc] init];
             cellNumberLabel.frame = CGRectMake(25, 28, 60, 20);
-            cellNumberLabel.text = @"123";
+            cellNumberLabel.text = courseObject.averageTariffString;
             cellNumberLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
             cellNumberLabel.textAlignment = NSTextAlignmentCenter;
             cellNumberLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
@@ -275,9 +351,8 @@
             cellPie.cellTitleLabel.hidden = YES;
             [cellPie.legendTitles removeAllObjects];
             [cellPie.legendTitles addObjectsFromArray:[NSArray arrayWithObjects:@"Written",@"Coursework",@"Practical", nil]];
-            NSMutableArray *tempArray = [[NSMutableArray alloc] initWithObjects:@"25",@"26",@"27", nil];
-            //cellPie.sectionData = self.degreeStatistics;
-            cellPie.sectionData = tempArray;
+             NSMutableArray *assessmentMethodsTemp = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:courseObject.assessmentMethods]];
+            cellPie.sectionData = assessmentMethodsTemp;
             cellPie.legendPoint = CGPointMake(-207, 50);
             cellPie.whichPieChart = 2;
             cellPie.onlyPieChart = YES;
@@ -337,9 +412,8 @@
             cellPie.cellTitleLabel.hidden = YES;
             [cellPie.legendTitles removeAllObjects];
             [cellPie.legendTitles addObjectsFromArray:[NSArray arrayWithObjects:@"Independent",@"Placements",@"Scheduled", nil]];
-            NSMutableArray *tempArray = [[NSMutableArray alloc] initWithObjects:@"25",@"26",@"27", nil];
-            //cellPie.sectionData = self.degreeStatistics;
-            cellPie.sectionData = tempArray;
+             NSMutableArray *learningMethodsTemp = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:courseObject.timeSpent]];
+            cellPie.sectionData = learningMethodsTemp;
             cellPie.legendPoint = CGPointMake(-207, 50);
             cellPie.whichPieChart = 3;
             cellPie.onlyPieChart = YES;
@@ -386,7 +460,7 @@
             
             UILabel *cellNumberLabel = [[UILabel alloc] init];
             cellNumberLabel.frame = CGRectMake(25, 28, 60, 20);
-            cellNumberLabel.text = @"555";
+            cellNumberLabel.text = courseObject.proportionInWork;
             cellNumberLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
             cellNumberLabel.textAlignment = NSTextAlignmentCenter;
             cellNumberLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
@@ -436,7 +510,9 @@
             
             UILabel *cellNumberLabel = [[UILabel alloc] init];
             cellNumberLabel.frame = CGRectMake(25, 28, 60, 20);
-            cellNumberLabel.text = @"£55,000";
+            NSString *courseSalaryTemp = courseObject.instituteSalary;
+            cellNumberLabel.text = [NSString stringWithFormat:@"£%@",courseSalaryTemp];
+
             cellNumberLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
             cellNumberLabel.textAlignment = NSTextAlignmentCenter;
             cellNumberLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:13];
@@ -467,5 +543,8 @@
     }
 }
 
+- (void)noComparesButtonClicked {
+    
+}
 
 @end

@@ -89,6 +89,7 @@
 
         
         if (temp2.count != 0) {
+            // CAN LOAD FROM FAVOURITES!!
             Favourites *tempObject = [temp2 objectAtIndex:0];
             
             self.questionResults = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:tempObject.nSSScores]];

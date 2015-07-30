@@ -184,6 +184,8 @@
 
 - (void)layoutSubviews
 {
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGFloat widthFloat = screenBound.size.width;
     // NSLog(@"legend titles: %@",self.legendTitles);
     NSLog(@"data: %@", self.sectionData);
     if (self.sectionData.count != 0) {
@@ -193,13 +195,13 @@
         self.cellTitleLabel.frame = CGRectMake(3, 0, 90, 15);
         //self.cellTitleLabel.adjustsFontSizeToFitWidth = YES;
     } else {
-        noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, 320, 100)];
+        noDataImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, widthFloat/3+7, 80)];
         noDataImageView.backgroundColor = [UIColor clearColor];
-        noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 80)];
+        noDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(6, 0, widthFloat/3-8, 80)];
         noDataLabel.text = @"We're sorry, but we appear to have no data for this course.";
         noDataLabel.numberOfLines = 0;
         noDataLabel.textAlignment = NSTextAlignmentCenter;
-        noDataLabel.font = [UIFont fontWithName:@"Arial" size:13];
+        noDataLabel.font = [UIFont fontWithName:@"Arial" size:12];
         [noDataImageView addSubview:noDataLabel];
         [self addSubview:noDataImageView];
     }

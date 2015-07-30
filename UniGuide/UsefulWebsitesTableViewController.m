@@ -125,12 +125,12 @@
         
     }   else if (indexPath.row == 3) {
         
-        NSString *string = @"Founded in 2007, this website claims to be the number one student money website in the UK. Look here for impartial budgeting advice as well as tips on how to make and save money.";
+        NSString *string = @"Save the Student is the UKs most popular money saving site. They help students save money by hunting down the best deals, freebies & competitions plus publish tips on saving, making & managing your money!";
         NSDictionary *attribute = @{
                                     NSParagraphStyleAttributeName : paragraphStyle,
                                     };
         websiteTextView.attributedText = [[NSAttributedString alloc] initWithString:string attributes:attribute];
-        websiteImageView.image = [UIImage imageNamed:@"savestudent.png"];
+        websiteImageView.image = [UIImage imageNamed:@"sts-purple.png"];
         
     }   else {
         
@@ -152,18 +152,18 @@
    // CGFloat heightFloat = screenBound.size.height - self.navigationController.navigationBar.frame.size.height - 20;
     
     if (indexPath.row % 2) {
-        websiteImageView.frame = CGRectMake(widthFloat - 94, 4, 90, 90);
+        websiteImageView.frame = CGRectMake(widthFloat - 104, 4, 100, 100);
         websiteNameLabel.frame = CGRectMake(7, 5, 215, 25);
         websiteNameLabel.textAlignment = NSTextAlignmentLeft;
-        [websiteButton setFrame:CGRectMake(widthFloat - 94, 100, 90, 45)];
-        websiteTextView.frame = CGRectMake(5, 30, 210, 125);
+        [websiteButton setFrame:CGRectMake(widthFloat - 99, 120, 90, 45)];
+        websiteTextView.frame = CGRectMake(5, 30, 210, 155);
         websiteTextView.textAlignment = NSTextAlignmentLeft;
     } else {
-        websiteImageView.frame = CGRectMake(4, 4, 90, 90);
+        websiteImageView.frame = CGRectMake(4, 4, 100, 100);
         websiteNameLabel.frame = CGRectMake(98, 5, 215, 25);
         websiteNameLabel.textAlignment = NSTextAlignmentRight;
-        [websiteButton setFrame:CGRectMake(4, 100, 90, 45)];
-        websiteTextView.frame = CGRectMake(105, 30, 210, 125);
+        [websiteButton setFrame:CGRectMake(9, 120, 90, 45)];
+        websiteTextView.frame = CGRectMake(105, 30, 210, 155);
         websiteTextView.textAlignment = NSTextAlignmentRight;
     }
     [cell addSubview:websiteImageView];
@@ -177,7 +177,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 150;
+    return 180;
     
     
 }

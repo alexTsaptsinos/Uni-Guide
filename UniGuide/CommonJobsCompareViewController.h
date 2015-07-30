@@ -22,6 +22,8 @@
 @property (strong,nonatomic) NSMutableArray *secondJobsArray;
 @property (strong,nonatomic) NSMutableArray *firstPercentagesArray;
 @property (strong,nonatomic) NSMutableArray *secondPercentagesArray;
+@property (strong,nonatomic) Compares *courseObject;
+
 
 
 @end

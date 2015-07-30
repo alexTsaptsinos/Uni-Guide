@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "CompareCollectionViewLayout.h"
 #import "CompareCollectionViewCell.h"
+#import "Compares.h"
 
 @interface StudentSatisfactionCompareViewController : UIViewController <UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (strong,nonatomic) UICollectionView *compareCollectionView;
-@property (strong,nonatomic) NSArray *questionResults1;
+@property (strong,nonatomic) NSArray *questionResults;
 @property (strong,nonatomic) NSArray *questionResults2;
+@property (strong,nonatomic) Compares *courseObject;
+
 
 @end

@@ -29,8 +29,6 @@
 @property (nonatomic,retain) NSData *commonJobs;
 @property (nonatomic,retain) NSData *commonJobsPercentages;
 @property (nonatomic,retain) NSString *instituteSalary;
-@property (nonatomic,retain) NSString *nationalSalary;
-@property (nonatomic,retain) NSNumber *sortNumber;
 
 @property (nonatomic,retain) NSData *nSSScores;
 @property (nonatomic,retain) NSData *uniInfoData;

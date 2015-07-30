@@ -60,6 +60,7 @@
 		EF27409719912EAD00B932DC /* CommonJobsCustomCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF27409619912EAD00B932DC /* CommonJobsCustomCellView.m */; };
 		EF31C0371B6804D900511418 /* ui-19emptysmall.png in Resources */ = {isa = PBXBuildFile; fileRef = EF31C0361B6804D900511418 /* ui-19emptysmall.png */; };
 		EF31C03A1B68EAC800511418 /* Compares.m in Sources */ = {isa = PBXBuildFile; fileRef = EF31C0391B68EAC800511418 /* Compares.m */; };
+		EF31C03C1B6A954500511418 /* sts-purple.png in Resources */ = {isa = PBXBuildFile; fileRef = EF31C03B1B6A954500511418 /* sts-purple.png */; };
 		EF5533771981AA0D00120FEA /* checked_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5533761981AA0D00120FEA /* checked_checkbox.png */; };
 		EF5533791981AA1400120FEA /* unchecked_checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = EF5533781981AA1400120FEA /* unchecked_checkbox.png */; };
 		EF5B6ED919926CC200B2E18D /* CourseInfoTextCustomCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */; };
@@ -144,7 +145,6 @@
 		EFCCDCD81B62FBC000BACB72 /* studentroom.png in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCD71B62FBC000BACB72 /* studentroom.png */; };
 		EFCCDCDA1B62FC9800BACB72 /* ucaslogo.png in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCD91B62FC9800BACB72 /* ucaslogo.png */; };
 		EFCCDCDC1B62FCF200BACB72 /* qslogo.png in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCDB1B62FCF200BACB72 /* qslogo.png */; };
-		EFCCDCDE1B62FD2300BACB72 /* savestudent.png in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCDD1B62FD2300BACB72 /* savestudent.png */; };
 		EFCCDCE01B62FD7B00BACB72 /* nuslogo.png in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCDF1B62FD7B00BACB72 /* nuslogo.png */; };
 		EFCCDCE41B63943300BACB72 /* CommonJobsCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCCDCE21B63943300BACB72 /* CommonJobsCompareViewController.m */; };
 		EFCCDCE51B63943300BACB72 /* CommonJobsCompareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFCCDCE31B63943300BACB72 /* CommonJobsCompareViewController.xib */; };
@@ -330,6 +330,7 @@
 		EF31C0361B6804D900511418 /* ui-19emptysmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ui-19emptysmall.png"; sourceTree = "<group>"; };
 		EF31C0381B68EAC800511418 /* Compares.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compares.h; sourceTree = "<group>"; };
 		EF31C0391B68EAC800511418 /* Compares.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Compares.m; sourceTree = "<group>"; };
+		EF31C03B1B6A954500511418 /* sts-purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sts-purple.png"; sourceTree = "<group>"; };
 		EF5533761981AA0D00120FEA /* checked_checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked_checkbox.png; sourceTree = "<group>"; };
 		EF5533781981AA1400120FEA /* unchecked_checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unchecked_checkbox.png; sourceTree = "<group>"; };
 		EF5B6ED819926CC200B2E18D /* CourseInfoTextCustomCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CourseInfoTextCustomCellView.xib; sourceTree = "<group>"; };
@@ -432,7 +433,6 @@
 		EFCCDCD71B62FBC000BACB72 /* studentroom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = studentroom.png; sourceTree = "<group>"; };
 		EFCCDCD91B62FC9800BACB72 /* ucaslogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ucaslogo.png; sourceTree = "<group>"; };
 		EFCCDCDB1B62FCF200BACB72 /* qslogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qslogo.png; sourceTree = "<group>"; };
-		EFCCDCDD1B62FD2300BACB72 /* savestudent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = savestudent.png; sourceTree = "<group>"; };
 		EFCCDCDF1B62FD7B00BACB72 /* nuslogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nuslogo.png; sourceTree = "<group>"; };
 		EFCCDCE11B63943300BACB72 /* CommonJobsCompareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonJobsCompareViewController.h; sourceTree = "<group>"; };
 		EFCCDCE21B63943300BACB72 /* CommonJobsCompareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonJobsCompareViewController.m; sourceTree = "<group>"; };
@@ -878,11 +878,11 @@
 		EFB107E0198A896400814C53 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				EF31C03B1B6A954500511418 /* sts-purple.png */,
 				EFCCDCFF1B66207600BACB72 /* add_to_favorites-512.png */,
 				EFCCDCD91B62FC9800BACB72 /* ucaslogo.png */,
 				EFCCDCD71B62FBC000BACB72 /* studentroom.png */,
 				EFCCDCDB1B62FCF200BACB72 /* qslogo.png */,
-				EFCCDCDD1B62FD2300BACB72 /* savestudent.png */,
 				EFCCDCDF1B62FD7B00BACB72 /* nuslogo.png */,
 				EFCCDCF51B63A6E300BACB72 /* briefcase-32.png */,
 				EFC88A4C19922C55003BB792 /* ui-17.png */,
@@ -1115,7 +1115,6 @@
 				A4C6C8CA197AD3630065311C /* MainMenuViewController.xib in Resources */,
 				EF66F5E01988F0E80048A82E /* AppIcon72x72@2x.png in Resources */,
 				A4C6C8CF197AD78F0065311C /* SearchViewController.xib in Resources */,
-				EFCCDCDE1B62FD2300BACB72 /* savestudent.png in Resources */,
 				EF66F5CE1988F0890048A82E /* AppIcon40x40@2x.png in Resources */,
 				EF7F6F2D197E887C0009DB60 /* talk-32.png in Resources */,
 				EF66F5CD1988F0890048A82E /* AppIcon40x40.png in Resources */,
@@ -1126,6 +1125,7 @@
 				EF5B6ED919926CC200B2E18D /* CourseInfoTextCustomCellView.xib in Resources */,
 				EF7F6F2B197E886F0009DB60 /* student2-32.png in Resources */,
 				EFCCDCD31B62D5BA00BACB72 /* UsefulWebsitesTableViewCell.xib in Resources */,
+				EF31C03C1B6A954500511418 /* sts-purple.png in Resources */,
 				EF207C14198A342A00F2CFB3 /* OpenDaysQueryTableViewController.xib in Resources */,
 				EF93A59719A36101007F5CAB /* LocationSelectTableViewController.xib in Resources */,
 				EF66F5E819891A8B0048A82E /* ui-14.png in Resources */,

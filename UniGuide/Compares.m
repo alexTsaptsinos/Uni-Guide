@@ -10,6 +10,6 @@
 
 @implementation Compares
 
-@dynamic courseName,uniCode,uniName,courseCode,ucasCode,yearAbroad,sandwichYear,courseUrl,degreeClasses,averageTariffString,assessmentMethods,timeSpent,proportionInWork,commonJobs,commonJobsPercentages,instituteSalary,nationalSalary,sortNumber,nSSScores,uniInfoData,unionSatisfaction;
+@dynamic courseName,uniCode,uniName,courseCode,ucasCode,yearAbroad,sandwichYear,courseUrl,degreeClasses,averageTariffString,assessmentMethods,timeSpent,proportionInWork,commonJobs,commonJobsPercentages,instituteSalary,nSSScores,uniInfoData,unionSatisfaction;
 
 @end

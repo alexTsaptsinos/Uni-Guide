@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Compares.h"
 
 @interface CompareCollectionViewLayout : UICollectionViewLayout
+
+@property (nonatomic) NSInteger numberOfColumns;
 
 @end

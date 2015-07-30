@@ -13,5 +13,6 @@
 @interface UniInfoCompareViewController : UIViewController <UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (strong,nonatomic) UICollectionView *compareCollectionView;
+@property (strong,nonatomic) Compares *courseObject;
 
 @end

@@ -14,7 +14,7 @@
 
 @implementation StudentSatisfactionCompareViewController
 
-@synthesize compareCollectionView,questionResults1,questionResults2;
+@synthesize compareCollectionView,questionResults,questionResults2,courseObject;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,12 +41,56 @@
     compareCollectionView.scrollEnabled = YES;
     compareCollectionView.pagingEnabled = NO;
     compareCollectionView.directionalLockEnabled = YES;
-    
-    self.questionResults1 = [[NSArray alloc] initWithObjects:@"50",@"60",@"70",@"80",@"90",@"80",@"70",@"60",@"50",@"60",@"70",@"80",@"90",@"80", @"70",@"60",@"50",@"60",@"70",@"80",@"90",@"80", nil];
-    self.questionResults2 = [[NSArray alloc] initWithObjects:@"60",@"70",@"80",@"90",@"80",@"70",@"60",@"50",@"60",@"70",@"80",@"90",@"80", @"70",@"60",@"50",@"60",@"70",@"80",@"90",@"80",@"70", nil];
-    
     [self.view addSubview:compareCollectionView];
-
+    
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (comparesArray.count == 0) {
+        // THERE ARE NO COMPARES SO SET UP A MESSAGE AND A BUTTON TO ADD FROM FAVOURITES
+        UILabel *noFavouritesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 35, 280, 60)];
+        noFavouritesLabel.text = @"You don't have any courses added to compare at the moment";
+        noFavouritesLabel.textColor = [UIColor grayColor];
+        noFavouritesLabel.textAlignment = NSTextAlignmentCenter;
+        noFavouritesLabel.numberOfLines = 0;
+        noFavouritesLabel.font = [UIFont fontWithName:@"Helvetica"  size:16.0];
+        [self.view addSubview:noFavouritesLabel];
+        
+        UIButton *noComparesButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        noComparesButton.frame = CGRectMake(widthFloat/2 - 90, 136, 180, 37);
+        [noComparesButton addTarget:self action:@selector(noComparesButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        noComparesButton.exclusiveTouch = YES;
+        noComparesButton.titleLabel.font = [UIFont fontWithName:@"Helvita" size:15.0];
+        [noComparesButton setTitle:@"Add from Favourites" forState:UIControlStateNormal];
+        [noComparesButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.view addSubview:noComparesButton];
+        noComparesButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        CALayer *btnLayer = [noComparesButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:5.0f];
+    } else if (comparesArray.count == 1) {
+        // ONLY ONE COMPARE
+        UILabel *oneFavouriteLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthFloat*2/3 - 5, 43, widthFloat/3, 200)];
+        oneFavouriteLabel.text = @"You only have one course added to compare";
+        oneFavouriteLabel.textColor = [UIColor grayColor];
+        oneFavouriteLabel.textAlignment = NSTextAlignmentCenter;
+        oneFavouriteLabel.numberOfLines = 0;
+        oneFavouriteLabel.font = [UIFont fontWithName:@"Helvetica"  size:16.0];
+        [self.view addSubview:oneFavouriteLabel];
+        
+        UIButton *oneCompareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        oneCompareButton.frame = CGRectMake(widthFloat*2/3, 220, widthFloat/3-10, 50);
+        [oneCompareButton addTarget:self action:@selector(noComparesButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        oneCompareButton.exclusiveTouch = YES;
+        oneCompareButton.titleLabel.font = [UIFont fontWithName:@"Helvita" size:15.0];
+        oneCompareButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [oneCompareButton setTitle:@"Add from Favourites" forState:UIControlStateNormal];
+        [oneCompareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        oneCompareButton.titleLabel.numberOfLines = 0;
+        [self.view addSubview:oneCompareButton];
+        oneCompareButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        CALayer *btnLayer = [oneCompareButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:5.0f];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,7 +104,14 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (comparesArray.count == 0) {
+        return 0;
+    } else if (comparesArray.count == 1) {
+        return 2;
+    } else {
+        return 3;
+    }
 }
 
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -68,6 +119,16 @@
     CGFloat widthFloat = screenBound.size.width;
     
     NSArray *questionNames = [[NSArray alloc] initWithObjects:@"Staff are good at explaining things",@"Staff have made the subject interesting",@"Staff are enthusiastic about what they are teaching",@"The course is intellectually stimulating",@"The criteria used in marking have been clear in advance",@"Assessment arrangements and marking have been fair",@"Feedback on my work has been promt",@"I have received detailed comments on my work",@"Feedback on my work has helped me clarify things I did not understand",@"I have received sufficient advice and support with my studies",@"I have been able to contact staff when I needed to",@"Good advice was available when I needed to make study choices",@"The timetable works efficiently as far as my activities are concerned",@"Any changes in the course or teaching have been communicated effectively",@"The course is well organised and is running smoothly",@"The library resources and services are good enough for my needs",@"I have been able to access general IT resources when I needed to",@"I have been able to access specialised equipment, facilities or rooms when I needed to",@"The course has helped me present myself with confidence",@"My communication skills have improved",@"As a results of the course, I feel confident in tackling unfamiliar problems",@"Overall, I am satisfied with the quality of the course", nil];
+    
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (indexPath.row == 0) {
+        self.courseObject = [comparesArray objectAtIndex:0];
+//        self.questionResults1 = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:courseObject.degreeClasses]];
+    } else if (indexPath.row == 2) {
+        self.courseObject = [comparesArray objectAtIndex:1];
+//        self.questionResults2 = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:courseObject.degreeClasses]];
+    }
+    self.questionResults = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:courseObject.nSSScores]];
     
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
@@ -113,8 +174,25 @@
                 cell = [nib objectAtIndex:0];
             }
             cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-            cell.uniNameLabel.text = @"University Name";
-            cell.courseNameLabel.text = @"Course Name";
+            cell.uniNameLabel.text = courseObject.uniName;
+            cell.courseNameLabel.text = courseObject.courseName;
+            NSString *yearAbroad = courseObject.yearAbroad;
+            NSString *yearIndustry = courseObject.sandwichYear;
+            if ([yearAbroad isEqualToString:@"1"]) {
+                cell.yearAbroadLabel.text = @"Year abroad optional";
+            } else if ([yearAbroad isEqualToString:@"2"]) {
+                cell.yearAbroadLabel.text = @"Year abroad compulsory";
+            } else {
+                cell.yearAbroadLabel.text = @"Year abroad not available";
+            }
+            
+            if ([yearIndustry isEqualToString:@"1"]) {
+                cell.yearIndustryLabel.text = @"Year in industry optional";
+            } else if ([yearIndustry isEqualToString:@"2"]) {
+                cell.yearIndustryLabel.text = @"Year in industry compulsory";
+            } else {
+                cell.yearIndustryLabel.text = @"Year in industry not available";
+            }
             cell.uniNameLabel.hidden = NO;
             cell.courseNameLabel.hidden = NO;
             cell.yearAbroadLabel.hidden = NO;
@@ -153,6 +231,23 @@
             
         } else {
             
+            if (questionResults.count == 0 ) {
+                // NO DATA SO PUT MESSAGE
+                if (indexPath.section == 1) {
+                    // Put a no data message
+                    cell.backgroundColor = [UIColor lightGrayColor];
+                    UILabel *cellTitleLabel = [[UILabel alloc] init];
+                    cellTitleLabel.frame = CGRectMake(6, 0, widthFloat/3-8, 80);
+                    cellTitleLabel.text = @"We're sorry, but we appear to have no data for this course.";
+                    cellTitleLabel.textColor = [UIColor blackColor];//[UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+                    cellTitleLabel.textAlignment = NSTextAlignmentCenter;
+                    cellTitleLabel.font = [UIFont fontWithName:@"Arial" size:12];
+                    cellTitleLabel.numberOfLines = 0;
+                    [cell addSubview:cellTitleLabel];
+                } else {
+                    cell.backgroundColor = [UIColor lightGrayColor];
+                }
+            } else {
             
             UIImageView *cellImageView = [[UIImageView alloc] init];
             cellImageView.frame = CGRectMake(5, 30, widthFloat/3, 20);
@@ -163,11 +258,13 @@
             [f setNumberStyle:NSNumberFormatterDecimalStyle];
             NSNumber *myNumber;
             
-            if (indexPath.row == 0) {
-                myNumber = [f numberFromString:[self.questionResults1 objectAtIndex:indexPath.section-1]];
-            } else {
-                myNumber = [f numberFromString:[self.questionResults2 objectAtIndex:indexPath.section-1]];
-            }
+//            if (indexPath.row == 0) {
+//                myNumber = [f numberFromString:[self.questionResults1 objectAtIndex:indexPath.section-1]];
+//            } else {
+//                myNumber = [f numberFromString:[self.questionResults2 objectAtIndex:indexPath.section-1]];
+//            }
+            NSLog(@"question results; %@ and count: %lu",questionResults,(unsigned long)questionResults.count);
+            myNumber = [f numberFromString:[self.questionResults objectAtIndex:indexPath.section - 1]];
             
             //  NSLog(@"number: %@",myNumber);
             
@@ -188,20 +285,24 @@
             
             UILabel *questionPercentage = [[UILabel alloc] initWithFrame:CGRectMake(2.0f, 0.0f, 50.0f, cellImageView.frame.size.height)];
             if (indexPath.row == 0) {
-                questionPercentage.text = [NSString stringWithFormat:@"%@%%",[self.questionResults1 objectAtIndex:indexPath.section-1]];
+                questionPercentage.text = [NSString stringWithFormat:@"%@%%",[self.questionResults objectAtIndex:indexPath.section-1]];
             } else {
-                questionPercentage.text = [NSString stringWithFormat:@"%@%%",[self.questionResults2 objectAtIndex:indexPath.section-1]];
+                questionPercentage.text = [NSString stringWithFormat:@"%@%%",[self.questionResults objectAtIndex:indexPath.section-1]];
 
             }
             questionPercentage.font = [UIFont fontWithName:@"Arial" size:14];
             questionPercentage.textColor = [UIColor whiteColor];
             [cellImageView addSubview:questionPercentage];
             cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+            }
             
         }
         [cell.contentView layoutIfNeeded];
         return cell;
     }
+}
+
+- (void)noComparesButtonClicked {
     
 }
 

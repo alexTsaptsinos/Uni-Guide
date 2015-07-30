@@ -14,7 +14,7 @@
 
 @implementation CommonJobsCompareViewController
 
-@synthesize compareCollectionView,firstCommonJobsTableView,secondCommonJobsTableView,sectionTableView,firstJobsArray,secondJobsArray,firstPercentagesArray,secondPercentagesArray;
+@synthesize compareCollectionView,firstCommonJobsTableView,secondCommonJobsTableView,sectionTableView,firstJobsArray,secondJobsArray,firstPercentagesArray,secondPercentagesArray,courseObject;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -53,6 +53,8 @@
     sectionTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     [self.view addSubview:sectionTableView];
     
+    
+    
     firstCommonJobsTableView = [[UITableView alloc] init];
     firstCommonJobsTableView.frame = CGRectMake(0, 110, widthFloat/2, heightFloat-65);
     firstCommonJobsTableView.delegate = self;
@@ -71,10 +73,84 @@
     secondCommonJobsTableView.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     [self.view addSubview:secondCommonJobsTableView];
     
-    firstJobsArray = [[NSMutableArray alloc] initWithObjects:@"This is a long Job title",@"Job 2",@"Job 3",@"Job 4",@"Job 5",@"Job 7",@"Job 8",@"Job 9",@"Job 10", nil];
-    secondJobsArray = [[NSMutableArray alloc] initWithObjects:@"WOw 1",@"wow2",@"wow3",@"wow4", nil];
-    firstPercentagesArray = [[NSMutableArray alloc] initWithObjects:@"50",@"20",@"5",@"5",@"3",@"3",@"4",@"3",@"3",@"4", nil];
-    secondPercentagesArray = [[NSMutableArray alloc] initWithObjects:@"60",@"20",@"10",@"10", nil];
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (comparesArray.count == 0) {
+        firstCommonJobsTableView.hidden = YES;
+        secondCommonJobsTableView.hidden = YES;
+        sectionTableView.hidden = YES;
+        
+        // THERE ARE NO COMPARES SO SET UP A MESSAGE AND A BUTTON TO ADD FROM FAVOURITES
+        UILabel *noFavouritesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 35, 280, 60)];
+        noFavouritesLabel.text = @"You don't have any courses added to compare at the moment";
+        noFavouritesLabel.textColor = [UIColor grayColor];
+        noFavouritesLabel.textAlignment = NSTextAlignmentCenter;
+        noFavouritesLabel.numberOfLines = 0;
+        noFavouritesLabel.font = [UIFont fontWithName:@"Helvetica"  size:16.0];
+        [self.view addSubview:noFavouritesLabel];
+        
+        UIButton *noComparesButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        noComparesButton.frame = CGRectMake(widthFloat/2 - 90, 136, 180, 37);
+        [noComparesButton addTarget:self action:@selector(noComparesButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        noComparesButton.exclusiveTouch = YES;
+        noComparesButton.titleLabel.font = [UIFont fontWithName:@"Helvita" size:15.0];
+        [noComparesButton setTitle:@"Add from Favourites" forState:UIControlStateNormal];
+        [noComparesButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.view addSubview:noComparesButton];
+        noComparesButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        CALayer *btnLayer = [noComparesButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:5.0f];
+        
+    } else if (comparesArray.count == 1) {
+        firstCommonJobsTableView.hidden = NO;
+        secondCommonJobsTableView.hidden = YES;
+        Compares *firstCourse = [comparesArray objectAtIndex:0];
+        firstJobsArray = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:firstCourse.commonJobs]];
+        firstPercentagesArray = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:firstCourse.commonJobsPercentages]];
+        if (firstJobsArray.count < 5) {
+            firstCommonJobsTableView.scrollEnabled = NO;
+        }
+        
+        // ONLY ONE COMPARE
+        UILabel *oneFavouriteLabel = [[UILabel alloc] initWithFrame:CGRectMake(widthFloat*2/3 - 5, 43, widthFloat/3, 200)];
+        oneFavouriteLabel.text = @"You only have one course added to compare";
+        oneFavouriteLabel.textColor = [UIColor grayColor];
+        oneFavouriteLabel.textAlignment = NSTextAlignmentCenter;
+        oneFavouriteLabel.numberOfLines = 0;
+        oneFavouriteLabel.font = [UIFont fontWithName:@"Helvetica"  size:16.0];
+        [self.view addSubview:oneFavouriteLabel];
+        
+        UIButton *oneCompareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        oneCompareButton.frame = CGRectMake(widthFloat*2/3, 220, widthFloat/3-10, 50);
+        [oneCompareButton addTarget:self action:@selector(noComparesButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        oneCompareButton.exclusiveTouch = YES;
+        oneCompareButton.titleLabel.font = [UIFont fontWithName:@"Helvita" size:15.0];
+        oneCompareButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [oneCompareButton setTitle:@"Add from Favourites" forState:UIControlStateNormal];
+        [oneCompareButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        oneCompareButton.titleLabel.numberOfLines = 0;
+        [self.view addSubview:oneCompareButton];
+        oneCompareButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        CALayer *btnLayer = [oneCompareButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:5.0f];
+        
+    } else {
+        firstCommonJobsTableView.hidden = NO;
+        secondCommonJobsTableView.hidden = NO;
+        Compares *firstCourse = [comparesArray objectAtIndex:0];
+        Compares *secondCourse = [comparesArray objectAtIndex:1];
+        firstJobsArray = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:firstCourse.commonJobs]];
+        firstPercentagesArray = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:firstCourse.commonJobsPercentages]];
+        secondJobsArray = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:secondCourse.commonJobs]];
+        secondPercentagesArray = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:secondCourse.commonJobsPercentages]];
+        if (firstJobsArray.count < 5) {
+            firstCommonJobsTableView.scrollEnabled = NO;
+        }
+        if (secondJobsArray.count < 5) {
+            secondCommonJobsTableView.scrollEnabled = NO;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,10 +164,25 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (comparesArray.count == 0) {
+        return 0;
+    } else if (comparesArray.count == 1) {
+        return 2;
+    } else {
+        return 3;
+    }
 }
 
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (indexPath.row == 0) {
+        self.courseObject = [comparesArray objectAtIndex:0];
+        //self.courseObject = [comparesArray objectAtIndex:0];
+    } else if (indexPath.row == 2) {
+        self.courseObject = [comparesArray objectAtIndex:1];
+    }
     
     if (indexPath.row == 1) {
         // TOP MIDDLE
@@ -126,8 +217,25 @@
             cell = [nib objectAtIndex:0];
         }
         cell.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
-        cell.uniNameLabel.text = @"University Name";
-        cell.courseNameLabel.text = @"Course Name";
+        cell.uniNameLabel.text = courseObject.uniName;
+        cell.courseNameLabel.text = courseObject.courseName;
+        NSString *yearAbroad = courseObject.yearAbroad;
+        NSString *yearIndustry = courseObject.sandwichYear;
+        if ([yearAbroad isEqualToString:@"1"]) {
+            cell.yearAbroadLabel.text = @"Year abroad optional";
+        } else if ([yearAbroad isEqualToString:@"2"]) {
+            cell.yearAbroadLabel.text = @"Year abroad compulsory";
+        } else {
+            cell.yearAbroadLabel.text = @"Year abroad not available";
+        }
+        
+        if ([yearIndustry isEqualToString:@"1"]) {
+            cell.yearIndustryLabel.text = @"Year in industry optional";
+        } else if ([yearIndustry isEqualToString:@"2"]) {
+            cell.yearIndustryLabel.text = @"Year in industry compulsory";
+        } else {
+            cell.yearIndustryLabel.text = @"Year in industry not available";
+        }
         cell.uniNameLabel.hidden = NO;
         cell.courseNameLabel.hidden = NO;
         cell.yearAbroadLabel.hidden = NO;
@@ -213,7 +321,7 @@
     cell.percentageLabel.font = [UIFont fontWithName:@"Arial" size:16];
     
     UILabel *shortJobLabel = [[UILabel alloc] init];
-    shortJobLabel.frame = CGRectMake(50, 2, 100, 40);
+    shortJobLabel.frame = CGRectMake(40, 2, 110, 60);
     shortJobLabel.font = [UIFont fontWithName:@"Arial" size:13];
     
     if (tableView == firstCommonJobsTableView) {
@@ -247,8 +355,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
-    
+    return 70;
+}
+
+- (void)noComparesButtonClicked {
     
 }
 

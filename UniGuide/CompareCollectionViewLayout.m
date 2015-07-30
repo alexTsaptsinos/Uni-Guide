@@ -8,7 +8,7 @@
 
 #import "CompareCollectionViewLayout.h"
 
-#define NUMBEROFCOLUMNS 3
+//#define NUMBEROFCOLUMNS 3
 
 @interface CompareCollectionViewLayout ()
 @property (strong, nonatomic) NSMutableArray *itemAttributes;
@@ -18,8 +18,18 @@
 
 @implementation CompareCollectionViewLayout
 
+@synthesize numberOfColumns;
+
 - (void)prepareLayout
 {
+    NSArray *comparesArray = [Compares readAllObjects];
+    if (comparesArray.count == 0) {
+        self.numberOfColumns = 0;
+    } else if (comparesArray.count == 1) {
+        self.numberOfColumns = 2;
+    } else {
+        self.numberOfColumns = 3;
+    }
     if ([self.collectionView numberOfSections] == 0) {
         return;
     }
@@ -63,14 +73,14 @@
     // NSUInteger numberOfItems = [self.collectionView numberOfItemsInSection:section];
     
     // We calculate the item size of each column
-    if (self.itemsSize.count != NUMBEROFCOLUMNS) {
+    if (self.itemsSize.count != self.numberOfColumns) {
         [self calculateItemsSize];
     }
     
     // We loop through all items
     for (int section = 0; section < [self.collectionView numberOfSections]; section++) {
         NSMutableArray *sectionAttributes = [@[] mutableCopy];
-        for (NSUInteger index = 0; index < NUMBEROFCOLUMNS; index++) {
+        for (NSUInteger index = 0; index < self.numberOfColumns; index++) {
             CGSize itemSize = [self.itemsSize[index] CGSizeValue];
             
             // We create the UICollectionViewLayoutAttributes object for each item and add it to our array.
@@ -101,7 +111,7 @@
             column++;
             
             // Create a new row if this was the last column
-            if (column == NUMBEROFCOLUMNS) {
+            if (column == self.numberOfColumns) {
                 if (xOffset > contentWidth) {
                     contentWidth = xOffset;
                 }
@@ -200,7 +210,7 @@
 
 - (void)calculateItemsSize
 {
-    for (NSUInteger index = 0; index < NUMBEROFCOLUMNS; index++) {
+    for (NSUInteger index = 0; index < self.numberOfColumns; index++) {
         if (self.itemsSize.count <= index) {
             CGSize itemSize = [self sizeForItemWithColumnIndex:index];
             NSValue *itemSizeValue = [NSValue valueWithCGSize:itemSize];

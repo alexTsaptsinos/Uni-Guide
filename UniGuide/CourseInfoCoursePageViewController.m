@@ -1006,6 +1006,7 @@
                             
                             NSArray *uniInfoTemp = [objects objectAtIndex:0];
                             NSString *studentSatisfactionPercentage = [uniInfoTemp valueForKey:@"Q24"];
+                            NSLog(@"student satisfaction: %@",studentSatisfactionPercentage);
                             temp.unionSatisfaction = studentSatisfactionPercentage;
                             
                             // query to get total number of students
@@ -1345,7 +1346,6 @@
                 tempCompares.commonJobs = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobs];
                 tempCompares.commonJobsPercentages = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobsPercentages];
                 tempCompares.instituteSalary = self.instituteSalary;
-                tempCompares.nationalSalary = self.nationalSalary;
                 if (objects.count == 0) {
                     //  NSLog(@"this worked");
                     // SOME KIND OF ERROR MESSAGE
@@ -1566,7 +1566,6 @@
             tempCompares.commonJobs = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobs];
             tempCompares.commonJobsPercentages = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobsPercentages];
             tempCompares.instituteSalary = self.instituteSalary;
-            tempCompares.nationalSalary = self.nationalSalary;
             if (objects.count == 0) {
                 //  NSLog(@"this worked");
                 // SOME KIND OF ERROR MESSAGE
@@ -1786,7 +1785,6 @@
             tempCompares.commonJobs = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobs];
             tempCompares.commonJobsPercentages = [NSKeyedArchiver archivedDataWithRootObject:self.commonJobsPercentages];
             tempCompares.instituteSalary = self.instituteSalary;
-            tempCompares.nationalSalary = self.nationalSalary;
             if (objects.count == 0) {
                 //  NSLog(@"this worked");
                 // SOME KIND OF ERROR MESSAGE

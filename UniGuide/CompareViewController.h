@@ -10,9 +10,13 @@
 #import "CompareCollectionViewLayout.h"
 #import "CompareCollectionViewCell.h"
 #import "PieCompareCollectionViewCell.h"
+#import "Compares.h"
 
 @interface CompareViewController : UIViewController <UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (strong,nonatomic) UICollectionView *compareCollectionView;
+@property (strong,nonatomic) Compares *courseObject;
+
+- (void)noComparesButtonClicked;
 
 @end
