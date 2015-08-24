@@ -210,6 +210,7 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"dd-MM-yy"];
         specificOpenDayViewController.date = [formatter stringFromDate:[openDayDates objectAtIndex:indexPath.row]];
+        specificOpenDayViewController.dateDate = [openDayDates objectAtIndex:indexPath.row];
         specificOpenDayViewController.details = [details objectAtIndex:indexPath.row];
         specificOpenDayViewController.endTime = [endTimes objectAtIndex:indexPath.row];
         specificOpenDayViewController.startTime = [startTimes objectAtIndex:indexPath.row];

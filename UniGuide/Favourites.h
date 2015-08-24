@@ -41,6 +41,7 @@
 @property (nonatomic,retain) NSString *websiteContact;
 @property (nonatomic,retain) NSString *latitudeContact;
 @property (nonatomic,retain) NSString *longitudeContact;
+@property (nonatomic,retain) NSString *address;
 
 
 

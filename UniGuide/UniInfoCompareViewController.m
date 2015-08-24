@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(someThingInterestingHappened:) name:@"desiredEventHappend" object:nil];
 
     self.tabBarController.tabBar.translucent = NO;
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
@@ -306,6 +307,16 @@
 }
 
 - (void)noComparesButtonClicked {
+    AddFromFavouritesTableViewController *addFromFavouritesTableViewController = [[AddFromFavouritesTableViewController alloc] initWithNibName:@"AddFromFavouritesTableViewController" bundle:nil];
+    UINavigationController *addFromFavouritesNavigationController = [[UINavigationController alloc]initWithRootViewController:addFromFavouritesTableViewController];
+    [self presentViewController:addFromFavouritesNavigationController animated:YES completion:nil];
+    
+}
+
+- (void)someThingInterestingHappened:(NSNotification *)info
+{
+    
+    [self viewDidLoad];
     
 }
 

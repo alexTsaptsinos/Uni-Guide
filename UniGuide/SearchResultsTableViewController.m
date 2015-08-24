@@ -569,6 +569,7 @@
         
         contactUniversityPageViewController.universityName = cell.detailTextLabel.text;
         contactUniversityPageViewController.courseCodeContact = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
+        contactUniversityPageViewController.haveWeComeFromUniversities = NO;
         
         studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [self.searchResultsCourseCodes objectAtIndex:indexPath.row];
         studentSatisfactionCoursePageViewController.courseNameStudentSatisfaction = cell.textLabel.text;

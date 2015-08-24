@@ -235,6 +235,7 @@
     contactUniversityPageViewController.universityName = cell.detailTextLabel.text;
     contactUniversityPageViewController.universityCode = [self.uniCodes objectAtIndex:indexPath.row];
     contactUniversityPageViewController.courseCodeContact = [self.courseCodes objectAtIndex:indexPath.row];
+    contactUniversityPageViewController.haveWeComeFromUniversities = NO;
     
     studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [self.courseCodes objectAtIndex:indexPath.row];
     studentSatisfactionCoursePageViewController.uniCodeStudentSatisfaction = [self.uniCodes objectAtIndex:indexPath.row];

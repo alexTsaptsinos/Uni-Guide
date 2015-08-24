@@ -65,7 +65,10 @@
 {
     [super viewDidAppear:animated];
     
-    if (haveComeFromFavourites == NO) {
+    NSLog(@"coursecode1: %@ and unicode1: %@",self.courseCodeCourseInfo,self.uniCodeCourseInfo);
+    NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeCourseInfo,self.uniCodeCourseInfo] andSortKey:@"courseName"];
+    
+    if (temp2.count == 0) {
         
         self.noInternetLabel.hidden = YES;
         self.noInternetImageView.hidden = YES;
@@ -412,7 +415,7 @@
             }];
         }
     }
-    else if (haveComeFromFavourites == YES && self.firstTimeLoad == YES)
+    else if (self.firstTimeLoad == YES)
     {
         //NSLog(@"here");
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeCourseInfo,self.uniCodeCourseInfo] andSortKey:@"courseName"];
@@ -1142,7 +1145,26 @@
                         NSLog(@"class: %@",[uniLatitude class]);
                         temp.latitudeContact = uniLatitude;
                         temp.longitudeContact = uniLongitude;
-                        NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
+                        
+                        CLGeocoder *ceo = [[CLGeocoder alloc]init];
+                        CLLocation *loc = [[CLLocation alloc]initWithLatitude:[uniLatitude floatValue] longitude:[uniLongitude floatValue]]; //insert your coordinates
+                        [ceo reverseGeocodeLocation:loc
+                                  completionHandler:^(NSArray *placemarks, NSError *error) {
+                                      if (!error) {
+                                          
+                                          CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                                          //String to hold address
+                                          NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+                                          temp.address = locatedAt;
+                                          
+                                          
+                                      }
+                                      else {
+                                          NSLog(@"Could not locate");
+                                          temp.address = @"Could not find address";
+                                          
+                                      }
+                                  }];
                     }
                     else {
                         NSLog(@"error finding location");

@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "PackingListTableViewController.h"
 #import "UsefulWebsitesTableViewController.h"
+#import "CourseGeneratorViewController.h"
+#import "PersonalStatementAdviceViewController.h"
+#import "FinanceAdviceTableViewController.h"
+#import "InterviewAdviceViewController.h"
 
 @interface ExtrasMenuViewController : UIViewController
 

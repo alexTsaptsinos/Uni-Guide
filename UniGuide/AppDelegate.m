@@ -38,17 +38,17 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    CourseInfoCoursePageViewController *lols = [[CourseInfoCoursePageViewController alloc] init];
-    lols.courseCodeCourseInfo = @"009F";
-    lols.uniCodeCourseInfo = @"10007856";
-    lols.courseNameCourseInfo = @"Course Name Testing - MMath";
-    lols.uniNameCourseInfo = @"University of Testing";
-    
     // Override point for customization after application launch, set Navigation controller as root
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = myNavigationController;
     [self.window makeKeyAndVisible];
-
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = [UIColor colorWithRed:44.0f/255.0f green:61.0f/255.0f blue:76.0f/255.0f alpha:1.0f];
+    pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    
     return YES;
 }
 

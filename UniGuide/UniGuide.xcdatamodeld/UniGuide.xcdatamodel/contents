@@ -22,6 +22,7 @@
         <attribute name="yearAbroad" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Favourites" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="assessmentMethods" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="averageTariffString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="commonJobs" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -50,7 +51,7 @@
         <attribute name="yearAbroad" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Favourites" positionX="-63" positionY="-18" width="128" height="435"/>
         <element name="Compares" positionX="-63" positionY="135" width="128" height="330"/>
+        <element name="Favourites" positionX="-63" positionY="-18" width="128" height="450"/>
     </elements>
 </model>

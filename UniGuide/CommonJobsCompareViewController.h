@@ -10,6 +10,7 @@
 #import "CompareCollectionViewLayout.h"
 #import "CompareCollectionViewCell.h"
 #import "CommonJobsCustomCellView.h"
+#import "AddFromFavouritesTableViewController.h"
 
 @interface CommonJobsCompareViewController : UIViewController <UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDataSource,UITableViewDelegate>
 

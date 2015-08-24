@@ -224,6 +224,7 @@
     if (tableView != self.searchDisplayController.searchResultsTableView) {
         cell = [self.tableView cellForRowAtIndexPath:indexPath];
         specificOpenDayViewController.date = [formatter stringFromDate:[openDayDates objectAtIndex:indexPath.row]];
+        specificOpenDayViewController.dateDate = [openDayDates objectAtIndex:indexPath.row];
         specificOpenDayViewController.details = [details objectAtIndex:indexPath.row];
         specificOpenDayViewController.endTime = [endTimes objectAtIndex:indexPath.row];
         specificOpenDayViewController.startTime = [startTimes objectAtIndex:indexPath.row];
@@ -250,6 +251,7 @@
         NSLog(@"resultswoo: %@",results);
         
         specificOpenDayViewController.date = [formatter stringFromDate:[[results valueForKey:@"ParseDate"] objectAtIndex:0]];
+        specificOpenDayViewController.dateDate = [[results valueForKey:@"ParseDate"] objectAtIndex:0];
         specificOpenDayViewController.details = [[results valueForKey:@"Details"] objectAtIndex:0];
         specificOpenDayViewController.endTime = [[results valueForKey:@"TimeEnd"] objectAtIndex:0];
         specificOpenDayViewController.startTime = [[results valueForKey:@"TimeStart"] objectAtIndex:0];
@@ -257,15 +259,6 @@
         specificOpenDayViewController.link = [[results valueForKey:@"BookingLink"] objectAtIndex:0];
     }
     
-    
-    UILabel *universityTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
-    universityTitle.text = cell.textLabel.text;
-    universityTitle.backgroundColor = [UIColor clearColor];
-    universityTitle.textColor = [UIColor whiteColor];
-    universityTitle.font = [UIFont boldSystemFontOfSize:16.0];
-    //universityTitle.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-    universityTitle.textAlignment = NSTextAlignmentCenter;
-    specificOpenDayViewController.navigationItem.titleView = universityTitle;
     
     UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
     [[self navigationItem] setBackBarButtonItem:newBackButton];

@@ -14,7 +14,7 @@
 
 @implementation ContactUniversityPageViewController
 
-@synthesize universityCode,contactMapView,universityName,uniLongitude,uniLatitude,hasLoadedBool,emailButton,websiteButton,telephoneButton,telephoneLabel,websiteLabel,emailLabel,firstTimeLoad,noInternetImageView,noInternetLabel,courseCodeContact;
+@synthesize universityCode,contactMapView,universityName,uniLongitude,uniLatitude,hasLoadedBool,emailButton,websiteButton,telephoneButton,telephoneLabel,websiteLabel,emailLabel,firstTimeLoad,noInternetImageView,noInternetLabel,courseCodeContact,haveWeComeFromUniversities,universityNameLabel,addressLabel,addressLabel2;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +30,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGFloat widthFloat = screenBound.size.width;
+    CGFloat heightFloat = screenBound.size.height - 20 - self.navigationController.navigationBar.frame.size.height - self.tabBarController.tabBar.frame.size.height;
+    
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;
@@ -43,6 +48,67 @@
     [self.activityIndicator startAnimating];
     self.firstTimeLoad = YES;
     
+    self.contactMapView = [[MKMapView alloc] init];
+    contactMapView.frame = CGRectMake(0, heightFloat - 250, widthFloat, 250);
+    contactMapView.delegate = self;
+    [[contactMapView layer] setBorderWidth:2.0f];
+    [[contactMapView layer] setBorderColor:[UIColor colorWithRed:44.0f/255.0f green:61.0f/255.0f blue:76.0f/255.0f alpha:1.0f].CGColor];
+    [self.view addSubview:contactMapView];
+    
+    telephoneLabel = [[UILabel alloc] init];
+    telephoneLabel.frame = CGRectMake(10, 40, widthFloat - 20, 30);
+    telephoneLabel.textAlignment = NSTextAlignmentLeft;
+    telephoneLabel.text = @"T:";
+    telephoneLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:20];
+    telephoneLabel.textColor = [UIColor blackColor];
+    telephoneLabel.userInteractionEnabled = YES;
+    [self.view addSubview:telephoneLabel];
+    
+    emailLabel = [[UILabel alloc] init];
+    emailLabel.frame = CGRectMake(10, 70, widthFloat - 20, 30);
+    emailLabel.textAlignment = NSTextAlignmentLeft;
+    emailLabel.text = @"E:";
+    emailLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:20];
+    emailLabel.textColor = [UIColor blackColor];
+    emailLabel.userInteractionEnabled = YES;
+    [self.view addSubview:emailLabel];
+    
+    websiteLabel = [[UILabel alloc] init];
+    websiteLabel.frame = CGRectMake(10, 100, widthFloat - 20, 30);
+    websiteLabel.textAlignment = NSTextAlignmentLeft;
+    websiteLabel.text = @"W:";
+    websiteLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:20];
+    websiteLabel.textColor = [UIColor blackColor];
+    websiteLabel.userInteractionEnabled = YES;
+    [self.view addSubview:websiteLabel];
+    
+    addressLabel = [[UILabel alloc] init];
+    addressLabel.frame = CGRectMake(10, 130, widthFloat - 20, 70);
+    addressLabel.textAlignment = NSTextAlignmentLeft;
+    addressLabel.text = @"A:";
+    addressLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:20];
+    addressLabel.textColor = [UIColor blackColor];
+    addressLabel.hidden = YES;
+    [self.view addSubview:addressLabel];
+    
+    addressLabel2 = [[UILabel alloc] init];
+    addressLabel2.frame = CGRectMake(widthFloat/2-10-120, 5, widthFloat/2 + 110, 60);
+    addressLabel2.textAlignment = NSTextAlignmentRight;
+    addressLabel2.font = [UIFont fontWithName:@"Arial" size:18];
+    addressLabel2.textColor = [UIColor blackColor];
+    addressLabel2.adjustsFontSizeToFitWidth = YES;
+    addressLabel2.hidden = YES;
+    addressLabel2.numberOfLines = 0;
+    [self.addressLabel addSubview:addressLabel2];
+    
+    if (self.haveWeComeFromUniversities == YES) {
+        telephoneLabel.frame = CGRectMake(10, 10, widthFloat - 20, 30);
+        emailLabel.frame = CGRectMake(10, 40, widthFloat - 20, 30);
+        websiteLabel.frame = CGRectMake(10, 70, widthFloat - 20, 30);
+        addressLabel.frame = CGRectMake(10, 100, widthFloat - 20, 70);
+        contactMapView.frame = CGRectMake(0, heightFloat - 280, widthFloat, 280);
+    }
+    
     MKCoordinateRegion homeRegion;
     homeRegion.center.latitude = 54.013175;
     homeRegion.center.longitude = -2.3252278;
@@ -53,8 +119,6 @@
     
     [self.contactMapView setRegion:homeRegion animated:YES];
     
-    // NSLog(@"code: %@", self.universityCode);
-    
     
 }
 
@@ -62,51 +126,64 @@
 {
     [super viewDidAppear:animated];
     
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGFloat widthFloat = screenBound.size.width;
+    
     noInternetLabel.hidden = YES;
     noInternetImageView.hidden = YES;
     
     if (self.firstTimeLoad == YES) {
+        
+        universityNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 14, 320, 20)];
+        universityNameLabel.text = self.universityName;
+        universityNameLabel.textAlignment = NSTextAlignmentCenter;
+        universityNameLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        universityNameLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:16];
+        universityNameLabel.hidden = YES;
+        [self.view addSubview:universityNameLabel];
         
         telephoneButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [telephoneButton addTarget:self
                             action:@selector(telephoneButton:)
                   forControlEvents:UIControlEventTouchUpInside];
         telephoneButton.exclusiveTouch = YES;
-        telephoneButton.frame = CGRectMake(50.0, 11, 250.0, 20.0);
+        telephoneButton.frame = CGRectMake(widthFloat/2-10-120, 0, widthFloat/2 + 110, 30);
         telephoneButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
-        telephoneButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        telephoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [telephoneButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
         [telephoneButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [telephoneButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-        [self.view addSubview:telephoneButton];
+        [self.telephoneLabel addSubview:telephoneButton];
         
         emailButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [emailButton addTarget:self
                         action:@selector(emailButton:)
               forControlEvents:UIControlEventTouchUpInside];
         emailButton.exclusiveTouch = YES;
-        emailButton.frame = CGRectMake(50.0, 41, 250.0, 20.0);
+        emailButton.frame = CGRectMake(widthFloat/2-10-120, 0, widthFloat/2 + 110, 30);
         emailButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
         emailButton.titleLabel.textAlignment = NSTextAlignmentLeft;
         emailButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        emailButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [emailButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
         [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [emailButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-        [self.view addSubview:emailButton];
+        [self.emailLabel addSubview:emailButton];
         
         websiteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [websiteButton addTarget:self
                           action:@selector(websiteButton:)
                 forControlEvents:UIControlEventTouchUpInside];
         websiteButton.exclusiveTouch = YES;
-        websiteButton.frame = CGRectMake(45.0, 71, 275.0, 20.0);
-        //websiteButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
+        websiteButton.frame = CGRectMake(widthFloat/2-10-120, 0, widthFloat/2 + 110, 30);
+        websiteButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
         websiteButton.titleLabel.textAlignment = NSTextAlignmentLeft;
         websiteButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        websiteButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         [websiteButton setTitleColor:[UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
         [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [websiteButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-        [self.view addSubview:websiteButton];
+        [self.websiteLabel addSubview:websiteButton];
         
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeContact,self.universityCode] andSortKey:@"courseName"];
         
@@ -131,6 +208,7 @@
             
             uniLatitude = tempObject.latitudeContact;
             uniLongitude = tempObject.longitudeContact;
+            addressLabel2.text = tempObject.address;
             
             self.hasLoadedBool = NO;
             self.contactMapView.hidden = NO;
@@ -140,11 +218,19 @@
             self.telephoneLabel.hidden = NO;
             self.emailLabel.hidden = NO;
             self.websiteLabel.hidden = NO;
+            addressLabel.hidden = NO;
+            addressLabel2.hidden = NO;
             [self.activityIndicator stopAnimating];
             self.firstTimeLoad = NO;
+            if (self.haveWeComeFromUniversities == YES) {
+                self.universityNameLabel.hidden = YES;
+            } else {
+                self.universityNameLabel.hidden = NO;
+            }
             
         } else {
-        
+        // NOT A FAV SO QUERY
+            
         PFQuery *contactQuery = [PFQuery queryWithClassName:@"Institution1213"];
         [contactQuery whereKey:@"UKPRN" equalTo:self.universityCode];
         [contactQuery selectKeys:[NSArray arrayWithObjects:@"TelephoneContact",@"EmailContact",@"WebsiteContact", nil]];
@@ -215,6 +301,26 @@
                 uniLongitude = [longitudes objectAtIndex:originalIndexPath];
                 NSLog(@"latitude: %@ and longitude: %@", uniLatitude, uniLongitude);
                 
+                CLGeocoder *ceo = [[CLGeocoder alloc]init];
+                CLLocation *loc = [[CLLocation alloc]initWithLatitude:[uniLatitude floatValue] longitude:[uniLongitude floatValue]]; //insert your coordinates
+                [ceo reverseGeocodeLocation:loc
+                          completionHandler:^(NSArray *placemarks, NSError *error) {
+                              if (!error) {
+                                  
+                                  CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                                  //String to hold address
+                                  NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+                                  addressLabel2.text = locatedAt;
+                                  
+                                  
+                              }
+                              else {
+                                  NSLog(@"Could not locate");
+                                  addressLabel2.text = @"Could not find address";
+                                  
+                              }
+                          }];
+                
                 self.hasLoadedBool = NO;
                 self.contactMapView.hidden = NO;
                 self.telephoneButton.hidden = NO;
@@ -223,6 +329,13 @@
                 self.telephoneLabel.hidden = NO;
                 self.emailLabel.hidden = NO;
                 self.websiteLabel.hidden = NO;
+                addressLabel.hidden = NO;
+                addressLabel2.hidden = NO;
+                if (self.haveWeComeFromUniversities == YES) {
+                    self.universityNameLabel.hidden = YES;
+                } else {
+                    self.universityNameLabel.hidden = NO;
+                }
                 [self.activityIndicator stopAnimating];
                 self.firstTimeLoad = NO;
             }
@@ -271,6 +384,41 @@
     
 }
 
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    MKPinAnnotationView *view = nil;
+    static NSString *reuseIdentifier = @"MapAnnotation";
+    
+    // Return a MKPinAnnotationView with a simple accessory button
+    view = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:reuseIdentifier];
+    if(!view) {
+        view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
+        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        rightButton.frame = CGRectMake(5, 5, 20, 20);
+        rightButton.backgroundColor = [UIColor clearColor];
+        [rightButton setBackgroundImage:[UIImage imageNamed:@"right4-512.png"] forState:UIControlStateNormal];
+        view.rightCalloutAccessoryView = rightButton;
+        view.canShowCallout = YES;
+        view.animatesDrop = YES;
+    }
+    
+    return view;
+}
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    Class mapItemClass = [MKMapItem class];
+    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
+    {
+        // Create an MKMapItem to pass to the Maps app
+        CLLocationCoordinate2D coordinate =
+        CLLocationCoordinate2DMake([uniLatitude floatValue], [uniLongitude floatValue]);
+        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
+                                                       addressDictionary:nil];
+        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+        [mapItem setName:self.universityName];
+        // Pass the map item to the Maps app
+        [mapItem openInMapsWithLaunchOptions:nil];
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {

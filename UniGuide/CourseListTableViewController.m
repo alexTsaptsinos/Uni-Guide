@@ -327,12 +327,12 @@
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[_universityCourseCodes objectAtIndex:originalIndexPath],self.universityCode] andSortKey:@"courseName"];
         NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
         if (temp2.count != 0) {
-            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-25"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_to_favorites-512.png"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
             favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
             [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
             courseInfoCoursePageViewController.isItFavourite = YES;
         } else {
-            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"star-24"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
+            favouritesButton=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"add_to_favorites-512.png"] style:UIBarButtonItemStylePlain target:self action:@selector(callAnotherMethod)];
             favouritesButton.tintColor = [UIColor whiteColor];
             [coursePageTabBarController.navigationItem setRightBarButtonItem:favouritesButton];
             courseInfoCoursePageViewController.isItFavourite = NO;
@@ -341,9 +341,9 @@
         
     } else {
         courseInfoCoursePageViewController.courseCodeCourseInfo = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
-        studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:indexPath.row];
-        uniInfoCoursePageViewController.courseCodeUniInfo = [_universityCourseCodes objectAtIndex:indexPath.row];
-        contactUniversityPageViewController.courseCodeContact = [_universityCourseCodes objectAtIndex:indexPath.row];
+        studentSatisfactionCoursePageViewController.courseCodeStudentSatisfaction = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
+        uniInfoCoursePageViewController.courseCodeUniInfo = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
+        contactUniversityPageViewController.courseCodeContact = [_universityCourseCodes objectAtIndex:rowsOffset + indexPath.row];
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",[_universityCourseCodes objectAtIndex:rowsOffset +indexPath.row],self.universityCode] andSortKey:@"courseName"];
         NSLog(@"has it worked? %@",[temp2 valueForKey:@"courseName"]);
         if (temp2.count != 0) {
@@ -392,7 +392,7 @@
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     self.navigationController.navigationBar.translucent = YES;
     
-    [UIView animateWithDuration:0.2 animations: ^{
+    [UIView animateWithDuration:0.1 animations: ^{
         CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
         double yDiff = self.navigationController.navigationBar.frame.origin.y - self.navigationController.navigationBar.frame.size.height - statusBarFrame.size.height;
         self.navigationController.navigationBar.frame = CGRectMake(0, yDiff, 320, self.navigationController.navigationBar.frame.size.height);
@@ -401,7 +401,9 @@
 }
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-    [UIView animateWithDuration:0.2 animations:^{
+    self.navigationController.navigationBar.translucent = NO;
+    [UIView animateWithDuration:0.1 animations:^{
+
         CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
         double yDiff = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + statusBarFrame.size.height;
         self.navigationController.navigationBar.frame = CGRectMake(0, yDiff, 320, self.navigationController.navigationBar.frame.size.height);

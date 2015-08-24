@@ -137,11 +137,13 @@
         unionSatisfactionNumberLabel.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
         [scroll addSubview:unionSatisfactionNumberLabel];
         
+        NSLog(@"coursecode: %@ and unicode: %@",self.courseCodeUniInfo,self.uniCodeUniInfo);
         NSArray * temp2 = [Favourites readObjectsWithPredicate:[NSPredicate predicateWithFormat:@"(courseCode = %@) AND (uniCode = %@)",self.courseCodeUniInfo,self.uniCodeUniInfo] andSortKey:@"courseName"];
         
         if (temp2.count != 0) {
             // If this is in favourites then we can load from favourites woo!
             Favourites *tempObject = [temp2 objectAtIndex:0];
+            NSLog(@"is data here? %@",tempObject);
             self.uniInfoDataNumbers = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:tempObject.uniInfoData]];
             self.studentSatisfactionPercentage = tempObject.unionSatisfaction;
             if (studentSatisfactionPercentage != NULL) {
@@ -430,7 +432,7 @@
     cell.imageViewUniInfo.frame = CGRectMake(220, 10, 80, 80);
     
     cell.imageViewUniInfo.image = [UIImage imageNamed:@"ui-17"];
-    //NSLog(@"numbers: %@",self.uniInfoDataNumbers);
+    NSLog(@"numbers4: %@",self.uniInfoDataNumbers);
     
     cell.numberDataLabelUniInfo.text = [self.uniInfoDataNumbers objectAtIndex:indexPath.row];
     cell.numberDataLabelUniInfo.textColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];

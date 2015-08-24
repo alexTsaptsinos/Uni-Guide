@@ -30,6 +30,10 @@
 @property (strong,nonatomic) UIButton *compareMenuButton;
 @property (strong,nonatomic) UIButton *extrasMenuButton;
 @property (strong,nonatomic) UILabel *catchphraseLabel;
+@property (nonatomic, strong) UIBarButtonItem *editButton;
+
+@property (nonatomic,strong) CompareViewController *compareViewController;
+
 
 
 @end

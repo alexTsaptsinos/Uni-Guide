@@ -160,22 +160,31 @@
 
 - (void)personalStatementButtonClicked:(UIButton*)button
 {
+    PersonalStatementAdviceViewController *personalStatementAdviseViewController = [[PersonalStatementAdviceViewController alloc] initWithNibName:@"PersonalStatementAdviceViewController" bundle:nil];
+    
+    UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    [[self navigationItem] setBackBarButtonItem:newBackButton];
+    
+    [self.navigationController pushViewController:personalStatementAdviseViewController animated:YES];
     
 }
 
 - (void)interviewAdviceButtonClicked:(UIButton*)button
 {
-    
+    InterviewAdviceViewController *interviewAdviceViewController = [[InterviewAdviceViewController alloc] initWithNibName:@"InterviewAdviceViewController" bundle:nil];
+    [self.navigationController pushViewController:interviewAdviceViewController animated:YES];
 }
 
 - (void)studentFinanceButtonClicked:(UIButton*)button
 {
-    
+    FinanceAdviceTableViewController *financeAdviceTableViewController = [[FinanceAdviceTableViewController alloc] initWithNibName:@"FinanceAdviceTableViewController" bundle:nil];
+    [self.navigationController pushViewController:financeAdviceTableViewController animated:YES];
 }
 
 - (void)courseGeneratorButtonClicked:(UIButton*)button
 {
-    
+    CourseGeneratorViewController *courseGeneratorViewController = [[CourseGeneratorViewController alloc] initWithNibName:@"CourseGeneratorViewController" bundle:nil];
+    [self.navigationController pushViewController:courseGeneratorViewController animated:YES];
 }
 
 

@@ -14,23 +14,34 @@
 
 @implementation CompareViewController
 
-@synthesize compareCollectionView,courseObject;
+@synthesize compareCollectionView,courseObject,layout,editButton,popoverController,isFirstTimeLoad,comparesArray;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view from its nib.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(someThingInterestingHappened:) name:@"desiredEventHappend" object:nil];
+
     
     self.tabBarController.tabBar.translucent = NO;
     self.view.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     self.navigationController.navigationBar.translucent = NO;
     
+    
+
+    
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     CGFloat widthFloat = screenBound.size.width;
     CGFloat heightFloat = screenBound.size.height - self.navigationController.navigationBar.frame.size.height - 20 - self.tabBarController.tabBar.frame.size.height - 45;
+    if (heightFloat < 420) {
+        heightFloat = heightFloat + 45;
+    }
+    //NSLog(@"heightfloat: %f and width: %f",heightFloat,widthFloat);
     
-    CompareCollectionViewLayout *layout = [[CompareCollectionViewLayout alloc] init];
+
+    layout = [[CompareCollectionViewLayout alloc] init];
     compareCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, widthFloat, heightFloat) collectionViewLayout:layout];
-    NSLog(@"test height: %f",self.navigationController.navigationBar.frame.size.height);
+    //NSLog(@"test height: %f",self.navigationController.navigationBar.frame.size.height);
     [compareCollectionView setDataSource:self];
     [compareCollectionView setDelegate:self];
     [self.compareCollectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"CompareCellIdentifier"];
@@ -46,7 +57,7 @@
     
     [self.view addSubview:compareCollectionView];
     
-    NSArray *comparesArray = [Compares readAllObjects];
+    comparesArray = [Compares readAllObjects];
     if (comparesArray.count == 0) {
         // THERE ARE NO COMPARES SO SET UP A MESSAGE AND A BUTTON TO ADD FROM FAVOURITES
         UILabel *noFavouritesLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 35, 280, 60)];
@@ -110,7 +121,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSArray *comparesArray = [Compares readAllObjects];
+    comparesArray = [Compares readAllObjects];
     if (comparesArray.count == 0) {
          return 0;
     } else if (comparesArray.count == 1) {
@@ -122,8 +133,9 @@
 
 - (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *comparesArray = [Compares readAllObjects];
+    comparesArray = [Compares readAllObjects];
     if (indexPath.row == 0) {
+        //NSLog(@"course object count: %lu",(unsigned long)comparesArray.count);
         self.courseObject = [comparesArray objectAtIndex:0];
         //self.courseObject = [comparesArray objectAtIndex:0];
     } else if (indexPath.row == 2) {
@@ -132,8 +144,10 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
             // TOP MIDDLE
-            NSString *cellTitleIdentifier = [NSString stringWithFormat:@"CompareCollectionViewCell%li", (long)indexPath.row];
-            [self.compareCollectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
+            NSString *cellTitleIdentifier = [NSString stringWithFormat:@"CompareCollectionViewCell%li%li", (long)indexPath.row,(long)indexPath.section];
+            //[self.compareCollectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
+            [collectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
+            
             
             CompareCollectionViewCell *cell = (CompareCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellTitleIdentifier forIndexPath:indexPath];
             
@@ -153,9 +167,12 @@
             return cell;
         } else {
             // TOP ROW TITLES
-            NSString *cellTitleIdentifier = [NSString stringWithFormat:@"CompareCollectionViewCell%li", (long)indexPath.row];
-            [self.compareCollectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
+            NSString *cellTitleIdentifier = [NSString stringWithFormat:@"CompareCollectionViewCell%li%li", (long)indexPath.row,(long)indexPath.section];
+            //NSLog(@"cellTitleIdentifier1: %@",cellTitleIdentifier);
+            //[self.compareCollectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
+            [collectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
             
+            //NSLog(@"cellTitleIdentifier2: %@",cellTitleIdentifier);
             CompareCollectionViewCell *cell = (CompareCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellTitleIdentifier forIndexPath:indexPath];
             
             if (cell == nil) {
@@ -194,8 +211,9 @@
             // FIRST ROW - DEGREE CLASSES
 
             NSString *cellPieIdentifier = [NSString stringWithFormat:@"PieCompareCollectionViewCell%li", (long)indexPath.row];
-            [self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
-
+            //[self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            [collectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            
             PieCompareCollectionViewCell *cellPie = (PieCompareCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellPieIdentifier forIndexPath:indexPath];
             
             if (cellPie == nil) {
@@ -223,7 +241,8 @@
         } else {
         
             NSString *cellPieIdentifier = [NSString stringWithFormat:@"PieCompareCollectionViewCell%li", (long)indexPath.row];
-            [self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            //[self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            [collectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
             
             PieCompareCollectionViewCell *cellPie = (PieCompareCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellPieIdentifier forIndexPath:indexPath];
             
@@ -254,7 +273,8 @@
         // AVERAGE UCAS
         
         NSString *cellTitleIdentifier = [NSString stringWithFormat:@"CompareCollectionViewCell%li%li", (long)indexPath.row,(long)indexPath.section];
-        [self.compareCollectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
+        //[self.compareCollectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
+        [collectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
         
         CompareCollectionViewCell *cell = (CompareCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellTitleIdentifier forIndexPath:indexPath];
         
@@ -305,7 +325,8 @@
         if (indexPath.row == 1) {
             
             NSString *cellPieIdentifier = [NSString stringWithFormat:@"PieCompareCollectionViewCell%li", (long)indexPath.row];
-            [self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            //[self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            [collectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
             
             PieCompareCollectionViewCell *cellPie = (PieCompareCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellPieIdentifier forIndexPath:indexPath];
             
@@ -334,7 +355,8 @@
         } else {
             
             NSString *cellPieIdentifier = [NSString stringWithFormat:@"PieCompareCollectionViewCell%li", (long)indexPath.row];
-            [self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            //[self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            [collectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
             
             PieCompareCollectionViewCell *cellPie = (PieCompareCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellPieIdentifier forIndexPath:indexPath];
             
@@ -367,7 +389,8 @@
         if (indexPath.row == 1) {
             
             NSString *cellPieIdentifier = [NSString stringWithFormat:@"PieCompareCollectionViewCell%li", (long)indexPath.row];
-            [self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            //[self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            [collectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
             
             PieCompareCollectionViewCell *cellPie = (PieCompareCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellPieIdentifier forIndexPath:indexPath];
             
@@ -395,7 +418,8 @@
         } else {
             
             NSString *cellPieIdentifier = [NSString stringWithFormat:@"PieCompareCollectionViewCell%li", (long)indexPath.row];
-            [self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            //[self.compareCollectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
+            [collectionView registerNib:[UINib nibWithNibName:@"PieCompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellPieIdentifier];
             
             PieCompareCollectionViewCell *cellPie = (PieCompareCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellPieIdentifier forIndexPath:indexPath];
             
@@ -426,7 +450,8 @@
         // EMPLOYMENT AFTER 6 MONTHS
         
         NSString *cellTitleIdentifier = [NSString stringWithFormat:@"CompareCollectionViewCell%li%li", (long)indexPath.row,(long)indexPath.section];
-        [self.compareCollectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
+        //[self.compareCollectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
+        [collectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
         
         CompareCollectionViewCell *cell = (CompareCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellTitleIdentifier forIndexPath:indexPath];
 
@@ -476,7 +501,8 @@
         // AVERAGE SALARY AFTER 6 MONTHS
         
         NSString *cellTitleIdentifier = [NSString stringWithFormat:@"CompareCollectionViewCell%li%li", (long)indexPath.row,(long)indexPath.section];
-        [self.compareCollectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
+        //[self.compareCollectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
+        [collectionView registerNib:[UINib nibWithNibName:@"CompareCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:cellTitleIdentifier];
         
         CompareCollectionViewCell *cell = (CompareCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellTitleIdentifier forIndexPath:indexPath];
         
@@ -544,7 +570,234 @@
 }
 
 - (void)noComparesButtonClicked {
+    AddFromFavouritesTableViewController *addFromFavouritesTableViewController = [[AddFromFavouritesTableViewController alloc] initWithNibName:@"AddFromFavouritesTableViewController" bundle:nil];
+    UINavigationController *addFromFavouritesNavigationController = [[UINavigationController alloc]initWithRootViewController:addFromFavouritesTableViewController];
+    [self presentViewController:addFromFavouritesNavigationController animated:YES completion:nil];
+}
+
+
+
+- (void)editBtnPressed {
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGFloat widthFloat = screenBound.size.width;
     
+    popoverController = [[ARSPopover alloc] init];
+    popoverController.sourceView = self.navigationController.visibleViewController.view;
+    popoverController.sourceRect = CGRectMake(widthFloat-36, -5, 0, 0);
+    popoverController.arrowDirection = UIPopoverArrowDirectionUp;
+    popoverController.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
+    
+    comparesArray = [Compares readAllObjects];
+    
+    if (comparesArray.count == 0) {
+        // Nothing in compare, only have add from favs button
+        popoverController.contentSize = CGSizeMake(widthFloat-10, 50);
+        UIButton *addFromFavsButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [addFromFavsButton setTitle:@"Add from Favourites" forState:UIControlStateNormal];
+        addFromFavsButton.frame = CGRectMake(5, 5, widthFloat-30, 40);
+        [addFromFavsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        addFromFavsButton.exclusiveTouch = YES;
+        addFromFavsButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:16];
+        addFromFavsButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        [addFromFavsButton addTarget:self action:@selector(addFromFavsBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+        CALayer *btnLayer = [addFromFavsButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:15.0f];
+        [[addFromFavsButton layer] setBorderWidth:3.0f];
+        [[addFromFavsButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+        addFromFavsButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        [popoverController.view addSubview:addFromFavsButton];
+        
+        
+        
+    } else if (comparesArray.count == 1) {
+        // 1 in compare, one remove button, one add from favs
+        popoverController.contentSize = CGSizeMake(widthFloat-10, 100);
+        
+        UIButton *addFromFavsButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [addFromFavsButton setTitle:@"Add from Favourites" forState:UIControlStateNormal];
+        addFromFavsButton.frame = CGRectMake(5, 5, widthFloat-30, 40);
+        [addFromFavsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        addFromFavsButton.exclusiveTouch = YES;
+        addFromFavsButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:16];
+        addFromFavsButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        [addFromFavsButton addTarget:self action:@selector(addFromFavsBtnPressed) forControlEvents:UIControlEventTouchUpInside];
+        CALayer *btnLayer = [addFromFavsButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:15.0f];
+        [[addFromFavsButton layer] setBorderWidth:3.0f];
+        [[addFromFavsButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+        addFromFavsButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+        [popoverController.view addSubview:addFromFavsButton];
+        
+        UIButton *removeFirstButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [removeFirstButton setTitle:@"  Remove:" forState:UIControlStateNormal];
+        [removeFirstButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        removeFirstButton.frame = CGRectMake(5, 55, widthFloat-30, 40);
+        [removeFirstButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        removeFirstButton.exclusiveTouch = YES;
+        removeFirstButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:13];
+        removeFirstButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [removeFirstButton addTarget:self action:@selector(removeFirstButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        btnLayer = [removeFirstButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:15.0f];
+        [[removeFirstButton layer] setBorderWidth:3.0f];
+        [[removeFirstButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+        removeFirstButton.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+        
+        Compares *tempObject1 = [comparesArray objectAtIndex:0];
+        NSString *courseName1 = tempObject1.courseName;
+        NSString *uniName1 = tempObject1.uniName;
+        
+        UILabel *nameLabel1 = [[UILabel alloc] init];
+        nameLabel1.frame = CGRectMake(65, 4, widthFloat-105, 16);
+        nameLabel1.font = [UIFont fontWithName:@"Arial" size:14];
+        nameLabel1.textAlignment = NSTextAlignmentRight;
+        nameLabel1.adjustsFontSizeToFitWidth = YES;
+        nameLabel1.text = courseName1;
+        nameLabel1.textColor = [UIColor whiteColor];
+        [removeFirstButton addSubview:nameLabel1];
+        
+        UILabel *uniNameLabel1 = [[UILabel alloc] init];
+        uniNameLabel1.frame = CGRectMake(65, 20, widthFloat-105, 13);
+        uniNameLabel1.font = [UIFont fontWithName:@"Arial" size:12];
+        uniNameLabel1.textAlignment = NSTextAlignmentRight;
+        uniNameLabel1.adjustsFontSizeToFitWidth = YES;
+        uniNameLabel1.text = uniName1;
+        uniNameLabel1.textColor = [UIColor whiteColor];
+        [removeFirstButton addSubview:uniNameLabel1];
+        [popoverController.view addSubview:removeFirstButton];
+        
+    } else {
+        // 2 in compare so need 2 remove buttons
+        popoverController.contentSize = CGSizeMake(widthFloat-10, 100);
+        
+        UIButton *removeFirstButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [removeFirstButton setTitle:@"  Remove:" forState:UIControlStateNormal];
+        [removeFirstButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        removeFirstButton.frame = CGRectMake(5, 55, widthFloat-30, 40);
+        [removeFirstButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        removeFirstButton.exclusiveTouch = YES;
+        removeFirstButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:13];
+        removeFirstButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [removeFirstButton addTarget:self action:@selector(removeFirstButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        CALayer *btnLayer = [removeFirstButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:15.0f];
+        [[removeFirstButton layer] setBorderWidth:3.0f];
+        [[removeFirstButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+        removeFirstButton.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+        
+        Compares *tempObject1 = [comparesArray objectAtIndex:0];
+        Compares *tempObject2 = [comparesArray objectAtIndex:1];
+        NSString *courseName1 = tempObject1.courseName;
+        NSString *courseName2 = tempObject2.courseName;
+        NSString *uniName1 = tempObject1.uniName;
+        NSString *uniName2 = tempObject2.uniName;
+        
+        UILabel *nameLabel1 = [[UILabel alloc] init];
+        nameLabel1.frame = CGRectMake(65, 4, widthFloat-105, 16);
+        nameLabel1.font = [UIFont fontWithName:@"Arial" size:14];
+        nameLabel1.textAlignment = NSTextAlignmentRight;
+        nameLabel1.adjustsFontSizeToFitWidth = YES;
+        nameLabel1.text = courseName1;
+        nameLabel1.textColor = [UIColor whiteColor];
+        [removeFirstButton addSubview:nameLabel1];
+        
+        UILabel *uniNameLabel1 = [[UILabel alloc] init];
+        uniNameLabel1.frame = CGRectMake(65, 20, widthFloat-105, 13);
+        uniNameLabel1.font = [UIFont fontWithName:@"Arial" size:12];
+        uniNameLabel1.textAlignment = NSTextAlignmentRight;
+        uniNameLabel1.adjustsFontSizeToFitWidth = YES;
+        uniNameLabel1.text = uniName1;
+        uniNameLabel1.textColor = [UIColor whiteColor];
+        [removeFirstButton addSubview:uniNameLabel1];
+        [popoverController.view addSubview:removeFirstButton];
+        
+        // 2nd Button
+        UIButton *removeSecondButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [removeSecondButton setTitle:@"  Remove:" forState:UIControlStateNormal];
+        [removeSecondButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        removeSecondButton.frame = CGRectMake(5, 5, widthFloat-30, 40);
+        [removeSecondButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        removeSecondButton.exclusiveTouch = YES;
+        removeSecondButton.titleLabel.font = [UIFont fontWithName:@"Arial" size:13];
+        removeSecondButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [removeSecondButton addTarget:self action:@selector(removeSecondButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        btnLayer = [removeSecondButton layer];
+        [btnLayer setMasksToBounds:YES];
+        [btnLayer setCornerRadius:15.0f];
+        [[removeSecondButton layer] setBorderWidth:3.0f];
+        [[removeSecondButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+        removeSecondButton.backgroundColor = [UIColor colorWithRed:42.0f/255.0f green:56.0f/255.0f blue:108.0f/255.0f alpha:1.0f];
+        
+        UILabel *nameLabel2 = [[UILabel alloc] init];
+        nameLabel2.frame = CGRectMake(65, 4, widthFloat-105, 16);
+        nameLabel2.font = [UIFont fontWithName:@"Arial" size:14];
+        nameLabel2.textAlignment = NSTextAlignmentRight;
+        nameLabel2.adjustsFontSizeToFitWidth = YES;
+        nameLabel2.text = courseName2;
+        nameLabel2.textColor = [UIColor whiteColor];
+        [removeSecondButton addSubview:nameLabel2];
+        
+        UILabel *uniNameLabel2 = [[UILabel alloc] init];
+        uniNameLabel2.frame = CGRectMake(65, 20, widthFloat-105, 13);
+        uniNameLabel2.font = [UIFont fontWithName:@"Arial" size:12];
+        uniNameLabel2.textAlignment = NSTextAlignmentRight;
+        uniNameLabel2.adjustsFontSizeToFitWidth = YES;
+        uniNameLabel2.text = uniName2;
+        uniNameLabel2.textColor = [UIColor whiteColor];
+        [removeSecondButton addSubview:uniNameLabel2];
+        [popoverController.view addSubview:removeSecondButton];
+
+    }
+    
+    
+    [self presentViewController:popoverController animated:YES completion:nil];
+}
+
+-(void)addFromFavsBtnPressed {
+    [self.popoverController dismissViewControllerAnimated:YES completion:nil];
+    AddFromFavouritesTableViewController *addFromFavouritesTableViewController = [[AddFromFavouritesTableViewController alloc] initWithNibName:@"AddFromFavouritesTableViewController" bundle:nil];
+    UINavigationController *addFromFavouritesNavigationController = [[UINavigationController alloc]initWithRootViewController:addFromFavouritesTableViewController];
+    [self presentViewController:addFromFavouritesNavigationController animated:YES completion:nil];
+}
+
+- (void)removeFirstButtonClicked {
+    
+    // DELETE THE FIRST COURSE
+    [self.popoverController dismissViewControllerAnimated:YES completion:nil];
+    NSArray *temp1 = [Compares readAllObjects];
+    NSManagedObject *temp2 = [temp1 objectAtIndex:0];
+    [Compares deleteObject:temp2];
+    
+    [Compares saveDatabase];
+    //[self viewDidLoad];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"desiredEventHappend" object:nil];
+
+}
+
+- (void)removeSecondButtonClicked {
+    
+    // DELETE THE SECOND COURSE
+    [self.popoverController dismissViewControllerAnimated:YES completion:nil];
+    NSArray *temp1 = [Compares readAllObjects];
+    NSManagedObject *temp2 = [temp1 objectAtIndex:1];
+    [Compares deleteObject:temp2];
+    
+    [Compares saveDatabase];
+   // [self viewDidLoad];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"desiredEventHappend" object:nil];
+
+}
+
+- (void)someThingInterestingHappened:(NSNotification *)info
+{
+    [self viewDidLoad];
+    //comparesArray = [Compares readAllObjects];
+    //[compareCollectionView reloadData];
+
 }
 
 @end

@@ -18,7 +18,7 @@
 
 @implementation MainMenuViewController
 
-@synthesize uniGuideLogoMainMenuImageView,searchMenuButtonLabel,favouritesMenuButtonLabel,openDaysMenuButtonLabel,universitiesMenuButtonLabel,compareMenuButton,extrasMenuButton,catchphraseLabel;
+@synthesize uniGuideLogoMainMenuImageView,searchMenuButtonLabel,favouritesMenuButtonLabel,openDaysMenuButtonLabel,universitiesMenuButtonLabel,compareMenuButton,extrasMenuButton,catchphraseLabel,editButton,compareViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,20 +30,16 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    Favourites * temp = [Favourites createObject];
-//    temp.courseName = @"whatever";
-//    [Favourites saveDatabase];
-    
+        
     NSArray * temp2 = [Favourites readAllObjects];
     
     for (Favourites * favourite in temp2) {
         NSLog(@"%@", favourite.courseName);
     }
-    
     
     // Do any additional setup after loading the view from its nib.
     
@@ -227,7 +223,7 @@
 - (void)compareButtonClicked:(UIButton*)button
 {
     // if compare button clicked let's go to the compare page
-    CompareViewController *compareViewController = [[CompareViewController alloc] initWithNibName:@"CompareViewController" bundle:nil];
+    compareViewController = [[CompareViewController alloc] initWithNibName:@"CompareViewController" bundle:nil];
     CommonJobsCompareViewController *commonJobsCompareViewController = [[CommonJobsCompareViewController alloc] initWithNibName:@"CommonJobsCompareViewController" bundle:nil];
     StudentSatisfactionCompareViewController *studentSatisfactionCompareViewController = [[StudentSatisfactionCompareViewController alloc] initWithNibName:@"StudentSatisfactionCompareViewController" bundle:nil];
     UniInfoCompareViewController *uniInfoCompareViewController = [[UniInfoCompareViewController alloc] initWithNibName:@"UniInfoCompareViewController" bundle:nil];
@@ -246,6 +242,9 @@
     uniInfoCompareViewController.tabBarItem.image = [UIImage imageNamed:@"city_hall-32"];
     uniInfoCompareViewController.title = NSLocalizedString(@"Uni Info", @"Uni Info");
     
+    editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(callEditMethod)];
+    
+    [comparePageTabBarController.navigationItem setRightBarButtonItem:editButton];
 
     
     comparePageTabBarController.navigationItem.title = @"Compare";
@@ -263,6 +262,12 @@
     ExtrasMenuViewController *extrasMenuViewController = [[ExtrasMenuViewController alloc] initWithNibName:@"ExtrasMenuViewController" bundle:nil];
     [self.navigationController pushViewController:extrasMenuViewController animated:YES];
     
+    
+}
+
+- (void)callEditMethod {
+    compareViewController.editButton = self.editButton;
+    [compareViewController editBtnPressed];
 }
 
 @end

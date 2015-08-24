@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CompareCollectionViewLayout.h"
 #import "CompareCollectionViewCell.h"
+#import "AddFromFavouritesTableViewController.h"
 
 @interface UniInfoCompareViewController : UIViewController <UICollectionViewDelegate,UICollectionViewDataSource>
 

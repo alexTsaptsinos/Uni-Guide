@@ -10,8 +10,6 @@
 
 @interface UsefulWebsitesTableViewCell : UITableViewCell
 
-//@property (strong, nonatomic) UIImageView *websiteImageView;
-//@property (strong, nonatomic) UILabel *websiteNameLabel;
 
 
 

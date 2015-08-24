@@ -10,6 +10,7 @@
 #import "CompareCollectionViewLayout.h"
 #import "CompareCollectionViewCell.h"
 #import "Compares.h"
+#import "AddFromFavouritesTableViewController.h"
 
 @interface StudentSatisfactionCompareViewController : UIViewController <UICollectionViewDelegate,UICollectionViewDataSource>
 
