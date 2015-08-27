@@ -46,7 +46,7 @@
     courseInfoTableView = [[UITableView alloc] init];
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     NSLog(@"tab bar height: %f and screen height: %f",self.tabBarController.tabBar.frame.size.height, screenBound.size.height);
-    courseInfoTableView.frame = CGRectMake(0, 80, 320, screenBound.size.height - 80 - self.tabBarController.tabBar.frame.size.height - 64);
+    courseInfoTableView.frame = CGRectMake(0, 80, screenBound.size.width, screenBound.size.height - 80 - self.tabBarController.tabBar.frame.size.height - 64);
     courseInfoTableView.delegate = self;
     courseInfoTableView.dataSource = self;
     courseInfoTableView.bounces = YES;

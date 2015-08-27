@@ -11,7 +11,6 @@
 #import "CourseInfoCoursePageViewController.h"
 #import "StudentSatisfactionCoursePageViewController.h"
 #import "UniInfoCoursePageViewController.h"
-#import "ReviewsCoursePageViewController.h"
 #import "ContactUniversityPageViewController.h"
 
 @interface CourseListTableViewController : UITableViewController <UISearchBarDelegate,UISearchDisplayDelegate>
@@ -27,5 +26,6 @@
 
 @property (strong, nonatomic) UIImageView *noInternetImageView;
 @property (strong, nonatomic) UILabel *noInternetLabel;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end

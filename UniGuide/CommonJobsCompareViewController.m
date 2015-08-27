@@ -253,24 +253,12 @@
     // Return the number of rows in the section.
     if (tableView == sectionTableView) {
         return 0;
+    } else if (tableView == firstCommonJobsTableView) {
+        return firstJobsArray.count;
     } else {
-        NSNumber *temp1 = [NSNumber numberWithInteger:firstJobsArray.count];
-        NSNumber *temp2 = [NSNumber numberWithInteger:secondJobsArray.count];
-        NSUInteger i;
-        if ([temp1 isGreaterThan:temp2]) {
-            for (i = secondJobsArray.count; i<firstJobsArray.count; i++) {
-                [secondJobsArray addObject:@""];
-                [secondPercentagesArray addObject:@""];
-            }
-            return firstJobsArray.count;
-        } else {
-            for (i = firstJobsArray.count; i<secondJobsArray.count; i++) {
-                [firstJobsArray addObject:@""];
-                [secondPercentagesArray addObject:@""];
-            }
-            return secondJobsArray.count;
-        }
+        return secondJobsArray.count;
     }
+
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -327,16 +315,13 @@
     
     if (tableView == firstCommonJobsTableView) {
         shortJobLabel.text = [self.firstJobsArray objectAtIndex:indexPath.row];
-        if (!firstPercentagesArray) {
             NSString *tempPercentage =[NSString stringWithFormat:@"%@%%",[self.firstPercentagesArray objectAtIndex:indexPath.row]];
             if ([tempPercentage isEqualToString:@"%"]) {
                 cell.percentageLabel.text = @"";
             } else {
                 cell.percentageLabel.text = tempPercentage;
             }
-        } else {
-            cell.percentageLabel.text = @"";
-        }
+
         
         
     } else {

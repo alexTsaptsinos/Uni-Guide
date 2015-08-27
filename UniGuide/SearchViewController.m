@@ -54,12 +54,8 @@
     [btnLayer setCornerRadius:5.0f];
     
     CGRect screenBound = [[UIScreen mainScreen] bounds];
-    
-    if (screenBound.size.height > 500) {
-        searchButton.frame = CGRectMake(93.0, 410.0, 134.0, 37.0);
-    } else {
-        searchButton.frame = CGRectMake(93.0, 330.0, 134.0, 37.0);
-    }
+    searchButton.frame = CGRectMake(screenBound.size.width/2 - 77, screenBound.size.height-200, 134.0, 37.0);
+
     
     [self.view addSubview:searchButton];
     [searchButton setEnabled:NO];

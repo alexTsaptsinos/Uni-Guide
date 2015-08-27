@@ -40,7 +40,7 @@
     
     CGRect screenBound = [[UIScreen mainScreen] bounds];
     self.tableViewStudentSatisfaction = [[UITableView alloc] init];
-    self.tableViewStudentSatisfaction.frame = CGRectMake(0, 90, 320, screenBound.size.height - 90 - self.tabBarController.tabBar.frame.size.height - 64);
+    self.tableViewStudentSatisfaction.frame = CGRectMake(0, 90, screenBound.size.width, screenBound.size.height - 90 - self.tabBarController.tabBar.frame.size.height - 64);
     self.tableViewStudentSatisfaction.backgroundColor = [UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f];
     tableViewStudentSatisfaction.delegate = self;
     tableViewStudentSatisfaction.dataSource = self;
@@ -63,7 +63,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     self.noInternetImageView.hidden = YES;
     self.noInternetLabel.hidden = YES;
     [self.activityIndicator startAnimating];

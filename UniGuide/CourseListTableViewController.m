@@ -25,7 +25,7 @@
 
 @implementation CourseListTableViewController
 
-@synthesize favouritesButton,universityCode,universityName,cellTitles,courseInfoCoursePageViewController,firstTimeLoad,noInternetImageView,noInternetLabel;
+@synthesize favouritesButton,universityCode,universityName,cellTitles,courseInfoCoursePageViewController,firstTimeLoad,noInternetImageView,noInternetLabel,searchBar;
 @synthesize sections = _sections;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -59,6 +59,7 @@
     [super viewDidAppear:animated];
     noInternetLabel.hidden = YES;
     noInternetImageView.hidden = YES;
+    self.navigationController.navigationBar.translucent = NO;
     
     if (self.firstTimeLoad == YES) {
         
@@ -372,22 +373,13 @@
     studentSatisfactionCoursePageViewController.courseNameStudentSatisfaction = cell.textLabel.text;
     studentSatisfactionCoursePageViewController.uniNameStudentSatisfaction = self.universityName;
     
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     // Push the view controller.
+    [self.searchDisplayController setActive:NO animated:YES];
     [self.navigationController pushViewController:coursePageTabBarController animated:YES];
 }
 
-//-(void) customBtnPressed
-//{
-//    if (favouritesButton.image == [UIImage imageNamed:@"add_to_favorites-512.png"]) {
-//        favouritesButton.image = [UIImage imageNamed:@"add_to_favorites-512.png"];
-//        favouritesButton.tintColor = [UIColor grayColor];
-//    }
-//    else if (favouritesButton.image == [UIImage imageNamed:@"add_to_favorites-512.png"]) {
-//        favouritesButton.tintColor = [UIColor colorWithRed:233.0f/255.0f green:174.0f/255.0f blue:28.0f/255.0f alpha:1.0f];
-//        favouritesButton.image = [UIImage imageNamed:@"add_to_favorites-512.png"];
-//    }
-//    
-//}
 
 -(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     self.navigationController.navigationBar.translucent = YES;
@@ -415,6 +407,5 @@
     courseInfoCoursePageViewController.favouritesButton = self.favouritesButton;
     [courseInfoCoursePageViewController customBtnPressed];
 }
-
 
 @end
