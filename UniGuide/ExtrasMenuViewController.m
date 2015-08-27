@@ -14,7 +14,7 @@
 
 @implementation ExtrasMenuViewController
 
-@synthesize packingListButton,usefulWebsiteButton,personalStatementButton,interviewAdviceButton,studentFinanceButton,courseGeneratorButton,quoteLabel;
+@synthesize packingListButton,leaveFeedbackButton,personalStatementButton,interviewAdviceButton,studentFinanceButton,courseGeneratorButton,quoteLabel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,19 +45,19 @@
     [btnLayer setMasksToBounds:YES];
     [btnLayer setCornerRadius:15.0f];
     
-    self.usefulWebsiteButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [usefulWebsiteButton addTarget:self
-                          action:@selector(usefulWebsiteButtonClicked:)
+    self.leaveFeedbackButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [leaveFeedbackButton addTarget:self
+                          action:@selector(leaveFeedbackButtonClicked:)
                 forControlEvents:UIControlEventTouchUpInside];
-    usefulWebsiteButton.frame = CGRectMake(widthFloat/2, 0, widthFloat/2, heightFloat/4);
-    self.usefulWebsiteButton.exclusiveTouch = YES;
-    [usefulWebsiteButton setTitle:@"Useful Websites" forState:UIControlStateNormal];
-    [usefulWebsiteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [[usefulWebsiteButton layer] setBorderWidth:7.0f];
-    [[usefulWebsiteButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
-    [self.view addSubview:usefulWebsiteButton];
-    self.usefulWebsiteButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
-    btnLayer = [usefulWebsiteButton layer];
+    leaveFeedbackButton.frame = CGRectMake(widthFloat/2, heightFloat/2, widthFloat/2, heightFloat/4);
+    self.leaveFeedbackButton.exclusiveTouch = YES;
+    [leaveFeedbackButton setTitle:@"Useful Websites" forState:UIControlStateNormal];
+    [leaveFeedbackButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [[leaveFeedbackButton layer] setBorderWidth:7.0f];
+    [[leaveFeedbackButton layer] setBorderColor:[UIColor colorWithRed:232.0f/255.0f green:238.0f/255.0f blue:238.0/255.0f alpha:1.0f].CGColor];
+    [self.view addSubview:leaveFeedbackButton];
+    self.leaveFeedbackButton.backgroundColor = [UIColor colorWithRed:198.0f/255.0f green:83.0f/255.0f blue:83.0f/255.0f alpha:1.0f];
+    btnLayer = [leaveFeedbackButton layer];
     [btnLayer setMasksToBounds:YES];
     [btnLayer setCornerRadius:15.0f];
     
@@ -99,7 +99,7 @@
     [studentFinanceButton addTarget:self
                           action:@selector(studentFinanceButtonClicked:)
                 forControlEvents:UIControlEventTouchUpInside];
-    studentFinanceButton.frame = CGRectMake(0, heightFloat/2, widthFloat/2, heightFloat/4);
+    studentFinanceButton.frame = CGRectMake(widthFloat/2, 0, widthFloat/2, heightFloat/4);
     self.studentFinanceButton.exclusiveTouch = YES;
     [studentFinanceButton setTitle:@"Student Finance" forState:UIControlStateNormal];
     [studentFinanceButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -115,7 +115,7 @@
     [courseGeneratorButton addTarget:self
                           action:@selector(courseGeneratorButtonClicked:)
                 forControlEvents:UIControlEventTouchUpInside];
-    courseGeneratorButton.frame = CGRectMake(widthFloat/2, heightFloat/2, widthFloat/2, heightFloat/4);
+    courseGeneratorButton.frame = CGRectMake(0, heightFloat/2, widthFloat/2, heightFloat/4);
     self.courseGeneratorButton.exclusiveTouch = YES;
     [courseGeneratorButton setTitle:@"Course Generator" forState:UIControlStateNormal];
     [courseGeneratorButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -152,10 +152,16 @@
     [self.navigationController pushViewController:packingListTableViewController animated:YES];
 }
 
-- (void)usefulWebsiteButtonClicked:(UIButton*)button
+- (void)leaveFeedbackButtonClicked:(UIButton*)button
 {
-    UsefulWebsitesTableViewController *usefulWebsitesTableViewController = [[UsefulWebsitesTableViewController alloc] initWithNibName:@"UsefulWebsitesTableViewController" bundle:nil];
-    [self.navigationController pushViewController:usefulWebsitesTableViewController animated:YES];
+    NSString * appId = @"913590904";
+    NSString * theUrl = [NSString  stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=%@&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software",appId];
+    if ([[UIDevice currentDevice].systemVersion integerValue] > 6) {
+        //theUrl = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",appId];
+        theUrl = [NSString stringWithFormat:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=%@&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8",appId];
+        
+    }
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:theUrl]];
 }
 
 - (void)personalStatementButtonClicked:(UIButton*)button

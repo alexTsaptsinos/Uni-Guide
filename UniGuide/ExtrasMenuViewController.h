@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "PackingListTableViewController.h"
-#import "UsefulWebsitesTableViewController.h"
 #import "CourseGeneratorViewController.h"
 #import "PersonalStatementAdviceViewController.h"
 #import "FinanceAdviceTableViewController.h"
@@ -17,7 +16,7 @@
 @interface ExtrasMenuViewController : UIViewController
 
 @property (strong,nonatomic) UIButton *packingListButton;
-@property (strong,nonatomic) UIButton *usefulWebsiteButton;
+@property (strong,nonatomic) UIButton *leaveFeedbackButton;
 @property (strong,nonatomic) UIButton *personalStatementButton;
 @property (strong,nonatomic) UIButton *interviewAdviceButton;
 @property (strong,nonatomic) UIButton *studentFinanceButton;
